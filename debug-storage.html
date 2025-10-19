@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Blog Storage</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .debug-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        .post { margin: 10px 0; padding: 10px; background: #f5f5f5; border-radius: 5px; }
+        .image-info { color: #666; font-size: 12px; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>Blog Storage Debug</h1>
+    
+    <div class="debug-section">
+        <h2>LocalStorage Data</h2>
+        <div id="storage-info"></div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Blog Posts</h2>
+        <div id="posts-info"></div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Actions</h2>
+        <button onclick="clearStorage()">Clear All Storage</button>
+        <button onclick="addTestPost()">Add Test Post with Image</button>
+        <button onclick="refreshData()">Refresh Data</button>
+    </div>
+
+    <script>
+        function refreshData() {
+            // Check localStorage
+            const blogPosts = localStorage.getItem('blogPosts');
+            const storageInfo = document.getElementById('storage-info');
+            
+            if (blogPosts) {
+                const posts = JSON.parse(blogPosts);
+                storageInfo.innerHTML = `
+                    <p class="success">Found ${posts.length} posts in localStorage</p>
+                    <p>Raw data: ${blogPosts.substring(0, 200)}...</p>
+                `;
+                
+                // Display posts
+                const postsInfo = document.getElementById('posts-info');
+                postsInfo.innerHTML = posts.map((post, index) => `
+                    <div class="post">
+                        <h3>Post ${index + 1}: ${post.title}</h3>
+                        <p><strong>ID:</strong> ${post.id}</p>
+                        <p><strong>Category:</strong> ${post.category}</p>
+                        <p><strong>Featured:</strong> ${post.featured}</p>
+                        <div class="image-info">
+                            <p><strong>Has Thumbnail:</strong> ${!!post.thumbnailUrl}</p>
+                            <p><strong>Has Full Image:</strong> ${!!post.fullImageUrl}</p>
+                            <p><strong>Thumbnail URL:</strong> ${post.thumbnailUrl ? post.thumbnailUrl.substring(0, 100) + '...' : 'None'}</p>
+                            <p><strong>Full Image URL:</strong> ${post.fullImageUrl ? post.fullImageUrl.substring(0, 100) + '...' : 'None'}</p>
+                            <p><strong>Image Alt:</strong> ${post.imageAlt || 'None'}</p>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                storageInfo.innerHTML = '<p class="error">No blog posts found in localStorage</p>';
+                document.getElementById('posts-info').innerHTML = '<p>No posts to display</p>';
+            }
+        }
+        
+        function clearStorage() {
+            localStorage.removeItem('blogPosts');
+            alert('Storage cleared!');
+            refreshData();
+        }
+        
+        function addTestPost() {
+            // Create a test post with a simple base64 image
+            const testImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjNGFkZTgwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5UZXN0IEltYWdlPC90ZXh0Pjwvc3ZnPg==';
+            
+            const testPost = {
+                id: 'test-' + Date.now(),
+                title: 'Test Post with Image',
+                excerpt: 'This is a test post to verify image functionality',
+                content: 'Full content of the test post...',
+                author: 'Bhavya Duneja',
+                date: new Date().toISOString().split('T')[0],
+                readTime: '2 min read',
+                category: 'Software Architecture',
+                tags: ['test', 'debug', 'image'],
+                featured: true,
+                thumbnailUrl: testImage,
+                fullImageUrl: testImage,
+                imageAlt: 'Test Image'
+            };
+            
+            // Get existing posts
+            const existingPosts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
+            existingPosts.unshift(testPost);
+            
+            // Save back to localStorage
+            localStorage.setItem('blogPosts', JSON.stringify(existingPosts));
+            alert('Test post added!');
+            refreshData();
+        }
+        
+        // Load data on page load
+        refreshData();
+    </script>
+</body>
+</html>
