@@ -1,0 +1,18 @@
+# Serve the portfolio at /co-founder path
+/co-founder /index.html 200
+/co-founder/ /index.html 200
+
+# Handle blog routes
+/co-founder/blog /blog/index.html 200
+/co-founder/blog/ /blog/index.html 200
+
+# Handle admin routes
+/co-founder/admin /admin/index.html 200
+/co-founder/admin/ /admin/index.html 200
+
+# Handle static assets
+/co-founder/_next/* /_next/:splat 200
+/co-founder/images/* /images/:splat 200
+
+# Fallback for any other co-founder routes
+/co-founder/* /index.html 200
