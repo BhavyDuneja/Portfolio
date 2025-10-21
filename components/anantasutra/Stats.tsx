@@ -37,7 +37,7 @@ const Stats = () => {
     },
     {
       icon: TrendingUp,
-      number: '5+',
+      number: '4+',
       label: 'Years Experience',
       description: 'Years of expertise in software development and architecture'
     },
