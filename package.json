@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:portfolio": "next dev --port 3001",
-    "build": "next build && node scripts/rename-portfolio.js",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
