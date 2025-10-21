@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Calendar, Clock } from 'lucide-react'
+import { Mail, MapPin, Github, Linkedin, Twitter, Calendar, Clock } from 'lucide-react'
 
 const Contact = () => {
   const ref = useRef(null)
@@ -12,22 +12,15 @@ const Contact = () => {
     {
       icon: Mail,
       title: 'Email',
-      value: 'bhavyduneja@gmail.com',
-      link: 'mailto:bhavyduneja@gmail.com',
+      value: 'co-founder@anantasutra.com',
+      link: 'mailto:co-founder@anantasutra.com',
       color: 'from-blue-500 to-blue-600'
-    },
-    {
-      icon: Phone,
-      title: 'Phone',
-      value: '+81 07083172647',
-      link: 'tel:+8107083172647',
-      color: 'from-green-500 to-green-600'
     },
     {
       icon: MapPin,
       title: 'Location',
-      value: 'Osaka, Japan',
-      link: 'https://maps.google.com/?q=Osaka,Japan',
+      value: 'Delhi, India',
+      link: 'https://maps.google.com/?q=Delhi,India',
       color: 'from-purple-500 to-purple-600'
     }
   ]
@@ -89,7 +82,7 @@ const Contact = () => {
               </h3>
               
               {/* Contact Information Row */}
-              <div className="grid md:grid-cols-3 gap-6 mb-8">
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
                 {contactInfo.map((info, index) => (
                   <motion.a
                     key={info.title}
@@ -185,22 +178,13 @@ const Contact = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
-                href="mailto:bhavyduneja@gmail.com"
+                href="mailto:contact@anantasutra.com"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-full hover:from-green-600 hover:to-green-700 transition-all duration-300 flex items-center justify-center space-x-2"
               >
                 <Mail className="w-5 h-5" />
                 <span>Start a Conversation</span>
-              </motion.a>
-              <motion.a
-                href="tel:+8107083172647"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border-2 border-green-500 text-green-600 font-semibold rounded-full hover:bg-green-50 transition-all duration-300 flex items-center justify-center space-x-2"
-              >
-                <Phone className="w-5 h-5" />
-                <span>Call Now</span>
               </motion.a>
             </div>
           </div>

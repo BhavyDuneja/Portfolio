@@ -49,7 +49,7 @@ const Testimonials = () => {
 
   const achievements = [
     { number: '15+', label: 'Projects Delivered', icon: Award },
-    { number: '5★', label: 'Average Rating', icon: Star },
+    { number: '4.8★', label: 'Average Rating', icon: Star },
     { number: '100%', label: 'Client Satisfaction', icon: User },
     { number: '3+', label: 'Years Experience', icon: Building }
   ]
