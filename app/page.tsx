@@ -1,16 +1,12 @@
 'use client'
 
-import Hero from '@/components/Hero'
-import About from '@/components/About'
-import Experience from '@/components/Experience'
-import Projects from '@/components/Projects'
-import Skills from '@/components/Skills'
-import Achievements from '@/components/Achievements'
-import Testimonials from '@/components/Testimonials'
-import Contact from '@/components/Contact'
 import { useEffect } from 'react'
+import Hero from '@/components/anantasutra/Hero'
+import Services from '@/components/anantasutra/Services'
+import About from '@/components/anantasutra/About'
+import WhyChooseUs from '@/components/anantasutra/WhyChooseUs'
 
-export default function Home() {
+export default function AnantasutraHome() {
   useEffect(() => {
     // Initialize smooth scrolling
     if (typeof window !== 'undefined') {
@@ -35,13 +31,8 @@ export default function Home() {
     <div className="min-h-screen">
       <Hero />
       <About />
-      <Experience />
-      <Projects />
-      <Skills />
-      <Achievements />
-      <Testimonials />
-      <Contact />
+      <Services />
+      <WhyChooseUs />
     </div>
   )
 }
-

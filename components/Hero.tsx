@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { motion, useAnimation, useInView } from 'framer-motion'
-import { ChevronDown, MapPin, Calendar, Mail, Phone, ArrowRight, Download } from 'lucide-react'
+import { ChevronDown, MapPin, Calendar, Mail, ArrowRight, Download } from 'lucide-react'
 import Image from 'next/image'
 
 const Hero = () => {
@@ -138,11 +138,7 @@ const Hero = () => {
               </div>
               <div className="flex items-center space-x-3 text-gray-600">
                 <Mail className="w-5 h-5 text-green-600" />
-                <span>bhavyduneja@gmail.com</span>
-              </div>
-              <div className="flex items-center space-x-3 text-gray-600">
-                <Phone className="w-5 h-5 text-green-600" />
-                <span>+81 07083172647</span>
+                <span>contact@anantasutra.com</span>
               </div>
             </motion.div>
 
@@ -163,7 +159,7 @@ const Hero = () => {
                 <ArrowRight className="w-5 h-5" />
               </motion.button>
               <motion.a
-                href="mailto:bhavyduneja@gmail.com?subject=Let's Start a Conversation&body=Hi Bhavya,%0D%0A%0D%0AI came across your portfolio and would like to discuss potential opportunities.%0D%0A%0D%0ABest regards,"
+                href="mailto:contact@anantasutra.com?subject=Let's Start a Conversation&body=Hi Anantasutra Team,%0D%0A%0D%0AI came across Anantasutra and would like to discuss potential technology solutions for my business.%0D%0A%0D%0ABest regards,"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-4 border-2 border-green-500 text-green-600 font-semibold rounded-full hover:bg-green-50 transition-all duration-300 flex items-center space-x-2"

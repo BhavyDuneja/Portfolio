@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Heart, Code, Mail, Phone, MapPin, Github, Linkedin, Twitter, ArrowUp } from 'lucide-react'
+import { Heart, Code, Mail, MapPin, Github, Linkedin, Twitter, ArrowUp } from 'lucide-react'
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -27,9 +27,8 @@ const Footer = () => {
   ]
 
   const contactInfo = [
-    { icon: Mail, text: 'bhavyduneja@gmail.com', href: 'mailto:bhavyduneja@gmail.com' },
-    { icon: Phone, text: '+81 07083172647', href: 'tel:+8107083172647' },
-    { icon: MapPin, text: 'Osaka, Japan', href: 'https://maps.google.com/?q=Osaka,Japan' }
+    { icon: Mail, text: 'contact@anantasutra.com', href: 'mailto:contact@anantasutra.com' },
+    { icon: MapPin, text: 'Delhi, India', href: 'https://maps.google.com/?q=Delhi,India' }
   ]
 
   return (
@@ -129,7 +128,7 @@ const Footer = () => {
               Ready to bring your ideas to life? Let's discuss your next project.
             </p>
             <motion.a
-              href="mailto:bhavyduneja@gmail.com"
+              href="mailto:contact@anantasutra.com"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 text-sm font-medium"

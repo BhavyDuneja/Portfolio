@@ -19,25 +19,25 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://bhavyaduneja.com'),
-  title: 'Bhavya Duneja - Software Engineer | Full Stack Developer',
-  description: 'Software Engineer with expertise in .NET, ReactJS, AWS, Azure, and System Design. Currently based in Osaka, Japan with experience in full-stack development and cloud architecture.',
-  keywords: 'Bhavya Duneja, Software Engineer, Full Stack Developer, .NET, ReactJS, AWS, Azure, Japan, Osaka',
-  authors: [{ name: 'Bhavya Duneja' }],
-  creator: 'Bhavya Duneja',
+  metadataBase: new URL('https://anantasutra.com'),
+  title: 'Anantasutra - Technology Solutions | Full-Stack Development & Cloud Architecture',
+  description: 'Professional technology solutions company specializing in full-stack development, cloud architecture, and digital transformation. Empowering businesses with cutting-edge technology.',
+  keywords: 'Anantasutra, Technology Solutions, Full-Stack Development, Cloud Architecture, Software Development, Digital Transformation, Web Development, Mobile Apps',
+  authors: [{ name: 'Anantasutra' }],
+  creator: 'Anantasutra',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://bhavyaduneja.com',
-    title: 'Bhavya Duneja - Software Engineer',
-    description: 'Software Engineer with expertise in .NET, ReactJS, AWS, Azure, and System Design.',
-    siteName: 'Bhavya Duneja Portfolio',
+    url: 'https://anantasutra.com',
+    title: 'Anantasutra - Technology Solutions',
+    description: 'Professional technology solutions company specializing in full-stack development, cloud architecture, and digital transformation.',
+    siteName: 'Anantasutra',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Bhavya Duneja - Software Engineer',
-    description: 'Software Engineer with expertise in .NET, ReactJS, AWS, Azure, and System Design.',
-    creator: '@bhavyaduneja',
+    title: 'Anantasutra - Technology Solutions',
+    description: 'Professional technology solutions company specializing in full-stack development, cloud architecture, and digital transformation.',
+    creator: '@anantasutra',
   },
   robots: {
     index: true,

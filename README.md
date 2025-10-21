@@ -109,9 +109,8 @@ The portfolio is designed to be easily customizable:
 
 ## 📧 Contact
 
-- **Email**: bhavyduneja@gmail.com
-- **Phone**: +81 07083172647
-- **Location**: Osaka, Japan
+- **Email**: contact@anantasutra.com
+- **Location**: Delhi, India
 - **LinkedIn**: [bhavy-duneja](https://www.linkedin.com/in/bhavy-duneja)
 
 ## 📄 License
