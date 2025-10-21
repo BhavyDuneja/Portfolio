@@ -1,21 +1,9 @@
-# Root shows construction page (public/index.html)
+# Serve the main Anantasutra website at root
 / /index.html 200
 
-# Serve the portfolio at /co-founder path (this will be the Next.js built index.html)
-/co-founder /portfolio.html 200
-/co-founder/ /portfolio.html 200
+# Handle static assets
+/_next/* /_next/:splat 200
+/images/* /images/:splat 200
 
-# Handle blog routes
-/co-founder/blog /blog/index.html 200
-/co-founder/blog/ /blog/index.html 200
-
-# Handle admin routes
-/co-founder/admin /admin/index.html 200
-/co-founder/admin/ /admin/index.html 200
-
-# Handle static assets for portfolio
-/co-founder/_next/* /_next/:splat 200
-/co-founder/images/* /images/:splat 200
-
-# Fallback for any other co-founder routes
-/co-founder/* /portfolio.html 200
+# Fallback for any other routes
+/* /index.html 200
