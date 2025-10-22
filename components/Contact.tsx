@@ -13,14 +13,14 @@ const Contact = () => {
       icon: Mail,
       title: 'Email',
       value: 'co-founder@anantasutra.com',
-      link: 'mailto:co-founder@anantasutra.com',
+      link: 'https://mail.google.com/mail/?view=cm&fs=1&to=contact@anantasutra.com',
       color: 'from-blue-500 to-blue-600'
     },
     {
       icon: MapPin,
       title: 'Location',
-      value: 'Delhi, India',
-      link: 'https://maps.google.com/?q=Delhi,India',
+      value: 'Osaka, Japan',
+      link: 'https://maps.google.com/?q=Osaka,Japan',
       color: 'from-purple-500 to-purple-600'
     }
   ]
@@ -178,7 +178,7 @@ const Contact = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
-                href="mailto:contact@anantasutra.com"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@anantasutra.com"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-full hover:from-green-600 hover:to-green-700 transition-all duration-300 flex items-center justify-center space-x-2"

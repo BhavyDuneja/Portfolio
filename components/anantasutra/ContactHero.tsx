@@ -1,12 +1,12 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { MessageCircle, Mail, MapPin, Clock, ArrowRight } from 'lucide-react'
+import { Mail, MapPin, Clock, ArrowRight } from 'lucide-react'
 
 const ContactHero = () => {
   const contactMethods = [
     { icon: Mail, title: 'Email Us', description: 'contact@anantasutra.com', action: 'Send Email' },
-    { icon: MessageCircle, title: 'Live Chat', description: 'Available 24/7', action: 'Start Chat' },
+    // { icon: MessageCircle, title: 'Live Chat', description: 'Available 24/7', action: 'Start Chat' }, // Commented out for now
     { icon: MapPin, title: 'Visit Us', description: 'Delhi, India', action: 'Get Directions' },
   ]
 
@@ -47,7 +47,7 @@ const ContactHero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 max-w-4xl mx-auto"
           >
             {contactMethods.map((method, index) => {
               const Icon = method.icon

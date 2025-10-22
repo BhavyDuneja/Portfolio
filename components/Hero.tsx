@@ -159,7 +159,7 @@ const Hero = () => {
                 <ArrowRight className="w-5 h-5" />
               </motion.button>
               <motion.a
-                href="mailto:contact@anantasutra.com?subject=Let's Start a Conversation&body=Hi Anantasutra Team,%0D%0A%0D%0AI came across Anantasutra and would like to discuss potential technology solutions for my business.%0D%0A%0D%0ABest regards,"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@anantasutra.com&su=Let's Start a Conversation&body=Hi Anantasutra Team,%0D%0A%0D%0AI came across Anantasutra and would like to discuss potential technology solutions for my business.%0D%0A%0D%0ABest regards,"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-4 border-2 border-green-500 text-green-600 font-semibold rounded-full hover:bg-green-50 transition-all duration-300 flex items-center space-x-2"
