@@ -19,9 +19,13 @@ const ContactInfo = () => {
   const contactDetails = [
     {
       icon: Mail,
-      title: 'Email',
-      details: ['contact@anantasutra.com', 'support@anantasutra.com'],
-      description: 'Email us for detailed inquiries'
+      title: 'Business Emails',
+      details: [
+        'contact@anantasutra.com - General inquiries',
+        'support@anantasutra.com - Technical support',
+        'co-founder@anantasutra.com - Executive contact'
+      ],
+      description: 'Choose the right email for your needs'
     },
     {
       icon: MapPin,

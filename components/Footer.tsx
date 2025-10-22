@@ -11,13 +11,13 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   const quickLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Testimonials', href: '#testimonials' },
+    { name: 'About', href: '/co-founder#about' },
+    { name: 'Experience', href: '/co-founder#experience' },
+    { name: 'Projects', href: '/co-founder#projects' },
+    { name: 'Skills', href: '/co-founder#skills' },
+    { name: 'Testimonials', href: '/co-founder#testimonials' },
     { name: 'Blog', href: '/blog' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Contact', href: '/co-founder#contact' }
   ]
 
   const socialLinks = [
@@ -27,12 +27,12 @@ const Footer = () => {
   ]
 
   const contactInfo = [
-    { icon: Mail, text: 'contact@anantasutra.com', href: 'mailto:contact@anantasutra.com' },
+    { icon: Mail, text: 'contact@anantasutra.com', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=contact@anantasutra.com' },
     { icon: MapPin, text: 'Delhi, India', href: 'https://maps.google.com/?q=Delhi,India' }
   ]
 
   return (
-    <footer className="bg-gradient-to-b from-white to-green-50/50 border-t border-green-100">
+    <footer className="bg-gradient-to-b from-white to-emerald-50/50 border-t border-emerald-100">
       <div className="container mx-auto px-4 py-12">
         <div className="grid lg:grid-cols-4 gap-8 mb-8">
           {/* Brand Section */}
@@ -43,14 +43,14 @@ const Footer = () => {
             className="lg:col-span-1"
           >
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center">
                 <Code className="w-6 h-6 text-white" />
               </div>
-              <span className="text-2xl font-bold gradient-text">Bhavya Duneja</span>
+              <span className="text-2xl font-bold gradient-text">Anantasutra</span>
             </div>
             <p className="text-gray-600 mb-6 leading-relaxed">
-              Software Engineer passionate about building innovative solutions and 
-              bridging cultures through technology.
+              Professional technology solutions provider specializing in full-stack development, 
+              cloud architecture, and digital transformation.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
@@ -61,9 +61,9 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-300 border border-green-100"
+                  className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-300 border border-emerald-100"
                 >
-                  <social.icon className="w-5 h-5 text-gray-600 hover:text-green-600 transition-colors duration-200" />
+                  <social.icon className="w-5 h-5 text-gray-600 hover:text-emerald-600 transition-colors duration-200" />
                 </motion.a>
               ))}
             </div>
@@ -83,7 +83,7 @@ const Footer = () => {
                   <motion.a
                     href={link.href}
                     whileHover={{ x: 5 }}
-                    className="text-gray-600 hover:text-green-600 transition-colors duration-200"
+                    className="text-gray-600 hover:text-emerald-600 transition-colors duration-200"
                   >
                     {link.name}
                   </motion.a>
@@ -106,7 +106,7 @@ const Footer = () => {
                   <motion.a
                     href={info.href}
                     whileHover={{ x: 5 }}
-                    className="flex items-center space-x-3 text-gray-600 hover:text-green-600 transition-colors duration-200"
+                    className="flex items-center space-x-3 text-gray-600 hover:text-emerald-600 transition-colors duration-200"
                   >
                     <info.icon className="w-4 h-4" />
                     <span className="text-sm">{info.text}</span>
@@ -128,10 +128,10 @@ const Footer = () => {
               Ready to bring your ideas to life? Let's discuss your next project.
             </p>
             <motion.a
-              href="mailto:contact@anantasutra.com"
+              href="/contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 text-sm font-medium"
+              className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 text-sm font-medium"
             >
               <Mail className="w-4 h-4" />
               <span>Get in Touch</span>
@@ -140,7 +140,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-green-100 pt-8">
+        <div className="border-t border-emerald-100 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <motion.div
               initial={{ opacity: 0 }}
@@ -148,16 +148,16 @@ const Footer = () => {
               transition={{ duration: 0.6 }}
               className="flex items-center space-x-2 text-gray-600"
             >
-              <span>© {currentYear} Bhavya Duneja. Made with</span>
+              <span>© {currentYear} Anantasutra. Made with</span>
               <Heart className="w-4 h-4 text-red-500 animate-pulse" />
-              <span>in Osaka, Japan</span>
+              <span>in Delhi, India</span>
             </motion.div>
 
             <motion.button
               onClick={scrollToTop}
               whileHover={{ scale: 1.1, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center space-x-2 px-4 py-2 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 border border-green-100 text-gray-600 hover:text-green-600"
+              className="flex items-center space-x-2 px-4 py-2 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 border border-emerald-100 text-gray-600 hover:text-emerald-600"
             >
               <ArrowUp className="w-4 h-4" />
               <span className="text-sm font-medium">Back to Top</span>

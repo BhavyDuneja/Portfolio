@@ -29,25 +29,58 @@ const ContactForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitStatus('idle')
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false)
-      setSubmitStatus('success')
-      // Reset form after 3 seconds
+    try {
+      const sheetData = {
+        timestamp: new Date().toISOString(),
+        name: formData.name,
+        email: formData.email,
+        company: formData.company || 'Not provided',
+        projectType: formData.projectType,
+        budget: formData.budget || 'Not specified',
+        timeline: formData.timeline || 'Not specified',
+        message: formData.message,
+        status: 'New',
+        source: 'Website Contact Form'
+      }
+
+      // Use our server-side API route to avoid CORS issues
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(sheetData)
+      })
+      
+      const responseData = await response.json()
+
+      if (response.ok && responseData.success) {
+        setSubmitStatus('success')
+        setTimeout(() => {
+          setSubmitStatus('idle')
+          setFormData({
+            name: '',
+            email: '',
+            company: '',
+            projectType: '',
+            budget: '',
+            timeline: '',
+            message: ''
+          })
+        }, 3000)
+      } else {
+        throw new Error(`API error: ${responseData.error || response.status}`)
+      }
+    } catch (error) {
+      setSubmitStatus('error')
       setTimeout(() => {
         setSubmitStatus('idle')
-        setFormData({
-          name: '',
-          email: '',
-          company: '',
-          projectType: '',
-          budget: '',
-          timeline: '',
-          message: ''
-        })
       }, 3000)
-    }, 2000)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -82,6 +115,20 @@ const ContactForm = () => {
                 <p className="text-gray-600">
                   Thank you for your interest. We'll get back to you within 24 hours.
                 </p>
+              </div>
+            ) : submitStatus === 'error' ? (
+              <div className="text-center py-12">
+                <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-6" />
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Error Sending Message</h3>
+                <p className="text-gray-600 mb-6">
+                  There was an error submitting your form. Please try again or contact us directly.
+                </p>
+                <button
+                  onClick={() => setSubmitStatus('idle')}
+                  className="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition"
+                >
+                  Try Again
+                </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">

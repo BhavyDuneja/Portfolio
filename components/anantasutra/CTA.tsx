@@ -15,12 +15,12 @@ const CTA = () => {
       title: 'Email Us',
       description: 'contact@anantasutra.com',
       action: 'Send Email',
-      href: 'mailto:contact@anantasutra.com?subject=Anantasutra Consultation&body=Hi Anantasutra Team,%0D%0A%0D%0AI came across Anantasutra and would like to discuss potential technology solutions for my business.%0D%0A%0D%0ABest regards,'
+      href: 'https://mail.google.com/mail/?view=cm&fs=1&to=contact@anantasutra.com&su=Anantasutra Consultation&body=Hi Anantasutra Team,%0D%0A%0D%0AI came across Anantasutra and would like to discuss potential technology solutions for my business.%0D%0A%0D%0ABest regards,'
     },
     {
       icon: MessageCircle,
       title: 'LinkedIn',
-      description: 'Connect with our CTO',
+      description: 'Connect with our Co-Founder',
       action: 'Get in Touch',
       href: 'https://www.linkedin.com/in/bhavy-duneja'
     }
