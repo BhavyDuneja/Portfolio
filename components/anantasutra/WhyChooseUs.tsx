@@ -58,20 +58,20 @@ const WhyChooseUs = () => {
 
   const testimonials = [
     {
-      name: 'Sarah Johnson',
-      role: 'CTO, TechCorp',
+      name: 'Sahil Chauhan',
+      role: 'CEO, Fit-First',
       content: 'Anantasutra transformed our legacy system into a modern, scalable platform. Their expertise and dedication are unmatched.',
       rating: 5
     },
     {
-      name: 'Michael Chen',
-      role: 'Founder, StartupXYZ',
+      name: 'Romey Kumar',
+      role: 'Founder, Dhirah',
       content: 'Working with Anantasutra was a game-changer. They delivered our MVP in record time with exceptional quality.',
       rating: 5
     },
     {
-      name: 'Emily Rodriguez',
-      role: 'Product Manager, InnovateLabs',
+      name: 'Vansh Taneja',
+      role: 'Product Manager, Save Values',
       content: 'Professional, reliable, and technically excellent. They exceeded our expectations in every way.',
       rating: 5
     }

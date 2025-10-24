@@ -125,11 +125,10 @@ const CTA = () => {
             Trusted by companies worldwide
           </p>
           <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-            <div className="text-white font-semibold text-lg">TechCorp</div>
-            <div className="text-white font-semibold text-lg">StartupXYZ</div>
-            <div className="text-white font-semibold text-lg">InnovateLabs</div>
-            <div className="text-white font-semibold text-lg">DataFlow Inc</div>
-            <div className="text-white font-semibold text-lg">CloudTech</div>
+            <div className="text-white font-semibold text-lg">SaveValues</div>
+            <div className="text-white font-semibold text-lg">Dhirah</div>
+            <div className="text-white font-semibold text-lg">Fit-First</div>
+            
           </div>
         </motion.div>
       </div>
