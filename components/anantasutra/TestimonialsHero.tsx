@@ -92,8 +92,8 @@ const TestimonialsHero = () => {
                 <span className="text-white font-bold text-xl">SJ</span>
               </div>
               <div className="text-left">
-                <div className="font-bold text-gray-900 text-lg">Sarah Johnson</div>
-                <div className="text-gray-600">CTO, TechCorp</div>
+                <div className="font-bold text-gray-900 text-lg">Sahil Chauhan</div>
+                <div className="text-gray-600">CEO, Fit-First</div>
                 <div className="flex items-center space-x-1 mt-2">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />

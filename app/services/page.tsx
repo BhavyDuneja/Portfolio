@@ -31,9 +31,10 @@ export default function ServicesPage() {
   return (
     <div className="min-h-screen">
       <ServicesHero />
+      <Pricing />
       <ServicesList />
       <Process />
-      <Pricing />
+      
       <CTA />
     </div>
   )
