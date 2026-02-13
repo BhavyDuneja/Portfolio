@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Plus, Edit, Trash2, Save, X, Eye, Calendar, Tag, User, Clock, ArrowLeft, Upload, Image } from 'lucide-react'
+import { Plus, Edit, Trash2, Save, X, Lock, LogOut, Image as ImageIcon, Video, Link as LinkIcon } from 'lucide-react'
 import Link from 'next/link'
 import { getAllPosts, addPost, updatePost, deletePost, savePosts, BlogPost } from '@/lib/storage'
-import { uploadDualImages } from '@/lib/github-storage'
-import { isGitHubConfigured } from '@/lib/github-api'
+import { isAuthenticated, login, logout } from '@/lib/auth'
+import RichTextEditor from '@/components/RichTextEditor'
 
 interface FormData {
   title: string
@@ -16,8 +16,8 @@ interface FormData {
   tags: string
   readTime: string
   featured: boolean
-  thumbnailUrl: string
-  fullImageUrl: string
+  imageUrl: string // Google Drive link
+  videoUrl: string // YouTube link
   imageAlt: string
 }
 
@@ -27,6 +27,9 @@ const AdminPanel = () => {
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null)
   const [showForm, setShowForm] = useState(false)
   const [isClient, setIsClient] = useState(false)
+  const [authenticated, setAuthenticated] = useState(false)
+  const [loginPassword, setLoginPassword] = useState('')
+  const [loginError, setLoginError] = useState('')
   const [formData, setFormData] = useState<FormData>({
     title: '',
     excerpt: '',
@@ -35,13 +38,10 @@ const AdminPanel = () => {
     tags: '',
     readTime: '',
     featured: false,
-    thumbnailUrl: '',
-    fullImageUrl: '',
+    imageUrl: '',
+    videoUrl: '',
     imageAlt: ''
   })
-  const [selectedImage, setSelectedImage] = useState<File | null>(null)
-  const [uploading, setUploading] = useState(false)
-  const [githubConfigured, setGitHubConfigured] = useState(false)
 
   const categories = [
     'Software Architecture',
@@ -53,46 +53,46 @@ const AdminPanel = () => {
     'Cooking'
   ]
 
-  // Ensure we're on the client side
+  // Ensure we're on the client side and check authentication
   useEffect(() => {
     setIsClient(true)
+    if (typeof window !== 'undefined') {
+      setAuthenticated(isAuthenticated())
+    }
   }, [])
 
   // Load posts using the new storage system
   useEffect(() => {
-    if (!isClient) return
+    if (!isClient || !authenticated) return
     
     const allPosts = getAllPosts()
-    setGitHubConfigured(isGitHubConfigured())
-    if (allPosts.length === 0) {
-      // Initialize with default posts
-      const defaultPosts: BlogPost[] = [
-        {
-          id: '1',
-          title: 'Building Scalable .NET Applications with Domain-Driven Design',
-          excerpt: 'Learn how to implement DDD principles in .NET applications to create maintainable and scalable software architectures.',
-          content: 'Domain-Driven Design (DDD) is a software development approach that focuses on creating software that reflects a deep understanding of the business domain...',
-          author: 'Bhavya Duneja',
-          date: '2024-12-15',
-          readTime: '8 min read',
-          category: 'Software Architecture',
-          tags: ['DDD', '.NET', 'C#', 'Architecture', 'Clean Code'],
-          featured: true
-        }
-      ]
-      setPosts(defaultPosts)
-      savePosts(defaultPosts)
-    } else {
-      setPosts(allPosts)
-    }
-  }, [isClient])
+    setPosts(allPosts)
+  }, [isClient, authenticated])
 
-  // Save posts to localStorage whenever posts change
-  useEffect(() => {
-    if (posts.length > 0) {
-      localStorage.setItem('blogPosts', JSON.stringify(posts))
+  // Reload posts after create/update/delete operations
+  const reloadPosts = () => {
+    const allPosts = getAllPosts()
+    setPosts(allPosts)
+  }
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoginError('')
+    
+    if (login(loginPassword)) {
+      setAuthenticated(true)
+      setLoginPassword('')
+    } else {
+      setLoginError('Incorrect password. Please try again.')
     }
-  }, [posts])
+  }
+
+  const handleLogout = () => {
+    logout()
+    setAuthenticated(false)
+    setShowForm(false)
+    setEditingPost(null)
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target
@@ -101,6 +101,46 @@ const AdminPanel = () => {
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }))
+  }
+
+  // Helper function to convert YouTube URL to embed URL
+  const getYouTubeEmbedUrl = (url: string): string => {
+    if (!url) return ''
+    
+    // Handle different YouTube URL formats
+    const patterns = [
+      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+      /youtube\.com\/watch\?.*v=([^&\n?#]+)/
+    ]
+    
+    for (const pattern of patterns) {
+      const match = url.match(pattern)
+      if (match && match[1]) {
+        return `https://www.youtube.com/embed/${match[1]}`
+      }
+    }
+    
+    return url // Return as-is if no pattern matches
+  }
+
+  // Helper function to convert Google Drive link to direct image link
+  const getGoogleDriveImageUrl = (url: string): string => {
+    if (!url) return ''
+    
+    // If it's already a direct image link, return as-is
+    if (url.includes('drive.google.com/file/d/')) {
+      const fileId = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/)?.[1]
+      if (fileId) {
+        return `https://drive.google.com/uc?export=view&id=${fileId}`
+      }
+    }
+    
+    // If it's already in the correct format, return as-is
+    if (url.includes('drive.google.com/uc?export=view&id=')) {
+      return url
+    }
+    
+    return url // Return as-is if no pattern matches
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -117,8 +157,8 @@ const AdminPanel = () => {
       category: formData.category,
       tags: formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag),
       featured: formData.featured,
-      thumbnailUrl: formData.thumbnailUrl,
-      fullImageUrl: formData.fullImageUrl,
+      imageUrl: formData.imageUrl ? getGoogleDriveImageUrl(formData.imageUrl) : undefined,
+      videoUrl: formData.videoUrl ? getYouTubeEmbedUrl(formData.videoUrl) : undefined,
       imageAlt: formData.imageAlt
     }
 
@@ -127,14 +167,12 @@ const AdminPanel = () => {
         // Update existing post
         const updatedPost = updatePost(editingPost.id, postData)
         if (updatedPost) {
-          const allPosts = getAllPosts()
-          setPosts(allPosts)
+          reloadPosts()
         }
       } else {
         // Create new post
         const newPost = addPost(postData)
-        const allPosts = getAllPosts()
-        setPosts(allPosts)
+        reloadPosts()
       }
 
       // Reset form
@@ -146,11 +184,10 @@ const AdminPanel = () => {
         tags: '',
         readTime: '',
         featured: false,
-        thumbnailUrl: '',
-        fullImageUrl: '',
+        imageUrl: '',
+        videoUrl: '',
         imageAlt: ''
       })
-      setSelectedImage(null)
       setShowForm(false)
       setEditingPost(null)
       setIsEditing(false)
@@ -170,8 +207,8 @@ const AdminPanel = () => {
       tags: post.tags.join(', '),
       readTime: post.readTime,
       featured: post.featured,
-      thumbnailUrl: post.thumbnailUrl || '',
-      fullImageUrl: post.fullImageUrl || '',
+      imageUrl: post.imageUrl || '',
+      videoUrl: post.videoUrl || '',
       imageAlt: post.imageAlt || ''
     })
     setShowForm(true)
@@ -182,8 +219,7 @@ const AdminPanel = () => {
     if (confirm('Are you sure you want to delete this post?')) {
       const success = deletePost(postId)
       if (success) {
-        const allPosts = getAllPosts()
-        setPosts(allPosts)
+        reloadPosts()
       }
     }
   }
@@ -200,155 +236,10 @@ const AdminPanel = () => {
       tags: '',
       readTime: '',
       featured: false,
-      thumbnailUrl: '',
-      fullImageUrl: '',
+      imageUrl: '',
+      videoUrl: '',
       imageAlt: ''
     })
-    setSelectedImage(null)
-  }
-
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-
-    // Basic validation
-    const maxSize = 20 * 1024 * 1024 // 20MB
-    if (file.size > maxSize) {
-      alert('File too large. Maximum size is 20MB.')
-      return
-    }
-
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
-    if (!allowedTypes.includes(file.type)) {
-      alert('Invalid file type. Only JPEG, PNG, and WebP are allowed.')
-      return
-    }
-
-    setUploading(true)
-    setSelectedImage(file)
-
-    try {
-      console.log('Starting image upload process...', {
-        fileName: file.name,
-        fileSize: file.size,
-        fileType: file.type
-      })
-
-      // Convert image to base64 for persistent storage
-      const convertToBase64 = (file: File): Promise<string> => {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader()
-          reader.onload = () => {
-            console.log('Base64 conversion successful')
-            resolve(reader.result as string)
-          }
-          reader.onerror = reject
-          reader.readAsDataURL(file)
-        })
-      }
-
-      // Create thumbnail (compressed) and full image
-      const createThumbnail = (file: File): Promise<string> => {
-        return new Promise((resolve, reject) => {
-          const canvas = document.createElement('canvas')
-          const ctx = canvas.getContext('2d')
-          const img = new window.Image()
-          
-          img.onload = () => {
-            try {
-              console.log('Image loaded for thumbnail creation:', {
-                originalWidth: img.width,
-                originalHeight: img.height
-              })
-
-              // Set thumbnail size (max 400px width)
-              const maxWidth = 400
-              const maxHeight = 300
-              let { width, height } = img
-              
-              if (width > maxWidth) {
-                height = (height * maxWidth) / width
-                width = maxWidth
-              }
-              
-              if (height > maxHeight) {
-                width = (width * maxHeight) / height
-                height = maxHeight
-              }
-              
-              canvas.width = width
-              canvas.height = height
-              
-              // Draw and compress
-              ctx?.drawImage(img, 0, 0, width, height)
-              canvas.toBlob((blob) => {
-                if (blob) {
-                  const reader = new FileReader()
-                  reader.onload = () => resolve(reader.result as string)
-                  reader.readAsDataURL(blob)
-                } else {
-                  reject(new Error('Canvas toBlob failed'))
-                }
-              }, 'image/jpeg', 0.7)
-            } catch (error) {
-              console.error('Error creating thumbnail:', error)
-              reject(error)
-            }
-          }
-          img.onerror = (error) => {
-            console.error('Error loading image:', error)
-            reject(error)
-          }
-          const reader = new FileReader()
-          reader.onload = () => {
-            img.src = reader.result as string
-          }
-          reader.readAsDataURL(file)
-        })
-      }
-
-      const [thumbnailUrl, fullImageUrl] = await Promise.all([
-        createThumbnail(file),
-        convertToBase64(file)
-      ])
-      
-      console.log('Image processing completed successfully')
-      
-      setFormData(prev => ({
-        ...prev,
-        thumbnailUrl: thumbnailUrl,
-        fullImageUrl: fullImageUrl,
-        imageAlt: file.name.split('.')[0] // Use filename as default alt text
-      }))
-
-      console.log('Image uploaded successfully:', {
-        thumbnailUrl: thumbnailUrl.substring(0, 50) + '...',
-        fullImageUrl: fullImageUrl.substring(0, 50) + '...',
-        imageAlt: file.name.split('.')[0]
-      })
-
-      // Try GitHub upload if configured, but don't block on it
-      if (githubConfigured) {
-        try {
-          const result = await uploadDualImages(file)
-          
-          if (result.success) {
-            setFormData(prev => ({
-              ...prev,
-              thumbnailUrl: result.thumbnailUrl || prev.thumbnailUrl,
-              fullImageUrl: result.fullImageUrl || prev.fullImageUrl,
-            }))
-          }
-        } catch (error) {
-          console.log('GitHub upload failed, using local preview:', error)
-        }
-      }
-    } catch (error) {
-      console.error('Upload error:', error)
-      alert('Upload failed. Please try again.')
-    } finally {
-      setUploading(false)
-    }
   }
 
   // Don't render until client-side data is loaded
@@ -364,65 +255,70 @@ const AdminPanel = () => {
     )
   }
 
+  // Show login screen if not authenticated
+  if (!authenticated) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-white via-green-50/30 to-green-100/20 flex items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white rounded-2xl p-8 shadow-lg border border-green-100 w-full max-w-md"
+        >
+          <div className="text-center mb-6">
+            <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Lock className="w-8 h-8 text-white" />
+            </div>
+            <h1 className="text-2xl font-bold text-gray-800 mb-2">Admin Login</h1>
+            <p className="text-gray-600 text-sm">Enter your password to access the admin panel</p>
+          </div>
+
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Password
+              </label>
+              <input
+                type="password"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                required
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all duration-300"
+                placeholder="Enter admin password"
+                autoFocus
+              />
+            </div>
+
+            {loginError && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                {loginError}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              className="w-full px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-300 font-medium flex items-center justify-center space-x-2"
+            >
+              <Lock className="w-5 h-5" />
+              <span>Login</span>
+            </button>
+          </form>
+
+          <div className="mt-6 text-center">
+            <Link
+              href="/blog"
+              className="text-sm text-gray-600 hover:text-green-600 transition-colors duration-300"
+            >
+              ← Back to Blog
+            </Link>
+          </div>
+        </motion.div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-green-50/30 to-green-100/20">
-      {/* Debug Panel - Remove in production */}
-      <div className="bg-yellow-50 border border-yellow-200 p-4 mb-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="text-sm font-medium text-yellow-800">Admin Debug Info</h3>
-            <p className="text-xs text-yellow-600">
-              Posts: {posts.length} | GitHub: {githubConfigured ? 'Configured' : 'Not configured'} | 
-              Thumbnail: {formData.thumbnailUrl ? 'Yes' : 'No'} | Full: {formData.fullImageUrl ? 'Yes' : 'No'}
-            </p>
-          </div>
-          <div className="flex space-x-2">
-            <button
-              onClick={() => console.log('Form Data:', formData)}
-              className="px-3 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600 transition-colors"
-            >
-              Debug Form
-            </button>
-            <button
-              onClick={() => {
-                // Test with a simple image
-                const canvas = document.createElement('canvas')
-                canvas.width = 100
-                canvas.height = 100
-                const ctx = canvas.getContext('2d')
-                if (ctx) {
-                  ctx.fillStyle = '#4ade80'
-                  ctx.fillRect(0, 0, 100, 100)
-                }
-                canvas.toBlob((blob) => {
-                  if (blob) {
-                    const file = new File([blob], 'test.png', { type: 'image/png' })
-                    console.log('Test file created:', file)
-                    // Simulate file input
-                    const input = document.createElement('input')
-                    input.type = 'file'
-                    // Create a FileList-like object
-                    const fileList = {
-                      0: file,
-                      length: 1,
-                      item: (index: number) => index === 0 ? file : null,
-                      [Symbol.iterator]: function* () {
-                        yield file
-                      }
-                    } as FileList
-                    input.files = fileList
-                    handleImageUpload({ target: { files: fileList } } as React.ChangeEvent<HTMLInputElement>)
-                  }
-                })
-              }}
-              className="px-3 py-1 bg-green-500 text-white text-xs rounded hover:bg-green-600 transition-colors"
-            >
-              Test Upload
-            </button>
-          </div>
-        </div>
-      </div>
-
       {/* Header */}
       <div className="bg-white shadow-sm border-b border-green-100">
         <div className="container mx-auto px-4 py-6">
@@ -431,33 +327,41 @@ const AdminPanel = () => {
               href="/blog" 
               className="flex items-center space-x-2 text-green-600 hover:text-green-700 transition-colors duration-300"
             >
-              <ArrowLeft className="w-4 h-4" />
+              <X className="w-4 h-4" />
               <span className="font-medium">Back to Blog</span>
             </Link>
             <h1 className="text-2xl font-bold text-gray-800">Admin Panel</h1>
-            <button
-              onClick={() => {
-                setShowForm(true)
-                setIsEditing(false)
-                setFormData({
-                  title: '',
-                  excerpt: '',
-                  content: '',
-                  category: 'Software Architecture',
-                  tags: '',
-                  readTime: '',
-                  featured: false,
-                  thumbnailUrl: '',
-                  fullImageUrl: '',
-                  imageAlt: ''
-                })
-                setSelectedImage(null)
-              }}
-              className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-300 flex items-center space-x-2 text-sm font-medium"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Add New Post</span>
-            </button>
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={() => {
+                  setShowForm(true)
+                  setIsEditing(false)
+                  setFormData({
+                    title: '',
+                    excerpt: '',
+                    content: '',
+                    category: 'Software Architecture',
+                    tags: '',
+                    readTime: '',
+                    featured: false,
+                    imageUrl: '',
+                    videoUrl: '',
+                    imageAlt: ''
+                  })
+                }}
+                className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-300 flex items-center space-x-2 text-sm font-medium"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add New Post</span>
+              </button>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-300 flex items-center space-x-2 text-sm font-medium"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Logout</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -536,92 +440,50 @@ const AdminPanel = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Content *
                 </label>
-                <textarea
-                  name="content"
+                <RichTextEditor
                   value={formData.content}
-                  onChange={handleInputChange}
-                  required
-                  rows={6}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all duration-300"
-                  placeholder="Full post content"
+                  onChange={(value) => setFormData(prev => ({ ...prev, content: value }))}
+                  placeholder="Write your blog post content here..."
                 />
               </div>
 
-              {/* Image Upload Section */}
+              {/* Image Link Section */}
               <div className="space-y-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Featured Image
+                <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-2">
+                  <ImageIcon className="w-5 h-5 text-green-500" />
+                  <span>Image Link (Google Drive)</span>
                 </label>
                 
+                <input
+                  type="url"
+                  name="imageUrl"
+                  value={formData.imageUrl}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all duration-300"
+                  placeholder="https://drive.google.com/file/d/..."
+                />
+                
+                <p className="text-xs text-gray-500">
+                  Paste your Google Drive image link here. Make sure the file is set to "Anyone with the link can view".
+                </p>
+
                 {/* Image Preview */}
-                {(formData.thumbnailUrl || formData.fullImageUrl) && (
-                  <div className="space-y-4">
-                    {/* Thumbnail Preview */}
-                    {formData.thumbnailUrl && (
-                      <div className="relative">
-                        <h4 className="text-sm font-medium text-gray-700 mb-2">Thumbnail Preview (Blog List)</h4>
-                        <img
-                          src={formData.thumbnailUrl}
-                          alt="Thumbnail Preview"
-                          className="w-full h-32 object-cover rounded-lg border border-gray-200"
-                        />
-                      </div>
-                    )}
-                    
-                    {/* Full Image Preview */}
-                    {formData.fullImageUrl && (
-                      <div className="relative">
-                        <h4 className="text-sm font-medium text-gray-700 mb-2">Full Image Preview (Blog Detail)</h4>
-                        <img
-                          src={formData.fullImageUrl}
-                          alt="Full Image Preview"
-                          className="w-full h-48 object-cover rounded-lg border border-gray-200"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setFormData(prev => ({ 
-                            ...prev, 
-                            thumbnailUrl: '', 
-                            fullImageUrl: '', 
-                            imageAlt: '' 
-                          }))}
-                          className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors duration-300"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </div>
-                    )}
+                {formData.imageUrl && (
+                  <div className="mt-4">
+                    <h4 className="text-sm font-medium text-gray-700 mb-2">Image Preview</h4>
+                    <img
+                      src={getGoogleDriveImageUrl(formData.imageUrl)}
+                      alt="Preview"
+                      className="w-full h-48 object-cover rounded-lg border border-gray-200"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = 'none'
+                      }}
+                    />
                   </div>
                 )}
 
-                {/* File Upload */}
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-green-400 transition-colors duration-300">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="hidden"
-                    id="image-upload"
-                    disabled={uploading}
-                  />
-                  <label
-                    htmlFor="image-upload"
-                    className={`cursor-pointer flex flex-col items-center space-y-2 ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}
-                  >
-                    {uploading ? (
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-500"></div>
-                    ) : (
-                      <Upload className="w-8 h-8 text-gray-400" />
-                    )}
-                    <span className="text-sm text-gray-600">
-                      {uploading ? 'Uploading...' : 'Click to upload image or drag and drop'}
-                    </span>
-                    <span className="text-xs text-gray-500">PNG, JPG, WebP up to 20MB</span>
-                  </label>
-                </div>
-
                 {/* Image Alt Text */}
-                {(formData.thumbnailUrl || formData.fullImageUrl) && (
+                {formData.imageUrl && (
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Image Alt Text
@@ -634,6 +496,42 @@ const AdminPanel = () => {
                       className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all duration-300"
                       placeholder="Describe the image for accessibility"
                     />
+                  </div>
+                )}
+              </div>
+
+              {/* Video Link Section */}
+              <div className="space-y-4">
+                <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-2">
+                  <Video className="w-5 h-5 text-green-500" />
+                  <span>Video Link (YouTube)</span>
+                </label>
+                
+                <input
+                  type="url"
+                  name="videoUrl"
+                  value={formData.videoUrl}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all duration-300"
+                  placeholder="https://www.youtube.com/watch?v=..."
+                />
+                
+                <p className="text-xs text-gray-500">
+                  Paste your YouTube video link here. Supports standard YouTube URLs.
+                </p>
+
+                {/* Video Preview */}
+                {formData.videoUrl && (
+                  <div className="mt-4">
+                    <h4 className="text-sm font-medium text-gray-700 mb-2">Video Preview</h4>
+                    <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                      <iframe
+                        src={getYouTubeEmbedUrl(formData.videoUrl)}
+                        className="absolute top-0 left-0 w-full h-full rounded-lg border border-gray-200"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
                   </div>
                 )}
               </div>
@@ -692,13 +590,8 @@ const AdminPanel = () => {
                 <button
                   type="submit"
                   className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-300 flex items-center space-x-2 font-medium"
-                  disabled={uploading}
                 >
-                  {uploading ? (
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                  ) : (
-                    <Save className="w-5 h-5" />
-                  )}
+                  <Save className="w-5 h-5" />
                   <span>{isEditing ? 'Update Post' : 'Add Post'}</span>
                 </button>
               </div>
