@@ -2,10 +2,18 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Calendar, Clock, User, Tag, ArrowLeft, Search, Filter } from 'lucide-react'
+import { Calendar, Clock, User, Tag, ArrowLeft, Search, Filter, Video, Image as ImageIcon, Lock } from 'lucide-react'
 import Link from 'next/link'
 import { getAllPosts, searchPosts, filterPostsByCategory, getCategories, BlogPost } from '@/lib/storage'
 import { getResponsiveImageUrls } from '@/lib/github-storage'
+
+// Helper function to get image URL (prioritize imageUrl over thumbnailUrl)
+const getImageUrl = (post: BlogPost): string | null => {
+  if (post.imageUrl) return post.imageUrl
+  if (post.thumbnailUrl) return post.thumbnailUrl
+  if (post.fullImageUrl) return post.fullImageUrl
+  return null
+}
 
 const Blog = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -25,9 +33,10 @@ const Blog = () => {
     
     const posts = getAllPosts()
     
-    // Always load default posts if we have less than 10 posts (to ensure we have the full set)
-    if (posts.length < 10) {
-      // Default posts if no saved posts or insufficient posts
+    // Only load default posts if there are NO posts at all (first time visit)
+    // This preserves user-created posts
+    if (posts.length === 0) {
+      // Default posts if no saved posts
       const defaultPosts: BlogPost[] = [
     {
       id: '1',
@@ -199,16 +208,22 @@ const Blog = () => {
 
   const categories = getCategories()
 
-  // Get filtered posts using the new storage functions
+  // Get filtered posts using the blogPosts state
   const filteredPosts = (() => {
     let posts = blogPosts
     
     if (searchTerm) {
-      posts = searchPosts(searchTerm)
+      const lowercaseQuery = searchTerm.toLowerCase()
+      posts = posts.filter(post => 
+        post.title.toLowerCase().includes(lowercaseQuery) ||
+        post.excerpt.toLowerCase().includes(lowercaseQuery) ||
+        post.content.toLowerCase().includes(lowercaseQuery) ||
+        post.tags.some(tag => tag.toLowerCase().includes(lowercaseQuery))
+      )
     }
     
     if (selectedCategory !== 'All') {
-      posts = filterPostsByCategory(selectedCategory)
+      posts = posts.filter(post => post.category === selectedCategory)
     }
     
     return posts
@@ -220,6 +235,21 @@ const Blog = () => {
     <div className="min-h-screen bg-gradient-to-br from-white via-green-50/30 to-green-100/20">
 
       <div className="container mx-auto px-4 py-12">
+        {/* Admin Link */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-6 flex justify-end"
+        >
+          <Link
+            href="/admin"
+            className="flex items-center space-x-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-300 text-sm font-medium"
+          >
+            <Lock className="w-4 h-4" />
+            <span>Admin Panel</span>
+          </Link>
+        </motion.div>
 
         {/* Search and Filter */}
         <motion.div
@@ -273,21 +303,56 @@ const Blog = () => {
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredPosts.map((post, index) => (
-                <motion.article
+                <Link
                   key={post.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                  className="bg-white rounded-2xl overflow-hidden shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+                  href={`/blog/${post.id}`}
+                  className="block"
                 >
-                  <div className="h-48 bg-gradient-to-br from-green-100 to-blue-100 flex items-center justify-center">
-                    {post.thumbnailUrl ? (
+                  <motion.article
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+                    className="bg-white rounded-2xl overflow-hidden shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer"
+                  >
+                  <div className="h-48 bg-gradient-to-br from-green-100 to-blue-100 flex items-center justify-center relative">
+                    {post.videoUrl ? (
+                      <div className="h-48 w-full overflow-hidden rounded-t-2xl relative">
+                        <div className="relative w-full h-full" style={{ paddingBottom: '56.25%' }}>
+                          <iframe
+                            src={post.videoUrl}
+                            className="absolute top-0 left-0 w-full h-full"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          />
+                        </div>
+                        <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-medium flex items-center space-x-1">
+                          <Video className="w-3 h-3" />
+                          <span>Video</span>
+                        </div>
+                      </div>
+                    ) : getImageUrl(post) ? (
                       <div className="h-48 w-full overflow-hidden">
                         <img
-                          src={post.thumbnailUrl}
+                          src={getImageUrl(post)!}
                           alt={post.imageAlt || post.title}
                           className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                           loading="lazy"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = 'none'
+                            const parent = (e.target as HTMLImageElement).parentElement
+                            if (parent) {
+                              parent.innerHTML = `
+                                <div class="text-center w-full h-full flex items-center justify-center">
+                                  <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                  </div>
+                                  <p class="text-sm text-gray-600">Featured Article</p>
+                                </div>
+                              `
+                            }
+                          }}
                         />
                       </div>
                     ) : (
@@ -324,11 +389,12 @@ const Blog = () => {
                         </div>
                       </div>
                     </div>
-                    <button className="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors duration-300 font-medium">
+                    <div className="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors duration-300 font-medium text-center">
                       Read More
-                    </button>
+                    </div>
                   </div>
                 </motion.article>
+                </Link>
               ))}
             </div>
           </motion.div>
@@ -354,13 +420,46 @@ const Blog = () => {
               >
                 <div className="flex flex-col lg:flex-row gap-6">
                   <div className="lg:w-1/3">
-                    {post.thumbnailUrl ? (
+                    {post.videoUrl ? (
+                      <div className="h-48 lg:h-full rounded-xl overflow-hidden relative">
+                        <div className="relative w-full h-full" style={{ paddingBottom: '56.25%' }}>
+                          <iframe
+                            src={post.videoUrl}
+                            className="absolute top-0 left-0 w-full h-full rounded-xl"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          />
+                        </div>
+                        <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-medium flex items-center space-x-1">
+                          <Video className="w-3 h-3" />
+                          <span>Video</span>
+                        </div>
+                      </div>
+                    ) : getImageUrl(post) ? (
                       <div className="h-48 lg:h-full rounded-xl overflow-hidden">
                         <img
-                          src={post.thumbnailUrl}
+                          src={getImageUrl(post)!}
                           alt={post.imageAlt || post.title}
                           className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                           loading="lazy"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = 'none'
+                            const parent = (e.target as HTMLImageElement).parentElement
+                            if (parent) {
+                              parent.innerHTML = `
+                                <div class="h-48 lg:h-full bg-gradient-to-br from-green-100 to-blue-100 rounded-xl flex items-center justify-center">
+                                  <div class="text-center">
+                                    <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                                      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                      </svg>
+                                    </div>
+                                    <p class="text-sm text-gray-600">Article Image</p>
+                                  </div>
+                                </div>
+                              `
+                            }
+                          }}
                         />
                       </div>
                     ) : (
@@ -416,9 +515,12 @@ const Blog = () => {
                           <span>{post.readTime}</span>
                         </div>
                       </div>
-                      <button className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-300 font-medium">
+                      <Link
+                        href={`/blog/${post.id}`}
+                        className="inline-block px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-300 font-medium"
+                      >
                         Read More
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>

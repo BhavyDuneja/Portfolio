@@ -1,4 +1,4 @@
-// Storage utility for blog posts with image support
+// Storage utility for blog posts with image and video support
 export interface BlogPost {
   id: string
   title: string
@@ -13,6 +13,8 @@ export interface BlogPost {
   thumbnailUrl?: string
   fullImageUrl?: string
   imageAlt?: string
+  imageUrl?: string // Google Drive link
+  videoUrl?: string // YouTube link
 }
 
 // In-memory storage for development
