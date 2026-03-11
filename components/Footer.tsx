@@ -1,173 +1,232 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import { Heart, Code, Mail, MapPin, Github, Linkedin, Twitter, ArrowUp } from 'lucide-react'
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { motion } from 'framer-motion';
+import {
+  Linkedin,
+  Github,
+  Twitter,
+  Mail,
+  MapPin,
+  ArrowUp,
+  ExternalLink,
+  Heart,
+} from 'lucide-react';
 
-const Footer = () => {
+const serviceLinks = [
+  { name: 'AI Automation', href: '/services/voice-agents' },
+  { name: 'Video Generators', href: '/services/video-generators' },
+  { name: 'Social Media Automation', href: '/services/social-automation' },
+  { name: 'Marketing Agency', href: '/services/marketing' },
+  { name: 'Content Shooting', href: '/services/content-shooting' },
+  { name: 'AI Marketing Tools', href: '/services/ai-marketing' },
+];
+
+const productLinks = [
+  { name: 'Ritualist App', href: 'https://ritualist.anantasutra.com', description: 'Daily spiritual companion' },
+  { name: 'Granthas App', href: '/apps', description: 'Sacred text library' },
+];
+
+const socialLinks = [
+  { name: 'LinkedIn', href: 'https://linkedin.com/company/anantasutra', icon: Linkedin },
+  { name: 'GitHub', href: 'https://github.com/anantasutra', icon: Github },
+  { name: 'Twitter', href: 'https://twitter.com/anantasutra', icon: Twitter },
+];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, duration: 0.5, ease: 'easeOut' },
+  }),
+};
+
+export default function Footer() {
+  const pathname = usePathname();
+
+  // Hide footer on admin pages
+  if (pathname?.startsWith('/admin')) return null;
+
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  const currentYear = new Date().getFullYear()
-
-  const quickLinks = [
-    { name: 'About', href: '/co-founder#about' },
-    { name: 'Experience', href: '/co-founder#experience' },
-    { name: 'Projects', href: '/co-founder#projects' },
-    { name: 'Skills', href: '/co-founder#skills' },
-    { name: 'Testimonials', href: '/co-founder#testimonials' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Contact', href: '/co-founder#contact' }
-  ]
-
-  const socialLinks = [
-    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/bhavy-duneja', icon: Linkedin },
-    { name: 'GitHub', url: 'https://github.com/bhavyaduneja', icon: Github },
-    { name: 'Twitter', url: 'https://twitter.com/bhavyaduneja', icon: Twitter }
-  ]
-
-  const contactInfo = [
-    { icon: Mail, text: 'contact@anantasutra.com', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=contact@anantasutra.com' },
-    { icon: MapPin, text: 'Delhi, India', href: 'https://maps.google.com/?q=Delhi,India' }
-  ]
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
-    <footer className="bg-gradient-to-b from-white to-emerald-50/50 border-t border-emerald-100">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid lg:grid-cols-4 gap-8 mb-8">
-          {/* Brand Section */}
+    <footer className="relative bg-[#0A0A0F]">
+      {/* Gradient top border */}
+      <div className="h-px bg-gradient-to-r from-transparent via-[#E8A317] to-transparent opacity-40" />
+      <div className="h-px bg-gradient-to-r from-transparent via-violet-500 to-transparent opacity-20 -mt-px" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+        {/* Main Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+          {/* Brand Column */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={0}
             className="lg:col-span-1"
           >
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center">
-                <Code className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl font-bold gradient-text">Anantasutra</span>
-            </div>
-            <p className="text-gray-600 mb-6 leading-relaxed">
-              Professional technology solutions provider specializing in full-stack development, 
-              cloud architecture, and digital transformation.
+            <Link href="/" className="flex items-center gap-3 group mb-4">
+              <Image src="/images/logo-nobg.png" alt="AnantaSutra Logo" width={40} height={40} className="group-hover:scale-110 transition-transform duration-300" />
+              <span
+                className="text-xl font-bold bg-gradient-to-r from-[#E8A317] to-[#FFB800] bg-clip-text text-transparent"
+                style={{ fontFamily: "'Playfair Display', serif" }}
+              >
+                AnantaSutra
+              </span>
+            </Link>
+            <p className="text-gray-500 text-sm italic mb-6">Infinite Wisdom, Applied</p>
+            <p className="text-gray-400 text-sm leading-relaxed mb-6">
+              Bridging ancient wisdom with modern technology to create transformative digital
+              experiences.
             </p>
-            <div className="flex space-x-4">
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.name}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-300 border border-emerald-100"
-                >
-                  <social.icon className="w-5 h-5 text-gray-600 hover:text-emerald-600 transition-colors duration-200" />
-                </motion.a>
-              ))}
+
+            {/* Social Links */}
+            <div className="flex items-center gap-3">
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#E8A317] hover:border-[#E8A317]/30 hover:bg-[#E8A317]/5 transition-all duration-300"
+                    aria-label={social.name}
+                  >
+                    <Icon className="w-4 h-4" />
+                  </a>
+                );
+              })}
             </div>
           </motion.div>
 
-          {/* Quick Links */}
+          {/* Services Column */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="lg:col-span-1"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={1}
           >
-            <h3 className="text-lg font-bold text-gray-800 mb-4">Quick Links</h3>
+            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-5">
+              Services
+            </h3>
             <ul className="space-y-3">
-              {quickLinks.map((link) => (
+              {serviceLinks.map((link) => (
                 <li key={link.name}>
-                  <motion.a
+                  <Link
                     href={link.href}
-                    whileHover={{ x: 5 }}
-                    className="text-gray-600 hover:text-emerald-600 transition-colors duration-200"
+                    className="text-gray-400 text-sm hover:text-[#E8A317] transition-colors duration-300 flex items-center gap-1 group"
                   >
                     {link.name}
-                  </motion.a>
+                    <ExternalLink className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-50 group-hover:translate-x-0 transition-all duration-300" />
+                  </Link>
                 </li>
               ))}
             </ul>
           </motion.div>
 
-          {/* Contact Info */}
+          {/* Products Column */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-1"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={2}
           >
-            <h3 className="text-lg font-bold text-gray-800 mb-4">Contact Info</h3>
-            <ul className="space-y-3">
-              {contactInfo.map((info, index) => (
-                <li key={index}>
-                  <motion.a
-                    href={info.href}
-                    whileHover={{ x: 5 }}
-                    className="flex items-center space-x-3 text-gray-600 hover:text-emerald-600 transition-colors duration-200"
+            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-5">
+              Products
+            </h3>
+            <ul className="space-y-4">
+              {productLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="group block"
                   >
-                    <info.icon className="w-4 h-4" />
-                    <span className="text-sm">{info.text}</span>
-                  </motion.a>
+                    <span className="text-gray-400 text-sm group-hover:text-[#E8A317] transition-colors duration-300">
+                      {link.name}
+                    </span>
+                    <p className="text-gray-600 text-xs mt-0.5">{link.description}</p>
+                  </Link>
                 </li>
               ))}
             </ul>
+
+            <div className="mt-6 p-3 rounded-xl bg-white/[0.02] border border-white/5">
+              <p className="text-gray-500 text-xs">More products coming soon...</p>
+            </div>
           </motion.div>
 
-          {/* Newsletter/CTA */}
+          {/* Contact Column */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="lg:col-span-1"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={3}
           >
-            <h3 className="text-lg font-bold text-gray-800 mb-4">Let's Work Together</h3>
-            <p className="text-gray-600 mb-4 text-sm">
-              Ready to bring your ideas to life? Let's discuss your next project.
-            </p>
-            <motion.a
-              href="/contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 text-sm font-medium"
-            >
-              <Mail className="w-4 h-4" />
-              <span>Get in Touch</span>
-            </motion.a>
+            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-5">
+              Contact
+            </h3>
+            <ul className="space-y-4">
+              <li>
+                <a
+                  href="mailto:contact@anantasutra.com"
+                  className="flex items-center gap-3 text-gray-400 text-sm hover:text-[#E8A317] transition-colors duration-300"
+                >
+                  <Mail className="w-4 h-4 flex-shrink-0" />
+                  contact@anantasutra.com
+                </a>
+              </li>
+              <li className="flex items-center gap-3 text-gray-400 text-sm">
+                <MapPin className="w-4 h-4 flex-shrink-0" />
+                Delhi, India
+              </li>
+            </ul>
+
+            <div className="mt-6">
+              <Link
+                href="/contact"
+                className="inline-flex items-center px-5 py-2.5 rounded-full text-sm font-semibold text-black bg-gradient-to-r from-[#E8A317] to-[#FFB800] hover:shadow-lg hover:shadow-[#E8A317]/25 transition-all duration-300 hover:scale-105"
+              >
+                Let&apos;s Talk
+              </Link>
+            </div>
           </motion.div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="border-t border-emerald-100 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-              className="flex items-center space-x-2 text-gray-600"
-            >
-              <span>© {currentYear} Anantasutra. Made with</span>
-              <Heart className="w-4 h-4 text-red-500 animate-pulse" />
-              <span>in Delhi, India</span>
-            </motion.div>
+        {/* Divider */}
+        <div className="h-px bg-white/5 my-10" />
 
-            <motion.button
-              onClick={scrollToTop}
-              whileHover={{ scale: 1.1, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center space-x-2 px-4 py-2 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 border border-emerald-100 text-gray-600 hover:text-emerald-600"
-            >
-              <ArrowUp className="w-4 h-4" />
-              <span className="text-sm font-medium">Back to Top</span>
-            </motion.button>
+        {/* Bottom Bar */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-1 text-gray-500 text-sm">
+            <span>&copy; 2024 AnantaSutra.</span>
+            <span className="hidden sm:inline mx-2 text-gray-700">|</span>
+            <span className="flex items-center gap-1">
+              Infinite threads of wisdom
+              <Heart className="w-3 h-3 text-[#E8A317] fill-[#E8A317]" />
+            </span>
           </div>
+
+          <button
+            onClick={scrollToTop}
+            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm text-gray-400 hover:text-[#E8A317] bg-white/5 hover:bg-[#E8A317]/5 border border-white/10 hover:border-[#E8A317]/30 transition-all duration-300"
+            aria-label="Back to top"
+          >
+            Back to Top
+            <ArrowUp className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </footer>
-  )
+  );
 }
-
-export default Footer
-

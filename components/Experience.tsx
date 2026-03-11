@@ -23,9 +23,9 @@ const Experience = () => {
         'Built scalable solutions with Azure Data Studio and SQL-based databases',
         'Developed 4-layer architecture with dependency injection for maintainable code'
       ],
-      color: 'from-emerald-500 to-emerald-700',
-      bgColor: 'bg-emerald-50',
-      borderColor: 'border-emerald-200'
+      color: 'from-saffron-500 to-orange-600',
+      bgColor: 'bg-saffron-500/5',
+      borderColor: 'border-saffron-500/20'
     },
     {
       company: 'MegaGroup',
@@ -42,8 +42,8 @@ const Experience = () => {
         'Achieved Japanese N4 certification while managing multiple projects'
       ],
       color: 'from-blue-500 to-blue-700',
-      bgColor: 'bg-blue-50',
-      borderColor: 'border-blue-200'
+      bgColor: 'bg-blue-500/5',
+      borderColor: 'border-blue-500/20'
     },
     {
       company: 'Trainity',
@@ -59,9 +59,9 @@ const Experience = () => {
         'Implemented Window Functions for job analysis and user growth metrics',
         'Developed insights on trending hashtags and user retention patterns'
       ],
-      color: 'from-purple-500 to-purple-700',
-      bgColor: 'bg-purple-50',
-      borderColor: 'border-purple-200'
+      color: 'from-violet-500 to-purple-700',
+      bgColor: 'bg-violet-500/5',
+      borderColor: 'border-violet-500/20'
     },
     {
       company: 'Fit-First',
@@ -78,8 +78,8 @@ const Experience = () => {
         'Achieved high customer satisfaction and repeat business'
       ],
       color: 'from-pink-500 to-pink-700',
-      bgColor: 'bg-pink-50',
-      borderColor: 'border-pink-200'
+      bgColor: 'bg-pink-500/5',
+      borderColor: 'border-pink-500/20'
     },
     {
       company: 'SAVE',
@@ -96,8 +96,8 @@ const Experience = () => {
         'Improved development time and reduced code complexity'
       ],
       color: 'from-orange-500 to-orange-700',
-      bgColor: 'bg-orange-50',
-      borderColor: 'border-orange-200'
+      bgColor: 'bg-orange-500/5',
+      borderColor: 'border-orange-500/20'
     }
   ]
 
@@ -110,7 +110,7 @@ const Experience = () => {
   ]
 
   return (
-    <section id="experience" ref={ref} className="section-spacing bg-gradient-to-b from-green-50/30 to-white">
+    <section id="experience" ref={ref} className="section-spacing bg-dark-950">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -118,11 +118,11 @@ const Experience = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl lg:text-6xl font-bold mb-6">
-            <span className="gradient-text">Professional Journey</span>
+          <h2 className="text-4xl lg:text-6xl font-bold font-display mb-6">
+            <span className="gradient-text-saffron">Professional Journey</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            From founding my own startup to working with cutting-edge technologies in Japan, 
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            From founding my own startup to working with cutting-edge technologies in Japan,
             each experience has shaped my growth as a software engineer.
           </p>
         </motion.div>
@@ -136,24 +136,24 @@ const Experience = () => {
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
-                className={`${exp.bgColor} rounded-3xl p-8 border ${exp.borderColor} hover-lift`}
+                className={`glass-card rounded-3xl p-8 hover-lift`}
               >
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6">
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-3">
-                      <Building2 className={`w-6 h-6 text-gradient-to-r ${exp.color}`} />
-                      <h3 className="text-2xl font-bold text-gray-800">{exp.company}</h3>
+                      <Building2 className="w-6 h-6 text-saffron-500" />
+                      <h3 className="text-2xl font-bold text-white">{exp.company}</h3>
                       <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                        exp.type === 'Current' ? 'bg-green-100 text-green-700' :
-                        exp.type === 'Previous' ? 'bg-blue-100 text-blue-700' :
-                        exp.type === 'Training' ? 'bg-purple-100 text-purple-700' :
-                        'bg-pink-100 text-pink-700'
+                        exp.type === 'Current' ? 'bg-saffron-500/10 text-saffron-500' :
+                        exp.type === 'Previous' ? 'bg-blue-500/10 text-blue-400' :
+                        exp.type === 'Training' ? 'bg-violet-500/10 text-violet-400' :
+                        'bg-pink-500/10 text-pink-400'
                       }`}>
                         {exp.type}
                       </span>
                     </div>
-                    <h4 className="text-xl font-semibold text-gray-700 mb-2">{exp.position}</h4>
-                    <div className="flex items-center space-x-4 text-gray-600 mb-4">
+                    <h4 className="text-xl font-semibold text-gray-300 mb-2">{exp.position}</h4>
+                    <div className="flex items-center space-x-4 text-gray-500 mb-4">
                       <div className="flex items-center space-x-2">
                         <MapPin className="w-4 h-4" />
                         <span>{exp.location}</span>
@@ -163,13 +163,13 @@ const Experience = () => {
                         <span>{exp.duration}</span>
                       </div>
                     </div>
-                    <p className="text-gray-600 mb-4">{exp.description}</p>
+                    <p className="text-gray-400 mb-4">{exp.description}</p>
                   </div>
                 </div>
 
                 {/* Technologies */}
                 <div className="mb-6">
-                  <h5 className="font-semibold text-gray-700 mb-3 flex items-center">
+                  <h5 className="font-semibold text-gray-300 mb-3 flex items-center">
                     <Code className="w-4 h-4 mr-2" />
                     Technologies Used
                   </h5>
@@ -177,7 +177,7 @@ const Experience = () => {
                     {exp.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className={`px-3 py-1 bg-white rounded-full text-sm font-medium border ${exp.borderColor} hover:scale-105 transition-transform duration-200`}
+                        className="px-3 py-1 bg-white/5 rounded-full text-sm font-medium text-gray-300 border border-white/10 hover:scale-105 transition-transform duration-200"
                       >
                         {tech}
                       </span>
@@ -187,7 +187,7 @@ const Experience = () => {
 
                 {/* Key Achievements */}
                 <div>
-                  <h5 className="font-semibold text-gray-700 mb-3 flex items-center">
+                  <h5 className="font-semibold text-gray-300 mb-3 flex items-center">
                     <Award className="w-4 h-4 mr-2" />
                     Key Achievements
                   </h5>
@@ -198,9 +198,9 @@ const Experience = () => {
                         initial={{ opacity: 0, x: -20 }}
                         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                         transition={{ duration: 0.5, delay: 0.8 + index * 0.2 + idx * 0.1 }}
-                        className="flex items-start space-x-3 text-gray-600"
+                        className="flex items-start space-x-3 text-gray-400"
                       >
-                        <ChevronRight className="w-4 h-4 text-green-500 mt-1 flex-shrink-0" />
+                        <ChevronRight className="w-4 h-4 text-saffron-500 mt-1 flex-shrink-0" />
                         <span>{achievement}</span>
                       </motion.li>
                     ))}
@@ -217,9 +217,9 @@ const Experience = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="space-y-6"
           >
-            <div className="bg-white rounded-3xl p-6 shadow-xl border border-green-100">
-              <h3 className="text-2xl font-bold mb-6 text-gray-800 flex items-center">
-                <Database className="w-6 h-6 mr-3 text-green-600" />
+            <div className="glass-card rounded-3xl p-6">
+              <h3 className="text-2xl font-bold mb-6 text-white flex items-center">
+                <Database className="w-6 h-6 mr-3 text-saffron-500" />
                 Technical Skills
               </h3>
               <div className="space-y-6">
@@ -230,12 +230,12 @@ const Experience = () => {
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
                   >
-                    <h4 className="font-semibold text-gray-700 mb-3">{skillGroup.category}</h4>
+                    <h4 className="font-semibold text-gray-300 mb-3">{skillGroup.category}</h4>
                     <div className="flex flex-wrap gap-2">
                       {skillGroup.skills.map((skill) => (
                         <span
                           key={skill}
-                          className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium hover:bg-green-200 transition-colors duration-200"
+                          className="px-3 py-1 bg-saffron-500/10 text-saffron-500 rounded-full text-sm font-medium hover:bg-saffron-500/20 transition-colors duration-200"
                         >
                           {skill}
                         </span>
@@ -247,9 +247,9 @@ const Experience = () => {
             </div>
 
             {/* Language Proficiency */}
-            <div className="bg-white rounded-3xl p-6 shadow-xl border border-green-100">
-              <h3 className="text-2xl font-bold mb-6 text-gray-800 flex items-center">
-                <Users className="w-6 h-6 mr-3 text-green-600" />
+            <div className="glass-card rounded-3xl p-6">
+              <h3 className="text-2xl font-bold mb-6 text-white flex items-center">
+                <Users className="w-6 h-6 mr-3 text-saffron-500" />
                 Language Skills
               </h3>
               <div className="space-y-4">
@@ -266,15 +266,15 @@ const Experience = () => {
                     className="space-y-2"
                   >
                     <div className="flex justify-between items-center">
-                      <span className="font-medium text-gray-700">{lang.language}</span>
+                      <span className="font-medium text-gray-300">{lang.language}</span>
                       <span className="text-sm text-gray-500">{lang.level}</span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="w-full bg-white/5 rounded-full h-2">
                       <motion.div
                         initial={{ width: 0 }}
                         animate={isInView ? { width: `${lang.percentage}%` } : { width: 0 }}
                         transition={{ duration: 1, delay: 1 + index * 0.1 }}
-                        className="h-2 bg-gradient-to-r from-green-400 to-green-600 rounded-full"
+                        className="h-2 bg-gradient-to-r from-saffron-500 to-violet-500 rounded-full"
                       />
                     </div>
                   </motion.div>
@@ -283,20 +283,20 @@ const Experience = () => {
             </div>
 
             {/* Current Focus */}
-            <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-3xl p-6 border border-green-100">
-              <h3 className="text-xl font-bold mb-4 text-gray-800 flex items-center">
-                <Cloud className="w-5 h-5 mr-2 text-green-600" />
+            <div className="glass-card rounded-3xl p-6">
+              <h3 className="text-xl font-bold mb-4 text-white flex items-center">
+                <Cloud className="w-5 h-5 mr-2 text-saffron-500" />
                 Current Focus
               </h3>
-              <p className="text-gray-600 mb-4">
-                Deepening expertise in cloud architecture, system design, and cross-cultural 
+              <p className="text-gray-400 mb-4">
+                Deepening expertise in cloud architecture, system design, and cross-cultural
                 software development in the Japanese tech ecosystem.
               </p>
               <div className="flex space-x-2">
-                <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                <span className="px-3 py-1 bg-saffron-500/10 text-saffron-500 rounded-full text-sm font-medium">
                   .NET Architecture
                 </span>
-                <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+                <span className="px-3 py-1 bg-violet-500/10 text-violet-400 rounded-full text-sm font-medium">
                   Cloud Solutions
                 </span>
               </div>
@@ -309,4 +309,3 @@ const Experience = () => {
 }
 
 export default Experience
-

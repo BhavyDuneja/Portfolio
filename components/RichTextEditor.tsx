@@ -41,8 +41,8 @@ const RichTextEditor = ({ value, onChange, placeholder = 'Write your content her
 
   return (
     <div className="rich-text-editor">
+      {/* @ts-ignore */}
       <ReactQuill
-        ref={quillRef}
         theme="snow"
         value={value}
         onChange={onChange}
@@ -62,6 +62,19 @@ const RichTextEditor = ({ value, onChange, placeholder = 'Write your content her
         }
         .rich-text-editor .ql-editor {
           min-height: 300px;
+          color: #111827;
+          background: #ffffff;
+        }
+        .rich-text-editor .ql-editor h1,
+        .rich-text-editor .ql-editor h2,
+        .rich-text-editor .ql-editor h3,
+        .rich-text-editor .ql-editor h4,
+        .rich-text-editor .ql-editor h5,
+        .rich-text-editor .ql-editor h6,
+        .rich-text-editor .ql-editor p,
+        .rich-text-editor .ql-editor li,
+        .rich-text-editor .ql-editor blockquote {
+          color: #111827;
         }
         .rich-text-editor .ql-editor.ql-blank::before {
           color: #9ca3af;

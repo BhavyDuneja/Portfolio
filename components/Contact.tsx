@@ -21,7 +21,7 @@ const Contact = () => {
       title: 'Location',
       value: 'Osaka, Japan',
       link: 'https://maps.google.com/?q=Osaka,Japan',
-      color: 'from-purple-500 to-purple-600'
+      color: 'from-violet-500 to-purple-600'
     }
   ]
 
@@ -38,7 +38,7 @@ const Contact = () => {
       title: 'GitHub',
       value: 'bhavyaduneja',
       link: 'https://github.com/bhavyduneja',
-      color: 'from-gray-700 to-gray-800'
+      color: 'from-gray-600 to-gray-700'
     }
   ]
 
@@ -50,7 +50,7 @@ const Contact = () => {
   ]*/
 
   return (
-    <section id="contact" ref={ref} className="section-spacing bg-gradient-to-b from-green-50/30 to-white">
+    <section id="contact" ref={ref} className="section-spacing bg-dark-400">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -58,11 +58,11 @@ const Contact = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl lg:text-6xl font-bold mb-6">
-            <span className="gradient-text">Let's Connect</span>
+          <h2 className="text-4xl lg:text-6xl font-bold font-display mb-6">
+            <span className="gradient-text-saffron">Let's Connect</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Ready to collaborate on your next project? I'm always excited to discuss 
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            Ready to collaborate on your next project? I'm always excited to discuss
             new opportunities and innovative solutions.
           </p>
         </motion.div>
@@ -76,11 +76,11 @@ const Contact = () => {
             className="space-y-8"
           >
             {/* Contact Details */}
-            <div className="bg-white rounded-3xl p-8 shadow-xl border border-green-100">
-              <h3 className="text-3xl font-bold mb-8 text-gray-800 text-center">
+            <div className="glass-card rounded-3xl p-8">
+              <h3 className="text-3xl font-bold font-display mb-8 text-white text-center">
                 Let's Connect
               </h3>
-              
+
               {/* Contact Information Row */}
               <div className="grid md:grid-cols-2 gap-6 mb-8">
                 {contactInfo.map((info, index) => (
@@ -93,13 +93,13 @@ const Contact = () => {
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
                     whileHover={{ scale: 1.05, y: -5 }}
-                    className="flex flex-col items-center text-center p-6 rounded-2xl hover:bg-green-50 transition-all duration-300 border border-green-100 hover:border-green-200"
+                    className="flex flex-col items-center text-center p-6 rounded-2xl hover:bg-white/5 transition-all duration-300 border border-white/10 hover:border-white/20"
                   >
                     <div className={`w-16 h-16 bg-gradient-to-r ${info.color} rounded-full flex items-center justify-center mb-4`}>
                       <info.icon className="w-8 h-8 text-white" />
                     </div>
-                    <h4 className="font-bold text-gray-800 text-lg mb-2">{info.title}</h4>
-                    <p className="text-gray-600 text-sm">{info.value}</p>
+                    <h4 className="font-bold text-white text-lg mb-2">{info.title}</h4>
+                    <p className="text-gray-400 text-sm">{info.value}</p>
                   </motion.a>
                 ))}
               </div>
@@ -116,13 +116,13 @@ const Contact = () => {
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
                     whileHover={{ scale: 1.05, y: -5 }}
-                    className="flex flex-col items-center text-center p-6 rounded-2xl hover:bg-green-50 transition-all duration-300 border border-green-100 hover:border-green-200"
+                    className="flex flex-col items-center text-center p-6 rounded-2xl hover:bg-white/5 transition-all duration-300 border border-white/10 hover:border-white/20"
                   >
                     <div className={`w-16 h-16 bg-gradient-to-r ${info.color} rounded-full flex items-center justify-center mb-4`}>
                       <info.icon className="w-8 h-8 text-white" />
                     </div>
-                    <h4 className="font-bold text-gray-800 text-lg mb-2">{info.title}</h4>
-                    <p className="text-gray-600 text-sm">{info.value}</p>
+                    <h4 className="font-bold text-white text-lg mb-2">{info.title}</h4>
+                    <p className="text-gray-400 text-sm">{info.value}</p>
                   </motion.a>
                 ))}
               </div>
@@ -130,12 +130,12 @@ const Contact = () => {
 
 
             {/* Availability */}
-            {/*<div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-3xl p-8 border border-green-100">
-              <h3 className="text-2xl font-bold mb-6 text-gray-800 flex items-center">
-                <Clock className="w-6 h-6 mr-3 text-green-600" />
+            {/*<div className="glass-card rounded-3xl p-8">
+              <h3 className="text-2xl font-bold mb-6 text-white flex items-center">
+                <Clock className="w-6 h-6 mr-3 text-saffron-500" />
                 Availability
               </h3>
-              
+
               <div className="space-y-4">
                 {availability.map((slot, index) => (
                   <motion.div
@@ -143,16 +143,16 @@ const Contact = () => {
                     initial={{ opacity: 0, x: 20 }}
                     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
                     transition={{ duration: 0.6, delay: 1 + index * 0.1 }}
-                    className="flex justify-between items-center p-3 bg-white rounded-lg"
+                    className="flex justify-between items-center p-3 bg-white/5 rounded-lg"
                   >
                     <div>
-                      <p className="font-semibold text-gray-800">{slot.day}</p>
-                      <p className="text-sm text-gray-600">{slot.time}</p>
+                      <p className="font-semibold text-white">{slot.day}</p>
+                      <p className="text-sm text-gray-400">{slot.time}</p>
                     </div>
                     <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      slot.status === 'Available' ? 'bg-green-100 text-green-700' :
-                      slot.status === 'Limited' ? 'bg-yellow-100 text-yellow-700' :
-                      'bg-gray-100 text-gray-700'
+                      slot.status === 'Available' ? 'bg-saffron-500/10 text-saffron-500' :
+                      slot.status === 'Limited' ? 'bg-yellow-500/10 text-yellow-400' :
+                      'bg-white/5 text-gray-400'
                     }`}>
                       {slot.status}
                     </span>
@@ -170,10 +170,10 @@ const Contact = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="mt-20 text-center"
         >
-          <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-3xl p-12 border border-green-100">
-            <h3 className="text-3xl font-bold mb-6 text-gray-800">Ready to Start Your Project?</h3>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Whether you need a full-stack application, cloud architecture consultation, 
+          <div className="glass-card rounded-3xl p-12">
+            <h3 className="text-3xl font-bold font-display mb-6 text-white">Ready to Start Your Project?</h3>
+            <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
+              Whether you need a full-stack application, cloud architecture consultation,
               or system optimization, I'm here to help bring your ideas to life.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -181,7 +181,7 @@ const Contact = () => {
                 href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@anantasutra.com"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-full hover:from-green-600 hover:to-green-700 transition-all duration-300 flex items-center justify-center space-x-2"
+                className="btn-primary px-8 py-4 font-semibold rounded-full transition-all duration-300 flex items-center justify-center space-x-2"
               >
                 <Mail className="w-5 h-5" />
                 <span>Start a Conversation</span>
@@ -195,4 +195,3 @@ const Contact = () => {
 }
 
 export default Contact
-
