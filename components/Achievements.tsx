@@ -16,8 +16,6 @@ const Achievements = () => {
       issuer: 'Amazon Web Services',
       icon: Award,
       color: 'from-yellow-500 to-orange-500',
-      bgColor: 'bg-yellow-50',
-      borderColor: 'border-yellow-200',
       category: 'Cloud Architecture'
     },
     {
@@ -27,8 +25,6 @@ const Achievements = () => {
       issuer: 'Amazon Web Services',
       icon: Star,
       color: 'from-blue-500 to-blue-600',
-      bgColor: 'bg-blue-50',
-      borderColor: 'border-blue-200',
       category: 'Cloud Fundamentals'
     },
     {
@@ -38,8 +34,6 @@ const Achievements = () => {
       issuer: 'Udemy',
       icon: Code,
       color: 'from-cyan-500 to-blue-500',
-      bgColor: 'bg-cyan-50',
-      borderColor: 'border-cyan-200',
       category: 'Frontend Development'
     },
     {
@@ -49,8 +43,6 @@ const Achievements = () => {
       issuer: 'Japan Foundation',
       icon: Globe,
       color: 'from-red-500 to-pink-500',
-      bgColor: 'bg-red-50',
-      borderColor: 'border-red-200',
       category: 'Language Proficiency'
     }
   ]
@@ -61,7 +53,7 @@ const Achievements = () => {
       description: 'Built and scaled an e-commerce platform to 4+ lakhs revenue',
       year: '2021-2022',
       icon: Trophy,
-      color: 'from-green-500 to-green-600',
+      color: 'from-saffron-500 to-orange-600',
       impact: '4+ Lakhs Revenue'
     },
     {
@@ -69,7 +61,7 @@ const Achievements = () => {
       description: 'Relocated to Osaka for professional growth and cultural experience',
       year: '2024',
       icon: MapPin,
-      color: 'from-purple-500 to-purple-600',
+      color: 'from-violet-500 to-purple-600',
       impact: 'International Experience'
     },
     {
@@ -77,7 +69,7 @@ const Achievements = () => {
       description: 'Led redesign of complex .NET systems using DDD and CQRS patterns',
       year: '2025',
       icon: Target,
-      color: 'from-emerald-500 to-emerald-600',
+      color: 'from-saffron-500 to-violet-500',
       impact: 'Technical Leadership'
     },
     {
@@ -98,7 +90,7 @@ const Achievements = () => {
   ]
 
   return (
-    <section id="achievements" ref={ref} className="section-spacing bg-gradient-to-b from-white to-green-50/30">
+    <section id="achievements" ref={ref} className="section-spacing bg-dark-400">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -106,11 +98,11 @@ const Achievements = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl lg:text-6xl font-bold mb-6">
-            <span className="gradient-text">Achievements & Milestones</span>
+          <h2 className="text-4xl lg:text-6xl font-bold font-display mb-6">
+            <span className="gradient-text-saffron">Achievements & Milestones</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Recognition, growth, and meaningful accomplishments that define my professional journey 
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            Recognition, growth, and meaningful accomplishments that define my professional journey
             and personal development.
           </p>
         </motion.div>
@@ -122,7 +114,7 @@ const Achievements = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-16"
         >
-          <h3 className="text-3xl font-bold text-center mb-8 text-gray-800">Professional Certifications</h3>
+          <h3 className="text-3xl font-bold font-display text-center mb-8 text-white">Professional Certifications</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {achievements.map((achievement, index) => (
               <motion.div
@@ -131,23 +123,23 @@ const Achievements = () => {
                 animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className={`${achievement.bgColor} rounded-3xl p-6 border ${achievement.borderColor} hover-lift`}
+                className="glass-card rounded-3xl p-6 hover-lift"
               >
                 <div className={`w-16 h-16 bg-gradient-to-r ${achievement.color} rounded-full flex items-center justify-center mb-4`}>
                   <achievement.icon className="w-8 h-8 text-white" />
                 </div>
-                <h4 className="font-bold text-gray-800 mb-2 text-lg">{achievement.title}</h4>
-                <p className="text-gray-600 text-sm mb-3">{achievement.description}</p>
+                <h4 className="font-bold text-white mb-2 text-lg">{achievement.title}</h4>
+                <p className="text-gray-400 text-sm mb-3">{achievement.description}</p>
                 <div className="flex justify-between items-center text-sm">
                   <span className="text-gray-500">{achievement.issuer}</span>
-                  <span className="font-semibold text-gray-700">{achievement.year}</span>
+                  <span className="font-semibold text-gray-300">{achievement.year}</span>
                 </div>
                 <div className="mt-3">
                   <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    achievement.category === 'Cloud Architecture' ? 'bg-yellow-100 text-yellow-700' :
-                    achievement.category === 'Cloud Fundamentals' ? 'bg-blue-100 text-blue-700' :
-                    achievement.category === 'Frontend Development' ? 'bg-cyan-100 text-cyan-700' :
-                    'bg-red-100 text-red-700'
+                    achievement.category === 'Cloud Architecture' ? 'bg-yellow-500/10 text-yellow-400' :
+                    achievement.category === 'Cloud Fundamentals' ? 'bg-blue-500/10 text-blue-400' :
+                    achievement.category === 'Frontend Development' ? 'bg-cyan-500/10 text-cyan-400' :
+                    'bg-red-500/10 text-red-400'
                   }`}>
                     {achievement.category}
                   </span>
@@ -164,7 +156,7 @@ const Achievements = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mb-16"
         >
-          <h3 className="text-3xl font-bold text-center mb-8 text-gray-800">Career Milestones</h3>
+          <h3 className="text-3xl font-bold font-display text-center mb-8 text-white">Career Milestones</h3>
           <div className="grid lg:grid-cols-2 gap-8">
             {milestones.map((milestone, index) => (
               <motion.div
@@ -173,7 +165,7 @@ const Achievements = () => {
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 transition={{ duration: 0.8, delay: 0.6 + index * 0.1 }}
                 whileHover={{ scale: 1.02, x: index % 2 === 0 ? -5 : 5 }}
-                className="bg-white rounded-3xl p-8 shadow-xl border border-green-100 hover:shadow-2xl transition-all duration-300"
+                className="glass-card rounded-3xl p-8 hover:shadow-2xl transition-all duration-300"
               >
                 <div className="flex items-start space-x-4">
                   <div className={`w-16 h-16 bg-gradient-to-r ${milestone.color} rounded-full flex items-center justify-center flex-shrink-0`}>
@@ -181,13 +173,13 @@ const Achievements = () => {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-2">
-                      <h4 className="text-xl font-bold text-gray-800">{milestone.title}</h4>
+                      <h4 className="text-xl font-bold text-white">{milestone.title}</h4>
                       <span className="text-sm text-gray-500">{milestone.year}</span>
                     </div>
-                    <p className="text-gray-600 mb-4">{milestone.description}</p>
+                    <p className="text-gray-400 mb-4">{milestone.description}</p>
                     <div className="flex items-center space-x-2">
-                      <Trophy className="w-4 h-4 text-green-600" />
-                      <span className="text-sm font-semibold text-green-600">{milestone.impact}</span>
+                      <Trophy className="w-4 h-4 text-saffron-500" />
+                      <span className="text-sm font-semibold text-saffron-500">{milestone.impact}</span>
                     </div>
                   </div>
                 </div>
@@ -210,13 +202,13 @@ const Achievements = () => {
               animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
               whileHover={{ scale: 1.05 }}
-              className="text-center bg-gradient-to-br from-green-50 to-blue-50 rounded-2xl p-6 shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300"
+              className="text-center glass-card rounded-2xl p-6 hover:shadow-xl transition-all duration-300"
             >
-              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-gradient-to-r from-saffron-500 to-violet-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <stat.icon className="w-8 h-8 text-white" />
               </div>
-              <div className="text-3xl font-bold text-green-600 mb-2">{stat.number}</div>
-              <div className="text-gray-600 font-medium">{stat.label}</div>
+              <div className="text-3xl font-bold text-saffron-500 mb-2">{stat.number}</div>
+              <div className="text-gray-400 font-medium">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
@@ -228,24 +220,24 @@ const Achievements = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="text-center"
         >
-          <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-3xl p-12 border border-green-100">
-            <h3 className="text-3xl font-bold mb-6 text-gray-800">Achievement Philosophy</h3>
-            <blockquote className="text-xl text-gray-700 italic leading-relaxed max-w-4xl mx-auto mb-8">
-              "Success isn't just about individual accomplishments—it's about the impact we create, 
-              the bridges we build between cultures, and the problems we solve for others. 
-              Every certification, every project, every milestone is a stepping stone toward 
+          <div className="glass-card rounded-3xl p-12">
+            <h3 className="text-3xl font-bold font-display mb-6 text-white">Achievement Philosophy</h3>
+            <blockquote className="text-xl text-gray-400 italic leading-relaxed max-w-4xl mx-auto mb-8">
+              "Success isn't just about individual accomplishments--it's about the impact we create,
+              the bridges we build between cultures, and the problems we solve for others.
+              Every certification, every project, every milestone is a stepping stone toward
               making technology more accessible and meaningful."
             </blockquote>
             <div className="flex justify-center space-x-8">
-              <div className="flex items-center space-x-2 text-green-600">
+              <div className="flex items-center space-x-2 text-saffron-500">
                 <Award className="w-5 h-5" />
                 <span className="font-medium">Continuous Growth</span>
               </div>
-              <div className="flex items-center space-x-2 text-blue-600">
+              <div className="flex items-center space-x-2 text-violet-500">
                 <Globe className="w-5 h-5" />
                 <span className="font-medium">Global Impact</span>
               </div>
-              <div className="flex items-center space-x-2 text-purple-600">
+              <div className="flex items-center space-x-2 text-violet-400">
                 <Users className="w-5 h-5" />
                 <span className="font-medium">Collaborative Success</span>
               </div>
@@ -258,4 +250,3 @@ const Achievements = () => {
 }
 
 export default Achievements
-

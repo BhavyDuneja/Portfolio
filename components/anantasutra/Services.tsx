@@ -2,213 +2,172 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { 
-  Code, 
-  Cloud, 
-  Database, 
-  Shield, 
-  Smartphone, 
-  Zap, 
-  Users, 
-  BarChart3,
+import {
+  Brain,
+  Megaphone,
+  BookOpen,
+  ShoppingBag,
+  Building2,
+  Globe,
+  Briefcase,
+  GraduationCap,
   ArrowRight,
-  CheckCircle
 } from 'lucide-react'
 import Link from 'next/link'
 
+const activeServices = [
+  {
+    icon: Brain,
+    title: 'AI Automation & Intelligence',
+    description:
+      'Voice calling agents starting at \u20B96/min. Video generators, social media automation, Gmail automation, AI marketing tools, and recruiter AI at \u20B92/lead.',
+    accent: '#E8A317',
+    tags: ['Voice Agents', 'Video AI', 'Marketing AI', 'Recruiter AI'],
+    link: '/services/ai-automation',
+  },
+  {
+    icon: Megaphone,
+    title: 'Creative & Marketing Agency',
+    description:
+      'End-to-end marketing support. From professional shooting and content creation to complete social media management and brand strategy.',
+    accent: '#6A3DE8',
+    tags: ['Content', 'Social Media', 'Branding', 'Strategy'],
+    link: '/services/marketing',
+  },
+  {
+    icon: BookOpen,
+    title: 'Wisdom & Lifestyle Apps',
+    description:
+      'Granthas \u2014 all Hindu scriptures in one place. Ritualist \u2014 your free daily activity companion. Connecting ancient wisdom with modern living.',
+    accent: '#E8A317',
+    tags: ['Granthas', 'Ritualist', 'Free Apps'],
+    link: '/apps',
+  },
+]
+
+const comingSoonServices = [
+  { icon: ShoppingBag, title: 'E-commerce' },
+  { icon: Building2, title: 'Real Estate' },
+  { icon: Globe, title: 'Immigration Support' },
+  { icon: Briefcase, title: 'Business Solutions' },
+  { icon: GraduationCap, title: 'Academic Solutions' },
+]
+
 const Services = () => {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.2 })
-
-  const services = [
-    {
-      icon: Code,
-      title: 'Full-Stack Development',
-      description: 'End-to-end web and mobile application development using modern technologies and best practices.',
-      features: [
-        'React, Next.js, Node.js',
-        'RESTful API Development',
-        'Database Design & Integration',
-        'Responsive UI/UX Design',
-        'Performance Optimization'
-      ],
-      color: 'from-blue-500 to-blue-600',
-      bgColor: 'bg-blue-50',
-      borderColor: 'border-blue-200'
-    },
-    {
-      icon: Cloud,
-      title: 'Cloud Architecture',
-      description: 'Scalable cloud solutions using AWS, Azure, and Google Cloud Platform.',
-      features: [
-        'AWS/Azure/GCP Migration',
-        'Microservices Architecture',
-        'Container Orchestration',
-        'Auto-scaling Solutions',
-        'Cost Optimization'
-      ],
-      color: 'from-purple-500 to-purple-600',
-      bgColor: 'bg-purple-50',
-      borderColor: 'border-purple-200'
-    },
-    {
-      icon: Database,
-      title: 'Database Solutions',
-      description: 'Robust database design and optimization for high-performance applications.',
-      features: [
-        'SQL & NoSQL Databases',
-        'Data Modeling & Design',
-        'Performance Tuning',
-        'Backup & Recovery',
-        'Data Migration'
-      ],
-      color: 'from-green-500 to-green-600',
-      bgColor: 'bg-green-50',
-      borderColor: 'border-green-200'
-    },
-    {
-      icon: Shield,
-      title: 'Security Solutions',
-      description: 'Comprehensive security implementation to protect your applications and data.',
-      features: [
-        'Security Audits',
-        'Authentication Systems',
-        'Data Encryption',
-        'Compliance Standards',
-        'Threat Monitoring'
-      ],
-      color: 'from-red-500 to-red-600',
-      bgColor: 'bg-red-50',
-      borderColor: 'border-red-200'
-    },
-    {
-      icon: Smartphone,
-      title: 'Mobile Development',
-      description: 'Native and cross-platform mobile applications for iOS and Android.',
-      features: [
-        'React Native Development',
-        'iOS & Android Apps',
-        'App Store Optimization',
-        'Push Notifications',
-        'Offline Capabilities'
-      ],
-      color: 'from-orange-500 to-orange-600',
-      bgColor: 'bg-orange-50',
-      borderColor: 'border-orange-200'
-    },
-    {
-      icon: Zap,
-      title: 'Performance Optimization',
-      description: 'Speed and efficiency improvements for existing applications and systems.',
-      features: [
-        'Code Optimization',
-        'Database Tuning',
-        'Caching Strategies',
-        'Load Balancing',
-        'Monitoring & Analytics'
-      ],
-      color: 'from-yellow-500 to-yellow-600',
-      bgColor: 'bg-yellow-50',
-      borderColor: 'border-yellow-200'
-    }
-  ]
+  const isInView = useInView(ref, { once: true, amount: 0.15 })
 
   return (
-    <section ref={ref} className="py-20 bg-gray-50">
+    <section ref={ref} className="py-24 md:py-32 bg-[#0A0A0F]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Our <span className="text-emerald-600">Services</span>
+          <span className="text-[#E8A317] text-sm font-semibold uppercase tracking-widest block mb-4">
+            OUR UNIVERSE
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-display">
+            A Constellation of Ventures
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            We offer comprehensive technology solutions to help your business 
-            thrive in the digital landscape. From development to deployment, 
-            we've got you covered.
-          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => {
+        {/* Active Service Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+          {activeServices.map((service, index) => {
             const Icon = service.icon
             return (
               <motion.div
                 key={service.title}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`${service.bgColor} ${service.borderColor} border rounded-2xl p-8 hover:shadow-xl transition-all duration-300 group hover:scale-105`}
+                transition={{ duration: 0.6, delay: index * 0.15 }}
+                className="group relative bg-white/[0.03] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-8 hover:border-opacity-30 transition-all duration-500"
+                style={{
+                  ['--glow-color' as string]: service.accent,
+                }}
               >
-                <div className={`w-16 h-16 bg-gradient-to-br ${service.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <Icon className="w-8 h-8 text-white" />
+                {/* Hover Glow */}
+                <div
+                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{
+                    boxShadow: `inset 0 0 60px ${service.accent}10, 0 0 40px ${service.accent}08`,
+                  }}
+                ></div>
+
+                <div className="relative z-10">
+                  {/* Icon */}
+                  <div
+                    className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110"
+                    style={{ backgroundColor: `${service.accent}15` }}
+                  >
+                    <Icon className="w-7 h-7" style={{ color: service.accent }} />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-xl font-bold text-white mb-4">{service.title}</h3>
+
+                  {/* Description */}
+                  <p className="text-gray-400 leading-relaxed mb-6">{service.description}</p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {service.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-xs px-3 py-1 rounded-full border border-white/10 text-gray-400 bg-white/[0.03]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Link */}
+                  <Link
+                    href={service.link}
+                    className="inline-flex items-center space-x-2 text-sm font-medium transition-colors duration-300 group-hover:translate-x-1"
+                    style={{ color: service.accent }}
+                  >
+                    <span>Learn More</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
                 </div>
-                
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  {service.title}
-                </h3>
-                
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  {service.description}
-                </p>
-
-                <ul className="space-y-3 mb-6">
-                  {service.features.map((feature, featureIndex) => (
-                    <motion.li
-                      key={featureIndex}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={isInView ? { opacity: 1, x: 0 } : {}}
-                      transition={{ duration: 0.4, delay: 0.3 + index * 0.1 + featureIndex * 0.05 }}
-                      className="flex items-center space-x-3"
-                    >
-                      <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
-                      <span className="text-gray-700 text-sm">{feature}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-
-                <Link
-                  href="/contact"
-                  className={`w-full bg-gradient-to-r ${service.color} text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2 group-hover:scale-105`}
-                >
-                  <span>Learn More</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
               </motion.div>
             )
           })}
         </div>
 
-        {/* CTA Section */}
+        {/* Coming Soon Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-16 text-center"
+          transition={{ duration: 0.7, delay: 0.5 }}
         >
-          <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-3xl p-8 md:p-12 text-white">
-            <h3 className="text-3xl font-bold mb-4">Ready to Get Started?</h3>
-            <p className="text-xl mb-8 opacity-90">
-              Let's discuss your project and create a solution that drives your business forward.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="bg-white text-emerald-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105 flex items-center justify-center space-x-2"
-              >
-                <span>Get Free Consultation</span>
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link
-                href="/testimonials"
-                className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-emerald-600 transition-all duration-300 hover:scale-105"
-              >
-                View Our Portfolio
-              </Link>
-            </div>
+          <h3 className="text-lg font-semibold text-gray-500 mb-6 text-center">
+            Expanding Our Universe
+          </h3>
+          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide justify-center flex-wrap">
+            {comingSoonServices.map((service, index) => {
+              const Icon = service.icon
+              return (
+                <motion.div
+                  key={service.title}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                  className="flex-shrink-0 relative bg-white/[0.02] border border-white/[0.06] rounded-xl px-6 py-4 flex items-center space-x-3 min-w-[180px] mt-3 mr-2"
+                >
+                  <Icon className="w-5 h-5 text-gray-600" />
+                  <span className="text-gray-500 text-sm font-medium">{service.title}</span>
+                  <span className="absolute -top-2 -right-2 text-[10px] px-2 py-0.5 rounded-full bg-[#6A3DE8]/20 text-[#6A3DE8] border border-[#6A3DE8]/30 font-medium">
+                    Soon
+                  </span>
+                </motion.div>
+              )
+            })}
           </div>
         </motion.div>
       </div>

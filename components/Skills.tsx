@@ -13,8 +13,6 @@ const Skills = () => {
       title: 'Backend Development',
       icon: Code,
       color: 'from-blue-500 to-blue-700',
-      bgColor: 'bg-blue-50',
-      borderColor: 'border-blue-200',
       skills: [
         { name: '.NET / C#', level: 95, experience: '3+ years' },
         { name: 'F#', level: 85, experience: '1+ year' },
@@ -27,9 +25,7 @@ const Skills = () => {
     {
       title: 'Frontend Development',
       icon: Layers,
-      color: 'from-green-500 to-green-700',
-      bgColor: 'bg-green-50',
-      borderColor: 'border-green-200',
+      color: 'from-saffron-500 to-orange-600',
       skills: [
         { name: 'React', level: 90, experience: '3+ years' },
         { name: 'JavaScript', level: 95, experience: '4+ years' },
@@ -42,9 +38,7 @@ const Skills = () => {
     {
       title: 'Cloud & DevOps',
       icon: Cloud,
-      color: 'from-purple-500 to-purple-700',
-      bgColor: 'bg-purple-50',
-      borderColor: 'border-purple-200',
+      color: 'from-violet-500 to-purple-700',
       skills: [
         { name: 'AWS', level: 85, experience: '2+ years' },
         { name: 'Azure', level: 80, experience: '1+ year' },
@@ -58,8 +52,6 @@ const Skills = () => {
       title: 'Database & Data',
       icon: Database,
       color: 'from-orange-500 to-orange-700',
-      bgColor: 'bg-orange-50',
-      borderColor: 'border-orange-200',
       skills: [
         { name: 'MySQL', level: 90, experience: '3+ years' },
         { name: 'MongoDB', level: 85, experience: '2+ years' },
@@ -73,8 +65,6 @@ const Skills = () => {
       title: 'System Design',
       icon: Cpu,
       color: 'from-pink-500 to-pink-700',
-      bgColor: 'bg-pink-50',
-      borderColor: 'border-pink-200',
       skills: [
         { name: 'Architecture Design', level: 85, experience: '2+ years' },
         { name: 'DDD', level: 80, experience: '1+ year' },
@@ -87,9 +77,7 @@ const Skills = () => {
     {
       title: 'Languages & Communication',
       icon: Globe,
-      color: 'from-emerald-500 to-emerald-700',
-      bgColor: 'bg-emerald-50',
-      borderColor: 'border-emerald-200',
+      color: 'from-saffron-500 to-violet-500',
       skills: [
         { name: 'English', level: 95, experience: 'Native/Business' },
         { name: 'Japanese', level: 75, experience: 'JLPT N3' },
@@ -140,7 +128,7 @@ const Skills = () => {
   ]
 
   return (
-    <section id="skills" ref={ref} className="section-spacing bg-gradient-to-b from-green-50/30 to-white">
+    <section id="skills" ref={ref} className="section-spacing bg-dark-950">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -148,11 +136,11 @@ const Skills = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl lg:text-6xl font-bold mb-6">
-            <span className="gradient-text">Skills & Expertise</span>
+          <h2 className="text-4xl lg:text-6xl font-bold font-display mb-6">
+            <span className="gradient-text-saffron">Skills & Expertise</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            A comprehensive skill set developed through hands-on experience, 
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            A comprehensive skill set developed through hands-on experience,
             continuous learning, and working across diverse technology stacks.
           </p>
         </motion.div>
@@ -165,13 +153,13 @@ const Skills = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
               transition={{ duration: 0.8, delay: categoryIndex * 0.1 }}
-              className={`${category.bgColor} rounded-3xl p-8 border ${category.borderColor} hover-lift`}
+              className="glass-card rounded-3xl p-8 hover-lift"
             >
               <div className="flex items-center space-x-3 mb-6">
                 <div className={`w-12 h-12 bg-gradient-to-r ${category.color} rounded-full flex items-center justify-center`}>
                   <category.icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-800">{category.title}</h3>
+                <h3 className="text-2xl font-bold text-white">{category.title}</h3>
               </div>
 
               <div className="space-y-4">
@@ -184,13 +172,13 @@ const Skills = () => {
                     className="space-y-2"
                   >
                     <div className="flex justify-between items-center">
-                      <span className="font-medium text-gray-700">{skill.name}</span>
+                      <span className="font-medium text-gray-300">{skill.name}</span>
                       <div className="flex items-center space-x-2">
                         <span className="text-sm text-gray-500">{skill.experience}</span>
-                        <span className="text-sm font-semibold text-gray-600">{skill.level}%</span>
+                        <span className="text-sm font-semibold text-gray-400">{skill.level}%</span>
                       </div>
                     </div>
-                    <div className="w-full bg-white rounded-full h-3 shadow-inner">
+                    <div className="w-full bg-white/5 rounded-full h-3 shadow-inner">
                       <motion.div
                         initial={{ width: 0 }}
                         animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
@@ -212,7 +200,7 @@ const Skills = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mb-16"
         >
-          <h3 className="text-3xl font-bold text-center mb-8 text-gray-800">Certifications & Achievements</h3>
+          <h3 className="text-3xl font-bold font-display text-center mb-8 text-white">Certifications & Achievements</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {certifications.map((cert, index) => (
               <motion.div
@@ -221,13 +209,13 @@ const Skills = () => {
                 animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="bg-white rounded-2xl p-6 shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300"
+                className="glass-card rounded-2xl p-6 hover:shadow-xl transition-all duration-300"
               >
                 <div className={`w-12 h-12 bg-gradient-to-r ${cert.color} rounded-full flex items-center justify-center mb-4`}>
                   <cert.icon className="w-6 h-6 text-white" />
                 </div>
-                <h4 className="font-bold text-gray-800 mb-2 text-sm">{cert.name}</h4>
-                <p className="text-gray-600 text-sm mb-1">{cert.issuer}</p>
+                <h4 className="font-bold text-white mb-2 text-sm">{cert.name}</h4>
+                <p className="text-gray-400 text-sm mb-1">{cert.issuer}</p>
                 <p className="text-gray-500 text-xs">{cert.year}</p>
               </motion.div>
             ))}
@@ -248,13 +236,13 @@ const Skills = () => {
               animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.6, delay: 1 + index * 0.1 }}
               whileHover={{ scale: 1.05 }}
-              className="text-center bg-gradient-to-br from-green-50 to-blue-50 rounded-2xl p-6 shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300"
+              className="text-center glass-card rounded-2xl p-6 hover:shadow-xl transition-all duration-300"
             >
-              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-gradient-to-r from-saffron-500 to-violet-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <achievement.icon className="w-8 h-8 text-white" />
               </div>
-              <div className="text-3xl font-bold text-green-600 mb-2">{achievement.number}</div>
-              <div className="text-gray-600 font-medium">{achievement.label}</div>
+              <div className="text-3xl font-bold text-saffron-500 mb-2">{achievement.number}</div>
+              <div className="text-gray-400 font-medium">{achievement.label}</div>
             </motion.div>
           ))}
         </motion.div>
@@ -266,25 +254,25 @@ const Skills = () => {
           transition={{ duration: 0.8, delay: 1.2 }}
           className="mt-20 text-center"
         >
-          <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-3xl p-12 border border-green-100">
-            <h3 className="text-3xl font-bold mb-6 text-gray-800">Learning Philosophy</h3>
-            <blockquote className="text-xl text-gray-700 italic leading-relaxed max-w-4xl mx-auto mb-8">
-              "Technology is constantly evolving, and so must we. My approach to learning is hands-on, 
-              project-driven, and always focused on solving real-world problems. Every new technology 
+          <div className="glass-card rounded-3xl p-12">
+            <h3 className="text-3xl font-bold font-display mb-6 text-white">Learning Philosophy</h3>
+            <blockquote className="text-xl text-gray-400 italic leading-relaxed max-w-4xl mx-auto mb-8">
+              "Technology is constantly evolving, and so must we. My approach to learning is hands-on,
+              project-driven, and always focused on solving real-world problems. Every new technology
               I learn is an opportunity to build something meaningful."
             </blockquote>
             <div className="flex justify-center space-x-4">
-              <div className="flex items-center space-x-2 text-green-600">
+              <div className="flex items-center space-x-2 text-saffron-500">
                 <Zap className="w-5 h-5" />
                 <span className="font-medium">Continuous Learning</span>
               </div>
-              <div className="w-1 h-1 bg-gray-400 rounded-full" />
-              <div className="flex items-center space-x-2 text-blue-600">
+              <div className="w-1 h-1 bg-gray-600 rounded-full" />
+              <div className="flex items-center space-x-2 text-violet-500">
                 <Code className="w-5 h-5" />
                 <span className="font-medium">Hands-on Practice</span>
               </div>
-              <div className="w-1 h-1 bg-gray-400 rounded-full" />
-              <div className="flex items-center space-x-2 text-purple-600">
+              <div className="w-1 h-1 bg-gray-600 rounded-full" />
+              <div className="flex items-center space-x-2 text-violet-400">
                 <Users className="w-5 h-5" />
                 <span className="font-medium">Collaborative Growth</span>
               </div>
@@ -297,4 +285,3 @@ const Skills = () => {
 }
 
 export default Skills
-

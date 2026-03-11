@@ -42,13 +42,13 @@ const Hero = () => {
   return (
     <section
       ref={ref}
-      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-white via-green-50/30 to-green-100/20 pt-16"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-dark-950 pt-16"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-green-200/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-green-300/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-green-400/10 rounded-full blur-2xl animate-float" style={{ animationDelay: '4s' }} />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-saffron-500/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-violet-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-saffron-500/5 rounded-full blur-2xl animate-float" style={{ animationDelay: '4s' }} />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -71,8 +71,8 @@ const Hero = () => {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="flex items-center space-x-3"
             >
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-              <span className="text-green-600 font-medium">Hello, I'm</span>
+              <div className="w-2 h-2 bg-saffron-500 rounded-full animate-pulse" />
+              <span className="text-saffron-500 font-medium">Hello, I'm</span>
             </motion.div>
 
             {/* Name */}
@@ -80,11 +80,11 @@ const Hero = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="text-5xl lg:text-7xl font-bold leading-tight"
+              className="text-5xl lg:text-7xl font-bold font-display leading-tight"
             >
-              <span className="gradient-text">Bhavya</span>
+              <span className="gradient-text-saffron">Bhavya</span>
               <br />
-              <span className="text-gray-800">Duneja</span>
+              <span className="text-white">Duneja</span>
             </motion.h1>
 
             {/* Dynamic Text */}
@@ -94,7 +94,7 @@ const Hero = () => {
               transition={{ delay: 0.6, duration: 0.6 }}
               className="h-16 flex items-center"
             >
-              <span className="text-2xl lg:text-3xl font-semibold text-gray-700">
+              <span className="text-2xl lg:text-3xl font-semibold text-gray-400">
                 I'm a{' '}
                 <motion.span
                   key={currentText}
@@ -102,7 +102,7 @@ const Hero = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5 }}
-                  className="text-green-600 inline-block"
+                  className="text-saffron-500 inline-block"
                 >
                   {texts[currentText]}
                 </motion.span>
@@ -114,10 +114,10 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.6 }}
-              className="text-lg text-gray-600 leading-relaxed max-w-lg"
+              className="text-lg text-gray-400 leading-relaxed max-w-lg"
             >
-              Software Engineer with expertise in .NET, ReactJS, AWS, and Azure. 
-              Currently based in Osaka, Japan, bringing innovative solutions 
+              Software Engineer with expertise in .NET, ReactJS, AWS, and Azure.
+              Currently based in Osaka, Japan, bringing innovative solutions
               and bridging cultures through technology.
             </motion.p>
 
@@ -128,16 +128,16 @@ const Hero = () => {
               transition={{ delay: 1, duration: 0.6 }}
               className="space-y-3"
             >
-              <div className="flex items-center space-x-3 text-gray-600">
-                <MapPin className="w-5 h-5 text-green-600" />
+              <div className="flex items-center space-x-3 text-gray-400">
+                <MapPin className="w-5 h-5 text-saffron-500" />
                 <span>Currently in Osaka, Japan</span>
               </div>
-              <div className="flex items-center space-x-3 text-gray-600">
-                <Calendar className="w-5 h-5 text-green-600" />
+              <div className="flex items-center space-x-3 text-gray-400">
+                <Calendar className="w-5 h-5 text-saffron-500" />
                 <span>24 years old • Born January 23, 2001</span>
               </div>
-              <div className="flex items-center space-x-3 text-gray-600">
-                <Mail className="w-5 h-5 text-green-600" />
+              <div className="flex items-center space-x-3 text-gray-400">
+                <Mail className="w-5 h-5 text-saffron-500" />
                 <span>contact@anantasutra.com</span>
               </div>
             </motion.div>
@@ -153,7 +153,7 @@ const Hero = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={scrollToAbout}
-                className="px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:from-green-600 hover:to-green-700 flex items-center space-x-2"
+                className="btn-primary px-8 py-4 font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-2"
               >
                 <span>Explore My Journey</span>
                 <ArrowRight className="w-5 h-5" />
@@ -162,7 +162,7 @@ const Hero = () => {
                 href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@anantasutra.com&su=Let's Start a Conversation&body=Hi Anantasutra Team,%0D%0A%0D%0AI came across Anantasutra and would like to discuss potential technology solutions for my business.%0D%0A%0D%0ABest regards,"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border-2 border-green-500 text-green-600 font-semibold rounded-full hover:bg-green-50 transition-all duration-300 flex items-center space-x-2"
+                className="btn-outline px-8 py-4 font-semibold rounded-full transition-all duration-300 flex items-center space-x-2"
               >
                 <span>Start a Conversation</span>
                 <ArrowRight className="w-5 h-5" />
@@ -202,106 +202,106 @@ const Hero = () => {
                     }}
                   />
                   {/* Fallback placeholder */}
-                  <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center" style={{ display: 'none' }}>
+                  <div className="w-full h-full bg-gradient-to-br from-dark-400 to-dark-950 flex items-center justify-center" style={{ display: 'none' }}>
                     <div className="text-center">
-                      <div className="w-32 h-32 bg-gradient-to-br from-green-400 to-green-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                      <div className="w-32 h-32 bg-gradient-to-br from-saffron-500 to-violet-500 rounded-full mx-auto mb-4 flex items-center justify-center">
                         <span className="text-4xl font-bold text-white">BD</span>
                       </div>
-                      <p className="text-gray-600 text-sm">Your Professional Portrait</p>
+                      <p className="text-gray-400 text-sm">Your Professional Portrait</p>
                       <p className="text-gray-500 text-xs mt-1">Upload your image to public/portrait.jpg</p>
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Decorative Elements */}
-                <div className="absolute -top-4 -right-4 w-8 h-8 bg-green-500 rounded-full animate-pulse" />
-                <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-green-400 rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
+                <div className="absolute -top-4 -right-4 w-8 h-8 bg-saffron-500 rounded-full animate-pulse" />
+                <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-violet-500 rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
               </motion.div>
 
               {/* Floating Info Cards */}
               <motion.div
-                animate={{ 
+                animate={{
                   y: [0, -15, 0],
                   rotate: [0, 3, 0]
                 }}
-                transition={{ 
+                transition={{
                   duration: 6,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-                className="absolute top-8 -left-8 w-64 h-32 bg-white rounded-2xl shadow-xl p-6 border border-green-100"
+                className="absolute top-8 -left-8 w-64 h-32 glass-card rounded-2xl shadow-xl p-6"
               >
                 <div className="flex items-center space-x-3 mb-3">
-                  <div className="w-3 h-3 bg-green-500 rounded-full" />
-                  <span className="text-sm font-medium text-gray-600">Current Role</span>
+                  <div className="w-3 h-3 bg-saffron-500 rounded-full" />
+                  <span className="text-sm font-medium text-gray-400">Current Role</span>
                 </div>
-                <h3 className="text-lg font-bold text-gray-800">Software Engineer</h3>
-                <p className="text-sm text-gray-600">Oak Clinic Group, Inc.</p>
+                <h3 className="text-lg font-bold text-white">Software Engineer</h3>
+                <p className="text-sm text-gray-400">Oak Clinic Group, Inc.</p>
                 <div className="mt-2 flex space-x-2">
-                  <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">.NET</span>
-                  <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">F#</span>
-                  <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">Azure</span>
+                  <span className="px-2 py-1 bg-saffron-500/10 text-saffron-500 text-xs rounded-full">.NET</span>
+                  <span className="px-2 py-1 bg-saffron-500/10 text-saffron-500 text-xs rounded-full">F#</span>
+                  <span className="px-2 py-1 bg-saffron-500/10 text-saffron-500 text-xs rounded-full">Azure</span>
                 </div>
               </motion.div>
 
               <motion.div
-                animate={{ 
+                animate={{
                   y: [0, 10, 0],
                   rotate: [0, -2, 0]
                 }}
-                transition={{ 
+                transition={{
                   duration: 8,
                   repeat: Infinity,
                   ease: "easeInOut",
                   delay: 2
                 }}
-                className="absolute top-32 -right-12 w-56 h-28 bg-white rounded-2xl shadow-xl p-4 border border-green-100"
+                className="absolute top-32 -right-12 w-56 h-28 glass-card rounded-2xl shadow-xl p-4"
               >
                 <div className="flex items-center space-x-2 mb-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full" />
-                  <span className="text-xs font-medium text-gray-600">Education</span>
+                  <div className="w-2 h-2 bg-violet-500 rounded-full" />
+                  <span className="text-xs font-medium text-gray-400">Education</span>
                 </div>
-                <h4 className="text-sm font-bold text-gray-800">B.Tech in ITE</h4>
-                <p className="text-xs text-gray-600">MAIT, Delhi</p>
+                <h4 className="text-sm font-bold text-white">B.Tech in ITE</h4>
+                <p className="text-xs text-gray-400">MAIT, Delhi</p>
               </motion.div>
 
               <motion.div
-                animate={{ 
+                animate={{
                   y: [0, -8, 0],
                   rotate: [0, 2, 0]
                 }}
-                transition={{ 
+                transition={{
                   duration: 7,
                   repeat: Infinity,
                   ease: "easeInOut",
                   delay: 4
                 }}
-                className="absolute bottom-20 -left-12 w-60 h-32 bg-white rounded-2xl shadow-xl p-5 border border-green-100"
+                className="absolute bottom-20 -left-12 w-60 h-32 glass-card rounded-2xl shadow-xl p-5"
               >
                 <div className="flex items-center space-x-2 mb-3">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full" />
-                  <span className="text-xs font-medium text-gray-600">Location</span>
+                  <div className="w-2 h-2 bg-violet-500 rounded-full" />
+                  <span className="text-xs font-medium text-gray-400">Location</span>
                 </div>
-                <h4 className="text-sm font-bold text-gray-800">Osaka, Japan</h4>
-                <p className="text-xs text-gray-600">From Delhi, India</p>
+                <h4 className="text-sm font-bold text-white">Osaka, Japan</h4>
+                <p className="text-xs text-gray-400">From Delhi, India</p>
                 <div className="mt-2 flex space-x-1">
-                  <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">JLPT N3</span>
-                  <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">English</span>
+                  <span className="px-2 py-1 bg-saffron-500/10 text-saffron-500 text-xs rounded-full">JLPT N3</span>
+                  <span className="px-2 py-1 bg-saffron-500/10 text-saffron-500 text-xs rounded-full">English</span>
                 </div>
               </motion.div>
 
               {/* Achievement Badge */}
               <motion.div
-                animate={{ 
+                animate={{
                   scale: [1, 1.05, 1],
                   rotate: [0, 5, 0]
                 }}
-                transition={{ 
+                transition={{
                   duration: 10,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-                className="absolute bottom-8 -right-8 w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full shadow-2xl flex items-center justify-center"
+                className="absolute bottom-8 -right-8 w-20 h-20 bg-gradient-to-br from-saffron-500 to-violet-500 rounded-full shadow-2xl flex items-center justify-center"
               >
                 <span className="text-white font-bold text-sm">AWS</span>
               </motion.div>
@@ -320,7 +320,7 @@ const Hero = () => {
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
             onClick={scrollToAbout}
-            className="flex flex-col items-center space-y-2 text-gray-500 hover:text-green-600 transition-colors duration-300"
+            className="flex flex-col items-center space-y-2 text-gray-500 hover:text-saffron-500 transition-colors duration-300"
           >
             <span className="text-sm font-medium">Scroll to explore</span>
             <ChevronDown className="w-6 h-6" />
@@ -332,4 +332,3 @@ const Hero = () => {
 }
 
 export default Hero
-

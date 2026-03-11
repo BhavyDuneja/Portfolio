@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { motion } from 'framer-motion'
-import { Calendar, Clock, User, Tag, ArrowLeft, Search, Filter, Video, Image as ImageIcon, Lock } from 'lucide-react'
+import { Calendar, Clock, User, Tag, Search, Video, Lock, Eye, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
-import { getAllPosts, searchPosts, filterPostsByCategory, getCategories, BlogPost } from '@/lib/storage'
-import { getResponsiveImageUrls } from '@/lib/github-storage'
+import { getPublishedPosts, getFeaturedPosts, getCategories, BlogPost } from '@/lib/storage'
 
-// Helper function to get image URL (prioritize imageUrl over thumbnailUrl)
+const POSTS_PER_PAGE = 6
+
 const getImageUrl = (post: BlogPost): string | null => {
   if (post.imageUrl) return post.imageUrl
   if (post.thumbnailUrl) return post.thumbnailUrl
@@ -19,269 +19,121 @@ const Blog = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([])
-  const [isClient, setIsClient] = useState(false)
+  const [featured, setFeatured] = useState<BlogPost[]>([])
+  const [categories, setCategories] = useState<string[]>(['All'])
+  const [isLoading, setIsLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
 
-
-  // Ensure we're on the client side
   useEffect(() => {
-    setIsClient(true)
+    let cancelled = false
+
+    const loadData = async () => {
+      setIsLoading(true)
+      try {
+        const [posts, featuredPosts, cats] = await Promise.all([
+          getPublishedPosts(),
+          getFeaturedPosts(),
+          getCategories(),
+        ])
+        if (!cancelled) {
+          setBlogPosts(posts)
+          setFeatured(featuredPosts)
+          setCategories(cats)
+        }
+      } catch (err) {
+        console.error('Failed to load blog data:', err)
+      } finally {
+        if (!cancelled) setIsLoading(false)
+      }
+    }
+
+    loadData()
+    return () => { cancelled = true }
   }, [])
 
-  // Load posts using the new storage system
+  // Reset page when filters change
   useEffect(() => {
-    if (!isClient) return
-    
-    const posts = getAllPosts()
-    
-    // Only load default posts if there are NO posts at all (first time visit)
-    // This preserves user-created posts
-    if (posts.length === 0) {
-      // Default posts if no saved posts
-      const defaultPosts: BlogPost[] = [
-    {
-      id: '1',
-      title: 'Building Scalable .NET Applications with Domain-Driven Design',
-      excerpt: 'Learn how to implement DDD principles in .NET applications to create maintainable and scalable software architectures.',
-      content: 'Domain-Driven Design (DDD) is a software development approach that focuses on creating software that reflects a deep understanding of the business domain. In this comprehensive guide, we\'ll explore how to implement DDD principles in .NET applications...',
-      author: 'Bhavya Duneja',
-      date: '2024-12-15',
-      readTime: '8 min read',
-      category: 'Software Architecture',
-      tags: ['DDD', '.NET', 'C#', 'Architecture', 'Clean Code'],
-      featured: true,
-      thumbnailUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjNGFkZTgwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5EZWZhdWx0IEltYWdlPC90ZXh0Pjwvc3ZnPg==',
-      fullImageUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjNGFkZTgwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5EZWZhdWx0IEltYWdlPC90ZXh0Pjwvc3ZnPg==',
-      imageAlt: 'Default Architecture Image'
-    },
-    {
-      id: '2',
-      title: 'Mastering AWS Cloud Infrastructure for Modern Applications',
-      excerpt: 'A deep dive into AWS services and best practices for building robust, scalable cloud infrastructure.',
-      content: 'Amazon Web Services (AWS) provides a comprehensive suite of cloud computing services that enable businesses to build and scale applications with unprecedented flexibility. In this article, we\'ll explore the key AWS services...',
-      author: 'Bhavya Duneja',
-      date: '2024-12-10',
-      readTime: '12 min read',
-      category: 'Cloud Computing',
-      tags: ['AWS', 'Cloud', 'Infrastructure', 'DevOps', 'Scalability'],
-      featured: false
-    },
-    {
-      id: '3',
-      title: 'From Java to Go: A Developer\'s Journey in Microservices',
-      excerpt: 'My experience transitioning from Java to Go and building microservices architecture in a Japanese tech company.',
-      content: 'Transitioning from Java to Go was one of the most challenging yet rewarding experiences in my career. Working in a Japanese tech environment added cultural and linguistic dimensions to the technical learning curve...',
-      author: 'Bhavya Duneja',
-      date: '2024-12-05',
-      readTime: '10 min read',
-      category: 'Career',
-      tags: ['Go', 'Java', 'Microservices', 'Career', 'Japan'],
-      featured: true,
-      thumbnailUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzM3N2RjIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5KQVZBIC0gR08gPC90ZXh0Pjwvc3ZnPg==',
-      fullImageUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzM3N2RjIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5KQVZBIC0gR08gPC90ZXh0Pjwvc3ZnPg==',
-      imageAlt: 'Java to Go Transition'
-    },
-    {
-      id: '4',
-      title: 'Building Full-Stack Applications with MERN Stack',
-      excerpt: 'Complete guide to building modern web applications using MongoDB, Express.js, React, and Node.js.',
-      content: 'The MERN stack has become one of the most popular choices for building full-stack JavaScript applications. In this tutorial, we\'ll walk through building a complete application from scratch...',
-      author: 'Bhavya Duneja',
-      date: '2024-11-28',
-      readTime: '15 min read',
-      category: 'Web Development',
-      tags: ['MERN', 'React', 'Node.js', 'MongoDB', 'JavaScript'],
-      // image: '/images/blog/mern-stack.jpg',
-      featured: false
-    },
-    {
-      id: '5',
-      title: 'Working as a Software Engineer in Japan: Cultural Insights',
-      excerpt: 'My experiences and learnings from working in the Japanese tech industry as an international developer.',
-      content: 'Working as a software engineer in Japan has been an incredible journey of cultural adaptation and professional growth. The Japanese work culture, while different from what I was accustomed to, has taught me valuable lessons...',
-      author: 'Bhavya Duneja',
-      date: '2024-11-20',
-      readTime: '7 min read',
-      category: 'Career',
-      tags: ['Japan', 'Culture', 'Career', 'International', 'Experience'],
-      // image: '/images/blog/japan-experience.jpg',
-      featured: false
-    },
-    {
-      id: '6',
-      title: 'System Design Principles for Large-Scale Applications',
-      excerpt: 'Essential system design concepts and patterns for building applications that can handle millions of users.',
-      content: 'System design is a crucial skill for software engineers working on large-scale applications. Understanding how to design systems that can handle massive traffic, maintain high availability, and scale efficiently is essential...',
-      author: 'Bhavya Duneja',
-      date: '2024-11-15',
-      readTime: '20 min read',
-      category: 'Software Architecture',
-      tags: ['System Design', 'Scalability', 'Architecture', 'Performance', 'Distributed Systems'],
-      // image: '/images/blog/system-design.jpg',
-      featured: true
-    },
-    {
-      id: '7',
-      title: 'Building a Startup from Zero: Lessons from Fit-First',
-      excerpt: 'My journey of founding and scaling an e-commerce startup to 4+ lakhs revenue with zero initial investment.',
-      content: 'Starting a business from scratch is one of the most challenging yet rewarding experiences. When I founded Fit-First, an e-commerce startup specializing in women\'s footwear and apparel, I had no initial capital but plenty of determination...',
-      author: 'Bhavya Duneja',
-      date: '2024-11-10',
-      readTime: '12 min read',
-      category: 'Startup and Finance',
-      tags: ['Startup', 'E-commerce', 'Entrepreneurship', 'Business', 'Finance'],
-      // image: '/images/blog/startup-journey.jpg',
-      featured: false
-    },
-    {
-      id: '8',
-      title: 'Personal Finance for Software Engineers: Building Wealth in Tech',
-      excerpt: 'A practical guide to managing finances, investments, and building long-term wealth as a software engineer.',
-      content: 'As software engineers, we often earn well but may not have the financial literacy to make the most of our income. This guide covers budgeting, investing, and building wealth while working in tech...',
-      author: 'Bhavya Duneja',
-      date: '2024-11-05',
-      readTime: '15 min read',
-      category: 'Startup and Finance',
-      tags: ['Finance', 'Investing', 'Budgeting', 'Wealth Building', 'Tech Career'],
-      // image: '/images/blog/personal-finance.jpg',
-      featured: true
-    },
-    {
-      id: '9',
-      title: 'The Philosophy of Clean Code: Beyond Syntax and Semantics',
-      excerpt: 'Exploring the deeper philosophical principles that guide good software design and maintainable code.',
-      content: 'Clean code is not just about following syntax rules or design patterns. It\'s a philosophy that encompasses how we think about problems, how we communicate through code, and how we build systems that stand the test of time...',
-      author: 'Bhavya Duneja',
-      date: '2024-10-28',
-      readTime: '10 min read',
-      category: 'Philosophy',
-      tags: ['Philosophy', 'Clean Code', 'Software Design', 'Ethics', 'Thinking'],
-      // image: '/images/blog/clean-code-philosophy.jpg',
-      featured: false
-    },
-    {
-      id: '10',
-      title: 'Cooking as a Developer: How Kitchen Logic Applies to Programming',
-      excerpt: 'Drawing parallels between cooking and coding - from recipe following to improvisation and debugging.',
-      content: 'Cooking and programming share more similarities than you might think. Both require following recipes (algorithms), improvising when things go wrong, and understanding the fundamental principles that make everything work...',
-      author: 'Bhavya Duneja',
-      date: '2024-10-20',
-      readTime: '8 min read',
-      category: 'Cooking',
-      tags: ['Cooking', 'Programming', 'Analogy', 'Learning', 'Creativity'],
-      // image: '/images/blog/cooking-coding.jpg',
-      featured: false
-    },
-    {
-      id: '11',
-      title: 'Japanese Cuisine and the Art of Mindful Development',
-      excerpt: 'How Japanese cooking principles of precision, patience, and respect can improve your software development practices.',
-      content: 'Living in Japan has taught me that the principles of Japanese cuisine - precision, patience, respect for ingredients, and attention to detail - can be applied to software development...',
-      author: 'Bhavya Duneja',
-      date: '2024-10-15',
-      readTime: '9 min read',
-      category: 'Cooking',
-      tags: ['Japanese Cuisine', 'Mindfulness', 'Development', 'Culture', 'Precision'],
-      // image: '/images/blog/japanese-cooking.jpg',
-      featured: true
-    }
-      ]
-      setBlogPosts(defaultPosts)
-      // Save the default posts to localStorage
-      localStorage.setItem('blogPosts', JSON.stringify(defaultPosts))
-    } else {
-      setBlogPosts(posts)
-    }
-  }, [isClient])
+    setCurrentPage(1)
+  }, [searchTerm, selectedCategory])
 
-  // Don't render until client-side data is loaded
-  if (!isClient) {
+  const filteredPosts = useMemo(() => {
+    let posts = blogPosts
+    if (searchTerm) {
+      const q = searchTerm.toLowerCase()
+      posts = posts.filter(p =>
+        p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) ||
+        p.content.toLowerCase().includes(q) || p.tags.some(t => t.toLowerCase().includes(q))
+      )
+    }
+    if (selectedCategory !== 'All') {
+      posts = posts.filter(p => p.category === selectedCategory)
+    }
+    return posts
+  }, [blogPosts, searchTerm, selectedCategory])
+
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE)
+  const paginatedPosts = filteredPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE)
+
+  if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-white via-green-50/30 to-green-100/20">
-        <div className="container mx-auto px-4 py-12">
-          <div className="flex items-center justify-center min-h-[400px]">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
-          </div>
-        </div>
+      <div className="min-h-screen pt-24 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-saffron-500"></div>
       </div>
     )
   }
 
-  const categories = getCategories()
-
-  // Get filtered posts using the blogPosts state
-  const filteredPosts = (() => {
-    let posts = blogPosts
-    
-    if (searchTerm) {
-      const lowercaseQuery = searchTerm.toLowerCase()
-      posts = posts.filter(post => 
-        post.title.toLowerCase().includes(lowercaseQuery) ||
-        post.excerpt.toLowerCase().includes(lowercaseQuery) ||
-        post.content.toLowerCase().includes(lowercaseQuery) ||
-        post.tags.some(tag => tag.toLowerCase().includes(lowercaseQuery))
-      )
-    }
-    
-    if (selectedCategory !== 'All') {
-      posts = posts.filter(post => post.category === selectedCategory)
-    }
-    
-    return posts
-  })()
-
-  const featuredPosts = blogPosts.filter(post => post.featured)
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-green-50/30 to-green-100/20">
-
-      <div className="container mx-auto px-4 py-12">
-        {/* Admin Link */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-6 flex justify-end"
-        >
-          <Link
-            href="/admin"
-            className="flex items-center space-x-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-300 text-sm font-medium"
-          >
-            <Lock className="w-4 h-4" />
-            <span>Admin Panel</span>
-          </Link>
-        </motion.div>
-
-        {/* Search and Filter */}
+    <div className="min-h-screen pt-24">
+      <div className="max-w-6xl mx-auto px-4 py-12">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
+          className="text-center mb-12"
         >
-          <div className="bg-white rounded-2xl p-6 shadow-lg border border-green-100">
-            <div className="flex flex-col md:flex-row gap-4 mb-6">
+          <p className="text-saffron-500 uppercase tracking-[0.2em] text-sm font-medium mb-4">Blog</p>
+          <h1 className="font-display text-5xl md:text-6xl font-bold mb-4">
+            Thoughts & <span className="gradient-text-saffron">Insights</span>
+          </h1>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            AI automation, ancient wisdom, marketing strategies, product stories, and the entrepreneurial journey.
+          </p>
+        </motion.div>
+
+        {/* Admin Link */}
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-6 flex justify-end">
+          <Link href="/admin" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-saffron-500 hover:border-saffron-500/30 transition-all text-sm">
+            <Lock className="w-4 h-4" />
+            Admin
+          </Link>
+        </motion.div>
+
+        {/* Search & Filter */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="mb-12">
+          <div className="glass-card rounded-2xl p-6">
+            <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
                 <input
                   type="text"
                   placeholder="Search articles..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all duration-300"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-dark-400/50 border border-white/10 text-white placeholder-gray-600 focus:border-saffron-500/50 focus:ring-1 focus:ring-saffron-500/20 focus:outline-none transition-all"
                 />
               </div>
-              <div className="flex gap-2">
-                {categories.map((category) => (
+              <div className="flex flex-wrap gap-2">
+                {categories.map((cat) => (
                   <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                      selectedCategory === category
-                        ? 'bg-green-500 text-white shadow-md'
-                        : 'bg-gray-100 text-gray-600 hover:bg-green-50 hover:text-green-600'
+                    key={cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                      selectedCategory === cat
+                        ? 'bg-saffron-500 text-dark-950'
+                        : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
                     }`}
                   >
-                    {category}
+                    {cat}
                   </button>
                 ))}
               </div>
@@ -289,111 +141,57 @@ const Blog = () => {
           </div>
         </motion.div>
 
-        {/* Featured Posts */}
-        {selectedCategory === 'All' && searchTerm === '' && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-16"
-          >
-            <h2 className="text-2xl font-bold text-gray-800 mb-8 flex items-center">
-              <Tag className="w-6 h-6 mr-3 text-green-500" />
-              Featured Articles
+        {/* Featured */}
+        {selectedCategory === 'All' && searchTerm === '' && currentPage === 1 && featured.length > 0 && (
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mb-16">
+            <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
+              <Tag className="w-5 h-5 text-saffron-500" />
+              Featured
             </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredPosts.map((post, index) => (
-                <Link
-                  key={post.id}
-                  href={`/blog/${post.id}`}
-                  className="block"
-                >
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featured.map((post, i) => (
+                <Link key={post.id} href={`/blog/${post.id}`}>
                   <motion.article
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                    className="bg-white rounded-2xl overflow-hidden shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer"
+                    transition={{ delay: 0.3 + i * 0.1 }}
+                    className="glass-card rounded-2xl overflow-hidden group cursor-pointer h-full hover:border-saffron-500/20 hover:shadow-lg hover:shadow-saffron-500/5 transition-all duration-500"
                   >
-                  <div className="h-48 bg-gradient-to-br from-green-100 to-blue-100 flex items-center justify-center relative">
-                    {post.videoUrl ? (
-                      <div className="h-48 w-full overflow-hidden rounded-t-2xl relative">
-                        <div className="relative w-full h-full" style={{ paddingBottom: '56.25%' }}>
-                          <iframe
-                            src={post.videoUrl}
-                            className="absolute top-0 left-0 w-full h-full"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                          />
+                    <div className="h-44 bg-gradient-to-br from-dark-300 to-dark-400 flex items-center justify-center relative overflow-hidden">
+                      {post.videoUrl ? (
+                        <div className="absolute inset-0">
+                          <div className="absolute top-2 right-2 z-10 bg-red-500/80 text-white px-2 py-0.5 rounded text-xs flex items-center gap-1">
+                            <Video className="w-3 h-3" /> Video
+                          </div>
                         </div>
-                        <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-medium flex items-center space-x-1">
-                          <Video className="w-3 h-3" />
-                          <span>Video</span>
+                      ) : getImageUrl(post) ? (
+                        <img src={getImageUrl(post)!} alt={post.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+                      ) : (
+                        <div className="text-center">
+                          <div className="w-12 h-12 rounded-xl bg-saffron-500/10 flex items-center justify-center mx-auto mb-2 group-hover:bg-saffron-500/20 transition-colors">
+                            <Tag className="w-6 h-6 text-saffron-500" />
+                          </div>
+                          <p className="text-gray-600 text-xs">Featured</p>
                         </div>
-                      </div>
-                    ) : getImageUrl(post) ? (
-                      <div className="h-48 w-full overflow-hidden">
-                        <img
-                          src={getImageUrl(post)!}
-                          alt={post.imageAlt || post.title}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                          loading="lazy"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = 'none'
-                            const parent = (e.target as HTMLImageElement).parentElement
-                            if (parent) {
-                              parent.innerHTML = `
-                                <div class="text-center w-full h-full flex items-center justify-center">
-                                  <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                    </svg>
-                                  </div>
-                                  <p class="text-sm text-gray-600">Featured Article</p>
-                                </div>
-                              `
-                            }
-                          }}
-                        />
-                      </div>
-                    ) : (
-                      <div className="text-center">
-                        <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                          <Tag className="w-8 h-8 text-white" />
-                        </div>
-                        <p className="text-sm text-gray-600">Featured Article</p>
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center space-x-2 mb-3">
-                      <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
-                        {post.category}
-                      </span>
-                      <span className="text-xs text-gray-500">Featured</span>
+                      )}
                     </div>
-                    <h3 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2">
-                      {post.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                      <div className="flex items-center space-x-4">
-                        <div className="flex items-center space-x-1">
-                          <Calendar className="w-4 h-4" />
-                          <span>{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
-                        </div>
-                        <div className="flex items-center space-x-1">
-                          <Clock className="w-4 h-4" />
-                          <span>{post.readTime}</span>
-                        </div>
+                    <div className="p-5">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-saffron-500/10 text-saffron-400 border border-saffron-500/20">{post.category}</span>
+                        {(post.viewCount || 0) > 0 && (
+                          <span className="text-xs text-gray-600 flex items-center gap-1">
+                            <Eye className="w-3 h-3" />{post.viewCount}
+                          </span>
+                        )}
+                      </div>
+                      <h3 className="text-white font-semibold mb-2 line-clamp-2 group-hover:text-saffron-400 transition-colors duration-300">{post.title}</h3>
+                      <p className="text-gray-500 text-sm mb-3 line-clamp-2">{post.excerpt}</p>
+                      <div className="flex items-center gap-4 text-xs text-gray-600">
+                        <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                        <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{post.readTime}</span>
                       </div>
                     </div>
-                    <div className="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors duration-300 font-medium text-center">
-                      Read More
-                    </div>
-                  </div>
-                </motion.article>
+                  </motion.article>
                 </Link>
               ))}
             </div>
@@ -401,155 +199,113 @@ const Blog = () => {
         )}
 
         {/* All Posts */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <h2 className="text-2xl font-bold text-gray-800 mb-8">
-            {selectedCategory === 'All' && searchTerm === '' ? 'All Articles' : 'Search Results'}
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+          <h2 className="text-xl font-semibold text-white mb-6">
+            {selectedCategory === 'All' && searchTerm === '' ? 'All Articles' : 'Results'}
+            <span className="text-gray-600 text-sm font-normal ml-3">({filteredPosts.length} posts)</span>
           </h2>
-          <div className="grid gap-8">
-            {filteredPosts.map((post, index) => (
-              <motion.article
-                key={post.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-              >
-                <div className="flex flex-col lg:flex-row gap-6">
-                  <div className="lg:w-1/3">
-                    {post.videoUrl ? (
-                      <div className="h-48 lg:h-full rounded-xl overflow-hidden relative">
-                        <div className="relative w-full h-full" style={{ paddingBottom: '56.25%' }}>
-                          <iframe
-                            src={post.videoUrl}
-                            className="absolute top-0 left-0 w-full h-full rounded-xl"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                          />
-                        </div>
-                        <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-medium flex items-center space-x-1">
-                          <Video className="w-3 h-3" />
-                          <span>Video</span>
-                        </div>
+          <div className="space-y-4">
+            {paginatedPosts.map((post, i) => (
+              <Link key={post.id} href={`/blog/${post.id}`}>
+                <motion.article
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + i * 0.05 }}
+                  className="glass-card rounded-xl p-6 group cursor-pointer mb-4 hover:border-saffron-500/20 hover:shadow-lg hover:shadow-saffron-500/5 transition-all duration-500"
+                >
+                  <div className="flex flex-col lg:flex-row gap-5">
+                    <div className="lg:w-1/4">
+                      <div className="h-40 lg:h-full rounded-xl bg-gradient-to-br from-dark-300 to-dark-400 flex items-center justify-center overflow-hidden min-h-[120px]">
+                        {getImageUrl(post) ? (
+                          <img src={getImageUrl(post)!} alt={post.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+                        ) : (
+                          <Tag className="w-8 h-8 text-gray-600 group-hover:text-saffron-500/50 transition-colors duration-300" />
+                        )}
                       </div>
-                    ) : getImageUrl(post) ? (
-                      <div className="h-48 lg:h-full rounded-xl overflow-hidden">
-                        <img
-                          src={getImageUrl(post)!}
-                          alt={post.imageAlt || post.title}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                          loading="lazy"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = 'none'
-                            const parent = (e.target as HTMLImageElement).parentElement
-                            if (parent) {
-                              parent.innerHTML = `
-                                <div class="h-48 lg:h-full bg-gradient-to-br from-green-100 to-blue-100 rounded-xl flex items-center justify-center">
-                                  <div class="text-center">
-                                    <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-2">
-                                      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                      </svg>
-                                    </div>
-                                    <p class="text-sm text-gray-600">Article Image</p>
-                                  </div>
-                                </div>
-                              `
-                            }
-                          }}
-                        />
-                      </div>
-                    ) : (
-                      <div className="h-48 lg:h-full bg-gradient-to-br from-green-100 to-blue-100 rounded-xl flex items-center justify-center">
-                        <div className="text-center">
-                          <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-2">
-                            <Tag className="w-6 h-6 text-white" />
-                          </div>
-                          <p className="text-sm text-gray-600">Article Image</p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  <div className="lg:w-2/3">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <span className="px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full">
-                        {post.category}
-                      </span>
-                      {post.featured && (
-                        <span className="px-3 py-1 bg-yellow-100 text-yellow-700 text-sm font-medium rounded-full">
-                          Featured
-                        </span>
-                      )}
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                      {post.title}
-                    </h3>
-                    <p className="text-gray-600 mb-6 leading-relaxed">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {post.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full hover:bg-green-100 hover:text-green-700 transition-colors duration-300"
-                        >
-                          #{tag}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-6 text-sm text-gray-500">
-                        <div className="flex items-center space-x-2">
-                          <User className="w-4 h-4" />
-                          <span>{post.author}</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Calendar className="w-4 h-4" />
-                          <span>{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Clock className="w-4 h-4" />
-                          <span>{post.readTime}</span>
-                        </div>
+                    <div className="lg:w-3/4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-saffron-500/10 text-saffron-400 border border-saffron-500/20">{post.category}</span>
+                        {post.featured && (
+                          <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-violet-500/10 text-violet-400 border border-violet-500/20">Featured</span>
+                        )}
                       </div>
-                      <Link
-                        href={`/blog/${post.id}`}
-                        className="inline-block px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-300 font-medium"
-                      >
-                        Read More
-                      </Link>
+                      <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-saffron-400 transition-colors duration-300">{post.title}</h3>
+                      <p className="text-gray-500 text-sm mb-3 leading-relaxed line-clamp-2">{post.excerpt}</p>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {post.tags.slice(0, 4).map(tag => (
+                          <span key={tag} className="px-2 py-0.5 rounded-full text-xs bg-white/5 text-gray-500 group-hover:bg-saffron-500/5 group-hover:text-gray-400 transition-all duration-300">#{tag}</span>
+                        ))}
+                      </div>
+                      <div className="flex items-center gap-4 text-xs text-gray-600">
+                        <span className="flex items-center gap-1"><User className="w-3 h-3" />{post.author}</span>
+                        <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                        <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{post.readTime}</span>
+                        {(post.viewCount || 0) > 0 && (
+                          <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{post.viewCount} views</span>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.article>
+                </motion.article>
+              </Link>
             ))}
           </div>
         </motion.div>
 
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="flex items-center justify-center gap-2 mt-12"
+          >
+            <button
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="flex items-center gap-1 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all text-sm"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              Prev
+            </button>
+
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={`w-10 h-10 rounded-xl text-sm font-medium transition-all ${
+                  currentPage === page
+                    ? 'bg-saffron-500 text-dark-950'
+                    : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/10'
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+
+            <button
+              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="flex items-center gap-1 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all text-sm"
+            >
+              Next
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </motion.div>
+        )}
+
         {/* No Results */}
         {filteredPosts.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center py-16"
-          >
-            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Search className="w-12 h-12 text-gray-400" />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-16">
+            <div className="w-20 h-20 rounded-2xl bg-white/5 flex items-center justify-center mx-auto mb-4">
+              <Search className="w-8 h-8 text-gray-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">No articles found</h3>
-            <p className="text-gray-600 mb-6">
-              Try adjusting your search terms or browse different categories.
-            </p>
+            <h3 className="text-xl font-semibold text-white mb-2">No articles found</h3>
+            <p className="text-gray-500 mb-6">Try adjusting your search or browse different categories.</p>
             <button
-              onClick={() => {
-                setSearchTerm('')
-                setSelectedCategory('All')
-              }}
-              className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-300 font-medium"
+              onClick={() => { setSearchTerm(''); setSelectedCategory('All') }}
+              className="btn-primary"
             >
               Clear Filters
             </button>
