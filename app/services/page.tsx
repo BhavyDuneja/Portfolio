@@ -7,7 +7,7 @@ import {
   Brain, Megaphone, BookOpen, ShoppingBag, Building2,
   Globe, Briefcase, GraduationCap, ArrowRight, Phone,
   Video, Share2, Mail, Target, Users, Camera, Palette,
-  BarChart3, Sparkles
+  BarChart3, Sparkles, Code, Search, Bot, Layers
 } from 'lucide-react'
 
 const activeServices = [
@@ -41,6 +41,22 @@ const activeServices = [
       { icon: BarChart3, label: 'Brand Strategy', detail: 'Growth focused' },
       { icon: Target, label: 'Performance Marketing', detail: 'ROI driven' },
       { icon: Sparkles, label: 'Creative Direction', detail: 'Unique identity' },
+    ],
+  },
+  {
+    id: 'digital-presence',
+    title: 'Website Building & Search Optimization',
+    description: 'We build stunning, high-performance websites and optimize them to be discovered by search engines, AI assistants, and generative platforms alike.',
+    icon: Code,
+    accent: 'saffron',
+    href: '/contact',
+    features: [
+      { icon: Code, label: 'Website Development', detail: 'Modern & responsive' },
+      { icon: Search, label: 'SEO Optimization', detail: 'Rank on Google' },
+      { icon: Bot, label: 'AEO — Answer Engine', detail: 'Featured in AI answers' },
+      { icon: Layers, label: 'GEO — Generative Engine', detail: 'Cited by ChatGPT & co.' },
+      { icon: BarChart3, label: 'Analytics & Tracking', detail: 'GA, Clarity & more' },
+      { icon: Globe, label: 'Domain & Hosting', detail: 'End-to-end setup' },
     ],
   },
 ]

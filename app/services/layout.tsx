@@ -2,8 +2,8 @@ import { Metadata } from 'next'
 import JsonLd from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Services — AI Automation, Marketing & More',
-  description: 'Explore AnantaSutra services: AI voice agents from ₹6/min, recruiter AI at ₹2/lead, full-service marketing agency, social media automation, and more.',
+  title: 'Services — AI Automation, Marketing, Website Building & SEO/AEO/GEO',
+  description: 'AnantaSutra services: AI voice agents from ₹6/min, recruiter AI at ₹2/lead, website development, SEO, AEO (Answer Engine Optimization), GEO (Generative Engine Optimization), and full-service marketing.',
   alternates: {
     canonical: 'https://anantasutra.com/services',
   },
@@ -74,6 +74,18 @@ const servicesJsonLd = {
         description: 'End-to-end marketing support from shooting to social media management. We amplify your brand across every channel.',
         provider: { '@type': 'Organization', name: 'AnantaSutra' },
         url: 'https://anantasutra.com/services/marketing',
+      },
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      item: {
+        '@type': 'Service',
+        name: 'Website Building & Search Optimization (SEO, AEO, GEO)',
+        description: 'We build high-performance websites and optimize them for Google (SEO), AI assistants like ChatGPT and Perplexity (AEO — Answer Engine Optimization), and generative AI platforms (GEO — Generative Engine Optimization).',
+        provider: { '@type': 'Organization', name: 'AnantaSutra' },
+        url: 'https://anantasutra.com/services',
+        serviceType: ['Website Development', 'SEO', 'AEO', 'GEO'],
       },
     },
   ],

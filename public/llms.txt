@@ -22,6 +22,14 @@ AnantaSutra (अनन्तसूत्र) — from the Sanskrit Ananta (infin
 - Performance Marketing: ROI-driven campaigns
 - Creative Direction: Unique brand identity
 
+### Website Building & Search Optimization
+- Website Development: Modern, responsive, high-performance websites built with Next.js
+- SEO (Search Engine Optimization): On-page, technical, and off-page SEO to rank on Google
+- AEO (Answer Engine Optimization): Structured data and content optimization to appear in AI-powered answer engines like ChatGPT, Perplexity, and Google AI Overviews
+- GEO (Generative Engine Optimization): Schema markup, llms.txt, and entity optimization so AI platforms cite and recommend your business
+- Analytics & Tracking: Google Analytics, Microsoft Clarity, Facebook Pixel setup
+- Domain & Hosting: End-to-end domain registration, DNS, and Vercel/cloud hosting setup
+
 ### Coming Soon
 - E-Commerce solutions
 - Real Estate services
