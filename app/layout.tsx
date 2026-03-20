@@ -124,6 +124,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <head>
+        <link rel="icon" href="/images/favicon.ico" sizes="any" />
+        <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/images/favicon-96x96.png" />
         <JsonLd data={organizationJsonLd} />
       </head>
       <body className="font-sans antialiased bg-dark-950 text-gray-100">
