@@ -35,6 +35,34 @@ const servicesJsonLd = {
         description: 'Transform your business with AI-powered solutions — voice calling agents, recruiter AI, social media automation, and more.',
         provider: { '@type': 'Organization', name: 'AnantaSutra' },
         url: 'https://anantasutra.com/services/ai-automation',
+        offers: [
+          {
+            '@type': 'Offer',
+            name: 'Voice Calling Agents',
+            description: 'Intelligent conversational AI that handles calls with human-like natural language understanding',
+            price: '6',
+            priceCurrency: 'INR',
+            priceSpecification: {
+              '@type': 'UnitPriceSpecification',
+              price: '6',
+              priceCurrency: 'INR',
+              unitText: 'minute',
+            },
+          },
+          {
+            '@type': 'Offer',
+            name: 'Recruiter AI',
+            description: 'Automated talent sourcing with boolean search generation and personalized outreach',
+            price: '2',
+            priceCurrency: 'INR',
+            priceSpecification: {
+              '@type': 'UnitPriceSpecification',
+              price: '2',
+              priceCurrency: 'INR',
+              unitText: 'lead',
+            },
+          },
+        ],
       },
     },
     {
@@ -51,6 +79,35 @@ const servicesJsonLd = {
   ],
 }
 
+const howToJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'How to Get Started with AnantaSutra AI Automation',
+  description: 'Start using AI voice agents and automation tools for your business in three simple steps.',
+  step: [
+    {
+      '@type': 'HowToStep',
+      position: 1,
+      name: 'Contact Us',
+      text: 'Reach out via our contact form or email at contact@anantasutra.com to discuss your business needs.',
+      url: 'https://anantasutra.com/contact',
+    },
+    {
+      '@type': 'HowToStep',
+      position: 2,
+      name: 'Choose Your Solution',
+      text: 'Select from our AI automation tools — voice calling agents, recruiter AI, social media automation, or a custom solution tailored to your needs.',
+      url: 'https://anantasutra.com/services/ai-automation',
+    },
+    {
+      '@type': 'HowToStep',
+      position: 3,
+      name: 'Launch & Scale',
+      text: 'We set up, integrate, and optimize your AI solution. Start seeing results immediately with pay-as-you-go pricing from ₹6/min.',
+    },
+  ],
+}
+
 export default function ServicesLayout({
   children,
 }: {
@@ -59,6 +116,7 @@ export default function ServicesLayout({
   return (
     <>
       <JsonLd data={servicesJsonLd} />
+      <JsonLd data={howToJsonLd} />
       {children}
     </>
   )

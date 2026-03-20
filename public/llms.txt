@@ -1,0 +1,49 @@
+# AnantaSutra - llms.txt
+# https://anantasutra.com
+
+## About
+AnantaSutra (अनन्तसूत्र) — from the Sanskrit Ananta (infinite) and Sutra (thread/wisdom) — is a constellation of ventures spanning AI automation, creative marketing, technology, spirituality, and human potential. Founded by Bhavya Duneja, based in Delhi, India.
+
+## Services
+
+### AI Automation & Intelligence
+- Voice Calling Agents: Intelligent conversational AI starting at ₹6/minute
+- Recruiter AI: Automated talent sourcing at ₹2/lead
+- AI Video Generators: AI-powered video creation for marketing and real estate
+- Social Media Automation: Smart scheduling, content generation, engagement optimization
+- Gmail Automation: Intelligent email workflows
+- AI Marketing Tools: Data-driven campaign optimization and audience targeting
+
+### Creative & Marketing Agency
+- Professional Shooting: Photo and video production
+- Content Creation: Design and copywriting
+- Social Media Management: All platforms
+- Brand Strategy: Growth-focused planning
+- Performance Marketing: ROI-driven campaigns
+- Creative Direction: Unique brand identity
+
+### Coming Soon
+- E-Commerce solutions
+- Real Estate services
+- Immigration Support
+- Business Solutions
+- Academic Solutions
+
+## Ventures
+- Granthas: Hindu scriptures platform with AI-powered commentary
+- Ritualist: Daily spiritual practices and puja guidance app (free)
+
+## Contact
+- Website: https://anantasutra.com
+- Email: contact@anantasutra.com
+- Location: Delhi, India
+
+## Content Types
+- Blog posts about AI, marketing, spirituality, and business
+- Service pages with detailed offerings and pricing
+- Portfolio showcasing completed projects
+
+## Update Frequency
+- Blog: Weekly
+- Services: Monthly
+- Core pages: Quarterly
