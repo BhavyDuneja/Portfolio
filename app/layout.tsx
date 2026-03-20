@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     canonical: 'https://anantasutra.com',
   },
   verification: {
-    google: 'YOUR_GOOGLE_SEARCH_CONSOLE_VERIFICATION_CODE',
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || '',
   },
   openGraph: {
     type: 'website',
