@@ -95,7 +95,7 @@ function fuzzyMatch(query: string, text: string): number {
   return matched / words.length
 }
 
-function findBestAnswer(query: string): { answer: string; suggestions: string[] } {
+function findBestAnswer(query: string): { answer: string; suggestions: string[]; confident: boolean } {
   const scored = faqs.map(faq => ({
     faq,
     score: Math.max(
@@ -111,12 +111,27 @@ function findBestAnswer(query: string): { answer: string; suggestions: string[] 
     return {
       answer: scored[0].faq.answer,
       suggestions: related.map(r => r.faq.question),
+      confident: true,
     }
   }
 
-  return {
-    answer: "I don't have a specific answer for that, but I'd love to help! You can reach our team directly at contact@anantasutra.com or visit our contact page for a personalized response.",
-    suggestions: ['What services do you offer?', 'How do I get started?', 'Do you offer free consultations?'],
+  return { answer: '', suggestions: [], confident: false }
+}
+
+async function askGroq(message: string, history: Message[]): Promise<string> {
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message,
+        history: history.filter(m => m.id !== 'welcome').slice(-6).map(m => ({ type: m.type, text: m.text })),
+      }),
+    })
+    const data = await res.json()
+    return data.answer || "Please reach out to contact@anantasutra.com for more details."
+  } catch {
+    return "I'm having trouble connecting. Please email us at contact@anantasutra.com."
   }
 }
 
@@ -136,7 +151,7 @@ export default function Chatbot() {
     if (isOpen) inputRef.current?.focus()
   }, [isOpen])
 
-  const handleSend = (text?: string) => {
+  const handleSend = async (text?: string) => {
     const query = text || input.trim()
     if (!query) return
 
@@ -145,17 +160,30 @@ export default function Chatbot() {
     setInput('')
     setIsTyping(true)
 
-    setTimeout(() => {
-      const { answer, suggestions } = findBestAnswer(query)
+    const { answer, suggestions, confident } = findBestAnswer(query)
+
+    if (confident) {
+      setTimeout(() => {
+        const botMsg: Message = {
+          id: (Date.now() + 1).toString(),
+          type: 'bot',
+          text: answer,
+          suggestions,
+        }
+        setMessages(prev => [...prev, botMsg])
+        setIsTyping(false)
+      }, 400 + Math.random() * 300)
+    } else {
+      const llmAnswer = await askGroq(query, messages)
       const botMsg: Message = {
         id: (Date.now() + 1).toString(),
         type: 'bot',
-        text: answer,
-        suggestions,
+        text: llmAnswer,
+        suggestions: ['What services do you offer?', 'How do I get started?', 'What is AEO?'],
       }
       setMessages(prev => [...prev, botMsg])
       setIsTyping(false)
-    }, 600 + Math.random() * 400)
+    }
   }
 
   return (
