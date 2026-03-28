@@ -188,6 +188,9 @@ const AdminPanel = () => {
   const [activeView, setActiveView] = useState<'dashboard' | 'posts' | 'form' | 'meetings'>('dashboard')
   const [meetings, setMeetings] = useState<any[]>([])
   const [meetingsLoading, setMeetingsLoading] = useState(false)
+  const [expandedMeeting, setExpandedMeeting] = useState<string | null>(null)
+  const [meetingNotes, setMeetingNotes] = useState<Record<string, string>>({})
+  const [savingNotes, setSavingNotes] = useState<string | null>(null)
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null)
   const [formData, setFormData] = useState<FormData>(emptyForm)
   const [toasts, setToasts] = useState<Toast[]>([])
@@ -248,6 +251,32 @@ const AdminPanel = () => {
   useEffect(() => {
     if (activeView === 'meetings' && meetings.length === 0) loadMeetings()
   }, [activeView, meetings.length, loadMeetings])
+
+  const saveNotes = async (meetingId: string) => {
+    setSavingNotes(meetingId)
+    try {
+      await fetch('/api/meetings/notes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: meetingId, notes: meetingNotes[meetingId] || '' }),
+      })
+      setMeetings(prev => prev.map(m => m.id === meetingId ? { ...m, notes: meetingNotes[meetingId] } : m))
+      showToast('Notes saved!', 'success')
+    } catch { showToast('Failed to save notes', 'error') }
+    setSavingNotes(null)
+  }
+
+  const updateMeetingStatus = async (meetingId: string, status: string) => {
+    try {
+      await fetch('/api/meetings/notes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: meetingId, status }),
+      })
+      setMeetings(prev => prev.map(m => m.id === meetingId ? { ...m, status } : m))
+      showToast(`Status updated to ${status}`, 'success')
+    } catch { showToast('Failed to update status', 'error') }
+  }
 
   // ── Image Upload ──
   const [uploading, setUploading] = useState(false)
@@ -1386,6 +1415,15 @@ const AdminPanel = () => {
                             )}
                           </div>
                           <div className="flex items-center gap-2 shrink-0">
+                            <button
+                              onClick={() => {
+                                setExpandedMeeting(expandedMeeting === m.id ? null : m.id)
+                                if (!meetingNotes[m.id] && m.notes) setMeetingNotes(prev => ({ ...prev, [m.id]: m.notes }))
+                              }}
+                              className="px-3 py-1.5 rounded-lg bg-violet-500/10 text-violet-400 border border-violet-500/20 hover:bg-violet-500/20 transition-all text-xs font-medium"
+                            >
+                              {expandedMeeting === m.id ? 'Close' : 'Notes'}
+                            </button>
                             <a
                               href="https://meet.google.com/riu-uofk-tsi"
                               target="_blank"
@@ -1396,6 +1434,55 @@ const AdminPanel = () => {
                             </a>
                           </div>
                         </div>
+
+                        {/* Expanded Notes Section */}
+                        {expandedMeeting === m.id && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            className="mt-4 pt-4 border-t border-dark-300/30"
+                          >
+                            <div className="flex items-center gap-2 mb-3">
+                              <span className="text-xs text-gray-500 font-medium">Status:</span>
+                              {['scheduled', 'completed', 'cancelled', 'no-show'].map(s => (
+                                <button
+                                  key={s}
+                                  onClick={() => updateMeetingStatus(m.id, s)}
+                                  className={`text-[10px] px-2 py-0.5 rounded-full transition-all ${
+                                    m.status === s
+                                      ? s === 'scheduled' ? 'bg-saffron-500/20 text-saffron-400 border border-saffron-500/30'
+                                        : s === 'completed' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                                        : s === 'cancelled' ? 'bg-red-500/20 text-red-400 border border-red-500/30'
+                                        : 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
+                                      : 'bg-dark-400/30 text-gray-600 border border-dark-300/30 hover:text-gray-400'
+                                  }`}
+                                >
+                                  {s}
+                                </button>
+                              ))}
+                            </div>
+                            <textarea
+                              value={meetingNotes[m.id] ?? m.notes ?? ''}
+                              onChange={(e) => setMeetingNotes(prev => ({ ...prev, [m.id]: e.target.value }))}
+                              placeholder="Add notes about this meeting... (discussion points, requirements, follow-ups)"
+                              className="w-full bg-dark-400/20 border border-dark-300/30 rounded-xl p-3 text-sm text-gray-300 placeholder-gray-600 outline-none focus:border-saffron-500/30 resize-y min-h-[100px]"
+                              rows={4}
+                            />
+                            <div className="flex items-center justify-between mt-3">
+                              <span className="text-[11px] text-gray-600">
+                                {m.notes ? 'Last saved' : 'No notes yet'}
+                              </span>
+                              <button
+                                onClick={() => saveNotes(m.id)}
+                                disabled={savingNotes === m.id}
+                                className="px-4 py-1.5 rounded-lg bg-saffron-500/10 text-saffron-400 border border-saffron-500/20 hover:bg-saffron-500/20 transition-all text-xs font-medium disabled:opacity-50"
+                              >
+                                {savingNotes === m.id ? 'Saving...' : 'Save Notes'}
+                              </button>
+                            </div>
+                          </motion.div>
+                        )}
+
                         <div className="mt-3 text-[11px] text-gray-600">
                           Booked: {new Date(m.created_at).toLocaleString()}
                         </div>
