@@ -120,12 +120,14 @@ function findBestAnswer(query: string): { answer: string; suggestions: string[];
 
 async function askGroq(message: string, history: Message[]): Promise<string> {
   try {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
     const res = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         message,
-        history: history.filter(m => m.id !== 'welcome').slice(-6).map(m => ({ type: m.type, text: m.text })),
+        timezone,
+        history: history.filter(m => m.id !== 'welcome').slice(-8).map(m => ({ type: m.type, text: m.text })),
       }),
     })
     const data = await res.json()
