@@ -4,7 +4,7 @@ import { supabase } from '@/lib/supabase'
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, date, time, timezone, service_interest } = await req.json()
+    const { name, email, phone, date, time, timezone, service_interest } = await req.json()
 
     if (!name || !email || !date || !time) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
@@ -18,6 +18,7 @@ export async function POST(req: NextRequest) {
         .insert({
           name,
           email,
+          phone: phone || null,
           meeting_date: date,
           meeting_time: time,
           timezone: timezone || 'Asia/Kolkata',
@@ -55,6 +56,7 @@ export async function POST(req: NextRequest) {
               <table style="width: 100%; border-collapse: collapse;">
                 <tr><td style="padding: 10px 0; color: #8b89a0; width: 140px;">Name</td><td style="color: #e8e6f0; font-weight: 600;">${name}</td></tr>
                 <tr><td style="padding: 10px 0; color: #8b89a0;">Email</td><td><a href="mailto:${email}" style="color: #E8A317;">${email}</a></td></tr>
+                <tr><td style="padding: 10px 0; color: #8b89a0;">Phone</td><td style="color: #e8e6f0; font-weight: 600;">${phone || 'Not provided'}</td></tr>
                 <tr><td style="padding: 10px 0; color: #8b89a0;">Date</td><td style="color: #e8e6f0; font-weight: 600;">${date}</td></tr>
                 <tr><td style="padding: 10px 0; color: #8b89a0;">Time</td><td style="color: #e8e6f0; font-weight: 600;">${time} (${timezone || 'Asia/Kolkata'})</td></tr>
                 <tr><td style="padding: 10px 0; color: #8b89a0;">Service Interest</td><td style="color: #e8e6f0;">${service_interest || 'General'}</td></tr>
