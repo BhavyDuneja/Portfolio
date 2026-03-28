@@ -88,8 +88,11 @@ const WELCOME_MESSAGE: Message = {
 function fuzzyMatch(query: string, text: string): number {
   const q = query.toLowerCase().trim()
   const t = text.toLowerCase()
-  if (t.includes(q)) return 1
-  const words = q.split(/\s+/).filter(w => w.length > 2)
+  // Exact substring match
+  if (t.includes(q) && q.length > 5) return 1
+  // Word-level matching — ignore common words
+  const stopWords = new Set(['how', 'can', 'do', 'does', 'what', 'is', 'are', 'the', 'for', 'and', 'with', 'your', 'you', 'my', 'our', 'this', 'that', 'have', 'has', 'will', 'would', 'could', 'should', 'about', 'from', 'they', 'them', 'their', 'there', 'also', 'just', 'more', 'some', 'any', 'all', 'but', 'not', 'very', 'much', 'many', 'which', 'when', 'where', 'who', 'why'])
+  const words = q.split(/\s+/).filter(w => w.length > 2 && !stopWords.has(w))
   if (words.length === 0) return 0
   const matched = words.filter(w => t.includes(w)).length
   return matched / words.length
@@ -98,16 +101,14 @@ function fuzzyMatch(query: string, text: string): number {
 function findBestAnswer(query: string): { answer: string; suggestions: string[]; confident: boolean } {
   const scored = faqs.map(faq => ({
     faq,
-    score: Math.max(
-      fuzzyMatch(query, faq.question) * 1.2,
-      fuzzyMatch(query, faq.answer) * 0.8,
-      fuzzyMatch(query, faq.category) * 0.6,
-    ),
+    // Heavily prioritize question match, barely use answer match
+    score: fuzzyMatch(query, faq.question) * 1.5,
   }))
   scored.sort((a, b) => b.score - a.score)
 
-  if (scored[0].score > 0.3) {
-    const related = scored.slice(1, 4).filter(s => s.score > 0.2)
+  // Only use FAQ if question match is strong (>0.6 = most key words match)
+  if (scored[0].score > 0.6) {
+    const related = scored.slice(1, 4).filter(s => s.score > 0.4)
     return {
       answer: scored[0].faq.answer,
       suggestions: related.map(r => r.faq.question),
@@ -115,6 +116,7 @@ function findBestAnswer(query: string): { answer: string; suggestions: string[];
     }
   }
 
+  // Otherwise, let Groq handle it — it has deeper service knowledge
   return { answer: '', suggestions: [], confident: false }
 }
 
