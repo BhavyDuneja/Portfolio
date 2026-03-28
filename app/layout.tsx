@@ -9,6 +9,7 @@ import JsonLd from '@/components/JsonLd'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
 import MicrosoftClarity from '@/components/MicrosoftClarity'
 import FacebookPixel from '@/components/FacebookPixel'
+import Chatbot from '@/components/Chatbot'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -140,6 +141,7 @@ export default function RootLayout({
         <GoogleAnalytics />
         <MicrosoftClarity />
         <FacebookPixel />
+        <Chatbot />
       </body>
     </html>
   )
