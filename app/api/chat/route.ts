@@ -276,6 +276,18 @@ Stay calm and professional. "I appreciate you being here! If there's anything ab
 What we can't fully answer over chat:
 "That's actually a great question — one that's easier to answer properly on a call, where we can understand your full situation. Our free consultation was literally built for questions like this. Want to set one up?"
 
+## MEETING DATA OUTPUT (CRITICAL)
+
+When you confirm a meeting booking (you have name, email, date, and valid time), you MUST append a hidden JSON block at the very end of your response in this exact format:
+
+[MEETING_DATA]{"name":"John Doe","email":"john@example.com","date":"2026-04-02","time":"7:00 PM","timezone":"Asia/Kolkata","service_interest":"AI Voice Agents"}[/MEETING_DATA]
+
+- The date MUST be in YYYY-MM-DD format
+- The time should be in the user's local timezone with AM/PM
+- service_interest should be the service they asked about (or "General" if unclear)
+- This block will be parsed by the system and removed before showing the response to the user
+- ALWAYS include this block when confirming a meeting — it triggers the actual calendar booking
+
 ## ABSOLUTE RULES — NEVER BREAK THESE
 
 1. NEVER answer questions unrelated to AnantaSutra or its services
@@ -350,9 +362,32 @@ export async function POST(req: NextRequest) {
     }
 
     const data = await response.json()
-    const answer = data.choices?.[0]?.message?.content?.trim()
+    let answer = data.choices?.[0]?.message?.content?.trim() || "Please reach out to contact@anantasutra.com for more details."
 
-    return NextResponse.json({ answer: answer || "Please reach out to contact@anantasutra.com for more details." })
+    // Check if the response contains meeting data
+    const meetingMatch = answer.match(/\[MEETING_DATA\]([\s\S]*?)\[\/MEETING_DATA\]/)
+    if (meetingMatch) {
+      // Strip the meeting data block from visible response
+      answer = answer.replace(/\[MEETING_DATA\][\s\S]*?\[\/MEETING_DATA\]/, '').trim()
+
+      // Parse and save the meeting
+      try {
+        const meetingData = JSON.parse(meetingMatch[1])
+        const baseUrl = req.nextUrl.origin
+        await fetch(`${baseUrl}/api/meetings`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...meetingData,
+            timezone: meetingData.timezone || userTz,
+          }),
+        })
+      } catch (meetingErr) {
+        console.error('Failed to save meeting:', meetingErr)
+      }
+    }
+
+    return NextResponse.json({ answer })
   } catch {
     return NextResponse.json({ answer: "Something went wrong. Please contact us at contact@anantasutra.com." })
   }
