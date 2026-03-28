@@ -1371,6 +1371,11 @@ const AdminPanel = () => {
                               <a href={`mailto:${m.email}`} className="text-saffron-400 hover:text-saffron-300 transition-colors">
                                 {m.email}
                               </a>
+                              {m.phone && (
+                                <a href={`tel:${m.phone}`} className="text-emerald-400 hover:text-emerald-300 transition-colors">
+                                  {m.phone}
+                                </a>
+                              )}
                             </div>
                             {m.service_interest && m.service_interest !== 'General' && (
                               <div className="mt-2">
