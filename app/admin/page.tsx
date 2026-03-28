@@ -185,7 +185,9 @@ const AdminPanel = () => {
   const [loginLoading, setLoginLoading] = useState(false)
 
   // UI state
-  const [activeView, setActiveView] = useState<'dashboard' | 'posts' | 'form'>('dashboard')
+  const [activeView, setActiveView] = useState<'dashboard' | 'posts' | 'form' | 'meetings'>('dashboard')
+  const [meetings, setMeetings] = useState<any[]>([])
+  const [meetingsLoading, setMeetingsLoading] = useState(false)
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null)
   const [formData, setFormData] = useState<FormData>(emptyForm)
   const [toasts, setToasts] = useState<Toast[]>([])
@@ -232,6 +234,20 @@ const AdminPanel = () => {
     setPosts(allPosts)
     setStats(postStats)
   }
+
+  const loadMeetings = useCallback(async () => {
+    setMeetingsLoading(true)
+    try {
+      const res = await fetch('/api/meetings')
+      const data = await res.json()
+      setMeetings(data.meetings || [])
+    } catch { setMeetings([]) }
+    setMeetingsLoading(false)
+  }, [])
+
+  useEffect(() => {
+    if (activeView === 'meetings' && meetings.length === 0) loadMeetings()
+  }, [activeView, meetings.length, loadMeetings])
 
   // ── Image Upload ──
   const [uploading, setUploading] = useState(false)
@@ -557,6 +573,7 @@ const AdminPanel = () => {
   const navItems = [
     { key: 'dashboard' as const, label: 'Dashboard', icon: LayoutDashboard },
     { key: 'posts' as const, label: 'Posts', icon: FileText },
+    { key: 'meetings' as const, label: 'Meetings', icon: Calendar },
   ]
 
   // ── Stat Cards ──
@@ -1290,6 +1307,98 @@ const AdminPanel = () => {
                   </button>
                 </div>
               </form>
+            </motion.div>
+          )}
+
+          {/* ═══ Meetings View ═══ */}
+          {activeView === 'meetings' && (
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+              <div className="flex items-center justify-between mb-8">
+                <div>
+                  <h1 className="text-3xl font-bold text-white mb-1">Meetings</h1>
+                  <p className="text-gray-500">Consultations booked via Sutra chatbot</p>
+                </div>
+                <button onClick={loadMeetings} className="px-4 py-2 rounded-xl bg-dark-400/50 border border-dark-300/50 text-gray-400 hover:text-white hover:border-saffron-500/30 transition-all text-sm">
+                  Refresh
+                </button>
+              </div>
+
+              {meetingsLoading ? (
+                <div className="text-center py-20 text-gray-500">Loading meetings...</div>
+              ) : meetings.length === 0 ? (
+                <div className="text-center py-20">
+                  <Calendar className="w-16 h-16 mx-auto text-gray-700 mb-4" />
+                  <p className="text-gray-500 text-lg">No meetings booked yet</p>
+                  <p className="text-gray-600 text-sm mt-2">When visitors book via Sutra, meetings will appear here</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {meetings.map((m: any) => {
+                    const isUpcoming = new Date(m.meeting_date) >= new Date(new Date().toDateString())
+                    return (
+                      <div key={m.id} className={`rounded-xl border p-5 transition-all ${
+                        isUpcoming
+                          ? 'bg-dark-400/30 border-saffron-500/20 hover:border-saffron-500/40'
+                          : 'bg-dark-400/10 border-dark-300/30 opacity-60'
+                      }`}>
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-2">
+                              <h3 className="text-white font-semibold text-lg">{m.name}</h3>
+                              <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
+                                m.status === 'scheduled' ? 'bg-saffron-500/15 text-saffron-400 border border-saffron-500/20' :
+                                m.status === 'completed' ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20' :
+                                m.status === 'cancelled' ? 'bg-red-500/15 text-red-400 border border-red-500/20' :
+                                'bg-gray-500/15 text-gray-400 border border-gray-500/20'
+                              }`}>
+                                {m.status}
+                              </span>
+                              {isUpcoming && m.status === 'scheduled' && (
+                                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 animate-pulse">
+                                  Upcoming
+                                </span>
+                              )}
+                            </div>
+                            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400">
+                              <span className="flex items-center gap-1.5">
+                                <Calendar className="w-3.5 h-3.5 text-saffron-500" />
+                                {m.meeting_date}
+                              </span>
+                              <span className="flex items-center gap-1.5">
+                                <Clock className="w-3.5 h-3.5 text-violet-500" />
+                                {m.meeting_time} ({m.timezone})
+                              </span>
+                              <a href={`mailto:${m.email}`} className="text-saffron-400 hover:text-saffron-300 transition-colors">
+                                {m.email}
+                              </a>
+                            </div>
+                            {m.service_interest && m.service_interest !== 'General' && (
+                              <div className="mt-2">
+                                <span className="text-xs px-2 py-0.5 rounded-full bg-violet-500/10 text-violet-400 border border-violet-500/20">
+                                  {m.service_interest}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2 shrink-0">
+                            <a
+                              href="https://meet.google.com/riu-uofk-tsi"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-3 py-1.5 rounded-lg bg-saffron-500/10 text-saffron-400 border border-saffron-500/20 hover:bg-saffron-500/20 transition-all text-xs font-medium"
+                            >
+                              Join Meet
+                            </a>
+                          </div>
+                        </div>
+                        <div className="mt-3 text-[11px] text-gray-600">
+                          Booked: {new Date(m.created_at).toLocaleString()}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
             </motion.div>
           )}
         </div>
