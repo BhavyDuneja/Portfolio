@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { supabase } from '@/lib/supabase'
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY
 const OPENAI_URL = 'https://api.openai.com/v1/chat/completions'
@@ -370,20 +371,34 @@ export async function POST(req: NextRequest) {
       // Strip the meeting data block from visible response
       answer = answer.replace(/\[MEETING_DATA\][\s\S]*?\[\/MEETING_DATA\]/, '').trim()
 
-      // Parse and save the meeting
       try {
         const meetingData = JSON.parse(meetingMatch[1])
-        const baseUrl = req.nextUrl.origin
-        await fetch(`${baseUrl}/api/meetings`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ...meetingData,
-            timezone: meetingData.timezone || userTz,
-          }),
-        })
+
+        // Check if slot is already booked
+        const { data: existing } = await supabase
+          .from('meetings')
+          .select('id')
+          .eq('meeting_date', meetingData.date)
+          .eq('meeting_time', meetingData.time)
+          .eq('status', 'scheduled')
+
+        if (existing && existing.length > 0) {
+          // Slot taken — tell user to pick another time
+          answer = `Oops! Looks like the ${meetingData.time} slot on ${meetingData.date} just got booked by someone else. Could you pick a different time? I have plenty of other slots available — just let me know what works! 😊`
+        } else {
+          // Slot available — save the meeting
+          const baseUrl = req.nextUrl.origin
+          await fetch(`${baseUrl}/api/meetings`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              ...meetingData,
+              timezone: meetingData.timezone || userTz,
+            }),
+          })
+        }
       } catch (meetingErr) {
-        console.error('Failed to save meeting:', meetingErr)
+        console.error('Failed to process meeting:', meetingErr)
       }
     }
 
