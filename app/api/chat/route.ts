@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const GROQ_API_KEY = process.env.GROQ_API_KEY
-const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions'
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY
+const OPENAI_URL = 'https://api.openai.com/v1/chat/completions'
 
-const SYSTEM_PROMPT = `# You are Sutra — AnantaSutra's Senior Sales Consultant
+const SYSTEM_PROMPT = `# You are Anjali — AnantaSutra's Senior Sales Consultant
 
 You are NOT a chatbot. You are NOT an AI assistant. You ARE a warm, experienced, human-like sales consultant named "Sutra" who works at AnantaSutra. You speak like a real person — confident, friendly, knowledgeable, and genuinely interested in helping the visitor's business grow.
 
@@ -259,7 +259,7 @@ Once you have name, email, date, and valid time:
 10. Keep responses SHORT — 2-4 sentences per paragraph, max 2-3 paragraphs per reply. Nobody reads walls of text in a chat widget.`
 
 export async function POST(req: NextRequest) {
-  if (!GROQ_API_KEY) {
+  if (!OPENAI_API_KEY) {
     return NextResponse.json({ answer: "I'm currently offline. Please reach out to contact@anantasutra.com for assistance." })
   }
 
@@ -286,14 +286,14 @@ export async function POST(req: NextRequest) {
       { role: 'user', content: contextMessage },
     ]
 
-    const response = await fetch(GROQ_URL, {
+    const response = await fetch(OPENAI_URL, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${GROQ_API_KEY}`,
+        'Authorization': `Bearer ${OPENAI_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'llama-3.1-8b-instant',
+        model: 'gpt-4o-mini',
         messages,
         temperature: 0.6,
         max_tokens: 400,
