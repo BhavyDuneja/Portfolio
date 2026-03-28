@@ -81,8 +81,8 @@ interface Message {
 const WELCOME_MESSAGE: Message = {
   id: 'welcome',
   type: 'bot',
-  text: "Namaste! 🙏 I'm AnantaSutra's assistant. Ask me anything about our AI automation, marketing, website development, SEO, AEO, or GEO services.",
-  suggestions: ['What services do you offer?', 'What is AEO?', 'How much does a website cost?', 'How do I get started?'],
+  text: "Hey there! 👋 I'm Sutra, your consultant at AnantaSutra. Whether it's AI automation, marketing, or getting your business found online — I'm here to help. What brings you here today?",
+  suggestions: ['I need AI for my business', 'I want a website built', 'What is AEO & GEO?', 'Tell me about your services'],
 }
 
 function fuzzyMatch(query: string, text: string): number {
@@ -240,7 +240,7 @@ export default function Chatbot() {
                   <Sparkles className="w-4 h-4 text-[#0A0A0F]" />
                 </div>
                 <div>
-                  <p className="text-white text-sm font-semibold">AnantaSutra</p>
+                  <p className="text-white text-sm font-semibold">Sutra</p>
                   <p className="text-green-400 text-[10px] flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
                     Online
