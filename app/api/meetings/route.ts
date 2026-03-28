@@ -124,3 +124,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Failed to process meeting' }, { status: 500 })
   }
 }
+
+export async function GET() {
+  try {
+    const { data, error } = await supabase
+      .from('meetings')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    if (error) {
+      return NextResponse.json({ meetings: [] }, { status: 500 })
+    }
+
+    return NextResponse.json({ meetings: data || [] })
+  } catch {
+    return NextResponse.json({ meetings: [] }, { status: 500 })
+  }
+}
