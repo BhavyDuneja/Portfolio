@@ -316,9 +316,23 @@ const AdminPanel = () => {
           meeting_time: rd.time,
         }),
       })
+      // Send reschedule confirmation email to client
+      const meeting = meetings.find(m => m.id === meetingId)
+      if (meeting) {
+        await fetch('/api/meetings/status-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...meeting,
+            status: 'rescheduled',
+            new_date: rd.date,
+            new_time: rd.time,
+          }),
+        })
+      }
       setMeetings(prev => prev.map(m => m.id === meetingId ? { ...m, status: 'rescheduled', meeting_date: rd.date, meeting_time: rd.time } : m))
       setShowReschedule(null)
-      showToast(`Rescheduled to ${rd.date} at ${rd.time}`, 'success')
+      showToast(`Rescheduled to ${rd.date} at ${rd.time} — confirmation email sent`, 'success')
     } catch { showToast('Failed to reschedule', 'error') }
   }
 
