@@ -77,7 +77,7 @@ const DeleteModal = ({ postTitle, onConfirm, onCancel }: { postTitle: string; on
           <Trash2 className="w-8 h-8 text-red-400" />
         </div>
         <h3 className="text-xl font-bold text-white mb-2">Delete Post</h3>
-        <p className="text-gray-400 mb-6">
+        <p className="text-gray-300 mb-6">
           Are you sure you want to delete &quot;{postTitle}&quot;? This action cannot be undone.
         </p>
         <div className="flex gap-3 justify-center">
@@ -638,12 +638,12 @@ const AdminPanel = () => {
                 <Lock className="w-8 h-8 text-white" />
               </div>
               <h1 className="text-2xl font-bold text-white mb-2">Admin Login</h1>
-              <p className="text-gray-500 text-sm">Enter your credentials to access the dashboard</p>
+              <p className="text-gray-400 text-sm">Enter your credentials to access the dashboard</p>
             </div>
 
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">Email</label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
                 <input
                   type="email"
                   value={loginEmail}
@@ -655,7 +655,7 @@ const AdminPanel = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">Password</label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Password</label>
                 <input
                   type="password"
                   value={loginPassword}
@@ -825,7 +825,7 @@ const AdminPanel = () => {
               <div className="flex items-center justify-between mb-8">
                 <div>
                   <h1 className="text-3xl font-bold text-white mb-1">Dashboard</h1>
-                  <p className="text-gray-500">Overview of your blog</p>
+                  <p className="text-gray-400">Overview of your blog</p>
                 </div>
                 <button onClick={openCreateForm} className="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-saffron-500 to-saffron-600 text-dark-950 rounded-xl hover:from-saffron-400 hover:to-saffron-500 transition-all font-semibold text-sm">
                   <Plus className="w-4 h-4" />
@@ -843,7 +843,7 @@ const AdminPanel = () => {
                         <Icon className={`w-5 h-5 ${card.iconColor}`} />
                       </div>
                       <p className="text-2xl lg:text-3xl font-bold text-white mb-1">{card.value}</p>
-                      <p className="text-gray-500 text-sm">{card.label}</p>
+                      <p className="text-gray-400 text-sm">{card.label}</p>
                     </div>
                   )
                 })}
@@ -890,7 +890,7 @@ const AdminPanel = () => {
               <div className="flex items-center justify-between mb-8">
                 <div>
                   <h1 className="text-3xl font-bold text-white mb-1">Posts</h1>
-                  <p className="text-gray-500">{filteredPosts.length} of {posts.length} posts</p>
+                  <p className="text-gray-400">{filteredPosts.length} of {posts.length} posts</p>
                 </div>
                 <button onClick={openCreateForm} className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-saffron-500 to-saffron-600 text-dark-950 rounded-xl hover:from-saffron-400 hover:to-saffron-500 transition-all font-semibold text-sm">
                   <Plus className="w-4 h-4" />
@@ -1058,7 +1058,7 @@ const AdminPanel = () => {
               <div className="flex items-center justify-between mb-8">
                 <div>
                   <h1 className="text-3xl font-bold text-white mb-1">{editingPost ? 'Edit Post' : 'Create New Post'}</h1>
-                  <p className="text-gray-500">{editingPost ? `Editing: ${editingPost.title}` : 'Write and publish a new blog post'}</p>
+                  <p className="text-gray-400">{editingPost ? `Editing: ${editingPost.title}` : 'Write and publish a new blog post'}</p>
                 </div>
                 <button
                   onClick={() => { setActiveView('posts'); setEditingPost(null); setFormData(emptyForm) }}
@@ -1078,7 +1078,7 @@ const AdminPanel = () => {
 
                   <div className="grid md:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-2">Title *</label>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Title *</label>
                       <input
                         type="text"
                         name="title"
@@ -1090,7 +1090,7 @@ const AdminPanel = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-2">Slug</label>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Slug</label>
                       <input
                         type="text"
                         name="slug"
@@ -1103,7 +1103,7 @@ const AdminPanel = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-2">Excerpt *</label>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Excerpt *</label>
                     <textarea
                       name="excerpt"
                       value={formData.excerpt}
@@ -1116,7 +1116,7 @@ const AdminPanel = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-2">Content *</label>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Content *</label>
                     <RichTextEditor
                       value={formData.content}
                       onChange={(value) => setFormData(prev => ({ ...prev, content: value }))}
@@ -1134,7 +1134,7 @@ const AdminPanel = () => {
                     </h3>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-2">Category *</label>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Category *</label>
                       <select
                         name="category"
                         value={formData.category}
@@ -1147,7 +1147,7 @@ const AdminPanel = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-2">Tags (comma-separated)</label>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Tags (comma-separated)</label>
                       <input
                         type="text"
                         name="tags"
@@ -1169,7 +1169,7 @@ const AdminPanel = () => {
 
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-2">Read Time</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Read Time</label>
                         <input
                           type="text"
                           name="readTime"
@@ -1180,7 +1180,7 @@ const AdminPanel = () => {
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-2">Author</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Author</label>
                         <input
                           type="text"
                           name="author"
@@ -1204,7 +1204,7 @@ const AdminPanel = () => {
                         <div className="w-10 h-6 bg-dark-400 border border-white/10 rounded-full peer-checked:bg-saffron-500/20 peer-checked:border-saffron-500/40 transition-all" />
                         <div className="absolute top-0.5 left-0.5 w-5 h-5 bg-gray-600 rounded-full peer-checked:translate-x-4 peer-checked:bg-saffron-400 transition-all" />
                       </div>
-                      <span className="text-sm font-medium text-gray-400 group-hover:text-white transition-colors">Featured Post</span>
+                      <span className="text-sm font-medium text-gray-300 group-hover:text-white transition-colors">Featured Post</span>
                     </label>
                   </div>
 
@@ -1216,7 +1216,7 @@ const AdminPanel = () => {
                     </h3>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-2">Status</label>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Status</label>
                       <div className="grid grid-cols-3 gap-2">
                         {(['draft', 'published', 'scheduled'] as PostStatus[]).map(s => (
                           <button
@@ -1239,7 +1239,7 @@ const AdminPanel = () => {
 
                     {formData.status === 'scheduled' && (
                       <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-2">Scheduled Date</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Scheduled Date</label>
                         <input
                           type="datetime-local"
                           name="scheduledDate"
@@ -1256,7 +1256,7 @@ const AdminPanel = () => {
                       <div className="space-y-4">
                         <div>
                           <div className="flex items-center justify-between mb-2">
-                            <label className="text-sm font-medium text-gray-400">Meta Title</label>
+                            <label className="text-sm font-medium text-gray-300">Meta Title</label>
                             <span className={`text-xs ${(formData.metaTitle?.length || 0) > 60 ? 'text-red-400' : 'text-gray-600'}`}>
                               {formData.metaTitle?.length || 0}/60
                             </span>
@@ -1272,7 +1272,7 @@ const AdminPanel = () => {
                         </div>
                         <div>
                           <div className="flex items-center justify-between mb-2">
-                            <label className="text-sm font-medium text-gray-400">Meta Description</label>
+                            <label className="text-sm font-medium text-gray-300">Meta Description</label>
                             <span className={`text-xs ${(formData.metaDescription?.length || 0) > 160 ? 'text-red-400' : 'text-gray-600'}`}>
                               {formData.metaDescription?.length || 0}/160
                             </span>
@@ -1300,7 +1300,7 @@ const AdminPanel = () => {
 
                   <div className="grid md:grid-cols-2 gap-5">
                     <div className="space-y-3">
-                      <label className="block text-sm font-medium text-gray-400">Cover Image</label>
+                      <label className="block text-sm font-medium text-gray-300">Cover Image</label>
 
                       {/* Upload Zone */}
                       <div
@@ -1336,7 +1336,7 @@ const AdminPanel = () => {
                         ) : (
                           <div className="flex flex-col items-center gap-2">
                             <Upload className="w-8 h-8 text-gray-600" />
-                            <span className="text-sm text-gray-500">Drag & drop or click to upload</span>
+                            <span className="text-sm text-gray-400">Drag & drop or click to upload</span>
                             <span className="text-xs text-gray-600">JPG, PNG, WebP, GIF (max 5MB)</span>
                           </div>
                         )}
@@ -1375,7 +1375,7 @@ const AdminPanel = () => {
                       )}
                       {formData.imageUrl && (
                         <div>
-                          <label className="block text-sm font-medium text-gray-400 mb-2">Image Alt Text</label>
+                          <label className="block text-sm font-medium text-gray-300 mb-2">Image Alt Text</label>
                           <input
                             type="text"
                             name="imageAlt"
@@ -1389,7 +1389,7 @@ const AdminPanel = () => {
                     </div>
 
                     <div className="space-y-3">
-                      <label className="block text-sm font-medium text-gray-400">Video URL (YouTube)</label>
+                      <label className="block text-sm font-medium text-gray-300">Video URL (YouTube)</label>
                       <input
                         type="url"
                         name="videoUrl"
@@ -1441,7 +1441,7 @@ const AdminPanel = () => {
               <div className="flex items-center justify-between mb-8">
                 <div>
                   <h1 className="text-3xl font-bold text-white mb-1">Meetings</h1>
-                  <p className="text-gray-500">Consultations booked via Sutra chatbot</p>
+                  <p className="text-gray-400">Consultations booked via Sutra chatbot</p>
                 </div>
                 <button onClick={loadMeetings} className="px-4 py-2 rounded-xl bg-dark-400/50 border border-dark-300/50 text-gray-400 hover:text-white hover:border-saffron-500/30 transition-all text-sm">
                   Refresh
@@ -1449,11 +1449,11 @@ const AdminPanel = () => {
               </div>
 
               {meetingsLoading ? (
-                <div className="text-center py-20 text-gray-500">Loading meetings...</div>
+                <div className="text-center py-20 text-gray-400">Loading meetings...</div>
               ) : meetings.length === 0 ? (
                 <div className="text-center py-20">
                   <Calendar className="w-16 h-16 mx-auto text-gray-700 mb-4" />
-                  <p className="text-gray-500 text-lg">No meetings booked yet</p>
+                  <p className="text-gray-400 text-lg">No meetings booked yet</p>
                   <p className="text-gray-600 text-sm mt-2">When visitors book via Sutra, meetings will appear here</p>
                 </div>
               ) : (
@@ -1704,7 +1704,7 @@ const AdminPanel = () => {
                 <div className="flex items-center justify-between mb-8">
                   <div>
                     <h1 className="text-3xl font-bold text-white mb-1">Calendar</h1>
-                    <p className="text-gray-500">Monthly meeting overview</p>
+                    <p className="text-gray-400">Monthly meeting overview</p>
                   </div>
                   <div className="flex items-center gap-3">
                     <button

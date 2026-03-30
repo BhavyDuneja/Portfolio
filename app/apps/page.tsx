@@ -103,7 +103,7 @@ export default function AppsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto"
+            className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto"
           >
             Technology that nurtures the soul. Ancient wisdom and modern tools for a life of purpose and practice.
           </motion.p>
@@ -140,7 +140,7 @@ export default function AppsPage() {
                 }`}>
                   {app.tagline}
                 </p>
-                <p className="text-gray-400 text-lg leading-relaxed mb-8">
+                <p className="text-gray-300 text-lg leading-relaxed mb-8">
                   {app.description}
                 </p>
 
@@ -219,7 +219,7 @@ export default function AppsPage() {
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Join the Journey
             </h2>
-            <p className="text-gray-400 text-lg mb-8 max-w-lg mx-auto">
+            <p className="text-gray-300 text-lg mb-8 max-w-lg mx-auto">
               Be among the first to experience apps that bridge ancient wisdom with modern technology.
             </p>
             <Link href="/contact" className="btn-primary">

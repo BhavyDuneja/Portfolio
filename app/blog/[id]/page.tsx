@@ -72,7 +72,7 @@ const BlogPostPage = () => {
       <div className="min-h-screen pt-24">
         <div className="max-w-4xl mx-auto px-4 py-12 text-center">
           <h1 className="text-3xl font-bold text-white mb-4">Post Not Found</h1>
-          <p className="text-gray-400 mb-6">The blog post you&apos;re looking for doesn&apos;t exist.</p>
+          <p className="text-gray-300 mb-6">The blog post you&apos;re looking for doesn&apos;t exist.</p>
           <Link href="/blog" className="btn-primary inline-flex">
             <ArrowLeft className="w-5 h-5" />
             <span>Back to Blog</span>
@@ -129,7 +129,7 @@ const BlogPostPage = () => {
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight font-display">{post.title}</h1>
 
             {/* Meta */}
-            <div className="flex flex-wrap items-center gap-6 text-gray-500 mb-8 pb-8 border-b border-white/10">
+            <div className="flex flex-wrap items-center gap-6 text-gray-400 mb-8 pb-8 border-b border-white/10">
               <div className="flex items-center gap-2"><User className="w-4 h-4" /><span>{post.author}</span></div>
               <div className="flex items-center gap-2"><Calendar className="w-4 h-4" /><span>{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span></div>
               <div className="flex items-center gap-2"><Clock className="w-4 h-4" /><span>{post.readTime}</span></div>
@@ -146,7 +146,7 @@ const BlogPostPage = () => {
             {/* Content */}
             <div className="blog-content mb-8" dangerouslySetInnerHTML={{ __html: post.content }} />
             <style jsx global>{`
-              .blog-content { font-size: 17px; line-height: 1.9; color: #9ca3af; }
+              .blog-content { font-size: 17px; line-height: 1.9; color: #d1d5db; }
               .blog-content h1, .blog-content h2, .blog-content h3, .blog-content h4 { font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; color: #e8e6f0; }
               .blog-content h1 { font-size: 2.2rem; } .blog-content h2 { font-size: 1.8rem; } .blog-content h3 { font-size: 1.5rem; }
               .blog-content p { margin-bottom: 1.5rem; }
@@ -155,7 +155,7 @@ const BlogPostPage = () => {
               .blog-content a { color: #E8A317; text-decoration: underline; }
               .blog-content a:hover { color: #FFB800; }
               .blog-content img { max-width: 100%; height: auto; border-radius: 0.75rem; margin: 2rem 0; }
-              .blog-content blockquote { border-left: 3px solid #E8A317; padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: #6b7280; }
+              .blog-content blockquote { border-left: 3px solid #E8A317; padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: #9ca3af; }
               .blog-content code { background-color: rgba(255,255,255,0.05); padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.9em; color: #E8A317; }
               .blog-content pre { background-color: #0A0A1E; color: #e8e6f0; padding: 1.5rem; border-radius: 0.75rem; overflow-x: auto; margin: 2rem 0; border: 1px solid rgba(255,255,255,0.05); }
               .blog-content pre code { background-color: transparent; color: inherit; padding: 0; }
@@ -230,7 +230,7 @@ const BlogPostPage = () => {
                         <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-saffron-500/10 text-saffron-400 border border-saffron-500/20">{related.category}</span>
                       </div>
                       <h3 className="text-white font-semibold mb-2 line-clamp-2 group-hover:text-saffron-400 transition-colors duration-300 text-sm">{related.title}</h3>
-                      <p className="text-gray-500 text-xs mb-3 line-clamp-2">{related.excerpt}</p>
+                      <p className="text-gray-400 text-xs mb-3 line-clamp-2">{related.excerpt}</p>
                       <div className="flex items-center gap-3 text-xs text-gray-600">
                         <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />{new Date(related.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                         <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{related.readTime}</span>

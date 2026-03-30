@@ -69,7 +69,7 @@ export default function AnantasutraHome() {
             <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-6">
               Let&apos;s Weave Your Thread
             </h2>
-            <p className="text-gray-400 text-lg mb-10 max-w-lg mx-auto">
+            <p className="text-gray-300 text-lg mb-10 max-w-lg mx-auto">
               Whether you need AI automation, marketing amplification, or a custom solution — your journey with infinite wisdom starts here.
             </p>
             <div className="flex flex-wrap justify-center gap-4">

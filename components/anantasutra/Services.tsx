@@ -111,7 +111,7 @@ const Services = () => {
                   <h3 className="text-xl font-bold text-white mb-4">{service.title}</h3>
 
                   {/* Description */}
-                  <p className="text-gray-400 leading-relaxed mb-6">{service.description}</p>
+                  <p className="text-gray-300 leading-relaxed mb-6">{service.description}</p>
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2 mb-6">
@@ -146,7 +146,7 @@ const Services = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.5 }}
         >
-          <h3 className="text-lg font-semibold text-gray-500 mb-6 text-center">
+          <h3 className="text-lg font-semibold text-gray-400 mb-6 text-center">
             Expanding Our Universe
           </h3>
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide justify-center flex-wrap">
@@ -161,7 +161,7 @@ const Services = () => {
                   className="flex-shrink-0 relative bg-white/[0.02] border border-white/[0.06] rounded-xl px-6 py-4 flex items-center space-x-3 min-w-[180px] mt-3 mr-2"
                 >
                   <Icon className="w-5 h-5 text-gray-600" />
-                  <span className="text-gray-500 text-sm font-medium">{service.title}</span>
+                  <span className="text-gray-400 text-sm font-medium">{service.title}</span>
                   <span className="absolute -top-2 -right-2 text-[10px] px-2 py-0.5 rounded-full bg-[#6A3DE8]/20 text-[#6A3DE8] border border-[#6A3DE8]/30 font-medium">
                     Soon
                   </span>
