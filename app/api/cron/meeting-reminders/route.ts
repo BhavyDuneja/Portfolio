@@ -99,7 +99,36 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    return NextResponse.json({ message: `Sent ${sent} reminders`, count: sent })
+    // Auto-complete past meetings (yesterday or older, still marked 'scheduled')
+    let autoCompleted = 0
+    try {
+      const yesterday = new Date(today)
+      yesterday.setDate(yesterday.getDate() - 1)
+      const yesterdayStr = yesterday.toISOString().split('T')[0]
+
+      const { data: pastMeetings } = await supabase
+        .from('meetings')
+        .select('id')
+        .eq('status', 'scheduled')
+        .lt('meeting_date', todayStr)
+
+      if (pastMeetings && pastMeetings.length > 0) {
+        const ids = pastMeetings.map(m => m.id)
+        await supabase
+          .from('meetings')
+          .update({ status: 'completed' })
+          .in('id', ids)
+        autoCompleted = ids.length
+      }
+    } catch (acErr) {
+      console.error('Auto-complete error:', acErr)
+    }
+
+    return NextResponse.json({
+      message: `Sent ${sent} reminders, auto-completed ${autoCompleted} past meetings`,
+      reminders: sent,
+      autoCompleted,
+    })
   } catch (err) {
     console.error('Cron job error:', err)
     return NextResponse.json({ error: 'Cron job failed' }, { status: 500 })
