@@ -334,8 +334,14 @@ const AdminPanel = () => {
           parent_meeting_id: parentMeeting.id,
         }),
       })
+      // Auto-mark current meeting as completed
+      await fetch('/api/meetings/notes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: parentMeeting.id, status: 'completed' }),
+      })
       setShowFollowUp(null)
-      showToast(`Follow-up "${fd.agenda}" scheduled for ${fd.date}`, 'success')
+      showToast(`Meeting completed. Follow-up "${fd.agenda}" scheduled for ${fd.date}`, 'success')
       await loadMeetings()
     } catch { showToast('Failed to create follow-up', 'error') }
     setSavingFollowUp(false)
