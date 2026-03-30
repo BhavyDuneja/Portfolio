@@ -1,6 +1,8 @@
 import { MetadataRoute } from 'next'
 import { createClient } from '@supabase/supabase-js'
 
+export const revalidate = 3600 // regenerate every hour
+
 async function getBlogPosts() {
   try {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
