@@ -282,6 +282,17 @@ const AdminPanel = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: meetingId, status }),
       })
+      // Send email for cancelled or no-show
+      if (status === 'cancelled' || status === 'no-show') {
+        const meeting = meetings.find(m => m.id === meetingId)
+        if (meeting) {
+          await fetch('/api/meetings/status-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...meeting, status }),
+          })
+        }
+      }
       setMeetings(prev => prev.map(m => m.id === meetingId ? { ...m, status } : m))
       setShowReschedule(null)
       showToast(`Status updated to ${status}`, 'success')
