@@ -191,6 +191,8 @@ const AdminPanel = () => {
   const [expandedMeeting, setExpandedMeeting] = useState<string | null>(null)
   const [meetingNotes, setMeetingNotes] = useState<Record<string, string>>({})
   const [savingNotes, setSavingNotes] = useState<string | null>(null)
+  const [rescheduleData, setRescheduleData] = useState<Record<string, { date: string; time: string }>>({})
+  const [showReschedule, setShowReschedule] = useState<string | null>(null)
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null)
   const [formData, setFormData] = useState<FormData>(emptyForm)
   const [toasts, setToasts] = useState<Toast[]>([])
@@ -267,6 +269,10 @@ const AdminPanel = () => {
   }
 
   const updateMeetingStatus = async (meetingId: string, status: string) => {
+    if (status === 'rescheduled') {
+      setShowReschedule(showReschedule === meetingId ? null : meetingId)
+      return
+    }
     try {
       await fetch('/api/meetings/notes', {
         method: 'POST',
@@ -274,8 +280,32 @@ const AdminPanel = () => {
         body: JSON.stringify({ id: meetingId, status }),
       })
       setMeetings(prev => prev.map(m => m.id === meetingId ? { ...m, status } : m))
+      setShowReschedule(null)
       showToast(`Status updated to ${status}`, 'success')
     } catch { showToast('Failed to update status', 'error') }
+  }
+
+  const confirmReschedule = async (meetingId: string) => {
+    const rd = rescheduleData[meetingId]
+    if (!rd?.date || !rd?.time) {
+      showToast('Please select new date and time', 'error')
+      return
+    }
+    try {
+      await fetch('/api/meetings/notes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: meetingId,
+          status: 'rescheduled',
+          meeting_date: rd.date,
+          meeting_time: rd.time,
+        }),
+      })
+      setMeetings(prev => prev.map(m => m.id === meetingId ? { ...m, status: 'rescheduled', meeting_date: rd.date, meeting_time: rd.time } : m))
+      setShowReschedule(null)
+      showToast(`Rescheduled to ${rd.date} at ${rd.time}`, 'success')
+    } catch { showToast('Failed to reschedule', 'error') }
   }
 
   // ── Image Upload ──
@@ -1377,6 +1407,7 @@ const AdminPanel = () => {
                               <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
                                 m.status === 'scheduled' ? 'bg-saffron-500/15 text-saffron-400 border border-saffron-500/20' :
                                 m.status === 'completed' ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20' :
+                                m.status === 'rescheduled' ? 'bg-blue-500/15 text-blue-400 border border-blue-500/20' :
                                 m.status === 'cancelled' ? 'bg-red-500/15 text-red-400 border border-red-500/20' :
                                 'bg-gray-500/15 text-gray-400 border border-gray-500/20'
                               }`}>
@@ -1442,9 +1473,9 @@ const AdminPanel = () => {
                             animate={{ opacity: 1, height: 'auto' }}
                             className="mt-4 pt-4 border-t border-dark-300/30"
                           >
-                            <div className="flex items-center gap-2 mb-3">
+                            <div className="flex flex-wrap items-center gap-2 mb-3">
                               <span className="text-xs text-gray-500 font-medium">Status:</span>
-                              {['scheduled', 'completed', 'cancelled', 'no-show'].map(s => (
+                              {['scheduled', 'completed', 'rescheduled', 'cancelled', 'no-show'].map(s => (
                                 <button
                                   key={s}
                                   onClick={() => updateMeetingStatus(m.id, s)}
@@ -1452,6 +1483,7 @@ const AdminPanel = () => {
                                     m.status === s
                                       ? s === 'scheduled' ? 'bg-saffron-500/20 text-saffron-400 border border-saffron-500/30'
                                         : s === 'completed' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                                        : s === 'rescheduled' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
                                         : s === 'cancelled' ? 'bg-red-500/20 text-red-400 border border-red-500/30'
                                         : 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
                                       : 'bg-dark-400/30 text-gray-600 border border-dark-300/30 hover:text-gray-400'
@@ -1461,6 +1493,36 @@ const AdminPanel = () => {
                                 </button>
                               ))}
                             </div>
+                            {/* Reschedule picker */}
+                            {showReschedule === m.id && (
+                              <div className="flex flex-wrap items-center gap-3 mb-3 p-3 rounded-xl bg-blue-500/5 border border-blue-500/15">
+                                <span className="text-xs text-blue-400 font-medium">New date & time:</span>
+                                <input
+                                  type="date"
+                                  value={rescheduleData[m.id]?.date || ''}
+                                  onChange={(e) => setRescheduleData(prev => ({ ...prev, [m.id]: { ...prev[m.id], date: e.target.value } }))}
+                                  className="bg-dark-400/30 border border-dark-300/30 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-blue-500/40"
+                                />
+                                <input
+                                  type="time"
+                                  value={rescheduleData[m.id]?.time || ''}
+                                  onChange={(e) => setRescheduleData(prev => ({ ...prev, [m.id]: { ...prev[m.id], time: e.target.value } }))}
+                                  className="bg-dark-400/30 border border-dark-300/30 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-blue-500/40"
+                                />
+                                <button
+                                  onClick={() => confirmReschedule(m.id)}
+                                  className="px-3 py-1.5 rounded-lg bg-blue-500/15 text-blue-400 border border-blue-500/25 hover:bg-blue-500/25 transition-all text-xs font-medium"
+                                >
+                                  Confirm Reschedule
+                                </button>
+                                <button
+                                  onClick={() => setShowReschedule(null)}
+                                  className="text-gray-500 hover:text-gray-400 text-xs"
+                                >
+                                  Cancel
+                                </button>
+                              </div>
+                            )}
                             <textarea
                               value={meetingNotes[m.id] ?? m.notes ?? ''}
                               onChange={(e) => setMeetingNotes(prev => ({ ...prev, [m.id]: e.target.value }))}
