@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 
   const title = post.meta_title || post.title
   const description = post.meta_description || post.excerpt
-  const imageUrl = post.image_url || '/images/og-image.png'
+  const imageUrl = post.image_url || `https://anantasutra.com/blog/${post.slug}/opengraph-image`
 
   return {
     title,
