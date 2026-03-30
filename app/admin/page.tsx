@@ -193,6 +193,9 @@ const AdminPanel = () => {
   const [savingNotes, setSavingNotes] = useState<string | null>(null)
   const [rescheduleData, setRescheduleData] = useState<Record<string, { date: string; time: string }>>({})
   const [showReschedule, setShowReschedule] = useState<string | null>(null)
+  const [showFollowUp, setShowFollowUp] = useState<string | null>(null)
+  const [followUpData, setFollowUpData] = useState<Record<string, { date: string; time: string; agenda: string }>>({})
+  const [savingFollowUp, setSavingFollowUp] = useState(false)
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null)
   const [formData, setFormData] = useState<FormData>(emptyForm)
   const [toasts, setToasts] = useState<Toast[]>([])
@@ -306,6 +309,36 @@ const AdminPanel = () => {
       setShowReschedule(null)
       showToast(`Rescheduled to ${rd.date} at ${rd.time}`, 'success')
     } catch { showToast('Failed to reschedule', 'error') }
+  }
+
+  const createFollowUp = async (parentMeeting: any) => {
+    const fd = followUpData[parentMeeting.id]
+    if (!fd?.date || !fd?.time || !fd?.agenda) {
+      showToast('Please fill date, time, and agenda', 'error')
+      return
+    }
+    setSavingFollowUp(true)
+    try {
+      const meetingNumber = meetings.filter(m => m.email === parentMeeting.email).length + 1
+      await fetch('/api/meetings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: parentMeeting.name,
+          email: parentMeeting.email,
+          phone: parentMeeting.phone,
+          date: fd.date,
+          time: fd.time,
+          timezone: parentMeeting.timezone,
+          service_interest: `Meeting #${meetingNumber}: ${fd.agenda}`,
+          parent_meeting_id: parentMeeting.id,
+        }),
+      })
+      setShowFollowUp(null)
+      showToast(`Follow-up "${fd.agenda}" scheduled for ${fd.date}`, 'success')
+      await loadMeetings()
+    } catch { showToast('Failed to create follow-up', 'error') }
+    setSavingFollowUp(false)
   }
 
   // ── Image Upload ──
@@ -1541,6 +1574,61 @@ const AdminPanel = () => {
                               >
                                 {savingNotes === m.id ? 'Saving...' : 'Save Notes'}
                               </button>
+                            </div>
+
+                            {/* Follow-up Meeting */}
+                            <div className="mt-4 pt-4 border-t border-dark-300/20">
+                              {showFollowUp !== m.id ? (
+                                <button
+                                  onClick={() => setShowFollowUp(m.id)}
+                                  className="text-xs text-violet-400 hover:text-violet-300 transition-colors flex items-center gap-1.5"
+                                >
+                                  <Plus className="w-3.5 h-3.5" /> Schedule Follow-up Meeting
+                                </button>
+                              ) : (
+                                <div className="p-3 rounded-xl bg-violet-500/5 border border-violet-500/15">
+                                  <p className="text-xs text-violet-400 font-medium mb-3">Follow-up for {m.name}</p>
+                                  <div className="flex flex-wrap gap-2 mb-3">
+                                    {['Proposal Discussion', 'Budget & Pricing', 'Technical Deep-dive', 'Onboarding', 'Review & Feedback', 'Contract Signing'].map(a => (
+                                      <button
+                                        key={a}
+                                        onClick={() => setFollowUpData(prev => ({ ...prev, [m.id]: { ...prev[m.id], agenda: a } }))}
+                                        className={`text-[10px] px-2.5 py-1 rounded-full transition-all ${
+                                          followUpData[m.id]?.agenda === a
+                                            ? 'bg-violet-500/20 text-violet-300 border border-violet-500/30'
+                                            : 'bg-dark-400/30 text-gray-500 border border-dark-300/30 hover:text-gray-400'
+                                        }`}
+                                      >
+                                        {a}
+                                      </button>
+                                    ))}
+                                  </div>
+                                  {followUpData[m.id]?.agenda && (
+                                    <div className="flex flex-wrap items-center gap-3">
+                                      <input
+                                        type="date"
+                                        value={followUpData[m.id]?.date || ''}
+                                        onChange={(e) => setFollowUpData(prev => ({ ...prev, [m.id]: { ...prev[m.id], date: e.target.value } }))}
+                                        className="bg-dark-400/30 border border-dark-300/30 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-violet-500/40"
+                                      />
+                                      <input
+                                        type="time"
+                                        value={followUpData[m.id]?.time || ''}
+                                        onChange={(e) => setFollowUpData(prev => ({ ...prev, [m.id]: { ...prev[m.id], time: e.target.value } }))}
+                                        className="bg-dark-400/30 border border-dark-300/30 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-violet-500/40"
+                                      />
+                                      <button
+                                        onClick={() => createFollowUp(m)}
+                                        disabled={savingFollowUp}
+                                        className="px-3 py-1.5 rounded-lg bg-violet-500/15 text-violet-400 border border-violet-500/25 hover:bg-violet-500/25 transition-all text-xs font-medium disabled:opacity-50"
+                                      >
+                                        {savingFollowUp ? 'Creating...' : 'Create & Send Invite'}
+                                      </button>
+                                      <button onClick={() => setShowFollowUp(null)} className="text-gray-500 hover:text-gray-400 text-xs">Cancel</button>
+                                    </div>
+                                  )}
+                                </div>
+                              )}
                             </div>
                           </motion.div>
                         )}

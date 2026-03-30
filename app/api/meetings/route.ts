@@ -4,7 +4,7 @@ import { supabase } from '@/lib/supabase'
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, phone, date, time, timezone, service_interest } = await req.json()
+    const { name, email, phone, date, time, timezone, service_interest, parent_meeting_id } = await req.json()
 
     if (!name || !email || !date || !time) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
@@ -24,6 +24,7 @@ export async function POST(req: NextRequest) {
           timezone: timezone || 'Asia/Kolkata',
           service_interest: service_interest || 'General',
           status: 'scheduled',
+          parent_meeting_id: parent_meeting_id || null,
         })
       if (!error) dbSaved = true
       else console.error('Meeting DB error:', error)
