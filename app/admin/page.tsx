@@ -185,7 +185,7 @@ const AdminPanel = () => {
   const [loginLoading, setLoginLoading] = useState(false)
 
   // UI state
-  const [activeView, setActiveView] = useState<'dashboard' | 'posts' | 'form' | 'meetings'>('dashboard')
+  const [activeView, setActiveView] = useState<'dashboard' | 'posts' | 'form' | 'meetings' | 'calendar'>('dashboard')
   const [meetings, setMeetings] = useState<any[]>([])
   const [meetingsLoading, setMeetingsLoading] = useState(false)
   const [expandedMeeting, setExpandedMeeting] = useState<string | null>(null)
@@ -196,6 +196,7 @@ const AdminPanel = () => {
   const [showFollowUp, setShowFollowUp] = useState<string | null>(null)
   const [followUpData, setFollowUpData] = useState<Record<string, { date: string; time: string; agenda: string }>>({})
   const [savingFollowUp, setSavingFollowUp] = useState(false)
+  const [calendarMonth, setCalendarMonth] = useState(new Date())
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null)
   const [formData, setFormData] = useState<FormData>(emptyForm)
   const [toasts, setToasts] = useState<Toast[]>([])
@@ -254,7 +255,7 @@ const AdminPanel = () => {
   }, [])
 
   useEffect(() => {
-    if (activeView === 'meetings' && meetings.length === 0) loadMeetings()
+    if ((activeView === 'meetings' || activeView === 'calendar') && meetings.length === 0) loadMeetings()
   }, [activeView, meetings.length, loadMeetings])
 
   const saveNotes = async (meetingId: string) => {
@@ -697,6 +698,7 @@ const AdminPanel = () => {
     { key: 'dashboard' as const, label: 'Dashboard', icon: LayoutDashboard },
     { key: 'posts' as const, label: 'Posts', icon: FileText },
     { key: 'meetings' as const, label: 'Meetings', icon: Calendar },
+    { key: 'calendar' as const, label: 'Calendar', icon: Eye },
   ]
 
   // ── Stat Cards ──
@@ -1674,6 +1676,137 @@ const AdminPanel = () => {
               )}
             </motion.div>
           )}
+
+          {/* ═══ Calendar View ═══ */}
+          {activeView === 'calendar' && (() => {
+            const year = calendarMonth.getFullYear()
+            const month = calendarMonth.getMonth()
+            const firstDay = new Date(year, month, 1).getDay()
+            const daysInMonth = new Date(year, month + 1, 0).getDate()
+            const todayStr = new Date().toISOString().split('T')[0]
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+            const getMeetingsForDate = (day: number) => {
+              const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+              return meetings.filter(m => m.meeting_date === dateStr)
+            }
+
+            const statusColors: Record<string, string> = {
+              scheduled: 'bg-saffron-500',
+              completed: 'bg-emerald-500',
+              rescheduled: 'bg-blue-500',
+              cancelled: 'bg-red-500',
+              'no-show': 'bg-gray-500',
+            }
+
+            return (
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                <div className="flex items-center justify-between mb-8">
+                  <div>
+                    <h1 className="text-3xl font-bold text-white mb-1">Calendar</h1>
+                    <p className="text-gray-500">Monthly meeting overview</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => setCalendarMonth(new Date(year, month - 1))}
+                      className="w-9 h-9 rounded-lg bg-dark-400/50 border border-dark-300/50 text-gray-400 hover:text-white hover:border-saffron-500/30 transition-all flex items-center justify-center"
+                    >
+                      &lt;
+                    </button>
+                    <span className="text-white font-semibold min-w-[160px] text-center">
+                      {monthNames[month]} {year}
+                    </span>
+                    <button
+                      onClick={() => setCalendarMonth(new Date(year, month + 1))}
+                      className="w-9 h-9 rounded-lg bg-dark-400/50 border border-dark-300/50 text-gray-400 hover:text-white hover:border-saffron-500/30 transition-all flex items-center justify-center"
+                    >
+                      &gt;
+                    </button>
+                    <button
+                      onClick={() => setCalendarMonth(new Date())}
+                      className="px-3 py-1.5 rounded-lg bg-dark-400/50 border border-dark-300/50 text-gray-400 hover:text-white hover:border-saffron-500/30 transition-all text-xs"
+                    >
+                      Today
+                    </button>
+                  </div>
+                </div>
+
+                {/* Day headers */}
+                <div className="grid grid-cols-7 gap-1 mb-1">
+                  {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
+                    <div key={d} className="text-center text-xs text-gray-500 font-medium py-2">{d}</div>
+                  ))}
+                </div>
+
+                {/* Calendar grid */}
+                <div className="grid grid-cols-7 gap-1">
+                  {/* Empty cells before first day */}
+                  {Array.from({ length: firstDay }).map((_, i) => (
+                    <div key={`empty-${i}`} className="min-h-[100px] rounded-lg bg-dark-400/10 border border-dark-300/10" />
+                  ))}
+
+                  {/* Day cells */}
+                  {Array.from({ length: daysInMonth }).map((_, i) => {
+                    const day = i + 1
+                    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+                    const isToday = dateStr === todayStr
+                    const dayMeetings = getMeetingsForDate(day)
+                    const isWeekend = new Date(year, month, day).getDay() === 0 || new Date(year, month, day).getDay() === 6
+
+                    return (
+                      <div
+                        key={day}
+                        className={`min-h-[100px] rounded-lg border p-1.5 transition-all ${
+                          isToday
+                            ? 'bg-saffron-500/5 border-saffron-500/30'
+                            : dayMeetings.length > 0
+                            ? 'bg-dark-400/20 border-dark-300/30 hover:border-saffron-500/20'
+                            : isWeekend
+                            ? 'bg-dark-400/5 border-dark-300/10'
+                            : 'bg-dark-400/10 border-dark-300/15'
+                        }`}
+                      >
+                        <div className={`text-xs font-medium mb-1 ${
+                          isToday ? 'text-saffron-400' : 'text-gray-500'
+                        }`}>
+                          {isToday ? (
+                            <span className="bg-saffron-500 text-dark-950 rounded-full w-5 h-5 inline-flex items-center justify-center text-[10px] font-bold">{day}</span>
+                          ) : day}
+                        </div>
+                        <div className="space-y-0.5">
+                          {dayMeetings.slice(0, 3).map((m: any) => (
+                            <div
+                              key={m.id}
+                              className="rounded px-1 py-0.5 text-[9px] leading-tight truncate cursor-default group relative"
+                              style={{ background: 'rgba(255,255,255,0.04)' }}
+                              title={`${m.name} — ${m.meeting_time} — ${m.service_interest || 'General'}`}
+                            >
+                              <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${statusColors[m.status] || 'bg-gray-500'}`} />
+                              <span className="text-gray-300">{m.meeting_time}</span>
+                              <span className="text-gray-500 ml-1">{m.name.split(' ')[0]}</span>
+                            </div>
+                          ))}
+                          {dayMeetings.length > 3 && (
+                            <div className="text-[9px] text-gray-600 pl-1">+{dayMeetings.length - 3} more</div>
+                          )}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+
+                {/* Legend */}
+                <div className="flex items-center gap-4 mt-6 justify-center">
+                  {Object.entries({ scheduled: 'Scheduled', completed: 'Completed', rescheduled: 'Rescheduled', cancelled: 'Cancelled', 'no-show': 'No-show' }).map(([k, v]) => (
+                    <div key={k} className="flex items-center gap-1.5 text-[10px] text-gray-500">
+                      <span className={`w-2 h-2 rounded-full ${statusColors[k]}`} />
+                      {v}
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )
+          })()}
         </div>
       </main>
     </div>
