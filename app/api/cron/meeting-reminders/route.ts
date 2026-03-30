@@ -52,35 +52,35 @@ export async function GET(req: NextRequest) {
       try {
         // Reminder to visitor
         await transporter.sendMail({
-          from: `"AnantaSutra" <${process.env.SMTP_EMAIL}>`,
+          from: `"Bhavya from AnantaSutra" <${process.env.SMTP_EMAIL}>`,
           to: meeting.email,
-          subject: `Reminder: Your consultation is ${timeLabel} at ${meeting.meeting_time} — AnantaSutra`,
+          subject: `${isToday ? 'Today' : 'Tomorrow'} at ${meeting.meeting_time} — Quick Prep Inside`,
           html: `
             <div style="font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0A0A0F; color: #e8e6f0; padding: 32px; border-radius: 16px;">
               <div style="border-bottom: 1px solid rgba(232,163,23,0.3); padding-bottom: 20px; margin-bottom: 24px;">
-                <h1 style="color: #E8A317; font-size: 22px; margin: 0;">Reminder: Your Call is ${isToday ? 'Today' : 'Tomorrow'}! 🗓️</h1>
+                <h1 style="color: #E8A317; font-size: 22px; margin: 0;">${isToday ? 'See You Today' : 'See You Tomorrow'} 🗓️</h1>
               </div>
-              <p style="color: #e8e6f0; line-height: 1.8; font-size: 15px;">
-                Hi <strong>${meeting.name}</strong>, just a friendly reminder about your FREE consultation with AnantaSutra.
+              <p style="color: #e8e6f0; line-height: 1.7; font-size: 15px;">
+                Hi ${meeting.name},<br/><br/>Quick reminder about our session ${timeLabel}. I've put together a few initial observations about ${meeting.service_interest || 'your space'} that I'll share on the call — looking forward to discussing them with you.
               </p>
               <div style="margin: 24px 0; padding: 20px; background: rgba(232,163,23,0.06); border-radius: 12px; border: 1px solid rgba(232,163,23,0.15);">
                 <table style="width: 100%; border-collapse: collapse;">
                   <tr><td style="padding: 6px 0; color: #8b89a0; width: 80px;">Date</td><td style="color: #E8A317; font-weight: 700; font-size: 16px;">${meeting.meeting_date}</td></tr>
-                  <tr><td style="padding: 6px 0; color: #8b89a0;">Time</td><td style="color: #E8A317; font-weight: 700; font-size: 16px;">${meeting.meeting_time}</td></tr>
-                  <tr><td style="padding: 6px 0; color: #8b89a0;">Topic</td><td style="color: #e8e6f0;">${meeting.service_interest || 'General Consultation'}</td></tr>
+                  <tr><td style="padding: 6px 0; color: #8b89a0;">Time</td><td style="color: #E8A317; font-weight: 700; font-size: 16px;">${meeting.meeting_time} (${meeting.timezone || 'IST'})</td></tr>
+                  <tr><td style="padding: 6px 0; color: #8b89a0;">Topic</td><td style="color: #e8e6f0;">${meeting.service_interest || 'Strategy Session'}</td></tr>
                 </table>
               </div>
-              <div style="margin: 20px 0; padding: 16px; background: rgba(232,163,23,0.08); border-radius: 12px; border: 1px solid rgba(232,163,23,0.2); text-align: center;">
-                <p style="color: #8b89a0; margin: 0 0 8px; font-size: 12px;">JOIN VIA GOOGLE MEET</p>
-                <a href="https://meet.google.com/riu-uofk-tsi" style="color: #E8A317; font-size: 18px; font-weight: 700; text-decoration: none;">meet.google.com/riu-uofk-tsi</a>
+              <div style="margin: 20px 0; text-align: center;">
+                <a href="https://meet.google.com/riu-uofk-tsi" style="display: inline-block; background: #E8A317; color: #0A0A0F; padding: 14px 36px; border-radius: 8px; font-weight: 700; font-size: 16px; text-decoration: none;">Join Meeting</a>
               </div>
-              <p style="color: #8b89a0; line-height: 1.8; font-size: 13px;">
-                Need to reschedule? Reply to this email or reach us at <a href="mailto:contact@anantasutra.com" style="color: #E8A317;">contact@anantasutra.com</a>
+              <p style="color: #8b89a0; line-height: 1.7; font-size: 13px;">
+                <a href="mailto:contact@anantasutra.com" style="color: #E8A317;">Need to reschedule? No problem</a> — reply to this email or WhatsApp us.
               </p>
               <div style="margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 16px;">
                 <p style="color: #e8e6f0; font-size: 13px; margin: 0;">
-                  Looking forward to speaking with you!<br/>
-                  <strong style="color: #E8A317;">Team AnantaSutra</strong>
+                  Talk soon,<br/>
+                  <strong style="color: #E8A317;">Bhavya Duneja</strong><br/>
+                  <span style="color: #8b89a0; font-size: 12px;">Co-Founder, AnantaSutra</span>
                 </p>
               </div>
             </div>
