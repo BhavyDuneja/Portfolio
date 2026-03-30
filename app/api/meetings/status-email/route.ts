@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { name, email, meeting_date, meeting_time, service_interest, status } = await req.json()
+    const { name, email, meeting_date, meeting_time, service_interest, status, new_date, new_time } = await req.json()
 
     if (!email || !status) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
@@ -33,6 +33,22 @@ export async function POST(req: NextRequest) {
         heading: `Checking In`,
         body: `Hi ${name || 'there'},<br/><br/>Hope everything's alright on your end. We had a session on the calendar for <strong>${meeting_date}</strong> at <strong>${meeting_time}</strong> — no worries at all if something came up.<br/><br/>I'd still love to share how we can help your business grow. I can also send you a quick video summary of what I had prepared, if that's easier than a live call.`,
         cta: `<a href="https://anantasutra.com" style="color: #E8A317; font-weight: 600;">Reschedule in one click</a> — or simply reply with a time that works. Zero pressure, the complimentary session is always available.`,
+      },
+      'rescheduled': {
+        subject: `Reschedule Confirmed — ${new_date || meeting_date}, ${new_time || meeting_time}`,
+        heading: `Your Session Has Been Rescheduled ✅`,
+        body: `Hi ${name || 'there'},<br/><br/>As requested, your session has been moved to the new date and time below. Everything else stays the same — same agenda, same Google Meet link, same team.`,
+        cta: `
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+            <tr><td style="padding: 6px 0; color: #8b89a0; width: 100px;">New Date</td><td style="color: #E8A317; font-weight: 700; font-size: 16px;">${new_date || meeting_date}</td></tr>
+            <tr><td style="padding: 6px 0; color: #8b89a0;">New Time</td><td style="color: #E8A317; font-weight: 700; font-size: 16px;">${new_time || meeting_time}</td></tr>
+            <tr><td style="padding: 6px 0; color: #8b89a0;">Topic</td><td style="color: #e8e6f0;">${service_interest || 'Strategy Session'}</td></tr>
+          </table>
+          <div style="text-align: center;">
+            <a href="https://meet.google.com/riu-uofk-tsi" style="display: inline-block; background: #E8A317; color: #0A0A0F; padding: 14px 36px; border-radius: 8px; font-weight: 700; font-size: 16px; text-decoration: none;">Join Meeting</a>
+          </div>
+          <p style="color: #8b89a0; font-size: 13px; margin-top: 16px;">Need to adjust again? Just reply to this email or WhatsApp us — happy to work around your schedule.</p>
+        `,
       },
     }
 
