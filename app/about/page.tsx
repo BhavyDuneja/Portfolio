@@ -73,7 +73,7 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed"
+            className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed"
           >
             AnantaSutra — अनन्तसूत्र — is more than a company. It is an infinite thread weaving together
             technology, creativity, wisdom, and human potential into a tapestry of purposeful ventures.
@@ -101,7 +101,7 @@ export default function AboutPage() {
               Our Philosophy
             </h2>
 
-            <div className="space-y-6 text-gray-400 text-lg leading-relaxed">
+            <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
               <p>
                 <span className="text-white font-medium">AnantaSutra means &ldquo;Infinite Wisdom.&rdquo;</span>{' '}
                 We believe that knowledge knows no boundaries — it flows from ancient scriptures to modern algorithms,
@@ -161,7 +161,7 @@ export default function AboutPage() {
                       {item.period}
                     </span>
                     <h3 className="text-white text-xl font-semibold mt-1 mb-2">{item.title}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed">{item.description}</p>
+                    <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
                   </div>
                 </motion.div>
               ))}
@@ -206,23 +206,23 @@ export default function AboutPage() {
               <h3 className="font-display text-2xl font-bold text-white mb-1">Bhavya Duneja</h3>
               <p className="text-saffron-400 font-medium mb-4">Co-founder, AnantaSutra</p>
 
-              <p className="text-gray-400 leading-relaxed mb-6">
+              <p className="text-gray-300 leading-relaxed mb-6">
                 A technologist and visionary bridging the worlds of AI, marketing, spirituality, and business.
                 With experience spanning software engineering and entrepreneurship, Bhavya co-founded AnantaSutra
                 to create an ecosystem where infinite wisdom meets modern innovation.
               </p>
 
               <div className="flex flex-wrap gap-3 mb-6">
-                <span className="flex items-center gap-1.5 text-sm text-gray-500">
+                <span className="flex items-center gap-1.5 text-sm text-gray-400">
                   <MapPin className="w-3.5 h-3.5 text-saffron-500" /> Delhi, India
                 </span>
-                <span className="flex items-center gap-1.5 text-sm text-gray-500">
+                <span className="flex items-center gap-1.5 text-sm text-gray-400">
                   <Briefcase className="w-3.5 h-3.5 text-saffron-500" /> Entrepreneur
                 </span>
-                <span className="flex items-center gap-1.5 text-sm text-gray-500">
+                <span className="flex items-center gap-1.5 text-sm text-gray-400">
                   <Code className="w-3.5 h-3.5 text-saffron-500" /> Technologist
                 </span>
-                <span className="flex items-center gap-1.5 text-sm text-gray-500">
+                <span className="flex items-center gap-1.5 text-sm text-gray-400">
                   <Heart className="w-3.5 h-3.5 text-saffron-500" /> Spiritualist
                 </span>
               </div>
@@ -282,7 +282,7 @@ export default function AboutPage() {
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Be Part of the Tapestry
             </h2>
-            <p className="text-gray-400 text-lg mb-8 max-w-lg mx-auto">
+            <p className="text-gray-300 text-lg mb-8 max-w-lg mx-auto">
               Whether you&apos;re a client, partner, or fellow dreamer — there&apos;s a thread waiting for you.
             </p>
             <Link href="/contact" className="btn-primary">

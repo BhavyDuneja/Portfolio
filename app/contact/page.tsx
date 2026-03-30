@@ -119,7 +119,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto"
+            className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto"
           >
             Whether you need AI automation, marketing support, or want to explore a custom solution — we&apos;re here to help.
           </motion.p>
@@ -144,7 +144,7 @@ export default function ContactPage() {
                 <div className="flex flex-col items-center justify-center py-12 text-center">
                   <CheckCircle className="w-12 h-12 text-green-500 mb-4" />
                   <h3 className="text-xl font-semibold text-white mb-2">Message Sent!</h3>
-                  <p className="text-gray-400">We&apos;ll get back to you within 24 hours.</p>
+                  <p className="text-gray-300">We&apos;ll get back to you within 24 hours.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
@@ -264,7 +264,7 @@ export default function ContactPage() {
 
             <div className="glass-card rounded-2xl p-6 glow-saffron">
               <h3 className="font-semibold text-white mb-2">For Co-founder Inquiries</h3>
-              <p className="text-gray-400 text-sm mb-3">
+              <p className="text-gray-300 text-sm mb-3">
                 Direct contact for partnerships and strategic discussions.
               </p>
               <a href="mailto:co-founder@anantasutra.com" className="text-saffron-400 text-sm font-medium hover:text-saffron-300 transition-colors">
@@ -315,7 +315,7 @@ export default function ContactPage() {
                     animate={{ height: 'auto', opacity: 1 }}
                     className="px-5 pb-5"
                   >
-                    <p className="text-gray-400 text-sm leading-relaxed">{faq.a}</p>
+                    <p className="text-gray-300 text-sm leading-relaxed">{faq.a}</p>
                   </motion.div>
                 )}
               </motion.div>

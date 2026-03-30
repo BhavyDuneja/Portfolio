@@ -58,7 +58,7 @@ const AnimatedStat = ({ value, label, delay }: { value: string; label: string; d
       <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#E8A317] to-[#F0C040] bg-clip-text text-transparent mb-2 font-display">
         {displayed ? value : ''}
       </div>
-      <div className="text-sm text-gray-500 font-medium">{label}</div>
+      <div className="text-sm text-gray-400 font-medium">{label}</div>
     </motion.div>
   )
 }
@@ -132,7 +132,7 @@ const WhyChooseUs = () => {
                   </div>
 
                   <h3 className="text-xl font-bold text-white mb-4">{item.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{item.description}</p>
+                  <p className="text-gray-300 leading-relaxed">{item.description}</p>
                 </div>
               </motion.div>
             )

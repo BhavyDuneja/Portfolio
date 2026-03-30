@@ -46,7 +46,7 @@ const About = () => {
               initial={{ opacity: 0, y: 25 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.2 + index * 0.15 }}
-              className="text-gray-400 text-lg leading-relaxed"
+              className="text-gray-300 text-lg leading-relaxed"
             >
               {text}
             </motion.p>

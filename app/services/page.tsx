@@ -104,7 +104,7 @@ export default function ServicesPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto"
+            className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto"
           >
             Every thread in the AnantaSutra tapestry carries purpose — from AI-powered automation to creative marketing solutions.
           </motion.p>
@@ -135,7 +135,7 @@ export default function ServicesPage() {
                 <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
                   {service.title}
                 </h2>
-                <p className="text-gray-400 text-lg leading-relaxed mb-8">
+                <p className="text-gray-300 text-lg leading-relaxed mb-8">
                   {service.description}
                 </p>
                 <Link href={service.href} className="btn-primary inline-flex">
@@ -158,7 +158,7 @@ export default function ServicesPage() {
                       service.accent === 'saffron' ? 'text-saffron-500' : 'text-violet-500'
                     }`} />
                     <p className="text-white text-sm font-medium">{feature.label}</p>
-                    <p className="text-gray-500 text-xs mt-1">{feature.detail}</p>
+                    <p className="text-gray-400 text-xs mt-1">{feature.detail}</p>
                   </motion.div>
                 ))}
               </div>
@@ -204,7 +204,7 @@ export default function ServicesPage() {
                   <item.icon className="w-6 h-6 text-gray-500 group-hover:text-violet-400 transition-colors" />
                 </div>
                 <h3 className="text-white text-sm font-semibold mb-1">{item.title}</h3>
-                <p className="text-gray-500 text-xs">{item.description}</p>
+                <p className="text-gray-400 text-xs">{item.description}</p>
               </motion.div>
             ))}
           </div>

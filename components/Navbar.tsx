@@ -178,7 +178,7 @@ export default function Navbar() {
                               <h3 className="text-white font-semibold text-sm mb-1">
                                 {section.title}
                               </h3>
-                              <p className="text-gray-500 text-xs mb-3">{section.description}</p>
+                              <p className="text-gray-400 text-xs mb-3">{section.description}</p>
                               <div className="space-y-1">
                                 {section.items.map((item) => {
                                   const Icon = item.icon;

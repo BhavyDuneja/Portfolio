@@ -35,7 +35,7 @@ const Hero = () => {
           className="inline-flex items-center space-x-2 mb-8 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm"
         >
           <Sparkles className="w-4 h-4 text-[#E8A317]" />
-          <span className="text-sm text-gray-400 tracking-wide">Where Innovation Meets Tradition</span>
+          <span className="text-sm text-gray-300 tracking-wide">Where Innovation Meets Tradition</span>
         </motion.div>
 
         {/* Main Heading */}
@@ -77,7 +77,7 @@ const Hero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-12"
+          className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12"
         >
           {subtitleWords.map((word, i) => (
             <motion.span

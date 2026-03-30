@@ -95,7 +95,7 @@ const Blog = () => {
           <h1 className="font-display text-5xl md:text-6xl font-bold mb-4">
             Thoughts & <span className="gradient-text-saffron">Insights</span>
           </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
             AI automation, ancient wisdom, marketing strategies, product stories, and the entrepreneurial journey.
           </p>
         </motion.div>
@@ -185,7 +185,7 @@ const Blog = () => {
                         )}
                       </div>
                       <h3 className="text-white font-semibold mb-2 line-clamp-2 group-hover:text-saffron-400 transition-colors duration-300">{post.title}</h3>
-                      <p className="text-gray-500 text-sm mb-3 line-clamp-2">{post.excerpt}</p>
+                      <p className="text-gray-400 text-sm mb-3 line-clamp-2">{post.excerpt}</p>
                       <div className="flex items-center gap-4 text-xs text-gray-600">
                         <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                         <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{post.readTime}</span>
@@ -231,10 +231,10 @@ const Blog = () => {
                         )}
                       </div>
                       <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-saffron-400 transition-colors duration-300">{post.title}</h3>
-                      <p className="text-gray-500 text-sm mb-3 leading-relaxed line-clamp-2">{post.excerpt}</p>
+                      <p className="text-gray-400 text-sm mb-3 leading-relaxed line-clamp-2">{post.excerpt}</p>
                       <div className="flex flex-wrap gap-2 mb-3">
                         {post.tags.slice(0, 4).map(tag => (
-                          <span key={tag} className="px-2 py-0.5 rounded-full text-xs bg-white/5 text-gray-500 group-hover:bg-saffron-500/5 group-hover:text-gray-400 transition-all duration-300">#{tag}</span>
+                          <span key={tag} className="px-2 py-0.5 rounded-full text-xs bg-white/5 text-gray-400 group-hover:bg-saffron-500/5 group-hover:text-gray-300 transition-all duration-300">#{tag}</span>
                         ))}
                       </div>
                       <div className="flex items-center gap-4 text-xs text-gray-600">
@@ -302,7 +302,7 @@ const Blog = () => {
               <Search className="w-8 h-8 text-gray-600" />
             </div>
             <h3 className="text-xl font-semibold text-white mb-2">No articles found</h3>
-            <p className="text-gray-500 mb-6">Try adjusting your search or browse different categories.</p>
+            <p className="text-gray-400 mb-6">Try adjusting your search or browse different categories.</p>
             <button
               onClick={() => { setSearchTerm(''); setSelectedCategory('All') }}
               className="btn-primary"

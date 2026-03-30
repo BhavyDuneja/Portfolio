@@ -81,8 +81,8 @@ export default function Footer() {
                 AnantaSutra
               </span>
             </Link>
-            <p className="text-gray-500 text-sm italic mb-6">Infinite Wisdom, Applied</p>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6">
+            <p className="text-gray-400 text-sm italic mb-6">Infinite Wisdom, Applied</p>
+            <p className="text-gray-300 text-sm leading-relaxed mb-6">
               Bridging ancient wisdom with modern technology to create transformative digital
               experiences.
             </p>
@@ -161,7 +161,7 @@ export default function Footer() {
             </ul>
 
             <div className="mt-6 p-3 rounded-xl bg-white/[0.02] border border-white/5">
-              <p className="text-gray-500 text-xs">More products coming soon...</p>
+              <p className="text-gray-400 text-xs">More products coming soon...</p>
             </div>
           </motion.div>
 
