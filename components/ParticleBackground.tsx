@@ -160,6 +160,7 @@ export default function ParticleBackground() {
   }, []);
 
   if (pathname?.startsWith('/admin')) return null;
+  if (pathname?.startsWith('/blog/')) return null; // skip animation on blog posts for perf
 
   return (
     <canvas
