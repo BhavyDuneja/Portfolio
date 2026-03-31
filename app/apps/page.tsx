@@ -6,7 +6,8 @@ import Link from 'next/link'
 import {
   BookOpen, Sun, ArrowRight, Sparkles, Heart,
   Calendar, Bell, CheckCircle2, Globe2, BookMarked,
-  Scroll, Users, Download, Star
+  Scroll, Users, Download, Star,
+  Phone, Mic, BarChart2, Zap, Database, HeadphoneOff
 } from 'lucide-react'
 
 const apps = [
@@ -44,6 +45,24 @@ const apps = [
     ],
     status: 'Free',
     liveUrl: 'https://ritualist.anantasutra.com',
+  },
+  {
+    id: 'sanchar',
+    name: 'Sanchar',
+    tagline: 'Voice AI for Indian Businesses',
+    description: 'Sanchar (संचार) is a multi-tenant Voice AI Platform built for Indian businesses. Deploy AI-powered voice agents that make and receive phone calls — fully automated, no human agent needed. Think of it as a programmable call center where the "agent" is an AI that understands speech, thinks, and responds in real time — in Hindi, English, and mixed.',
+    accent: 'cyan',
+    icon: Phone,
+    features: [
+      { icon: Mic, label: 'Conversational AI voice agents' },
+      { icon: Zap, label: 'Outbound auto-dial campaigns' },
+      { icon: HeadphoneOff, label: 'Inbound AI — no human needed' },
+      { icon: BarChart2, label: 'Call analytics & sentiment scores' },
+      { icon: Database, label: 'Knowledge base from PDFs & URLs' },
+      { icon: Globe2, label: 'Hindi + English (Hinglish) support' },
+    ],
+    status: 'In Development',
+    liveUrl: 'https://sanchar.anantasutra.com',
   },
 ]
 
@@ -127,6 +146,8 @@ export default function AppsPage() {
                 <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium mb-4 ${
                   app.accent === 'saffron'
                     ? 'bg-saffron-500/10 text-saffron-400 border border-saffron-500/20'
+                    : app.accent === 'cyan'
+                    ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20'
                     : 'bg-violet-500/10 text-violet-400 border border-violet-500/20'
                 }`}>
                   {app.status}
@@ -136,7 +157,7 @@ export default function AppsPage() {
                   {app.name}
                 </h2>
                 <p className={`text-lg font-medium mb-4 ${
-                  app.accent === 'saffron' ? 'text-saffron-400' : 'text-violet-400'
+                  app.accent === 'saffron' ? 'text-saffron-400' : app.accent === 'cyan' ? 'text-cyan-400' : 'text-violet-400'
                 }`}>
                   {app.tagline}
                 </p>
@@ -162,19 +183,21 @@ export default function AppsPage() {
               {/* Features Card */}
               <div className={`${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
                 <div className={`glass-card rounded-3xl p-8 relative overflow-hidden ${
-                  app.accent === 'saffron' ? 'glow-saffron' : 'glow-violet'
+                  app.accent === 'saffron' ? 'glow-saffron' : app.accent === 'cyan' ? 'glow-cyan' : 'glow-violet'
                 }`}>
                   <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-[200px] h-[1px] ${
                     app.accent === 'saffron'
                       ? 'bg-gradient-to-r from-transparent via-saffron-500/50 to-transparent'
+                      : app.accent === 'cyan'
+                      ? 'bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent'
                       : 'bg-gradient-to-r from-transparent via-violet-500/50 to-transparent'
                   }`} />
 
                   <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${
-                    app.accent === 'saffron' ? 'bg-saffron-500/10' : 'bg-violet-500/10'
+                    app.accent === 'saffron' ? 'bg-saffron-500/10' : app.accent === 'cyan' ? 'bg-cyan-500/10' : 'bg-violet-500/10'
                   }`}>
                     <app.icon className={`w-8 h-8 ${
-                      app.accent === 'saffron' ? 'text-saffron-500' : 'text-violet-500'
+                      app.accent === 'saffron' ? 'text-saffron-500' : app.accent === 'cyan' ? 'text-cyan-500' : 'text-violet-500'
                     }`} />
                   </div>
 
@@ -191,7 +214,7 @@ export default function AppsPage() {
                         className="flex items-center gap-3"
                       >
                         <feature.icon className={`w-5 h-5 flex-shrink-0 ${
-                          app.accent === 'saffron' ? 'text-saffron-500' : 'text-violet-500'
+                          app.accent === 'saffron' ? 'text-saffron-500' : app.accent === 'cyan' ? 'text-cyan-500' : 'text-violet-500'
                         }`} />
                         <span className="text-gray-300 text-sm">{feature.label}</span>
                       </motion.div>
