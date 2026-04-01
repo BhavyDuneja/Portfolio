@@ -7,7 +7,7 @@ import {
   BookOpen, Sun, ArrowRight, Sparkles, Heart,
   Calendar, Bell, CheckCircle2, Globe2, BookMarked,
   Scroll, Users, Download, Star,
-  Phone, Mic, BarChart2, Zap, Database, HeadphoneOff
+  Phone, Mic, BarChart2, Zap, Database, PhoneOff
 } from 'lucide-react'
 
 const apps = [
@@ -56,7 +56,7 @@ const apps = [
     features: [
       { icon: Mic, label: 'Conversational AI voice agents' },
       { icon: Zap, label: 'Outbound auto-dial campaigns' },
-      { icon: HeadphoneOff, label: 'Inbound AI — no human needed' },
+      { icon: PhoneOff, label: 'Inbound AI — no human needed' },
       { icon: BarChart2, label: 'Call analytics & sentiment scores' },
       { icon: Database, label: 'Knowledge base from PDFs & URLs' },
       { icon: Globe2, label: 'Hindi + English (Hinglish) support' },
