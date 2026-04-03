@@ -103,3 +103,18 @@ CREATE TRIGGER blog_posts_updated_at
 INSERT INTO users (email, password_hash, name, role) VALUES
   ('admin@anantasutra.com', '$2a$10$rQEY7gVhTqFNOJxJdFmDaeGH5r7VSOIFjAMrMBLhIXDfYMqBqWyPa', 'Bhavya Duneja', 'admin')
 ON CONFLICT (email) DO NOTHING;
+
+-- 8. Chat sessions table (Sutra chatbot conversation recordings)
+CREATE TABLE IF NOT EXISTS chat_sessions (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  session_id TEXT UNIQUE NOT NULL,
+  messages JSONB NOT NULL DEFAULT '[]',
+  meeting_booked BOOLEAN NOT NULL DEFAULT FALSE,
+  meeting_data JSONB,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS chat_sessions_session_id_idx ON chat_sessions(session_id);
+CREATE INDEX IF NOT EXISTS chat_sessions_created_at_idx ON chat_sessions(created_at DESC);
+CREATE INDEX IF NOT EXISTS chat_sessions_meeting_booked_idx ON chat_sessions(meeting_booked);
