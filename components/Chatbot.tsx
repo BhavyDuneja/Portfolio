@@ -120,7 +120,7 @@ function findBestAnswer(query: string): { answer: string; suggestions: string[];
   return { answer: '', suggestions: [], confident: false }
 }
 
-async function askGroq(message: string, history: Message[]): Promise<string> {
+async function askGroq(message: string, history: Message[], sessionId: string): Promise<string> {
   try {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
     const res = await fetch('/api/chat', {
@@ -129,6 +129,7 @@ async function askGroq(message: string, history: Message[]): Promise<string> {
       body: JSON.stringify({
         message,
         timezone,
+        sessionId,
         history: history.filter(m => m.id !== 'welcome').slice(-8).map(m => ({ type: m.type, text: m.text })),
       }),
     })
@@ -146,6 +147,7 @@ export default function Chatbot() {
   const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const sessionId = useMemo(() => crypto.randomUUID(), [])
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -178,7 +180,7 @@ export default function Chatbot() {
         setIsTyping(false)
       }, 400 + Math.random() * 300)
     } else {
-      const llmAnswer = await askGroq(query, messages)
+      const llmAnswer = await askGroq(query, messages, sessionId)
       const botMsg: Message = {
         id: (Date.now() + 1).toString(),
         type: 'bot',

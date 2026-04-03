@@ -2,7 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY
+const RESEND_API_KEY = process.env.RESEND_API_KEY
 const OPENAI_URL = 'https://api.openai.com/v1/chat/completions'
+const ADMIN_EMAIL = 'contact@anantasutra.com'
 
 const SYSTEM_PROMPT = `# SYSTEM PROMPT — Sutra, AnantaSutra's AI Sales Consultant
 # Version 2.0 | Optimized for Meeting Conversion
@@ -327,13 +329,94 @@ Offer a call when the visitor says ANY of these (or similar):
 - "tell me more", "sounds interesting", "I'm interested"
 - After 2–3 engaged back-and-forth messages on any service topic`
 
+async function sendTranscriptEmail(meetingData: Record<string, string>, transcript: Array<{ role: string; text: string }>) {
+  if (!RESEND_API_KEY) return
+
+  const rows = transcript.map(t => `
+    <tr>
+      <td style="padding:8px 12px;vertical-align:top;width:70px">
+        <span style="font-size:11px;font-weight:700;text-transform:uppercase;color:${t.role === 'Visitor' ? '#6366f1' : '#d97706'}">
+          ${t.role}
+        </span>
+      </td>
+      <td style="padding:8px 12px;color:#1f2937;font-size:14px;line-height:1.5">${t.text.replace(/\n/g, '<br>')}</td>
+    </tr>
+    <tr><td colspan="2" style="border-bottom:1px solid #f3f4f6;padding:0"></td></tr>
+  `).join('')
+
+  const html = `
+    <div style="font-family:sans-serif;max-width:680px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden">
+      <div style="background:linear-gradient(135deg,#E8A317,#d4940f);padding:24px 28px">
+        <h1 style="margin:0;color:#fff;font-size:20px">New Meeting Booked via Sutra</h1>
+        <p style="margin:6px 0 0;color:rgba(255,255,255,0.85);font-size:14px">AnantaSutra chatbot recorded this conversation</p>
+      </div>
+      <div style="padding:24px 28px;background:#fffbeb;border-bottom:1px solid #fde68a">
+        <h2 style="margin:0 0 12px;font-size:15px;color:#92400e">Meeting Details</h2>
+        <table style="width:100%;border-collapse:collapse">
+          ${Object.entries({
+            Name: meetingData.name,
+            Email: meetingData.email,
+            Phone: meetingData.phone || '—',
+            Date: meetingData.date,
+            Time: meetingData.time,
+            Timezone: meetingData.timezone,
+            'Service Interest': meetingData.service_interest,
+          }).map(([k, v]) => `
+            <tr>
+              <td style="padding:4px 0;color:#6b7280;font-size:13px;width:120px">${k}</td>
+              <td style="padding:4px 0;color:#111827;font-size:13px;font-weight:600">${v || '—'}</td>
+            </tr>
+          `).join('')}
+        </table>
+      </div>
+      <div style="padding:24px 28px">
+        <h2 style="margin:0 0 16px;font-size:15px;color:#374151">Full Conversation Transcript</h2>
+        <table style="width:100%;border-collapse:collapse;border:1px solid #f3f4f6;border-radius:8px;overflow:hidden">
+          ${rows}
+        </table>
+      </div>
+      <div style="padding:16px 28px;background:#f9fafb;text-align:center">
+        <p style="margin:0;color:#9ca3af;font-size:12px">Sent by Sutra · AnantaSutra AI Sales Consultant · anantasutra.com</p>
+      </div>
+    </div>
+  `
+
+  await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      from: 'Sutra <sutra@anantasutra.com>',
+      to: [ADMIN_EMAIL],
+      subject: `🎯 Meeting Booked — ${meetingData.name} · ${meetingData.service_interest}`,
+      html,
+    }),
+  }).catch(err => console.error('Resend error:', err))
+}
+
+async function saveSession(sessionId: string, history: Array<{ type: string; text: string }>, newUser: string, newBot: string, meetingBooked = false, meetingData?: Record<string, string>) {
+  if (!sessionId) return
+  const msgs = [
+    ...history.map(h => ({ role: h.type === 'user' ? 'visitor' : 'sutra', text: h.text })),
+    { role: 'visitor', text: newUser },
+    { role: 'sutra', text: newBot },
+  ]
+  const { error } = await supabase.from('chat_sessions').upsert({
+    session_id: sessionId,
+    messages: msgs,
+    meeting_booked: meetingBooked,
+    meeting_data: meetingData || null,
+    updated_at: new Date().toISOString(),
+  }, { onConflict: 'session_id' })
+  if (error) console.error('Session save error:', error.message)
+}
+
 export async function POST(req: NextRequest) {
   if (!OPENAI_API_KEY) {
     return NextResponse.json({ answer: "I'm currently offline. Please reach out to contact@anantasutra.com for assistance." })
   }
 
   try {
-    const { message, history, timezone } = await req.json()
+    const { message, history, timezone, sessionId } = await req.json()
 
     if (!message || typeof message !== 'string' || message.length > 500) {
       return NextResponse.json({ answer: "Please ask a shorter question about AnantaSutra's services." })
@@ -406,10 +489,29 @@ export async function POST(req: NextRequest) {
               timezone: meetingData.timezone || userTz,
             }),
           })
+
+          // Build transcript for email
+          const transcript = [
+            ...(history || []).slice(-8).map((h: { type: string; text: string }) => ({
+              role: h.type === 'user' ? 'Visitor' : 'Sutra',
+              text: h.text,
+            })),
+            { role: 'Visitor', text: message },
+            { role: 'Sutra', text: answer },
+          ]
+
+          // Send email + save session with meeting flag (fire-and-forget)
+          void Promise.all([
+            sendTranscriptEmail(meetingData, transcript),
+            saveSession(sessionId, history || [], message, answer, true, meetingData),
+          ])
         }
       } catch (meetingErr) {
         console.error('Failed to process meeting:', meetingErr)
       }
+    } else {
+      // Save session for every non-meeting turn too
+      void saveSession(sessionId, history || [], message, answer)
     }
 
     return NextResponse.json({ answer })
