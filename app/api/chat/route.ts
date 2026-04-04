@@ -445,7 +445,7 @@ export async function POST(req: NextRequest) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'o3-mini',
+        model: 'gpt-4o-mini',
         messages,
         max_completion_tokens: 400,
       }),
