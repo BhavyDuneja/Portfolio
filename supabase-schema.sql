@@ -118,3 +118,34 @@ CREATE TABLE IF NOT EXISTS chat_sessions (
 CREATE INDEX IF NOT EXISTS chat_sessions_session_id_idx ON chat_sessions(session_id);
 CREATE INDEX IF NOT EXISTS chat_sessions_created_at_idx ON chat_sessions(created_at DESC);
 CREATE INDEX IF NOT EXISTS chat_sessions_meeting_booked_idx ON chat_sessions(meeting_booked);
+
+-- 9. Instagram Posts table (social media content calendar)
+CREATE TABLE IF NOT EXISTS instagram_posts (
+  id            TEXT PRIMARY KEY,
+  category      TEXT NOT NULL DEFAULT 'General',
+  topic         TEXT NOT NULL DEFAULT '',
+  post_type     TEXT NOT NULL DEFAULT 'carousel' CHECK (post_type IN ('carousel', 'reel', 'single', 'story')),
+  hook          TEXT NOT NULL DEFAULT '',
+  caption       TEXT NOT NULL,
+  slides        JSONB,                -- array of {title, body} for carousels
+  script        JSONB,                -- {hook, body, onScreenText} for reels
+  hashtags      TEXT[]    NOT NULL DEFAULT '{}',
+  visual_prompt TEXT      NOT NULL DEFAULT '',
+  platform      TEXT      NOT NULL DEFAULT 'instagram',
+  status        TEXT      NOT NULL DEFAULT 'draft' CHECK (status IN ('draft', 'ready', 'scheduled', 'published', 'archived')),
+  scheduled_at  TIMESTAMPTZ,
+  published_at  TIMESTAMPTZ,
+  image_url     TEXT,
+  post_url      TEXT,
+  likes         INTEGER NOT NULL DEFAULT 0,
+  comments      INTEGER NOT NULL DEFAULT 0,
+  reach         INTEGER NOT NULL DEFAULT 0,
+  saves         INTEGER NOT NULL DEFAULT 0,
+  created_at    TIMESTAMPTZ DEFAULT NOW(),
+  updated_at    TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS instagram_posts_category_idx   ON instagram_posts(category);
+CREATE INDEX IF NOT EXISTS instagram_posts_status_idx     ON instagram_posts(status);
+CREATE INDEX IF NOT EXISTS instagram_posts_scheduled_idx  ON instagram_posts(scheduled_at ASC NULLS LAST);
+CREATE INDEX IF NOT EXISTS instagram_posts_post_type_idx  ON instagram_posts(post_type);
