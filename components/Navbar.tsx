@@ -23,6 +23,7 @@ import {
   Plane,
   LayoutGrid,
   GraduationCap,
+  UserCheck,
 } from 'lucide-react';
 
 const servicesMenu = [
@@ -45,6 +46,13 @@ const servicesMenu = [
       { name: 'End-to-End Marketing', href: '/services/marketing', icon: Briefcase },
       { name: 'Content Shooting', href: '/services/content-shooting', icon: Camera },
       { name: 'Social Media Management', href: '/services/social-media', icon: Users },
+    ],
+  },
+  {
+    title: 'Dedicated Experts',
+    description: 'Full-time engineers and marketers embedded in your team',
+    items: [
+      { name: 'Dedicated Experts On Demand', href: '/services/dedicated-experts', icon: UserCheck },
     ],
   },
   {

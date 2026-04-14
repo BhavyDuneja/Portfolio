@@ -270,19 +270,37 @@ const Blog = () => {
               Prev
             </button>
 
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-              <button
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                className={`w-10 h-10 rounded-xl text-sm font-medium transition-all ${
-                  currentPage === page
-                    ? 'bg-saffron-500 text-dark-950'
-                    : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/10'
-                }`}
-              >
-                {page}
-              </button>
-            ))}
+            {(() => {
+              const pages: (number | string)[] = []
+              if (totalPages <= 7) {
+                for (let i = 1; i <= totalPages; i++) pages.push(i)
+              } else {
+                pages.push(1)
+                if (currentPage > 3) pages.push('...')
+                for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+                  pages.push(i)
+                }
+                if (currentPage < totalPages - 2) pages.push('...')
+                pages.push(totalPages)
+              }
+              return pages.map((page, idx) =>
+                typeof page === 'string' ? (
+                  <span key={`ellipsis-${idx}`} className="w-10 h-10 flex items-center justify-center text-gray-600 text-sm">...</span>
+                ) : (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`w-10 h-10 rounded-xl text-sm font-medium transition-all ${
+                      currentPage === page
+                        ? 'bg-saffron-500 text-dark-950'
+                        : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/10'
+                    }`}
+                  >
+                    {page}
+                  </button>
+                )
+              )
+            })()}
 
             <button
               onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
