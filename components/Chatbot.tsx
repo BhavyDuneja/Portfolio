@@ -81,7 +81,7 @@ interface Message {
 const WELCOME_MESSAGE: Message = {
   id: 'welcome',
   type: 'bot',
-  text: "Hey there! 👋 I'm Sutra, your consultant at AnantaSutra. Whether it's AI automation, marketing, or getting your business found online — I'm here to help. What brings you here today?",
+  text: "Hey there! 👋 I'm the Sutra, your consultant at AnantaSutra. Whether it's AI automation, marketing, or getting your business found online — I'm here to help. What brings you here today?",
   suggestions: ['I need AI for my business', 'I want a website built', 'What is AEO & GEO?', 'Tell me about your services'],
 }
 
