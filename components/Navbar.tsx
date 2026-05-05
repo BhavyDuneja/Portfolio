@@ -107,7 +107,7 @@ export default function Navbar() {
   };
 
   const handleMegaLeave = () => {
-    megaMenuTimeout.current = setTimeout(() => setMegaMenuOpen(false), 200);
+    megaMenuTimeout.current = setTimeout(() => setMegaMenuOpen(false), 400);
   };
 
   const toggleMobileSection = (title: string) => {
@@ -181,31 +181,34 @@ export default function Navbar() {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 10, scale: 0.98 }}
                           transition={{ duration: 0.25, ease: 'easeOut' }}
-                          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[780px] bg-[rgba(10,10,15,0.95)] backdrop-blur-2xl rounded-2xl border border-white/10 shadow-2xl shadow-black/40 p-6 grid grid-cols-3 gap-6"
+                          className="absolute top-full left-1/2 -translate-x-1/2 w-[780px] pt-3 pointer-events-auto"
+                          style={{ zIndex: 60 }}
                         >
-                          {servicesMenu.map((section) => (
-                            <div key={section.title}>
-                              <h3 className="text-white font-semibold text-sm mb-1">
-                                {section.title}
-                              </h3>
-                              <p className="text-gray-400 text-xs mb-3">{section.description}</p>
-                              <div className="space-y-1">
-                                {section.items.map((item) => {
-                                  const Icon = item.icon;
-                                  return (
-                                    <Link
-                                      key={item.name}
-                                      href={item.href}
-                                      className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-200 group/item"
-                                    >
-                                      <Icon className="w-4 h-4 text-gray-500 group-hover/item:text-[#E8A317] transition-colors" />
-                                      <span className="text-sm">{item.name}</span>
-                                    </Link>
-                                  );
-                                })}
+                          <div className="bg-[rgba(10,10,15,0.95)] backdrop-blur-2xl rounded-2xl border border-white/10 shadow-2xl shadow-black/40 p-6 grid grid-cols-3 gap-6">
+                            {servicesMenu.map((section) => (
+                              <div key={section.title}>
+                                <h3 className="text-white font-semibold text-sm mb-1">
+                                  {section.title}
+                                </h3>
+                                <p className="text-gray-400 text-xs mb-3">{section.description}</p>
+                                <div className="space-y-1">
+                                  {section.items.map((item) => {
+                                    const Icon = item.icon;
+                                    return (
+                                      <Link
+                                        key={item.name}
+                                        href={item.href}
+                                        className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-200 group/item"
+                                      >
+                                        <Icon className="w-4 h-4 text-gray-500 group-hover/item:text-[#E8A317] transition-colors" />
+                                        <span className="text-sm">{item.name}</span>
+                                      </Link>
+                                    );
+                                  })}
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            ))}
+                          </div>
                         </motion.div>
                       )}
                     </AnimatePresence>

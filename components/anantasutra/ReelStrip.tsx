@@ -31,6 +31,7 @@ const reelItems: ReelItem[] = [
     gradient: 'from-[#E8A317]/35 via-[#E8A317]/15 to-[#0A0A0F]',
   },
   {
+    image: '/images/portfolio/ai-automation.jpg',
     title: 'AI Automation',
     caption: 'Voice agents',
     icon: Bot,
@@ -46,6 +47,7 @@ const reelItems: ReelItem[] = [
     gradient: 'from-[#6A3DE8]/35 via-[#6A3DE8]/15 to-[#0A0A0F]',
   },
   {
+    image: '/images/portfolio/marketing-agency.jpg',
     title: 'Marketing Agency',
     caption: 'End-to-end',
     icon: Megaphone,
@@ -61,6 +63,7 @@ const reelItems: ReelItem[] = [
     gradient: 'from-[#E8A317]/25 via-[#6A3DE8]/15 to-[#0A0A0F]',
   },
   {
+    image: '/images/portfolio/wisdom-apps.jpg',
     title: 'Wisdom Apps',
     caption: 'Granthas · Ritualist',
     icon: InfinityIcon,
@@ -68,6 +71,7 @@ const reelItems: ReelItem[] = [
     gradient: 'from-[#E8A317]/30 via-[#6A3DE8]/15 to-[#0A0A0F]',
   },
   {
+    image: '/images/portfolio/content-studio.jpg',
     title: 'Content Studio',
     caption: 'Production',
     icon: Camera,
@@ -75,6 +79,7 @@ const reelItems: ReelItem[] = [
     gradient: 'from-[#6A3DE8]/30 via-[#E8A317]/10 to-[#0A0A0F]',
   },
   {
+    image: '/images/portfolio/ai-marketing.jpg',
     title: 'AI Marketing',
     caption: 'Smart growth',
     icon: Brain,
