@@ -12,6 +12,9 @@ import {
   Briefcase,
   GraduationCap,
   ArrowRight,
+  Compass,
+  HeartHandshake,
+  UserCheck,
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -42,6 +45,33 @@ const activeServices = [
     accent: '#E8A317',
     tags: ['Granthas', 'Ritualist', 'Free Apps'],
     link: '/apps',
+  },
+  {
+    icon: Compass,
+    title: 'Strategic Consultation',
+    description:
+      'Tech roadmaps, architecture reviews, and growth strategy. Sometimes you don\u2019t need to build \u2014 you need to think clearly first. Senior advisors who\u2019ve shipped at scale.',
+    accent: '#6A3DE8',
+    tags: ['Tech Strategy', 'Architecture', 'Growth Audit', 'Roadmaps'],
+    link: '/contact',
+  },
+  {
+    icon: HeartHandshake,
+    title: 'Managed In-House Teams',
+    description:
+      'We assemble and lead a delivery team that plugs into your business as part of your in-house team. We manage them end-to-end and guarantee project completion \u2014 you get the output, we own the process.',
+    accent: '#E8A317',
+    tags: ['Embedded Team', 'End-to-End Mgmt', 'Delivery Guarantee', 'Scalable'],
+    link: '/contact',
+  },
+  {
+    icon: UserCheck,
+    title: 'Dedicated Experts On Demand',
+    description:
+      'Individual senior experts embedded into your team \u2014 engineers, performance marketers, designers, project managers. Ramp up in 7 days. Replace in 48 hours.',
+    accent: '#6A3DE8',
+    tags: ['Engineers', 'Marketers', 'Designers', '7-day Setup'],
+    link: '/services/dedicated-experts',
   },
 ]
 

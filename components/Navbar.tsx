@@ -25,6 +25,7 @@ import {
   GraduationCap,
   UserCheck,
 } from 'lucide-react';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const servicesMenu = [
   {
@@ -71,6 +72,7 @@ const servicesMenu = [
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'Services', href: '/services', hasDropdown: true },
+  { name: 'Portfolio', href: '/portfolio' },
   { name: 'Apps', href: '/apps' },
   { name: 'About', href: '/about' },
   { name: 'Blog', href: '/blog' },
@@ -224,8 +226,10 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* CTA + Mobile Toggle */}
+            {/* CTA + Theme Toggle + Mobile Toggle */}
             <div className="flex items-center gap-3">
+              <ThemeToggle />
+
               <Link
                 href="/contact"
                 className="hidden lg:inline-flex items-center px-5 py-2.5 rounded-full text-sm font-semibold text-black bg-gradient-to-r from-[#E8A317] to-[#FFB800] hover:shadow-lg hover:shadow-[#E8A317]/25 transition-all duration-300 hover:scale-105"
