@@ -12,7 +12,7 @@ const portfolioJsonLd = {
   name: 'AnantaSutra Portfolio — Real Clients, Real Results',
   url: 'https://anantasutra.com/portfolio',
   description:
-    'Real client work from AnantaSutra — Awish Clinic, Education Aspire, and a network of real estate agents. Case studies with challenge, approach, and measurable results.',
+    'Real client work from AnantaSutra — Awish Clinic, Education Aspire, Giant Migrations, BotWot, Zoom Wheels, Royal Properties and more, across 10 brands and three continents. Case studies with challenge, approach, and measurable results.',
 }
 
 export default function PortfolioPage() {
