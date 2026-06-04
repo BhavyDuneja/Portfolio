@@ -317,6 +317,54 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* === Horizontal brand marquee === */
+.brand-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+}
+
+.brand-marquee-track {
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+  width: max-content;
+  padding: 4px 24px;
+  will-change: transform;
+  animation: brandScrollX 45s linear infinite;
+}
+
+.brand-marquee:hover .brand-marquee-track {
+  animation-play-state: paused;
+}
+
+.brand-marquee-item {
+  flex-shrink: 0;
+}
+
+@keyframes brandScrollX {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-marquee-track { animation: none; }
+}
+
 /* Gradient text utilities */
 .gradient-text-saffron {
   background: linear-gradient(135deg, #E8A317, #FFB800, #ffd54f);
