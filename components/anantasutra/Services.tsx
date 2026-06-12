@@ -2,85 +2,29 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import {
-  Brain,
-  Megaphone,
-  BookOpen,
-  ShoppingBag,
-  Building2,
-  Globe,
-  Briefcase,
-  GraduationCap,
-  ArrowRight,
-  Compass,
-  HeartHandshake,
-  UserCheck,
-} from 'lucide-react'
+import { ArrowRight, MessageSquare, UserCheck, Users2 } from 'lucide-react'
 import Link from 'next/link'
+import { expertDomains } from '@/lib/expertDomains'
 
-const activeServices = [
+const steps = [
   {
-    icon: Brain,
-    title: 'AI Automation & Intelligence',
+    icon: MessageSquare,
+    title: 'Name the role',
     description:
-      'Voice calling agents starting at \u20B96/min. Video generators, social media automation, Gmail automation, AI marketing tools, and recruiter AI at \u20B92/lead.',
-    accent: '#E8A317',
-    tags: ['Voice Agents', 'Video AI', 'Marketing AI', 'Recruiter AI'],
-    link: '/services/ai-automation',
-  },
-  {
-    icon: Megaphone,
-    title: 'Creative & Marketing Agency',
-    description:
-      'End-to-end marketing support. From professional shooting and content creation to complete social media management and brand strategy.',
-    accent: '#6A3DE8',
-    tags: ['Content', 'Social Media', 'Branding', 'Strategy'],
-    link: '/services/marketing',
-  },
-  {
-    icon: BookOpen,
-    title: 'Wisdom & Lifestyle Apps',
-    description:
-      'Granthas \u2014 all Hindu scriptures in one place. Ritualist \u2014 your free daily activity companion. Connecting ancient wisdom with modern living.',
-    accent: '#E8A317',
-    tags: ['Granthas', 'Ritualist', 'Free Apps'],
-    link: '/apps',
-  },
-  {
-    icon: Compass,
-    title: 'Strategic Consultation',
-    description:
-      'Tech roadmaps, architecture reviews, and growth strategy. Sometimes you don\u2019t need to build \u2014 you need to think clearly first. Senior advisors who\u2019ve shipped at scale.',
-    accent: '#6A3DE8',
-    tags: ['Tech Strategy', 'Architecture', 'Growth Audit', 'Roadmaps'],
-    link: '/contact',
-  },
-  {
-    icon: HeartHandshake,
-    title: 'Managed In-House Teams',
-    description:
-      'We assemble and lead a delivery team that plugs into your business as part of your in-house team. We manage them end-to-end and guarantee project completion \u2014 you get the output, we own the process.',
-    accent: '#E8A317',
-    tags: ['Embedded Team', 'End-to-End Mgmt', 'Delivery Guarantee', 'Scalable'],
-    link: '/contact',
+      'Engineer, lawyer, marketer, designer — whatever your project actually needs.',
   },
   {
     icon: UserCheck,
-    title: 'Dedicated Experts On Demand',
+    title: 'We send a pro',
     description:
-      'Individual senior experts embedded into your team \u2014 engineers, performance marketers, designers, project managers. Ramp up in 7 days. Replace in 48 hours.',
-    accent: '#6A3DE8',
-    tags: ['Engineers', 'Marketers', 'Designers', '7-day Setup'],
-    link: '/services/dedicated-experts',
+      'A vetted professional, hand-picked from our network across four continents.',
   },
-]
-
-const comingSoonServices = [
-  { icon: ShoppingBag, title: 'E-commerce' },
-  { icon: Building2, title: 'Real Estate' },
-  { icon: Globe, title: 'Immigration Support' },
-  { icon: Briefcase, title: 'Business Solutions' },
-  { icon: GraduationCap, title: 'Academic Solutions' },
+  {
+    icon: Users2,
+    title: 'They work for you',
+    description:
+      'In-house or remote, under your direction, for hours or months — your call.',
+  },
 ]
 
 const Services = () => {
@@ -95,110 +39,110 @@ const Services = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="text-center mb-16 max-w-3xl mx-auto"
         >
           <span className="text-[#E8A317] text-sm font-semibold uppercase tracking-widest block mb-4">
-            OUR UNIVERSE
+            WHAT WE DO
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-display">
-            A Constellation of Ventures
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-display mb-6">
+            Any expert you need,{' '}
+            <span className="bg-gradient-to-r from-[#E8A317] to-[#F0C040] bg-clip-text text-transparent">
+              working for you.
+            </span>
           </h2>
+          <p className="text-lg text-gray-400">
+            Tell us the field — engineering, legal, healthcare, anything. We place
+            a <span className="text-white">vetted professional</span> inside your
+            team, in-house or remote, for as long as you need.
+          </p>
         </motion.div>
 
-        {/* Active Service Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {activeServices.map((service, index) => {
-            const Icon = service.icon
+        {/* How it works — 3 steps */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-20 max-w-5xl mx-auto">
+          {steps.map((step, index) => {
+            const Icon = step.icon
             return (
               <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 40 }}
+                key={step.title}
+                initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
-                className="group relative bg-white/[0.03] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-8 hover:border-opacity-30 transition-all duration-500"
-                style={{
-                  ['--glow-color' as string]: service.accent,
-                }}
+                transition={{ duration: 0.6, delay: index * 0.12 }}
+                className="relative bg-white/[0.03] border border-white/[0.08] rounded-2xl p-6"
               >
-                {/* Hover Glow */}
-                <div
-                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                  style={{
-                    boxShadow: `inset 0 0 60px ${service.accent}10, 0 0 40px ${service.accent}08`,
-                  }}
-                ></div>
-
-                <div className="relative z-10">
-                  {/* Icon */}
-                  <div
-                    className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110"
-                    style={{ backgroundColor: `${service.accent}15` }}
-                  >
-                    <Icon className="w-7 h-7" style={{ color: service.accent }} />
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-xl font-bold text-white mb-4">{service.title}</h3>
-
-                  {/* Description */}
-                  <p className="text-gray-300 leading-relaxed mb-6">{service.description}</p>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {service.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-xs px-3 py-1 rounded-full border border-white/10 text-gray-400 bg-white/[0.03]"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Link */}
-                  <Link
-                    href={service.link}
-                    className="inline-flex items-center space-x-2 text-sm font-medium transition-colors duration-300 group-hover:translate-x-1"
-                    style={{ color: service.accent }}
-                  >
-                    <span>Learn More</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="w-10 h-10 rounded-xl bg-[#E8A317]/10 flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-5 h-5 text-[#E8A317]" />
+                  </span>
+                  <span className="text-xs font-bold text-gray-600 font-display">
+                    0{index + 1}
+                  </span>
                 </div>
+                <h3 className="text-base font-bold text-white mb-2">{step.title}</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">
+                  {step.description}
+                </p>
               </motion.div>
             )
           })}
         </div>
 
-        {/* Coming Soon Section */}
+        {/* Domains */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.5 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="text-center mb-8"
         >
-          <h3 className="text-lg font-semibold text-gray-400 mb-6 text-center">
-            Expanding Our Universe
+          <h3 className="text-lg font-semibold text-gray-300">
+            Request an expert in any domain
           </h3>
-          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide justify-center flex-wrap">
-            {comingSoonServices.map((service, index) => {
-              const Icon = service.icon
-              return (
-                <motion.div
-                  key={service.title}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                  className="flex-shrink-0 relative bg-white/[0.02] border border-white/[0.06] rounded-xl px-6 py-4 flex items-center space-x-3 min-w-[180px] mt-3 mr-2"
+        </motion.div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-16">
+          {expertDomains.map((d, index) => {
+            const Icon = d.icon
+            return (
+              <motion.div
+                key={d.slug}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.4, delay: 0.35 + index * 0.04 }}
+                className="group flex items-center gap-3 rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3.5 hover:border-white/20 hover:bg-white/[0.06] transition-all duration-300"
+              >
+                <span
+                  className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
+                  style={{ backgroundColor: `${d.accent}1f` }}
                 >
-                  <Icon className="w-5 h-5 text-gray-600" />
-                  <span className="text-gray-400 text-sm font-medium">{service.title}</span>
-                  <span className="absolute -top-2 -right-2 text-[10px] px-2 py-0.5 rounded-full bg-[#6A3DE8]/20 text-[#6A3DE8] border border-[#6A3DE8]/30 font-medium">
-                    Soon
-                  </span>
-                </motion.div>
-              )
-            })}
-          </div>
+                  <Icon className="w-4 h-4" style={{ color: d.accent }} />
+                </span>
+                <span className="text-sm font-medium text-gray-200 leading-tight">
+                  {d.name}
+                </span>
+              </motion.div>
+            )
+          })}
+        </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.4 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-[#0A0A0F] bg-gradient-to-r from-[#E8A317] to-[#F0C040] hover:from-[#F0C040] hover:to-[#E8A317] transition-all duration-300 hover:scale-[1.02]"
+          >
+            <span>Request an expert</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          <Link
+            href="/services"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-white border border-white/15 hover:border-white/30 hover:bg-white/[0.04] transition-all duration-300"
+          >
+            <span>How it works</span>
+          </Link>
         </motion.div>
       </div>
     </section>

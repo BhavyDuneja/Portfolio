@@ -4,211 +4,309 @@ import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import {
-  Brain, Megaphone, BookOpen, ShoppingBag, Building2,
-  Globe, Briefcase, GraduationCap, ArrowRight, Phone,
-  Video, Share2, Mail, Target, Users, Camera, Palette,
-  BarChart3, Sparkles, Code, Search, Bot, Layers
+  ArrowRight,
+  MessageSquare,
+  UserCheck,
+  Users2,
+  Clock,
+  MapPin,
+  ShieldCheck,
+  Repeat,
 } from 'lucide-react'
+import { expertDomains } from '@/lib/expertDomains'
 
-const activeServices = [
+const steps = [
   {
-    id: 'ai-automation',
-    title: 'AI Automation & Intelligence',
-    description: 'Transform your business with AI-powered solutions at unbeatable prices. From voice calling agents to intelligent marketing tools.',
-    icon: Brain,
-    accent: 'saffron',
-    href: '/services/ai-automation',
-    features: [
-      { icon: Phone, label: 'Voice Calling Agents', detail: 'Starting at ₹6/min' },
-      { icon: Video, label: 'AI Video Generators', detail: 'For Real Estate & more' },
-      { icon: Share2, label: 'Social Media Automation', detail: 'Full autopilot' },
-      { icon: Mail, label: 'Gmail Automation', detail: 'Smart workflows' },
-      { icon: Target, label: 'AI Marketing Tools', detail: 'Data-driven campaigns' },
-      { icon: Users, label: 'Recruiter AI', detail: '₹2/lead' },
-    ],
+    icon: MessageSquare,
+    title: 'Name the role',
+    description:
+      'Engineer, lawyer, marketer, designer — whatever your project actually needs.',
   },
   {
-    id: 'marketing',
-    title: 'Creative & Marketing Agency',
-    description: 'End-to-end marketing support from shooting to social media management. We amplify your brand across every channel.',
-    icon: Megaphone,
-    accent: 'violet',
-    href: '/services/marketing',
-    features: [
-      { icon: Camera, label: 'Professional Shooting', detail: 'Photo & Video' },
-      { icon: Palette, label: 'Content Creation', detail: 'Design & Copy' },
-      { icon: Share2, label: 'Social Media Management', detail: 'All platforms' },
-      { icon: BarChart3, label: 'Brand Strategy', detail: 'Growth focused' },
-      { icon: Target, label: 'Performance Marketing', detail: 'ROI driven' },
-      { icon: Sparkles, label: 'Creative Direction', detail: 'Unique identity' },
-    ],
+    icon: UserCheck,
+    title: 'We send a pro',
+    description:
+      'A vetted professional, hand-picked from our network across four continents.',
   },
   {
-    id: 'digital-presence',
-    title: 'Website Building & Search Optimization',
-    description: 'We build stunning, high-performance websites and optimize them to be discovered by search engines, AI assistants, and generative platforms alike.',
-    icon: Code,
-    accent: 'saffron',
-    href: '/contact',
-    features: [
-      { icon: Code, label: 'Website Development', detail: 'Modern & responsive' },
-      { icon: Search, label: 'SEO Optimization', detail: 'Rank on Google' },
-      { icon: Bot, label: 'AEO — Answer Engine', detail: 'Featured in AI answers' },
-      { icon: Layers, label: 'GEO — Generative Engine', detail: 'Cited by ChatGPT & co.' },
-      { icon: BarChart3, label: 'Analytics & Tracking', detail: 'GA, Clarity & more' },
-      { icon: Globe, label: 'Domain & Hosting', detail: 'End-to-end setup' },
-    ],
+    icon: Users2,
+    title: 'They work for you',
+    description:
+      'In-house or remote, under your direction, for hours or months — your call.',
   },
 ]
 
-const comingSoonServices = [
-  { title: 'E-Commerce', icon: ShoppingBag, description: 'Online store solutions' },
-  { title: 'Real Estate', icon: Building2, description: 'Property & investment' },
-  { title: 'Immigration Support', icon: Globe, description: 'Global mobility assistance' },
-  { title: 'Business Solutions', icon: Briefcase, description: 'End-to-end consulting' },
-  { title: 'Academic Solutions', icon: GraduationCap, description: 'Education & upskilling' },
+const engagement = [
+  {
+    icon: Clock,
+    title: 'Any duration',
+    description: 'A few hours, a sprint, or an ongoing seat on your team.',
+  },
+  {
+    icon: MapPin,
+    title: 'In-house or remote',
+    description: 'On-site with your team or working remotely — your call.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Vetted & accountable',
+    description: 'Pre-screened professionals who own their outcomes.',
+  },
+  {
+    icon: Repeat,
+    title: 'Swap when needed',
+    description: 'Need a different fit? We re-match, fast.',
+  },
 ]
 
 export default function ServicesPage() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       import('lenis').then((Lenis) => {
-        const lenis = new Lenis.default({ duration: 1.2, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })
-        function raf(time: number) { lenis.raf(time); requestAnimationFrame(raf) }
+        const lenis = new Lenis.default({
+          duration: 1.2,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        })
+        function raf(time: number) {
+          lenis.raf(time)
+          requestAnimationFrame(raf)
+        }
         requestAnimationFrame(raf)
       })
     }
   }, [])
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen bg-[#0A0A0F]">
       {/* Hero */}
-      <section className="relative py-20 px-4">
-        <div className="max-w-6xl mx-auto text-center">
+      <section className="relative pt-36 pb-20 px-4 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-[-15%] right-[5%] w-[500px] h-[500px] bg-[#E8A317]/8 rounded-full blur-[130px]" />
+          <div className="absolute bottom-[-15%] left-[5%] w-[500px] h-[500px] bg-[#6A3DE8]/8 rounded-full blur-[130px]" />
+        </div>
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-saffron-500 uppercase tracking-[0.2em] text-sm font-medium mb-4"
+            className="text-[#E8A317] uppercase tracking-[0.2em] text-sm font-medium mb-5"
           >
-            Our Services
+            Experts On Demand
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="font-display text-5xl md:text-7xl font-bold mb-6"
+            className="font-display text-5xl md:text-7xl font-bold text-white mb-6 leading-[1.05]"
           >
-            What We <span className="gradient-text-saffron">Build</span>
+            Any expert you need,{' '}
+            <span className="gradient-text-saffron">working for you.</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto"
+            className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-10"
           >
-            Every thread in the AnantaSutra tapestry carries purpose — from AI-powered automation to creative marketing solutions.
+            Tell us the field — engineering, legal, healthcare, anything. We place
+            a vetted professional inside your team, in-house or remote, for as long
+            as you need.
           </motion.p>
-        </div>
-      </section>
-
-      {/* Active Services */}
-      <section className="py-16 px-4">
-        <div className="max-w-6xl mx-auto space-y-24">
-          {activeServices.map((service, index) => (
-            <motion.div
-              key={service.id}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.8 }}
-              className={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}
-            >
-              <div className={index % 2 === 1 ? 'lg:col-start-2' : ''}>
-                <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium mb-6 ${
-                  service.accent === 'saffron'
-                    ? 'bg-saffron-500/10 text-saffron-400 border border-saffron-500/20'
-                    : 'bg-violet-500/10 text-violet-400 border border-violet-500/20'
-                }`}>
-                  <service.icon className="w-3.5 h-3.5" />
-                  Active
-                </div>
-                <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
-                  {service.title}
-                </h2>
-                <p className="text-gray-300 text-lg leading-relaxed mb-8">
-                  {service.description}
-                </p>
-                <Link href={service.href} className="btn-primary inline-flex">
-                  <span>Explore Service</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-
-              <div className={`grid grid-cols-2 gap-4 ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
-                {service.features.map((feature, fi) => (
-                  <motion.div
-                    key={feature.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: fi * 0.1 }}
-                    className="glass-card rounded-xl p-4"
-                  >
-                    <feature.icon className={`w-5 h-5 mb-2 ${
-                      service.accent === 'saffron' ? 'text-saffron-500' : 'text-violet-500'
-                    }`} />
-                    <p className="text-white text-sm font-medium">{feature.label}</p>
-                    <p className="text-gray-400 text-xs mt-1">{feature.detail}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Divider */}
-      <div className="section-divider max-w-4xl mx-auto my-16" />
-
-      {/* Coming Soon */}
-      <section className="py-16 px-4 mb-20">
-        <div className="max-w-6xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
           >
-            <p className="text-violet-400 uppercase tracking-[0.2em] text-sm font-medium mb-3">
-              Expanding Universe
-            </p>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
-              Coming <span className="gradient-text-violet">Soon</span>
-            </h2>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-[#0A0A0F] bg-gradient-to-r from-[#E8A317] to-[#F0C040] hover:from-[#F0C040] hover:to-[#E8A317] transition-all duration-300 hover:scale-[1.02]"
+            >
+              <span>Request an expert</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </motion.div>
+        </div>
+      </section>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {comingSoonServices.map((item, i) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="glass-card rounded-xl p-6 text-center relative overflow-hidden group"
-              >
-                <div className="absolute top-2 right-2 text-[10px] font-medium px-2 py-0.5 rounded-full bg-violet-500/10 text-violet-400 border border-violet-500/20">
-                  Soon
-                </div>
-                <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-dark-400/50 flex items-center justify-center group-hover:bg-violet-500/10 transition-colors">
-                  <item.icon className="w-6 h-6 text-gray-500 group-hover:text-violet-400 transition-colors" />
-                </div>
-                <h3 className="text-white text-sm font-semibold mb-1">{item.title}</h3>
-                <p className="text-gray-400 text-xs">{item.description}</p>
-              </motion.div>
-            ))}
+      {/* How it works */}
+      <section className="py-16 md:py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="text-[#6A3DE8] text-sm font-semibold uppercase tracking-widest block mb-4">
+              How it works
+            </span>
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-white">
+              From need to embedded expert
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {steps.map((step, index) => {
+              const Icon = step.icon
+              return (
+                <motion.div
+                  key={step.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="relative bg-white/[0.03] border border-white/[0.08] rounded-2xl p-7"
+                >
+                  <div className="flex items-center gap-3 mb-5">
+                    <span className="w-11 h-11 rounded-xl bg-[#E8A317]/10 flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-5 h-5 text-[#E8A317]" />
+                    </span>
+                    <span className="text-sm font-bold text-gray-600 font-display">
+                      0{index + 1}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
+                  <p className="text-sm text-gray-400 leading-relaxed">
+                    {step.description}
+                  </p>
+                </motion.div>
+              )
+            })}
           </div>
         </div>
+      </section>
+
+      {/* Domains */}
+      <section className="py-16 md:py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="text-[#E8A317] text-sm font-semibold uppercase tracking-widest block mb-4">
+              Domains
+            </span>
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-4">
+              Pick any field. We&apos;ve got the pro.
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Name the role you need — here are the domains we place people in today.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {expertDomains.map((d, index) => {
+              const Icon = d.icon
+              return (
+                <motion.div
+                  key={d.slug}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
+                  className="group relative bg-white/[0.03] border border-white/[0.08] rounded-2xl p-7 hover:border-white/20 transition-all duration-400 flex flex-col"
+                >
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110"
+                    style={{ backgroundColor: `${d.accent}18` }}
+                  >
+                    <Icon className="w-6 h-6" style={{ color: d.accent }} />
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">{d.name}</h3>
+                  <p className="text-sm text-gray-400 leading-relaxed mb-5 flex-1">
+                    {d.blurb}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {d.roles.map((role) => (
+                      <span
+                        key={role}
+                        className="text-[11px] px-2.5 py-1 rounded-full border border-white/10 text-gray-400 bg-white/[0.03]"
+                      >
+                        {role}
+                      </span>
+                    ))}
+                  </div>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 text-sm font-medium transition-transform duration-300 group-hover:translate-x-1"
+                    style={{ color: d.accent }}
+                  >
+                    <span>Request this expert</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </motion.div>
+              )
+            })}
+          </div>
+
+          <p className="text-center text-sm text-gray-500 mt-10">
+            Don&apos;t see your domain?{' '}
+            <Link href="/contact" className="text-[#E8A317] hover:underline">
+              Ask us — chances are we&apos;ve got someone.
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      {/* Engagement flexibility */}
+      <section className="py-16 md:py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="text-[#6A3DE8] text-sm font-semibold uppercase tracking-widest block mb-4">
+              On your terms
+            </span>
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-white">
+              Flexible by design
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {engagement.map((item, index) => {
+              const Icon = item.icon
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="text-center bg-white/[0.02] border border-white/[0.06] rounded-2xl p-7"
+                >
+                  <span className="w-12 h-12 rounded-xl bg-[#6A3DE8]/10 flex items-center justify-center mx-auto mb-5">
+                    <Icon className="w-6 h-6 text-[#6A3DE8]" />
+                  </span>
+                  <h3 className="text-base font-bold text-white mb-2">{item.title}</h3>
+                  <p className="text-sm text-gray-400 leading-relaxed">
+                    {item.description}
+                  </p>
+                </motion.div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-20 md:py-28 px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="max-w-4xl mx-auto glass-card rounded-3xl p-12 md:p-16 text-center relative overflow-hidden"
+        >
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[1px] bg-gradient-to-r from-transparent via-[#E8A317]/40 to-transparent" />
+          <p className="text-[#E8A317] uppercase tracking-[0.2em] text-sm font-medium mb-4">
+            Tell us who you need
+          </p>
+          <h3 className="font-display text-3xl md:text-5xl font-bold text-white mb-6">
+            Your next team member is one message away
+          </h3>
+          <p className="text-gray-300 text-lg mb-10 max-w-xl mx-auto">
+            Tell us the domain and the duration. We&apos;ll bring you a vetted
+            expert who works the way your team works.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link href="/contact" className="btn-primary">
+              <span>Request an expert</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link href="/portfolio" className="btn-outline">
+              <span>See our work</span>
+            </Link>
+          </div>
+        </motion.div>
       </section>
     </div>
   )

@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 import { Briefcase, TrendingUp, Users, Sparkles } from 'lucide-react'
 // import ReelStrip from './ReelStrip' // vertical reel disabled — using horizontal BrandMarquee inside the hero instead
 import BrandMarquee from './BrandMarquee'
-import DomainCollage from './DomainCollage'
 
 const stats = [
   { icon: Briefcase, value: '10', label: 'Featured Clients' },
@@ -28,10 +27,9 @@ const PortfolioHero = () => {
         </span>
       </div>
 
-      {/* Hero copy + stats (left) · domain collage CTA (right) — centred in remaining space */}
+      {/* Hero copy + stats — centred in remaining space */}
       <div className="relative z-10 flex-1 flex items-center w-full pt-32 pb-10">
-        <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16 items-center">
-          {/* Left — copy + stats */}
+        <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
           <div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -87,11 +85,6 @@ const PortfolioHero = () => {
                 )
               })}
             </motion.div>
-          </div>
-
-          {/* Right — domain collage + CTA (fills the space the reel used to occupy) */}
-          <div className="w-full">
-            <DomainCollage />
           </div>
         </div>
       </div>

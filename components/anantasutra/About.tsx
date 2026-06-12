@@ -14,8 +14,25 @@ const About = () => {
   ]
 
   return (
-    <section ref={ref} className="py-24 md:py-32 bg-[#0A0A0F]">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={ref} className="relative py-24 md:py-32 bg-[#0A0A0F] overflow-hidden">
+      {/* Golden infinite-loop backdrop — same braided ∞ as the homepage hero */}
+      <div className="absolute inset-0 pointer-events-none select-none" aria-hidden="true">
+        <video
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
+          src="/videos/hero-bg.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        ></video>
+        {/* Readability overlays so the philosophy copy stays crisp */}
+        <div className="absolute inset-0 bg-[#0A0A0F]/55"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0F] via-[#0A0A0F]/70 to-[#0A0A0F]/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0F] via-transparent to-[#0A0A0F]"></div>
+      </div>
+
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Label */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
