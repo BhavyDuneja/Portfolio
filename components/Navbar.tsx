@@ -9,62 +9,51 @@ import {
   Menu,
   X,
   ChevronDown,
+  Code2,
   Bot,
-  Video,
-  Share2,
-  Mail,
+  Palette,
+  Clapperboard,
   Megaphone,
-  Search,
   Briefcase,
-  Camera,
-  Users,
-  ShoppingCart,
   Building2,
+  ShoppingBag,
+  Scale,
+  Stethoscope,
   Plane,
-  LayoutGrid,
   GraduationCap,
-  UserCheck,
 } from 'lucide-react';
 import ThemeToggle from '@/components/ThemeToggle';
 
+// Domain expertise areas — a client can request an embedded expert from any of these.
 const servicesMenu = [
   {
-    title: 'AI Automation & Tools',
-    description: 'Intelligent solutions powered by cutting-edge AI',
+    title: 'Build & Technical',
+    description: 'Engineers, designers and AI talent that ships',
     items: [
-      { name: 'Voice Calling Agents', href: '/services/voice-agents', icon: Bot },
-      { name: 'Video Generators', href: '/services/video-generators', icon: Video },
-      { name: 'Social Media Automation', href: '/services/social-automation', icon: Share2 },
-      { name: 'Gmail Automation', href: '/services/gmail-automation', icon: Mail },
-      { name: 'AI Marketing Tools', href: '/services/ai-marketing', icon: Megaphone },
-      { name: 'Recruiter AI', href: '/services/recruiter-ai', icon: Search },
+      { name: 'Engineering & Software', href: '/services', icon: Code2 },
+      { name: 'AI & Data', href: '/services', icon: Bot },
+      { name: 'Design & Creative', href: '/services', icon: Palette },
+      { name: 'Video & Content', href: '/services', icon: Clapperboard },
     ],
   },
   {
-    title: 'Marketing Agency',
-    description: 'Full-service creative and marketing solutions',
+    title: 'Growth & Business',
+    description: 'Marketing, finance and operations specialists',
     items: [
-      { name: 'End-to-End Marketing', href: '/services/marketing', icon: Briefcase },
-      { name: 'Content Shooting', href: '/services/content-shooting', icon: Camera },
-      { name: 'Social Media Management', href: '/services/social-media', icon: Users },
+      { name: 'Marketing & Growth', href: '/services', icon: Megaphone },
+      { name: 'Finance & Business', href: '/services', icon: Briefcase },
+      { name: 'Property & Real Estate', href: '/services', icon: Building2 },
+      { name: 'E-commerce & Retail', href: '/services', icon: ShoppingBag },
     ],
   },
   {
-    title: 'Dedicated Experts',
-    description: 'Full-time engineers and marketers embedded in your team',
+    title: 'Specialised',
+    description: 'Legal, healthcare and global-mobility experts',
     items: [
-      { name: 'Dedicated Experts On Demand', href: '/services/dedicated-experts', icon: UserCheck },
-    ],
-  },
-  {
-    title: 'Coming Soon',
-    description: 'Exciting new verticals on the horizon',
-    items: [
-      { name: 'E-commerce', href: '/services/ecommerce', icon: ShoppingCart },
-      { name: 'Real Estate', href: '/services/real-estate', icon: Building2 },
-      { name: 'Immigration Support', href: '/services/immigration', icon: Plane },
-      { name: 'Business Solutions', href: '/services/business', icon: LayoutGrid },
-      { name: 'Academic Solutions', href: '/services/academic', icon: GraduationCap },
+      { name: 'Legal & Compliance', href: '/services', icon: Scale },
+      { name: 'Healthcare', href: '/services', icon: Stethoscope },
+      { name: 'Immigration & Mobility', href: '/services', icon: Plane },
+      { name: 'Academic & Research', href: '/services', icon: GraduationCap },
     ],
   },
 ];
@@ -184,7 +173,21 @@ export default function Navbar() {
                           className="absolute top-full left-1/2 -translate-x-1/2 w-[780px] pt-3 pointer-events-auto"
                           style={{ zIndex: 60 }}
                         >
-                          <div className="bg-[rgba(10,10,15,0.95)] backdrop-blur-2xl rounded-2xl border border-white/10 shadow-2xl shadow-black/40 p-6 grid grid-cols-3 gap-6">
+                          <div className="bg-[rgba(10,10,15,0.95)] backdrop-blur-2xl rounded-2xl border border-white/10 shadow-2xl shadow-black/40 p-6">
+                          {/* What we do — clarity banner */}
+                          <div className="mb-5 pb-5 border-b border-white/10">
+                            <p className="text-[#E8A317] text-[11px] font-semibold uppercase tracking-widest mb-1.5">
+                              What we do
+                            </p>
+                            <h3 className="text-white font-bold text-base leading-snug">
+                              Vetted experts in any field, working for you
+                            </h3>
+                            <p className="text-gray-400 text-xs mt-1">
+                              Name the role. We place a professional inside your team — in-house or remote.
+                            </p>
+                          </div>
+
+                          <div className="grid grid-cols-3 gap-6">
                             {servicesMenu.map((section) => (
                               <div key={section.title}>
                                 <h3 className="text-white font-semibold text-sm mb-1">
@@ -208,6 +211,21 @@ export default function Navbar() {
                                 </div>
                               </div>
                             ))}
+                          </div>
+
+                          {/* Bottom CTA */}
+                          <div className="mt-5 pt-5 border-t border-white/10 flex items-center justify-between gap-4">
+                            <span className="text-gray-400 text-xs">
+                              Any domain, any duration — in-house or remote.
+                            </span>
+                            <Link
+                              href="/contact"
+                              className="inline-flex items-center gap-1.5 text-[#E8A317] text-sm font-semibold whitespace-nowrap hover:gap-2.5 transition-all"
+                            >
+                              Request an expert
+                              <ChevronDown className="w-3.5 h-3.5 -rotate-90" />
+                            </Link>
+                          </div>
                           </div>
                         </motion.div>
                       )}
