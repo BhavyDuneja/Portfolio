@@ -2,35 +2,35 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
-import { Layers, Zap, Sparkles } from 'lucide-react'
+import { Layers, Users2, Gauge } from 'lucide-react'
 
 const stats = [
-  { value: '\u20B96/min', label: 'Voice Agent Starting Price' },
-  { value: '\u20B92/lead', label: 'Recruiter AI Cost' },
-  { value: '5+', label: 'Active Ventures' },
-  { value: '\u221E', label: 'Wisdom Threads' },
+  { value: '12+', label: 'Expert Domains' },
+  { value: '10+', label: 'Brands Delivered' },
+  { value: '4', label: 'Continents Served' },
+  { value: '7-Day', label: 'Avg. Onboarding' },
 ]
 
 const differentiators = [
   {
     icon: Layers,
-    title: 'Multi-Domain Expertise',
+    title: 'Any Domain, One Partner',
     description:
-      'Unlike single-focus agencies, we operate across AI, marketing, apps, and beyond.',
+      'An engineer today, a lawyer next month \u2014 every field through a single relationship. No juggling vendors.',
     accent: '#E8A317',
   },
   {
-    icon: Zap,
-    title: 'Cost Revolution',
+    icon: Users2,
+    title: 'Embedded, Not Outsourced',
     description:
-      'AI solutions at a fraction of industry costs. Voice agents from \u20B96/min, leads from \u20B92.',
+      'Your expert works inside your team, under your direction \u2014 in-house or remote. Real ownership, not ticket-taking.',
     accent: '#6A3DE8',
   },
   {
-    icon: Sparkles,
-    title: 'Ancient Meets Modern',
+    icon: Gauge,
+    title: 'Flexible by Design',
     description:
-      'We bridge timeless wisdom with cutting-edge technology for holistic solutions.',
+      'Scale up when you grow, wind down when you don\u2019t. An afternoon or a full year \u2014 no lock-ins.',
     accent: '#E8A317',
   },
 ]
