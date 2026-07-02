@@ -136,13 +136,13 @@ const Experience = () => {
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
-                className={`glass-card rounded-3xl p-8 hover-lift`}
+                className={`glass-card rounded-3xl p-6 sm:p-8 hover-lift`}
               >
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6">
                   <div className="flex-1">
-                    <div className="flex items-center space-x-3 mb-3">
-                      <Building2 className="w-6 h-6 text-saffron-500" />
-                      <h3 className="text-2xl font-bold text-white">{exp.company}</h3>
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3">
+                      <Building2 className="w-6 h-6 text-saffron-500 flex-shrink-0" />
+                      <h3 className="text-xl sm:text-2xl font-bold text-white">{exp.company}</h3>
                       <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                         exp.type === 'Current' ? 'bg-saffron-500/10 text-saffron-500' :
                         exp.type === 'Previous' ? 'bg-blue-500/10 text-blue-400' :
@@ -153,7 +153,7 @@ const Experience = () => {
                       </span>
                     </div>
                     <h4 className="text-xl font-semibold text-gray-300 mb-2">{exp.position}</h4>
-                    <div className="flex items-center space-x-4 text-gray-500 mb-4">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-gray-500 mb-4">
                       <div className="flex items-center space-x-2">
                         <MapPin className="w-4 h-4" />
                         <span>{exp.location}</span>

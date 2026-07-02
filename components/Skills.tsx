@@ -153,7 +153,7 @@ const Skills = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
               transition={{ duration: 0.8, delay: categoryIndex * 0.1 }}
-              className="glass-card rounded-3xl p-8 hover-lift"
+              className="glass-card rounded-3xl p-6 sm:p-8 hover-lift"
             >
               <div className="flex items-center space-x-3 mb-6">
                 <div className={`w-12 h-12 bg-gradient-to-r ${category.color} rounded-full flex items-center justify-center`}>
@@ -254,14 +254,14 @@ const Skills = () => {
           transition={{ duration: 0.8, delay: 1.2 }}
           className="mt-20 text-center"
         >
-          <div className="glass-card rounded-3xl p-12">
+          <div className="glass-card rounded-3xl p-6 sm:p-12">
             <h3 className="text-3xl font-bold font-display mb-6 text-white">Learning Philosophy</h3>
             <blockquote className="text-xl text-gray-400 italic leading-relaxed max-w-4xl mx-auto mb-8">
               "Technology is constantly evolving, and so must we. My approach to learning is hands-on,
               project-driven, and always focused on solving real-world problems. Every new technology
               I learn is an opportunity to build something meaningful."
             </blockquote>
-            <div className="flex justify-center space-x-4">
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
               <div className="flex items-center space-x-2 text-saffron-500">
                 <Zap className="w-5 h-5" />
                 <span className="font-medium">Continuous Learning</span>

@@ -76,7 +76,7 @@ const Contact = () => {
             className="space-y-8"
           >
             {/* Contact Details */}
-            <div className="glass-card rounded-3xl p-8">
+            <div className="glass-card rounded-3xl p-6 sm:p-8">
               <h3 className="text-3xl font-bold font-display mb-8 text-white text-center">
                 Let's Connect
               </h3>
@@ -170,7 +170,7 @@ const Contact = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="mt-20 text-center"
         >
-          <div className="glass-card rounded-3xl p-12">
+          <div className="glass-card rounded-3xl p-6 sm:p-12">
             <h3 className="text-3xl font-bold font-display mb-6 text-white">Ready to Start Your Project?</h3>
             <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
               Whether you need a full-stack application, cloud architecture consultation,

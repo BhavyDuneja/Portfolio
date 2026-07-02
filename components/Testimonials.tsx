@@ -81,7 +81,7 @@ const Testimonials = () => {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
               transition={{ duration: 0.8, delay: index * 0.2 }}
               whileHover={{ scale: 1.02, y: -5 }}
-              className="glass-card rounded-3xl p-8 hover:shadow-2xl transition-all duration-300"
+              className="glass-card rounded-3xl p-6 sm:p-8 hover:shadow-2xl transition-all duration-300"
             >
               {/* Quote Icon */}
               <div className="flex justify-center mb-6">
@@ -149,7 +149,7 @@ const Testimonials = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="text-center"
         >
-          <div className="glass-card rounded-3xl p-12">
+          <div className="glass-card rounded-3xl p-6 sm:p-12">
             <h3 className="text-3xl font-bold font-display mb-6 text-white">Professional Philosophy</h3>
             <blockquote className="text-xl text-gray-400 italic leading-relaxed max-w-4xl mx-auto mb-8">
               "Success in software engineering isn't just about writing code--it's about understanding
@@ -157,7 +157,7 @@ const Testimonials = () => {
               make a real difference. Every project is an opportunity to learn, grow, and contribute
               to something meaningful."
             </blockquote>
-            <div className="flex justify-center space-x-8">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8">
               <div className="flex items-center space-x-2 text-saffron-500">
                 <Star className="w-5 h-5" />
                 <span className="font-medium">Excellence</span>
