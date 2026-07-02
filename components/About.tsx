@@ -79,7 +79,7 @@ const About = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Left Column - Personal Info */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -88,7 +88,7 @@ const About = () => {
             className="space-y-8"
           >
             {/* Personal Details Card */}
-            <div className="glass-card rounded-3xl p-8 hover-lift">
+            <div className="glass-card rounded-3xl p-6 sm:p-8 hover-lift">
               <h3 className="text-2xl font-bold font-display mb-6 text-white">Personal Details</h3>
               <div className="space-y-4">
                 <div className="flex items-center space-x-4">
@@ -122,7 +122,7 @@ const About = () => {
             </div>
 
             {/* Personal Traits */}
-            <div className="glass-card rounded-3xl p-8 hover-lift">
+            <div className="glass-card rounded-3xl p-6 sm:p-8 hover-lift">
               <h3 className="text-2xl font-bold font-display mb-6 text-white">Core Strengths</h3>
               <div className="space-y-4">
                 {personalTraits.map((trait, index) => (
@@ -168,7 +168,7 @@ const About = () => {
                   initial={{ opacity: 0, x: 50 }}
                   animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
                   transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-                  className="relative flex items-start space-x-6"
+                  className="relative flex items-start space-x-4 sm:space-x-6"
                 >
                   {/* Timeline Dot */}
                   <div className="relative z-10">
@@ -207,7 +207,7 @@ const About = () => {
           transition={{ duration: 0.8, delay: 1 }}
           className="mt-20 text-center"
         >
-          <div className="glass-card rounded-3xl p-12">
+          <div className="glass-card rounded-3xl p-6 sm:p-12">
             <h3 className="text-3xl font-bold font-display mb-6 text-white">My Philosophy</h3>
             <blockquote className="text-xl text-gray-400 italic leading-relaxed max-w-4xl mx-auto">
               "I believe in the power of technology to bridge cultures and solve real-world problems.

@@ -52,7 +52,7 @@ const Hero = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Left Column - Content */}
           <motion.div
             initial="hidden"
@@ -94,7 +94,7 @@ const Hero = () => {
               transition={{ delay: 0.6, duration: 0.6 }}
               className="h-16 flex items-center"
             >
-              <span className="text-2xl lg:text-3xl font-semibold text-gray-400">
+              <span className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-400">
                 I'm a{' '}
                 <motion.span
                   key={currentText}
@@ -178,13 +178,13 @@ const Hero = () => {
             className="relative"
           >
             {/* Main Portrait Container */}
-            <div className="relative w-full h-[600px] flex items-center justify-center">
+            <div className="relative w-full h-[380px] sm:h-[440px] lg:h-[600px] flex items-center justify-center">
               {/* Professional Portrait */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.6, duration: 0.8 }}
-                className="relative w-80 h-96 rounded-3xl overflow-hidden shadow-2xl"
+                className="relative w-64 h-80 sm:w-80 sm:h-96 rounded-3xl overflow-hidden shadow-2xl"
               >
                 {/* Your Professional Portrait */}
                 <div className="w-full h-full relative">
@@ -229,7 +229,7 @@ const Hero = () => {
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-                className="absolute top-8 -left-8 w-64 h-32 glass-card rounded-2xl shadow-xl p-6"
+                className="hidden lg:block absolute top-8 -left-8 w-64 h-32 glass-card rounded-2xl shadow-xl p-6"
               >
                 <div className="flex items-center space-x-3 mb-3">
                   <div className="w-3 h-3 bg-saffron-500 rounded-full" />
@@ -255,7 +255,7 @@ const Hero = () => {
                   ease: "easeInOut",
                   delay: 2
                 }}
-                className="absolute top-32 -right-12 w-56 h-28 glass-card rounded-2xl shadow-xl p-4"
+                className="hidden lg:block absolute top-32 -right-12 w-56 h-28 glass-card rounded-2xl shadow-xl p-4"
               >
                 <div className="flex items-center space-x-2 mb-2">
                   <div className="w-2 h-2 bg-violet-500 rounded-full" />
@@ -276,7 +276,7 @@ const Hero = () => {
                   ease: "easeInOut",
                   delay: 4
                 }}
-                className="absolute bottom-20 -left-12 w-60 h-32 glass-card rounded-2xl shadow-xl p-5"
+                className="hidden lg:block absolute bottom-20 -left-12 w-60 h-32 glass-card rounded-2xl shadow-xl p-5"
               >
                 <div className="flex items-center space-x-2 mb-3">
                   <div className="w-2 h-2 bg-violet-500 rounded-full" />
@@ -301,7 +301,7 @@ const Hero = () => {
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-                className="absolute bottom-8 -right-8 w-20 h-20 bg-gradient-to-br from-saffron-500 to-violet-500 rounded-full shadow-2xl flex items-center justify-center"
+                className="hidden lg:flex absolute bottom-8 -right-8 w-20 h-20 bg-gradient-to-br from-saffron-500 to-violet-500 rounded-full shadow-2xl items-center justify-center"
               >
                 <span className="text-white font-bold text-sm">AWS</span>
               </motion.div>

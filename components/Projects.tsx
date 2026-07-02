@@ -198,15 +198,15 @@ const Projects = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="glass-card rounded-3xl p-8 hover-lift cursor-pointer"
+              className="glass-card rounded-3xl p-6 sm:p-8 hover-lift cursor-pointer"
               onClick={() => setActiveProject(index)}
             >
               {/* Project Header */}
               <div className="flex items-start justify-between mb-6">
                 <div className="flex-1">
-                  <div className="flex items-center space-x-3 mb-3">
-                    <Code className="w-6 h-6 text-saffron-500" />
-                    <h3 className="text-2xl font-bold text-white">{project.title}</h3>
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3">
+                    <Code className="w-6 h-6 text-saffron-500 flex-shrink-0" />
+                    <h3 className="text-xl sm:text-2xl font-bold text-white">{project.title}</h3>
                     <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                       project.status === 'Current' ? 'bg-saffron-500/10 text-saffron-500' :
                       project.status === 'Completed' ? 'bg-blue-500/10 text-blue-400' :

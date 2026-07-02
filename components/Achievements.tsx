@@ -165,7 +165,7 @@ const Achievements = () => {
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 transition={{ duration: 0.8, delay: 0.6 + index * 0.1 }}
                 whileHover={{ scale: 1.02, x: index % 2 === 0 ? -5 : 5 }}
-                className="glass-card rounded-3xl p-8 hover:shadow-2xl transition-all duration-300"
+                className="glass-card rounded-3xl p-6 sm:p-8 hover:shadow-2xl transition-all duration-300"
               >
                 <div className="flex items-start space-x-4">
                   <div className={`w-16 h-16 bg-gradient-to-r ${milestone.color} rounded-full flex items-center justify-center flex-shrink-0`}>
@@ -220,7 +220,7 @@ const Achievements = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="text-center"
         >
-          <div className="glass-card rounded-3xl p-12">
+          <div className="glass-card rounded-3xl p-6 sm:p-12">
             <h3 className="text-3xl font-bold font-display mb-6 text-white">Achievement Philosophy</h3>
             <blockquote className="text-xl text-gray-400 italic leading-relaxed max-w-4xl mx-auto mb-8">
               "Success isn't just about individual accomplishments--it's about the impact we create,
@@ -228,7 +228,7 @@ const Achievements = () => {
               Every certification, every project, every milestone is a stepping stone toward
               making technology more accessible and meaningful."
             </blockquote>
-            <div className="flex justify-center space-x-8">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8">
               <div className="flex items-center space-x-2 text-saffron-500">
                 <Award className="w-5 h-5" />
                 <span className="font-medium">Continuous Growth</span>
