@@ -41,3 +41,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+
+# business/working files — never publish (leads data, strategy, content pipeline)
+temp/Delhi-Clinic-Leads.xlsx
+temp/leads-pipeline/
+temp/content-pipeline/
+temp/VPC/
+temp/AnantaSutra-Value-Proposition-Canvas.html
+temp/DDD implementation explanation summary.docx
+temp/~$*

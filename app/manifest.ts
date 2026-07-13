@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'AnantaSutra — Infinite Wisdom, Applied',
     short_name: 'AnantaSutra',
-    description: 'A constellation of ventures spanning AI automation, marketing, technology, spirituality, and human potential.',
+    description: 'Dedicated domain experts embedded in your team — you pay just the salary, no agency markup.',
     start_url: '/',
     display: 'standalone',
     background_color: '#0A0A0F',
