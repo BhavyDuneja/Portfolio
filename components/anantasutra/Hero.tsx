@@ -8,7 +8,7 @@ const Hero = () => {
   const headingWords1 = ['Infinite', 'Wisdom']
   const headingWords2 = ['Applied']
   const subtitleWords =
-    'We are AnantaSutra — a constellation of ventures spanning AI, marketing, technology, spirituality, and human potential.'.split(' ')
+    'We embed vetted domain experts inside your team — engineers, marketers, designers, any field — and you pay just their salary. No markup, no lock-ins, live in 7 days.'.split(' ')
 
   return (
     <section className="relative min-h-screen flex items-end overflow-hidden bg-[#0A0A0F]">
@@ -53,7 +53,7 @@ const Hero = () => {
           >
             <Sparkles className="w-4 h-4 text-[#E8A317]" />
             <span className="text-sm text-gray-300 tracking-wide">
-              Where Innovation Meets Tradition
+              Not a project. A dedicated expert.
             </span>
           </motion.div>
 
@@ -115,10 +115,10 @@ const Hero = () => {
             className="flex flex-col sm:flex-row gap-4 justify-start items-start"
           >
             <Link
-              href="/services"
+              href="/services/dedicated-experts"
               className="btn-primary bg-[#E8A317] hover:bg-[#D4940F] text-black px-8 py-4 rounded-xl font-semibold text-lg shadow-lg shadow-[#E8A317]/20 hover:shadow-[#E8A317]/40 transition-all duration-300 hover:scale-105 whitespace-nowrap"
             >
-              Explore Our Universe
+              Get Your Expert
             </Link>
             <Link
               href="/contact"

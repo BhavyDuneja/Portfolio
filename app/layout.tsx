@@ -35,11 +35,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://anantasutra.com'),
   title: {
-    default: 'AnantaSutra — Infinite Wisdom, Applied | AI Automation, Marketing & Beyond',
+    default: 'AnantaSutra — Dedicated Experts, Embedded in Your Team | Pay Just the Salary',
     template: '%s | AnantaSutra',
   },
-  description: 'AnantaSutra is a constellation of ventures spanning AI automation, marketing, technology, spirituality, and human potential. Voice agents from ₹6/min, recruiter AI at ₹2/lead.',
-  keywords: 'AnantaSutra, Infinite Wisdom, AI Automation, Voice Agents, Marketing Agency, Granthas, Ritualist, Hindu Scriptures, AI Marketing Tools, Social Media Automation',
+  description: 'AnantaSutra embeds vetted domain experts — engineers, marketers, designers and more — inside your team. You pay just the expert\'s salary plus a small transparent fee. No 30-50% agency markup, live in 7 days, 48-hour replacement guarantee.',
+  keywords: 'AnantaSutra, Dedicated Experts, Embedded Experts, Hire Dedicated Developer, Dedicated Marketer, Agency Alternative, No Markup Talent, Staff Augmentation Alternative, Delhi',
   authors: [{ name: 'AnantaSutra' }],
   creator: 'AnantaSutra',
   publisher: 'AnantaSutra',
@@ -53,22 +53,22 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_IN',
     url: 'https://anantasutra.com',
-    title: 'AnantaSutra — Infinite Wisdom, Applied',
-    description: 'A constellation of ventures spanning AI automation, marketing, technology, spirituality, and human potential.',
+    title: 'AnantaSutra — Dedicated Experts, Embedded in Your Team',
+    description: 'Vetted professionals in 12+ domains, embedded in your team in 7 days. You pay just the salary — no agency markup.',
     siteName: 'AnantaSutra',
     images: [
       {
         url: '/images/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'AnantaSutra — Infinite Wisdom, Applied',
+        alt: 'AnantaSutra — Dedicated experts, embedded in your team',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AnantaSutra — Infinite Wisdom, Applied',
-    description: 'A constellation of ventures spanning AI automation, marketing, technology, spirituality, and human potential.',
+    title: 'AnantaSutra — Dedicated Experts, Embedded in Your Team',
+    description: 'Vetted professionals in 12+ domains, embedded in your team in 7 days. You pay just the salary — no agency markup.',
     creator: '@anantasutra',
     site: '@anantasutra',
     images: ['/images/og-image.png'],
@@ -92,7 +92,7 @@ const organizationJsonLd = {
   name: 'AnantaSutra',
   url: 'https://anantasutra.com',
   logo: 'https://anantasutra.com/images/logo.png',
-  description: 'A constellation of ventures spanning AI automation, marketing, technology, spirituality, and human potential.',
+  description: 'AnantaSutra embeds vetted, dedicated domain experts inside client teams — you pay just the expert\'s salary plus a small transparent coordination fee.',
   contactPoint: {
     '@type': 'ContactPoint',
     email: 'contact@anantasutra.com',
@@ -106,7 +106,7 @@ const organizationJsonLd = {
     addressCountry: 'IN',
   },
   sameAs: [
-    'https://www.linkedin.com/in/bhavy-duneja',
+    'https://www.linkedin.com/company/anantasutra-digital/',
     'https://github.com/bhavyaduneja',
   ],
   founder: {

@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 
 const serviceLinks = [
+  { name: 'Dedicated Experts', href: '/services/dedicated-experts' },
   { name: 'AI Automation', href: '/services/voice-agents' },
   { name: 'Video Generators', href: '/services/video-generators' },
   { name: 'Social Media Automation', href: '/services/social-automation' },
@@ -30,7 +31,7 @@ const productLinks = [
 ];
 
 const socialLinks = [
-  { name: 'LinkedIn', href: 'https://linkedin.com/company/anantasutra', icon: Linkedin },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/company/anantasutra-digital/', icon: Linkedin },
   { name: 'GitHub', href: 'https://github.com/anantasutra', icon: Github },
   { name: 'Twitter', href: 'https://twitter.com/anantasutra', icon: Twitter },
 ];

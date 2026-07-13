@@ -6,16 +6,20 @@ import Link from 'next/link'
 import {
   UserCheck, Users, Code2, Megaphone, PenTool, TrendingUp,
   HeartHandshake, ArrowRight, CheckCircle2, Briefcase, Clock,
-  ShieldCheck, Target, Rocket, Sparkles, Wallet, BadgePercent, Receipt
+  ShieldCheck, Target, Rocket, Wallet, BadgePercent, Receipt,
+  XCircle, Lock, HelpCircle, MessageCircle, BarChart3
 } from 'lucide-react'
+import { clients } from '@/lib/clients'
+
+const caseStudies = clients.filter((c) => c.stat)
 
 const expertRoles = [
-  { icon: Code2, title: 'Full-Stack Engineers', description: 'React, Next.js, Node, Python, DevOps — embedded into your team for sprint-based delivery' },
-  { icon: Megaphone, title: 'Performance Marketers', description: 'Google, Meta & LinkedIn ads specialists who own your paid growth end-to-end' },
-  { icon: PenTool, title: 'Content & Design', description: 'Copywriters, graphic designers, video editors producing daily brand content' },
-  { icon: TrendingUp, title: 'Growth Strategists', description: 'Funnel experts, analytics pros, CRO specialists who own your revenue KPIs' },
+  { icon: Megaphone, title: 'Clinic-Growth Marketers', description: 'Healthcare growth specialists who own patient inflow — web, CRM & ads. Took Awish Clinic from ₹25L to ₹40L a month.' },
+  { icon: TrendingUp, title: 'Performance Marketers', description: 'Google & Meta ads experts who own your paid growth end-to-end — a dedicated ads expert drove +46% revenue for Zoom Wheels.' },
+  { icon: PenTool, title: 'SEO, Content & Design', description: 'SEO specialists, copywriters and designers for local-market dominance — embedded funnel experts lifted Royal Properties traffic +38%.' },
+  { icon: Code2, title: 'Full-Stack & AI Engineers', description: 'React, Next.js, Node, Python, AI — embedded inside startup and SME teams for sprint-based delivery' },
   { icon: Users, title: 'Social Media Managers', description: 'Daily posting, engagement, community management across all platforms' },
-  { icon: Briefcase, title: 'Project Managers', description: 'Senior PMs who coordinate, plan sprints, and keep everything on track' },
+  { icon: Briefcase, title: 'Any Domain You Need', description: 'Design, legal, finance, ops, e-commerce, immigration, research — if it\'s a profession, we can embed an expert in it' },
 ]
 
 const howItWorks = [
@@ -26,12 +30,21 @@ const howItWorks = [
 ]
 
 const whyThisModel = [
-  { icon: Target, title: 'Dedicated, not shared', description: 'Your expert works only on your business — not juggling 5 clients at once.' },
-  { icon: Clock, title: 'Ramp-up in 7 days', description: 'Skip the 3-month hiring cycle. Your expert is productive from week one.' },
-  { icon: ShieldCheck, title: 'Replace anytime', description: 'If the fit isn\'t right, we replace them within 48 hours. No long contracts.' },
-  { icon: Rocket, title: 'Scale on demand', description: 'Start with one expert. Add more as you grow. Pause when you don\'t need them.' },
-  { icon: Sparkles, title: 'Backed by AnantaSutra', description: 'Every expert has AnantaSutra\'s AI tools, processes, and leadership behind them.' },
-  { icon: HeartHandshake, title: 'Partnership mindset', description: 'We grow when you grow. That\'s the whole reason this model exists.' },
+  { icon: Target, title: 'Dedicated, not shared', description: 'Your expert works only on your business — never one junior split across ten clients.' },
+  { icon: MessageCircle, title: 'On your WhatsApp, answering today', description: 'A direct line to your expert — same-day answers, not next sprint.' },
+  { icon: ShieldCheck, title: 'Replaced within 48 hours', description: 'If the fit fails, a vetted replacement is in the seat in two days. No long contracts.' },
+  { icon: BarChart3, title: 'Numbers in owner language', description: 'Weekly reviews in leads, revenue and footfall — not vanity dashboards.' },
+  { icon: Rocket, title: 'Scale, pause or stop anytime', description: 'Start with one expert. Add more as you grow. Pause without penalty or drama.' },
+  { icon: HeartHandshake, title: 'We grow when you grow', description: 'Our small fee only keeps earning while you keep choosing us. That\'s the whole model.' },
+]
+
+const ownerPains = [
+  { icon: Receipt, title: '₹50K–2L a month for pretty reports', description: 'Agency retainers that bought vanity dashboards — impressions and reach — while revenue never moved.' },
+  { icon: Users, title: 'The "team" was one juggled junior', description: 'Senior people pitched you. Then one junior handling ten accounts actually ran your brand.' },
+  { icon: XCircle, title: 'Freelancers vanish mid-project', description: 'Upwork and Fiverr are a lottery ticket — no accountability, no recourse, start again from zero.' },
+  { icon: Clock, title: 'Hiring takes 3–6 months', description: 'Job posts, recruiter fees, notice periods — and one wrong hire costs lakhs.' },
+  { icon: HelpCircle, title: 'You can\'t vet digital talent', description: 'With no CTO or CMO in the building, judging candidates and vendors is guesswork.' },
+  { icon: Lock, title: 'Locked in even when it fails', description: '6–12 month contracts that keep billing whether or not anything works.' },
 ]
 
 const stats = [
@@ -44,7 +57,7 @@ const stats = [
 const pricingBreakdown = [
   { icon: Wallet, title: 'What You Pay', description: 'The expert\'s monthly salary — exactly what they earn. That\'s it.', highlight: true },
   { icon: BadgePercent, title: 'What You Don\'t Pay', description: 'No agency markup (30-50% saved). No recruitment fees. No overheads. No hidden charges.' },
-  { icon: Receipt, title: 'How We Make Money', description: 'A small, transparent coordination fee — separately agreed upfront. You see every rupee.' },
+  { icon: Receipt, title: 'How We Make Money', description: 'A small, transparent coordination fee agreed upfront. One-line invoice: salary + fee. You see every rupee.' },
 ]
 
 export default function DedicatedExpertsPage() {
@@ -90,7 +103,7 @@ export default function DedicatedExpertsPage() {
             transition={{ delay: 0.2 }}
             className="text-gray-400 text-lg md:text-xl max-w-2xl mb-10"
           >
-            We don&apos;t just take your project and disappear. We assign a full-time engineer, marketer, or designer who works exclusively on your business — and you pay <span className="text-white font-semibold">just their salary</span>. No markup. No hidden fees. Just a team member who helps you grow.
+            Burned by fat retainers where one juggled junior ran your brand? We embed a vetted expert — marketer, engineer, designer, any domain — who works <span className="text-white font-semibold">only for you</span>, and you pay <span className="text-white font-semibold">just their salary</span> plus one small, visible fee. Live in 7 days. Replaced in 48 hours if the fit fails.
           </motion.p>
 
           <motion.div
@@ -144,11 +157,113 @@ export default function DedicatedExpertsPage() {
               <span className="gradient-text-violet">Your expert runs your execution.</span>
             </h2>
             <p className="text-gray-400 text-lg leading-relaxed max-w-2xl mx-auto">
-              Most agencies sell you deliverables. We sell you a dedicated person who becomes part of your team.
-              They attend your standups, know your product, and care about your KPIs — because they&apos;re not splitting time across 10 clients.
+              Agencies sell deliverables. Freelancers sell hours. We give you one accountable person who owns your numbers —
+              in your standups, on your WhatsApp, reporting weekly in leads, revenue and footfall. Not excuses. Numbers.
               <br /><br />
               <span className="text-white font-semibold">That&apos;s how real growth happens — together.</span>
             </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Owner Pains — Sound Familiar? */}
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <p className="text-violet-500 uppercase tracking-[0.2em] text-sm font-medium mb-3">Sound Familiar?</p>
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-white">
+              You&apos;ve Paid for Growth Before.<br />
+              <span className="gradient-text-violet">Where Did the Money Go?</span>
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {ownerPains.map((pain, i) => (
+              <motion.div
+                key={pain.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="glass-card rounded-2xl p-6"
+              >
+                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4">
+                  <pain.icon className="w-6 h-6 text-gray-400" />
+                </div>
+                <h3 className="text-white font-semibold text-lg mb-2">{pain.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{pain.description}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center text-gray-400 text-lg mt-10"
+          >
+            The problem was never your budget. It was the <span className="text-white font-semibold">markup, the juggling, and the lock-ins</span> between your money and the person doing the work.
+          </motion.p>
+        </div>
+      </section>
+
+      {/* Case Studies — Proof, Not Promises */}
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <p className="text-violet-500 uppercase tracking-[0.2em] text-sm font-medium mb-3">Proof, Not Promises</p>
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-white">
+              Real Owners. <span className="gradient-text-violet">Real Numbers.</span>
+            </h2>
+            <p className="text-gray-400 text-lg mt-4 max-w-2xl mx-auto">
+              What happens when 100% of your budget becomes talent instead of markup.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {caseStudies.map((cs, i) => (
+              <motion.div
+                key={cs.slug}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="glass-card rounded-2xl p-6 flex flex-col"
+              >
+                <p className="text-3xl font-bold gradient-text-violet mb-1">{cs.stat!.value}</p>
+                <p className="text-gray-500 text-sm mb-4">{cs.stat!.label}</p>
+                <h3 className="text-white font-semibold text-lg">{cs.name}</h3>
+                <p className="text-violet-400 text-xs font-medium mb-3">{cs.industry} · {cs.location}</p>
+                <p className="text-gray-400 text-sm leading-relaxed flex-1">{cs.blurb}</p>
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {cs.services.slice(0, 3).map((s) => (
+                    <span key={s} className="px-2 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-400">{s}</span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mt-10"
+          >
+            <Link href="/portfolio" className="btn-outline inline-flex">
+              <span>See All Client Work</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </motion.div>
         </div>
       </section>
@@ -356,7 +471,7 @@ export default function DedicatedExpertsPage() {
               Stop Juggling. Start Growing.
             </h2>
             <p className="text-gray-400 text-lg mb-8 max-w-lg mx-auto">
-              Tell us which role you need — we&apos;ll introduce you to your dedicated expert within 7 days. Free consultation, zero commitment.
+              Tell us the role you need — we&apos;ll present 2–3 vetted profiles within 7 days. You interview, you choose. Free consultation, zero commitment.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link href="/contact" className="btn-primary">

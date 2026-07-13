@@ -8,9 +8,9 @@ const About = () => {
   const isInView = useInView(ref, { once: true, amount: 0.3 })
 
   const paragraphs = [
-    "AnantaSutra — meaning 'Infinite Wisdom' — is not just a company. It is a living ecosystem of ventures, each a thread in an infinite tapestry of knowledge, innovation, and human potential. Founded with a vision that transcends industry boundaries.",
-    "From AI-powered automation that transforms businesses, to marketing solutions that amplify brands, to apps that preserve ancient wisdom and nurture daily rituals — every thread we weave carries purpose.",
-    "We believe in the convergence of technology and tradition, where cutting-edge innovation meets timeless wisdom.",
+    "AnantaSutra — meaning 'Infinite Wisdom' — is built on one simple idea: growth comes from people, not retainers. We weave vetted domain experts into your team — one unbroken thread from your goal to the person doing the work.",
+    "From engineers and performance marketers to designers, legal and finance specialists — every expert works only for you, in your tools and your standups, at just their salary plus one small transparent fee. No markup, no juggled juniors, no lock-ins.",
+    "We believe in the convergence of technology and tradition — modern execution, timeless commitment. We grow when you grow; that's the whole reason this model exists.",
   ]
 
   return (
