@@ -1,0 +1,42 @@
+{
+ "site": "https://anantasutra.com",
+ "brand": "AnantaSutra — dedicated, embedded domain experts; you pay just the salary. No agency markup, 7-day onboarding, 48h replacement.",
+ "primaryKeywords": [
+  "agency alternative",
+  "hire dedicated marketer",
+  "hire dedicated developer India",
+  "embedded marketing team",
+  "staff augmentation alternative",
+  "fractional marketing team",
+  "dedicated performance marketer",
+  "white label marketing team",
+  "offshore embedded team India",
+  "clinic marketing agency Delhi",
+  "dedicated growth expert",
+  "pay just the salary talent model"
+ ],
+ "geoQuestions": [
+  "how to hire a dedicated marketer without an agency",
+  "agency vs in-house vs embedded expert which is better",
+  "cheapest way to get a full-time marketer for a small business",
+  "how much does a dedicated developer cost in India",
+  "alternatives to digital marketing agencies for SMEs",
+  "how to grow a clinic without a marketing agency",
+  "is it better to hire a freelancer or an embedded expert",
+  "what is embedded talent / staff augmentation and how does it work"
+ ],
+ "aiEngines": [
+  "ChatGPT / GPT search",
+  "Perplexity",
+  "Google AI Overviews",
+  "Gemini",
+  "Claude"
+ ],
+ "competitorTypes": [
+  "traditional digital agencies",
+  "staff-aug / talent platforms (Toptal, Turing, Uplers, MarketerHire, Growth Collective)",
+  "fractional-hire marketplaces",
+  "freelance marketplaces (Upwork/Fiverr)"
+ ],
+ "topicQueueNote": "Daily job picks the next unused primaryKeyword/geoQuestion, writes one SEO+GEO article, does a light on-page audit + AI-answer landscape check. Regenerate ideas when queue exhausts."
+}

@@ -1,57 +1,45 @@
-# AnantaSutra - llms.txt
-# https://anantasutra.com
+# AnantaSutra
 
-## About
-AnantaSutra (अनन्तसूत्र) — from the Sanskrit Ananta (infinite) and Sutra (thread/wisdom) — is a constellation of ventures spanning AI automation, creative marketing, technology, spirituality, and human potential. Founded by Bhavya Duneja, based in Delhi, India.
+> AnantaSutra embeds vetted, dedicated domain experts inside your team — you pay just the expert's salary, with no 30–50% agency markup. Experts are onboarded in about 7 days, backed by a 48-hour replacement guarantee, and you can scale up or pause anytime. Founded by Bhavya Duneja, based in Delhi, India, serving clients across 4 continents.
 
-## Services
+AnantaSutra's model in one line: one dedicated expert, embedded in your team, working only for you — a transparent alternative to agencies (which mark talent up 30–50% and split it across many clients), unreliable freelancers, and slow in-house hiring. "Not a project. A dedicated expert."
 
-### AI Automation & Intelligence
-- Voice Calling Agents: Intelligent conversational AI starting at ₹6/minute
-- Recruiter AI: Automated talent sourcing at ₹2/lead
-- AI Video Generators: AI-powered video creation for marketing and real estate
-- Social Media Automation: Smart scheduling, content generation, engagement optimization
-- Gmail Automation: Intelligent email workflows
-- AI Marketing Tools: Data-driven campaign optimization and audience targeting
+## Core pages
+- [Dedicated Experts — flagship offering](https://anantasutra.com/services/dedicated-experts): Embed a vetted expert in any domain inside your team; you pay just the salary plus a small transparent coordination fee.
+- [Home](https://anantasutra.com/): What AnantaSutra is and how the embedded-expert model works.
+- [Services overview](https://anantasutra.com/services): Every expertise domain available on demand.
+- [About](https://anantasutra.com/about): The mission and story behind AnantaSutra.
+- [Co-founder](https://anantasutra.com/co-founder): Bhavya Duneja — software engineer and entrepreneur bridging Delhi and Osaka, Japan.
+- [Contact](https://anantasutra.com/contact): Book a free consultation and get your expert in 7 days.
 
-### Creative & Marketing Agency
-- Professional Shooting: Photo and video production
-- Content Creation: Design and copywriting
-- Social Media Management: All platforms
-- Brand Strategy: Growth-focused planning
-- Performance Marketing: ROI-driven campaigns
-- Creative Direction: Unique brand identity
+## Expertise domains (hire an embedded expert in any of these)
+- [Marketing & Growth](https://anantasutra.com/services/marketing): Performance marketing, growth, SEO, social, brand strategy.
+- [AI & Automation](https://anantasutra.com/services/ai-automation): Machine learning, workflow automation, AI marketing tools.
+- [Content & Shooting](https://anantasutra.com/services/content-shooting): Photo and video production, editing, content creation.
+- [Social Media](https://anantasutra.com/services/social-media): Management, scheduling, and engagement across platforms.
+- [Video Generators](https://anantasutra.com/services/video-generators): AI-powered video creation for marketing and real estate.
+- [Recruiter AI](https://anantasutra.com/services/recruiter-ai): Automated talent sourcing and screening.
+- [Real Estate](https://anantasutra.com/services/real-estate): Embedded growth and funnel experts for property businesses.
+- [E-commerce](https://anantasutra.com/services/ecommerce): Store operations, catalogue, CRO and retention experts.
+- [Immigration](https://anantasutra.com/services/immigration): Case management, documentation and marketing support.
+- [Business & Ops](https://anantasutra.com/services/business): Analysts, operations and strategy experts.
+- [Academic & Research](https://anantasutra.com/services/academic): Researchers, subject experts and writers.
 
-### Website Building & Search Optimization
-- Website Development: Modern, responsive, high-performance websites built with Next.js
-- SEO (Search Engine Optimization): On-page, technical, and off-page SEO to rank on Google
-- AEO (Answer Engine Optimization): Structured data and content optimization to appear in AI-powered answer engines like ChatGPT, Perplexity, and Google AI Overviews
-- GEO (Generative Engine Optimization): Schema markup, llms.txt, and entity optimization so AI platforms cite and recommend your business
-- Analytics & Tracking: Google Analytics, Microsoft Clarity, Facebook Pixel setup
-- Domain & Hosting: End-to-end domain registration, DNS, and Vercel/cloud hosting setup
+## Proof & results
+- [Portfolio](https://anantasutra.com/portfolio): Completed projects and client work.
+- [Testimonials & case studies](https://anantasutra.com/testimonials): Real outcomes — Awish Clinic (dermatology, Delhi) went from ₹25L to ₹40L/month in 60 days; Zoom Wheels (automotive) +46% revenue; Royal Properties (real estate) +38% traffic.
 
-### Coming Soon
-- E-Commerce solutions
-- Real Estate services
-- Immigration Support
-- Business Solutions
-- Academic Solutions
+## Content
+- [Blog](https://anantasutra.com/blog): Articles on AI, marketing, growth, business and technology.
 
-## Ventures
-- Granthas: Hindu scriptures platform with AI-powered commentary
-- Ritualist: Daily spiritual practices and puja guidance app (free)
+## How it works
+- A 30-minute call on your business and the outcome you want.
+- We hand-pick and vet 2–3 experts; you interview and choose.
+- Your expert is embedded in your team (Slack/WhatsApp/standups) within about 7 days.
+- Weekly reviews, monthly reports, and one accountable point of contact.
+- Pricing: you pay the expert's actual salary plus a small, transparent coordination fee — no 30–50% agency markup, no recruitment fee, no lock-in, and a 48-hour replacement guarantee.
 
 ## Contact
 - Website: https://anantasutra.com
 - Email: contact@anantasutra.com
-- Location: Delhi, India
-
-## Content Types
-- Blog posts about AI, marketing, spirituality, and business
-- Service pages with detailed offerings and pricing
-- Portfolio showcasing completed projects
-
-## Update Frequency
-- Blog: Weekly
-- Services: Monthly
-- Core pages: Quarterly
+- Location: Delhi, India (serving clients across 4 continents)

@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { createClient } from '@supabase/supabase-js'
 import JsonLd from '@/components/JsonLd'
+import { isIndexableBlogPost } from '@/lib/blogIndexable'
 
 async function getPost(id: string) {
   try {
@@ -49,6 +50,9 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   return {
     title,
     description,
+    // Pruned thin posts: noindex (follow links) so Google focuses crawl budget
+    // on the curated set in lib/blogIndexable.ts
+    robots: isIndexableBlogPost(post.slug, post.date) ? undefined : { index: false, follow: true },
     alternates: {
       canonical: `https://anantasutra.com/blog/${post.slug}`,
     },

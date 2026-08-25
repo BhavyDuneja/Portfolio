@@ -50,3 +50,11 @@ temp/VPC/
 temp/AnantaSutra-Value-Proposition-Canvas.html
 temp/DDD implementation explanation summary.docx
 temp/~$*
+
+# Google Search Console OAuth secrets — NEVER commit
+temp/seo-pipeline/client_secret.json
+temp/seo-pipeline/gsc-token.json
+temp/seo-pipeline/gsc-key.json
+
+# Calendar reminder emailer (SMTP secrets, logs)
+temp/calendar-reminders/
