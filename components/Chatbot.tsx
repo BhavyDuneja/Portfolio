@@ -204,13 +204,16 @@ export default function Chatbot() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(true)}
+            type="button"
+            aria-label="Open chat assistant"
+            title="Chat with us"
             className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-lg shadow-saffron-500/20"
             style={{
               background: 'linear-gradient(135deg, #E8A317, #d4940f)',
             }}
           >
-            <MessageCircle className="w-6 h-6 text-[#0A0A0F]" />
-            <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-[#0A0A0F]" />
+            <MessageCircle className="w-6 h-6 text-[#0A0A0F]" aria-hidden="true" />
+            <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-[#0A0A0F]" aria-hidden="true" />
           </motion.button>
         )}
       </AnimatePresence>

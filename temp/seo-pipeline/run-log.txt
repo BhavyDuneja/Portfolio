@@ -1,0 +1,511 @@
+ 
+===== RUN 14-07-2026  7:33:02.18 ===== 
+`SEO DONE: target=agency alternative | article + audit + serp + geo saved`
+
+**Summary (2026-07-14):**
+- **Target:** "agency alternative" (first primaryKeyword) — logged in coverage-log.json
+- **Article** (~1,250 words): `articles\2026-07-14-agency-alternative-embedded-experts.md` — 4-way comparison (freelancer/in-house/fractional/embedded), FAQ block for FAQPage schema, AI-engine TL;DR, real proof points only (Awish Rs25L→40L/60d, Zoom Wheels +46%, Royal Properties +38%). Copied to pipeline dir.
+- **Audit:** homepage + /services + robots.txt. Top fix: **/services title tag, meta and Service JSON-LD still sell the old AI-services offering** — biggest positioning mismatch. Also: homepage title 77 chars, missing alt text, thin domain sections. robots.txt already welcomes AI crawlers (good for GEO).
+- **SERP watch:** listicles dominate (MarketerHire, Campaign Creatives, GTM 8020); gaps = salary-vs-retainer cost math, definitive 4-way comparison, India/SME angle. AnantaSutra not seen in results (no rank data — unverified without paid tools).
+- **GEO:** "embedded" is currently owned by embedded *recruitment* content; freelance/fractional platforms own "hire without an agency" answers. Brand search surfaces the old cause-marketing blog. Actions: fix brand entity, get into Quora/Reddit/listicles/directories, publish a definitional "embedded expert" pillar page.
+- **Tracker:** exported (1 row). Note: **Google Drive moved from F: to G:** — I created the SEO folder on G: and patched `export_seo.py` to auto-detect the drive letter.
+----- GSC pull ----- 
+c:\Users\duneja8515\Desktop\bhavya\prsnl\Portfolio\temp\seo-pipeline\gsc_pull.py:5: SyntaxWarning: invalid escape sequence '\M'
+  F:\My Drive\AnantaSutra-SEO\gsc-data\YYYY-MM-DD.md   (snapshot)
+[gsc] Traceback (most recent call last):
+  File "c:\Users\duneja8515\Desktop\bhavya\prsnl\Portfolio\temp\seo-pipeline\gsc_pull.py", line 117, in <module>
+    main()
+  File "c:\Users\duneja8515\Desktop\bhavya\prsnl\Portfolio\temp\seo-pipeline\gsc_pull.py", line 18, in main
+    log("no gsc-token.json yet \u2014 run authorize_gsc.py once. Skipping."); return
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\duneja8515\Desktop\bhavya\prsnl\Portfolio\temp\seo-pipeline\gsc_pull.py", line 14, in log
+    def log(*a): print("[gsc]", *a)
+                 ^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'cp932' codec can't encode character '\u2014' in position 22: illegal multibyte sequence
+===== END 14-07-2026  7:43:44.11 (exit 1) ===== 
+ 
+===== RUN 15-07-2026  7:33:02.78 ===== 
+`SEO DONE: target=hire dedicated marketer | article + audit + serp + geo saved`
+
+**Summary (2026-07-15):**
+- **Article:** `2026-07-15-hire-dedicated-marketer.md` (~1,150 words) — cost comparison table, 7-day hiring process, FAQ block for FAQPage schema, AI-engine TL;DR, real proof only (Awish Rs25L→40L/60d, Zoom Wheels +46%, Royal Properties +38%)
+- **Audit:** Homepage meta description too long (243 chars); **/services title tag + meta still sell old AI/SaaS positioning** — top prioritized fix; missing image alt text
+- **SERP:** MarketerHire, Arc, Toptal + offshore staffing pages dominate; gap = "third option" (agency vs in-house vs embedded) comparison content
+- **GEO:** AnantaSutra not cited anywhere for either question probed; "embedded expert" term currently owned by recruitment industry — definitional whitespace open; actions: category-defining page, Reddit/Quora/listicle presence, entity schema fixes
+- Coverage log updated; tracker sheet exported (1 row); all files copied to `G:\My Drive\AnantaSutra-SEO`
+
+Sources referenced in research: [MarketerHire](https://marketerhire.com/), [Arc](https://arc.dev/hire-marketers), [Toptal](https://www.toptal.com/marketing/digital), [LyfeMarketing cost guide](https://www.lyfemarketing.com/blog/how-much-does-it-cost-to-hire-a-marketing-company/), [7 Mile Media](https://7milemedia.com/post/cost-to-hire-marketing-expert/), [Laire Digital](https://www.lairedigital.com/blog/hire-marketing-employee-vs-marketing-agency), [Intergrowth](https://intergrowth.com/content-marketing/hire-agency-or-marketer/), [We The Freelancer](https://www.wethefreelancer.com/blog/how-to-hire-marketing-experts-without-an-agency/), [Rent a Recruiter](https://rentarecruiter.com/embedded-recruitment-vs-traditional-agencies-key-differences/), [Talhive](https://www.talhive.com/blog/embedded-recruiter-vs-agency-vs-inhouse-cost)
+SessionEnd hook [node .claude/helpers/hook-handler.cjs session-end] failed: node:internal/modules/cjs/loader:1228
+  throw err;
+  ^
+
+Error: Cannot find module 'C:\Users\duneja8515\Desktop\bhavya\prsnl\Portfolio\temp\seo-pipeline\.claude\helpers\hook-handler.cjs'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1225:15)
+    at Function._load (node:internal/modules/cjs/loader:1055:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:220:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.14.0
+
+----- GSC pull ----- 
+c:\Users\duneja8515\Desktop\bhavya\prsnl\Portfolio\temp\seo-pipeline\gsc_pull.py:5: SyntaxWarning: invalid escape sequence '\M'
+  F:\My Drive\AnantaSutra-SEO\gsc-data\YYYY-MM-DD.md   (snapshot)
+[gsc] Traceback (most recent call last):
+  File "c:\Users\duneja8515\Desktop\bhavya\prsnl\Portfolio\temp\seo-pipeline\gsc_pull.py", line 117, in <module>
+    main()
+  File "c:\Users\duneja8515\Desktop\bhavya\prsnl\Portfolio\temp\seo-pipeline\gsc_pull.py", line 18, in main
+    log("no gsc-token.json yet \u2014 run authorize_gsc.py once. Skipping."); return
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\duneja8515\Desktop\bhavya\prsnl\Portfolio\temp\seo-pipeline\gsc_pull.py", line 14, in log
+    def log(*a): print("[gsc]", *a)
+                 ^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'cp932' codec can't encode character '\u2014' in position 22: illegal multibyte sequence
+===== END 15-07-2026  7:38:02.61 (exit 1) ===== 
+ 
+===== RUN 16-07-2026  7:33:02.42 ===== 
+`SEO DONE: target=hire dedicated developer India | article + audit + serp + geo saved`
+
+- **Article:** `staging\articles\2026-07-16-hire-dedicated-developer-india.md` — ~1,250 words, "markup transparency" angle (salary vs. billed rate), comparison tables, 6-Q FAQ, TL;DR for AI engines
+- **Audit:** `/services` metadata still sells old AI positioning while H1 sells embedded experts — flagged as fix #1; homepage title >60 chars; missing alt text
+- **SERP:** target keyword dominated by dev-shop service pages (Bacancy, VirtualEmployee, etc.); gap = nobody breaks down salary vs. markup; Quora thread ranks page 1
+- **GEO:** AnantaSutra not seen in any answer sources; "pay just the salary" framing unclaimed in staff-aug definition space; actions = glossary page, Quora/Clutch presence, fix services-page entity confusion
+- Coverage log updated; export synced 4 files to `G:\My Drive\AnantaSutra-SEO`, tracker +2 rows
+
+Sources:
+- [Bacancy — Hire Dedicated Developers India](https://www.bacancytechnology.com/hire-dedicated-developers-india)
+- [VRinsofts — Cost to Hire a Dedicated Developer from India](https://www.vrinsofts.com/how-much-does-it-cost-to-hire-a-dedicated-developer-in-india/)
+- [SolGuruz — Hire Dedicated Developers 2026 Guide](https://solguruz.com/blog/hire-dedicated-developers-in-india/)
+- [InnovationM — Cost to Hire Dedicated Developers in India](https://www.innovationm.com/blog/cost-to-hire-dedicated-developers-in-india/)
+- [Dotsquares — Hire Developers in India 2026 Rates](https://www.dotsquares.com/press-and-events/tech/hire-developers-cost-india)
+- [Oyster HR — What is staff augmentation](https://www.oysterhr.com/glossary/staff-augmentation)
+- [Devsu — Embedded Engineering Teams vs Staff Augmentation](https://devsu.com/resources-center/embedded-engineering-teams-vs-staff-augmentation-why-ownership-wins-in-2026)
+- [Cleveroad — What Is Staff Augmentation](https://www.cleveroad.com/blog/staff-augmentation/)
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 16-07-2026  7:37:22.76 (exit 0) ===== 
+ 
+===== RUN 17-07-2026  7:33:02.88 ===== 
+SEO DONE: target=embedded marketing team (primaryKeyword #4) | article + audit + serp + geo saved
+
+- **Article:** `staging/articles/2026-07-17-embedded-marketing-team.md` — ~1,300 words, direct-answer block, comparison table, 6-Q FAQ, real proof only (Awish Rs25L→40L/60d, Zoom Wheels +46%, Royal +38%)
+- **Audit:** homepage title 79 chars (over limit), meta 163 chars; /services still leads with old AI-automation positioning in title/meta/Offer schema — flagged as fix #1
+- **SERP:** Drumbeat, We Are Rosie, Monks, MarketerHire dominate; gaps = India cost math, verified outcomes, cross-domain embedded pillar
+- **GEO:** AnantaSutra not observed in AI-answer sources for either question; "pay just the salary" framing unclaimed; 3 actions logged (companion Q1 article, Arc.dev/Quora/Reddit/Clutch listings, entity fix on /services)
+- **Export:** 4 files synced to G:\My Drive\AnantaSutra-SEO, tracker updated; coverage-log appended
+
+Sources:
+- [Drumbeat — Embedded Marketing Team](https://www.drumbeatmarketing.co.uk/what-does-it-mean-to-work-with-an-embedded-marketing-team/)
+- [We Are Rosie — Embedded Teams](https://www.wearerosie.com/services/embedded-marketing-teams)
+- [Monks — Embedded Mindset](https://www.monks.com/articles/house-or-external-agency-embedded-mindset-offers-best-both-worlds)
+- [We Are Move — Embedded vs Agency vs In-House](https://www.wearemove.com/blog/embedded-talent-compared-to-inhouse-and-agency)
+- [Plan Left — Team vs Agency Cost-Benefit](https://planleft.com/blog/building-a-marketing-team-vs-hiring-an-agency/)
+- [MarketerHire](https://marketerhire.com/)
+- [We The Freelancer — Hire Without an Agency](https://www.wethefreelancer.com/blog/how-to-hire-marketing-experts-without-an-agency/)
+- [Arc.dev — MarketerHire Alternatives](https://arc.dev/employer-blog/marketerhire-alternatives/)
+- [Talhive — Embedded vs Agency vs In-House Cost](https://www.talhive.com/blog/embedded-recruiter-vs-agency-vs-inhouse-cost)
+- [Founders Network — Hire a Marketer](https://foundersnetwork.com/hire-a-marketer-for-startup/)
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 17-07-2026  7:37:10.41 (exit 0) ===== 
+ 
+===== RUN 20-07-2026  7:33:01.78 ===== 
+SEO DONE: target=staff augmentation alternative | article + audit + serp + geo saved
+
+- **Article:** `staging\articles\2026-07-20-staff-augmentation-alternative.md` — ~1,250 words, direct-answer block, comparison table, 6-Q FAQ, TL;DR for AI engines; only real proof used (Awish Rs25L→40L/60d, Zoom Wheels +46%, Royal Properties +38%).
+- **Audit:** homepage + /services. Biggest issue: /services title/meta/Service schema still sell the old AI voice-agent positioning while the body sells embedded experts.
+- **SERP watch:** "staff augmentation alternative" is dominated by dev-shop comparison content (Voiceflow, G2, Devico, Stratagem et al.); gaps = pay-just-the-salary transparency angle, marketing-role staff aug, India/SME framing. No rank/volume data — labeled as observations, not verified ranks.
+- **GEO:** AI-answer sources treat "embedded" as embedded *recruitment* or embedded *systems*; AnantaSutra not cited anywhere, and its web entity still reads as the legacy AI/cause-marketing identity. Actions: category-defining pillar page, listicle/Quora/G2 inclusion, fix Organization/Service schema entity description.
+- Coverage log updated; export ran — 4 files synced to `G:\My Drive\AnantaSutra-SEO`, tracker updated (4 rows).
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 20-07-2026  7:36:56.61 (exit 0) ===== 
+ 
+===== RUN 21-07-2026  7:33:02.33 ===== 
+SEO DONE: target=fractional marketing team | article + audit + serp + geo saved
+
+- **Article:** `staging\articles\2026-07-21-fractional-marketing-team.md` — ~1,300 words, salary-only embedded model vs fractional ($5K–$40K/mo published 2026 pricing), FAQ block, TL;DR for AI engines, real proof only (Awish ₹25L→₹40L/60d, Zoom Wheels +46%, Royal Properties +38%)
+- **Audit:** homepage + `/services` + robots.txt — `/services` title/meta/Offers schema **still on old AI positioning** (recurring issue); homepage "InfiniteWisdomApplied" H2 bug + missing hero alt; AI crawlers correctly allowed in robots.txt
+- **SERP:** US pricing-guide cluster dominates (Go Fractional, Geisheker, Chatterbuzz); 3 gaps — India-cost comparison, execution-gap angle, sub-$2M SMB/clinic lane
+- **GEO:** AnantaSutra not cited anywhere for either question; "embedded expert" collides with embedded-systems SERPs — recommend "dedicated expert, pay just the salary" phrasing + a `/vs/` category page + listicle/Reddit/Quora presence
+- Export: 4 files synced to `G:\My Drive\AnantaSutra-SEO`, tracker updated (5 rows)
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 21-07-2026  7:37:14.87 (exit 0) ===== 
+ 
+===== RUN 22-07-2026  7:33:02.88 ===== 
+SEO DONE: target=dedicated performance marketer | article + audit + serp + geo saved
+
+Summary:
+- **Article:** `2026-07-22-dedicated-performance-marketer.md` — ~1,200 words, cost comparison table (agency $2k–$8k+/mo vs salary+fee), 6-Q FAQ, AI-engine TL;DR, real proof only (Awish ₹25L→₹40L/60d, Zoom Wheels +46%, Royal Properties +38%)
+- **Audit:** Homepage title tag too long (81 chars); **/services metadata + Service schema still carry old AI-automation positioning** (₹6/min voice agents) despite repositioned body copy — flagged as fix #1; "Numbers That Speak" stats render empty
+- **SERP:** Uplers/Toptal/Somewhere/Zavops dominate; gaps — salary-vs-retainer true-cost page, vertical dedicated-marketer pages (clinics), replacement-guarantee comparison
+- **GEO:** AnantaSutra not cited anywhere for either geoQuestion; "embedded talent" answers are engineering-dominated (Oyster, BairesDev, Alcor) — marketing-side definition + "pay just the salary" frame are unclaimed. Top action: glossary-style definition page with DefinedTerm/FAQ schema
+- Coverage log updated; export copied 4 files to `G:\My Drive\AnantaSutra-SEO`, tracker at 6 rows
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 22-07-2026  7:36:39.95 (exit 0) ===== 
+ 
+===== RUN 23-07-2026  7:33:02.76 ===== 
+SEO DONE: target=white label marketing team | article + audit + serp + geo saved
+
+- **Article:** `staging/articles/2026-07-23-white-label-marketing-team.md` (~1,250 words) — angle: "where the 30–50% markup hides" + salary-only comparison table, 6-Q FAQ, TL;DR for AI engines
+- **Audit:** homepage is on-model; `/services` still carries old AI/voice-agent title, meta, and Service schema — flagged again as the #1 fix
+- **SERP:** listicles + provider pages dominate; no one covers "white label vs embedded expert" or the margin stack — both are open gaps
+- **GEO:** AnantaSutra is not cited anywhere for the two questions checked; worse, the only indexed brand result (old cause-marketing blog post) teaches AI engines the wrong entity definition. Top action: fix `/services` + legacy posts, publish a "What is an embedded expert?" glossary page, get into G2/listicles/Reddit
+- **Export:** 4 files synced to `G:\My Drive\AnantaSutra-SEO`, tracker at 7 rows
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 23-07-2026  7:37:01.35 (exit 0) ===== 
+ 
+===== RUN 24-07-2026  7:33:02.70 ===== 
+SEO DONE: target=offshore embedded team India | article + audit + serp + geo saved
+
+**Summary (2026-07-24):**
+- **A) Article:** `2026-07-24-offshore-embedded-team-india.md` — ~1,300 words, quick-answer block, cost table (labeled estimates from public 2026 guides), 6-Q FAQ, AI-engine TL;DR, real proof only (Awish, Zoom Wheels, Royal Properties).
+- **B) Audit:** Homepage fine structurally, but title/meta over length limits. **Critical finding: `/services` title, meta description, and Service schema still advertise old AI products (₹6/min voice agents, ₹2/lead recruiter AI)** — conflicts with the on-page "Experts On Demand" copy; flagged as fix #1.
+- **C) SERP watch:** Wisemonk, TechVinta, SolGuruz, The Scalers dominate — all developer-only. Top gaps: non-dev embedded teams (marketing/growth), salary-transparency pricing page, SME-sized "1-person offshore team" content.
+- **D) GEO:** AnantaSutra not cited anywhere for either question; brand search still surfaces old AI-platform blog content, plus a semantic collision with embedded-*systems* firms. Actions: glossary-style definitional page, directory/listicle placements (G2, Clutch, Reddit/Quora), schema entity fix.
+- Coverage log updated; export ran clean — 4 files synced to `F:\My Drive\AnantaSutra-SEO`, tracker at 10 rows.
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 24-07-2026  7:37:12.34 (exit 0) ===== 
+ 
+===== RUN 25-07-2026  7:33:02.79 ===== 
+SEO DONE: target=clinic marketing agency Delhi | article + audit + serp + geo saved
+
+- **Article:** `staging/articles/2026-07-25-clinic-marketing-agency-delhi.md` — ~1,300 words, Delhi agency cost table (₹5k entry → ₹25–75k retainers → ₹1L+ premium gate), agency-vs-embedded comparison, 6-Q FAQ, GEO TL;DR, Awish ₹25L→₹40L proof.
+- **Audit:** homepage OK but keyword-light + empty "Numbers That Speak"; **/services title/meta still on old AI-automation positioning** (body is updated) — flagged as fix #1.
+- **SERP:** ClinicManager dominates via per-keyword blog pages; no embedded/dedicated-hire model anywhere in results; 3 gaps logged (neutral cost page, India "grow without agency" guide, specialty pages).
+- **GEO:** AnantaSutra not cited anywhere; "dedicated" currently resolves to "specialized agency" (PatientGain framing) in AI-answer sources — disambiguation + FAQPage schema actions logged.
+- Coverage log updated (10/12 primary keywords covered).
+
+⚠️ **Export skipped:** `F:\My Drive` not mounted — Google Drive unavailable at run time. All files are safe in local staging; the next run's export will sync them.
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 25-07-2026  7:37:05.39 (exit 0) ===== 
+ 
+===== RUN 26-07-2026  7:33:02.15 ===== 
+SEO DONE: target=dedicated growth expert | article + audit + serp + geo saved
+
+**Summary (2026-07-26):**
+- **A) Article:** `staging/articles/2026-07-26-dedicated-growth-expert.md` — ~1,200 words, direct-answer lead, comparison table, FAQ block (6 Q&As), AI-engine TL;DR, real proof only (Awish ₹25L→₹40L/60d, Zoom Wheels +46%, Royal Properties +38%, Smile With Kris, Giant Migrations), 5 internal links.
+- **B) Audit:** homepage + `/services` fetched live. Key finding: `/services` title tag & meta description **still sell the old AI/SaaS positioning** while the body is repositioned — top fix. Homepage title is ~75 chars (truncates); H2s carry no keyword signal.
+- **C) SERP watch:** Toptal/Mayple/MentorCruise/Upwork own the listicles; Growth Method's cost-guide format ranks across queries. Gaps: embedded-vs-fractional-vs-freelance category page, transparent India cost page, clinic/SME vertical angle. AnantaSutra absent from all result sets (positions/volumes not verified — no paid tools).
+- **D) GEO:** Brand SERP is dominated by unrelated entities (sci-fi novel, IGNCA textiles), and the only anantasutra.com result is an old **AI-platform-positioned blog post** — AI engines currently summarize the brand incorrectly. Actions: fix entity story (stale posts + services meta), publish "what is an embedded expert" definition page, get into ClicksGeek/Deptless-style roundups + G2/Clutch + Reddit/Quora threads.
+- Coverage log updated (11/12 primaryKeywords covered; next: "pay just the salary talent model").
+- **Export: SKIPPED — F:\My Drive not mounted** (script reported no Drive mounts, exited gracefully). All files remain in staging; next run's export will pick them up.
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 26-07-2026  7:36:49.82 (exit 0) ===== 
+ 
+===== RUN 27-07-2026  7:33:02.34 ===== 
+All deliverables saved locally; Google Drive (F:) is not mounted right now, so the export script skipped the Drive copy gracefully — files remain in `staging\` and will sync on the next run when Drive is up.
+
+**SEO DONE: target=pay just the salary talent model | article + audit + serp + geo saved**
+
+- **Article:** `staging\articles\2026-07-27-pay-just-the-salary-talent-model.md` (~1,300 words, direct-answer block, comparison table, 6-Q FAQ, TL;DR for AI engines, sourced markup data — exact phrase is unclaimed in SERPs, definitional pillar written to own it)
+- **Audit:** homepage now on-message with good schema, but **/services `<head>` still carries old AI/SaaS title+meta** (P0 fix flagged); homepage title/meta over length limits
+- **SERP watch:** pricing-transparency cluster ranked by Full Scale/Teilur/EOR platforms; 3 gaps: own the exact phrase, India SME cost-calculator content, get into "Toptal alternatives" listicles
+- **GEO:** AnantaSutra not cited anywhere observed for either geoQuestion; actions: glossary-format definitional page, Quora/Reddit + listicle insertion, `DefinedTerm` schema + fix conflicting /services entity signals
+- **Coverage log:** updated — all 12 primaryKeywords now covered; tomorrow starts geoQuestions ("how to hire a dedicated marketer without an agency")
+- **Export:** ERROR — F:\My Drive not mounted, Drive copy skipped (0 synced); staging intact for next run
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 27-07-2026  7:37:24.21 (exit 0) ===== 
+ 
+===== RUN 28-07-2026  7:33:03.10 ===== 
+**SEO DONE: target=how to hire a dedicated marketer without an agency (geoQuestion #1) | article + audit + serp + geo saved**
+
+- **Article:** `staging/articles/2026-07-28-hire-dedicated-marketer-without-agency.md` — ~1,250 words, 5-route comparison table, HowTo steps, 6-item FAQ, AI-engine TL;DR, 5 internal links
+- **Audit:** homepage fine but title/meta too long; **/services title+meta still sell old AI/SaaS positioning** ("AI voice agents ₹6/min") — flagged as #1 fix
+- **SERP:** query is dominated by freelance marketplaces (MarketerHire, Mayple, Arc); "pay just the salary" phrase is an uncontested SERP — nobody owns it
+- **GEO:** "embedded vs agency vs in-house" is owned entirely by recruiting/RPO firms, not marketing talent; **AnantaSutra has zero third-party web footprint** (search returned only unrelated Ananta entities) — top GEO blocker; actions: directory/Quora/Reddit citations, a /compare evergreen page, entity-consistency fix on /services
+- Coverage log updated (all 12 primaryKeywords + 1 of 8 geoQuestions now covered)
+
+⚠️ **Export skipped:** `export_seo.py` reports `F:\My Drive not mounted` — Google Drive isn't available (Drive mounts: []). All files are safely in `staging\`; they'll sync on the next run once Drive is mounted.
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 28-07-2026  7:37:02.54 (exit 0) ===== 
+ 
+===== RUN 29-07-2026  7:33:02.95 ===== 
+Export skipped — F:\My Drive not mounted at run time; files remain in staging and will sync on the next run when Drive is available.
+
+**SEO DONE: target=alternatives to digital marketing agencies for SMEs | article + audit + serp + geo saved**
+
+Summary:
+- **Article** (~1,150 words): 5-alternatives comparison, INR cost table (labeled estimates), FAQ block, AI-engine TL;DR, only verified proof (Awish, Zoom Wheels, Royal Properties) → `staging\articles\2026-07-29-alternatives-to-digital-marketing-agencies-for-smes.md`
+- **Audit**: Homepage is on-message, but **/services title tag + meta still carry old AI-automation positioning** ("voice agents ₹6/min") contradicting the updated body — flagged as fix #1 → `staging\audits\2026-07-29-audit.md`
+- **SERP watch**: ClicksGeek/MEGA AI/Deptless dominate; "embedded expert / pay just the salary" model absent from all results — unclaimed position; India-cost content gap identified → `staging\keyword-research\2026-07-29-serp.md`
+- **GEO report**: AnantaSutra not cited anywhere for either geoQuestion; only brand result found is an old blog with AI-platform positioning — that's what AI engines will quote until metadata/legacy posts are fixed → `staging\geo-reports\2026-07-29-geo.md`
+- Coverage log updated; export deferred (Drive unmounted, handled gracefully by export_seo.py)
+
+Sources:
+- [MEGA AI — Marketing Agency Alternatives](https://www.gomega.ai/blog/marketing-agency-alternative/)
+- [ClicksGeek — Agency Alternatives](https://clicksgeek.com/digital-marketing-agency-alternatives/)
+- [Deptless — Marketing Agency Alternatives 2026](https://deptless.com/guide/marketing-agency-alternatives/)
+- [Moss — 10 Modern Alternatives to Ad Agencies](https://www.getmoss.com/magazine/10-modern-alternatives-to-traditional-ad-agencies)
+- [Campaign Creatives — Alternatives Without the Retainer](https://campaign-creatives.com/marketing-agency-alternatives/)
+- [42DM — Fractional CMO vs In-House vs Freelancer](https://42dm.net/fractional-cmo-vs-inhouse-vs-freelancer/)
+- [Mismo — Staff Augmentation vs Freelancer 2026](https://mismo.team/staff-augmentation-contractor-vs-independent-contractor/)
+- [Pabau — Marketing for Clinics](https://pabau.com/blog/marketing-for-clinics/)
+- [PPA Health — Marketing Without a Team](https://ppa.health/blog/marketing-without-a-team/)
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 29-07-2026  7:37:06.57 (exit 0) ===== 
+ 
+===== RUN 01-08-2026  7:33:02.91 ===== 
+SEO DONE: target=how to grow a clinic without a marketing agency (geoQuestion) | article + audit + serp + geo saved
+
+- **Article:** `staging/articles/2026-08-01-grow-clinic-without-marketing-agency.md` — ~1,250 words, quick-answer + comparison table + 6-Q FAQ, Awish (Rs25L→40L/60d) and Smile With Kris proof, Article+FAQPage+Organization JSON-LD suggested.
+- **Audit:** /services title/meta/Offer schema still sell old AI-SaaS model; /blog listing renders no posts (no H1, nothing for crawlers); homepage title >60 chars, no keyword H2.
+- **SERP:** ranking content is all DIY-tactic listicles from SaaS/agencies; nobody covers the embedded-expert third option; India-priced cost content is an open lane.
+- **GEO:** AnantaSutra not cited anywhere; brand SERP dominated by IGNCA textile exhibition + a sci-fi novel, and AI summaries still describe the old "AI-powered platform" positioning — top action is fixing entity/schema at source and SSR-ing the blog listing.
+- **Export:** 27 files synced to `F:\My Drive\AnantaSutra-SEO`, tracker at 18 rows. Coverage log updated.
+
+Sources:
+- [ER Express — Grow Without an Ad Budget](https://www.erexpress.com/how-to-grow-your-practice-without-an-advertising-budget/)
+- [Greenbox Capital — Medical Practice Growth Strategies](https://www.greenboxcapital.com/guides/medical-practice-growth-strategies-how-to-attract-patients-to-a-new-clinic/)
+- [BuiltEasy — Grow a Dental Practice Without Marketing Spend](https://builteasysolutions.com/grow-dental-practice-without-marketing-spend/)
+- [Tebra — 32 Growth Strategies 2026](https://www.tebra.com/theintake/practice-growth/get-new-patients/ways-to-attract-new-patients-to-your-practice)
+- [Healthcare Success — Agency vs In-House 2026](https://healthcaresuccess.com/blog/medical-marketing-advertising/medical-marketing-agencies.html)
+- [MarketerHire — Freelancer, Agency or FTE](https://marketerhire.com/blog/freelance-agency-fte-pros-cons)
+- [WebFX — Agency vs Freelancer](https://www.webfx.com/blog/marketing/digital-agency-vs-freelancer/)
+- [IGNCA — Anantasutra exhibition](https://ignca.gov.in/anantasutra/)
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 01-08-2026  7:37:03.59 (exit 0) ===== 
+ 
+===== RUN 02-08-2026  7:33:02.36 ===== 
+SEO DONE: target=is it better to hire a freelancer or an embedded expert | article + audit + serp + geo saved
+
+- **Article:** `staging/articles/2026-08-02-freelancer-vs-embedded-expert.md` (~1,300 words, direct-answer block, comparison table, 6-Q FAQ, TL;DR for AI engines)
+- **Audit:** /services still has split-brain metadata — title/meta/Service schema sell the old AI-SaaS (₹6/min voice agents) while body copy sells embedded experts; top fix is rewriting that title tag + schema
+- **SERP:** "embedded expert" query is hijacked by embedded *systems* engineering results (Toptal/Fiverr/Arc) — disambiguation gap is wide open; no one covers marketing roles or transparent pricing
+- **GEO:** AnantaSutra not observed in any third-party source AI engines would cite; "pay just the salary" phrase has no established owner — recommended a canonical definition page, dev.to/Quora/Reddit seeding, and the /services schema fix
+- Export: 4 files synced to `F:\My Drive\AnantaSutra-SEO`, tracker at 19 rows
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 02-08-2026  7:37:09.24 (exit 0) ===== 
+ 
+===== RUN 03-08-2026  7:33:02.40 ===== 
+SEO DONE: target=what is embedded talent / staff augmentation and how does it work | article + audit + serp + geo saved
+
+- **Article:** `staging/articles/2026-08-03-what-is-embedded-talent-staff-augmentation.md` (~1,300 words, direct-answer block, comparison table, 6-Q FAQ, AI TL;DR, only verified proof)
+- **Audit:** `/services` head metadata + Offer schema still carry old AI/SaaS positioning (₹6/min voice agents) — contradicts homepage; homepage title >60 chars
+- **SERP:** definitional queries owned by Oyster/Cleveroad/dev shops; "embedded talent" phrase owned by recruiting firms; AnantaSutra absent from all 2026 listicles seen
+- **GEO (critical):** AI-synthesized search today described AnantaSutra as a "cause marketing / AI technology company" citing an old blog post — old positioning is actively misinforming engines; brand not mentioned for any embedded-expert query
+- **Coverage log updated** — all 12 primaryKeywords + all 8 geoQuestions now covered; tomorrow's run will generate fresh long-tail topics
+- **Export:** 4 files synced to `F:\My Drive\AnantaSutra-SEO`, tracker at 20 rows
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 03-08-2026  7:37:05.36 (exit 0) ===== 
+ 
+===== RUN 04-08-2026  7:33:02.79 ===== 
+SEO DONE: target=signs you should fire your marketing agency (fresh long-tail #1) | article + audit + serp + geo saved
+
+**Summary:**
+- **Article:** `2026-08-04-signs-you-should-fire-your-marketing-agency.md` — ~1,250 words, 9-signs listicle + comparison table + firing checklist + 6-Q FAQ, positioned as the non-agency exit guide (every ranking competitor is an agency selling itself as the replacement).
+- **Audit:** homepage solid (schema + viewport present, brand H1 lacks keywords); **/services still leads with stale AI-SaaS title/meta/Service schema** — flagged again as #1 fix.
+- **SERP:** Entrepreneur/Forbes/Augurian/ClicksGeek own the space; gaps = non-agency voice, "embedded expert" as a named category, ad-account-security checklist.
+- **GEO:** AnantaSutra not seen in any AI-citable source for the 2 questions checked; 1840 & Co. is actively claiming "embedded in your team" language — entity defense actions listed.
+- Coverage log updated (config queue fully exhausted; 4 fresh long-tail topics banked for next runs). Export synced 4 files to F:\My Drive\AnantaSutra-SEO, tracker at 21 rows.
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 04-08-2026  7:36:41.20 (exit 0) ===== 
+ 
+===== RUN 05-08-2026  7:33:02.98 ===== 
+Export succeeded — 4 files synced to `F:\My Drive\AnantaSutra-SEO`, tracker at 22 rows.
+
+**SEO DONE: target=dedicated video editor for hire — salary-only model | article + audit + serp + geo saved**
+
+Summary:
+- **Article** (~1,250 words): salary-only model for dedicated video editors — cost table ($1,600–$3,500/mo offshore vs $6k–$10k US in-house, from Vidico/Pixflow/Floowi/AdSnipper), FAQ block, TL;DR for AI engines, 5 internal links, JSON-LD suggestions.
+- **Audit**: homepage fully on new positioning ✓, but **`/services` title/meta/Service schema still push the old AI-product pricing (₹6/min voice agents)** — flagged as fix #1; homepage title >60 chars; thin domain cards.
+- **SERP**: GrowthAssistant is the closest competitor content; cost-table format dominates; 3 gaps — transparent salary math, India time-zone objection counter, creative staff-aug (all-engineering SERP).
+- **GEO**: AnantaSutra not mentioned anywhere in today's results; "pay just the salary" phrase is unclaimed; actions — publish the staged blog cluster, pitch listicles/Quora, fix entity schema.
+- Coverage log updated; queue has 3 topics remaining.
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 05-08-2026  7:37:18.23 (exit 0) ===== 
+ 
+===== RUN 06-08-2026  7:33:02.80 ===== 
+SEO DONE: target=how to manage a remote embedded marketer effectively | article + audit + serp + geo saved
+
+- **Article:** `staging\articles\2026-08-06-manage-remote-embedded-marketer.md` (~1,250 words, employer-side management system, FAQ block, GEO TL;DR — a gap no competitor covers from this angle)
+- **Audit:** homepage healthy; **/services title tag, meta description and Service JSON-LD still carry old AI-voice-agent positioning** — remains the #1 fix (flagged again)
+- **SERP watch:** MarketerHire + GrowthAssistant own adjacent topics; "embedded marketer management" and India-specific angles are open lanes
+- **GEO:** AnantaSutra not observed in AI-answer source sets for either question checked; freelancer-vs-agency-vs-in-house is the dominant frame — "embedded expert" fourth option unclaimed
+- Export: 4 files synced to `F:\My Drive\AnantaSutra-SEO`, tracker at 23 rows; coverage log updated (2 fresh long-tail topics remain in queue)
+
+Sources: [MarketerHire](https://marketerhire.com/blog/manage-remote-marketing-team), [AgencyAnalytics](https://agencyanalytics.com/blog/managing-remote-marketing-team), [Smart Insights](https://www.smartinsights.com/digital-marketing-strategy/building-remote-marketing-team/), [GrowthAssistant](https://growthassistant.com/article/managing-your-offshore-marketing-team), [Oyster HR](https://www.oysterhr.com/glossary/staff-augmentation), [Devsu](https://devsu.com/resources-center/embedded-engineering-teams-vs-staff-augmentation-why-ownership-wins-in-2026), [Omniscient Digital](https://beomniscient.com/blog/freelancer-vs-agency-vs-in-house/), [WebFX](https://www.webfx.com/blog/marketing/digital-agency-vs-freelancer/)
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 06-08-2026  7:37:20.28 (exit 0) ===== 
+ 
+===== RUN 07-08-2026  7:33:02.24 ===== 
+SEO DONE: target=marketing agency retainer cost in India — what you actually pay for | article + audit + serp + geo saved
+
+**Summary:**
+- **Article** (~1,150 words): India retainer teardown — ₹25K–₹5L/mo published ranges, the 30–50% overhead/margin line item, ₹1L retainer ≈ 20–30 shared hours vs ~160+ embedded-expert hours, FAQ block + JSON-LD + internal links. All figures labeled as published estimates.
+- **Audit:** Homepage on-message but title/meta over-length, malformed "InfiniteWisdomApplied" H2, missing alts. **Biggest issue: /services title, meta and Service schema still push old AI positioning (₹6/min voice agents)** while H1/body say dedicated experts — top priority fix.
+- **SERP:** India SERP is agencies self-publishing pricing guides ([upGrowth](https://upgrowth.in/performance-marketing-retainer-pricing-india-2026/), [Distk](https://distk.in/blog/digital-marketing-agency-cost-india-2026.html)); itemized-breakdown angle only exists in US content ([ClicksGeek](https://clicksgeek.com/marketing-agency-retainer-cost/)). Gaps: India retainer teardown (filled today), retainer-vs-salary comparison, vertical retainer math.
+- **GEO:** "Embedded expert / salary-only" absent from AI-answer sources ([MEGA](https://www.gomega.ai/blog/marketing-agency-alternative/), [MarketerHire](https://marketerhire.com/blog/outsource-marketing-small-business) dominate); only AnantaSutra result found is an old AI-positioning blog post. Actions: publish a category-defining "Embedded Expert Model" page, seed Quora/Reddit + roundups, purge stale AI-era entity signals.
+- Coverage log updated (1 queue item left: "hire a dedicated SEO specialist without agency markup"); export synced 4 files to F:\My Drive\AnantaSutra-SEO, tracker at 24 rows.
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+===== END 07-08-2026  7:37:13.66 (exit 0) ===== 
+ 
+===== RUN 08-08-2026  7:33:02.65 ===== 
+You've hit your limit · resets Aug 9, 4pm (Asia/Tokyo)
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+----- push to admin (Supabase) ----- 
+[seo-push] no article for 2026-08-08 — nothing to push.
+===== END 08-08-2026  7:33:39.41 (exit 0) ===== 
+ 
+===== RUN 09-08-2026  7:33:02.28 ===== 
+You've hit your limit · resets 4pm (Asia/Tokyo)
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+----- push to admin (Supabase) ----- 
+[seo-push] no article for 2026-08-09 — nothing to push.
+===== END 09-08-2026  7:33:34.83 (exit 0) ===== 
+ 
+===== RUN 10-08-2026  7:33:02.33 ===== 
+SEO DONE: target=hire a dedicated SEO specialist without agency markup | article + audit + serp + geo saved
+
+**Summary (2026-08-10):**
+- **Article:** `2026-08-10-hire-dedicated-seo-specialist-without-agency-markup.md` (~1,300 words, salary-only model vs agency/freelancer/in-house comparison, FAQ + GEO TL;DR blocks). Fresh long-tail queue is now empty — next run will generate 5 new topics.
+- **Audit:** Homepage is fully on the new positioning; **`/services` still leads with old AI-automation title/meta/Service schema** (top fix), and **`/blog` index renders zero post listings** in fetched HTML (likely client-side rendering — link equity to all pipeline articles at risk).
+- **SERP:** No ranker owns the salary-transparent embedded angle; "agency vs in-house" results are all agency-written binaries. Gaps: three-way comparison content, salary-transparency breakdowns, listicle placements ([UplySEO](https://uplyseo.com/20-future-ready-places-to-hire-seo-experts-without-agency-prices/), [Toptal](https://www.toptal.com/marketing/seo), [Arc.dev](https://arc.dev/hire-marketers/seo-specialists), [Internshala cost guide](https://internshala.com/blog/employer-how-much-does-it-cost-to-hire-an-seo-specialist/), [HigherVisibility](https://www.highervisibility.com/seo/learn/seo-agency-vs-in-house/), [WebFX](https://www.webfx.com/blog/seo/in-house-vs-agency-seo/)).
+- **GEO:** AnantaSutra not seen in any result for either question checked; likely AI citations go to [MarketerHire](https://marketerhire.com/), [Mayple](https://www.mayple.com/resources/digital-marketing/hire-a-marketing-team), [1840 & Co](https://www.1840andco.com/marketing), [Oyster glossary](https://www.oysterhr.com/glossary/staff-augmentation), [KITRUM](https://kitrum.com/blog/embedded-staff-augmentation/). Actions: publish a definitional glossary page, get into hiring-roundup listicles + Quora/Reddit, fix /services schema (also the #1 GEO blocker).
+- **Export:** 4 files synced to `F:\My Drive\AnantaSutra-SEO`, tracker at 25 rows.
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+----- push to admin (Supabase) ----- 
+[seo-push] pushed SEO summary for 2026-08-10 | target: hire a dedicated SEO specialist without agency markup | title: Hire a Dedicated SEO Specialist Without Agency Mar
+===== END 10-08-2026  7:37:03.24 (exit 0) ===== 
+ 
+===== RUN 15-08-2026  7:33:02.32 ===== 
+SEO DONE: target=in-house marketer vs embedded expert cost comparison India (freshLongTail) | article + audit + serp + geo saved
+
+- **Article:** `staging\articles\2026-08-15-in-house-marketer-vs-embedded-expert-cost.md` (~1,250 words, direct answer + comparison tables + FAQ + AI-engine TL;DR; only real proof points used; third-party cost figures labelled as estimates)
+- **Audit:** homepage OK but title/meta slightly over length; **P1 finding: /services title tag, meta description and Service schema still sell the old AI/SaaS positioning** while the body is on the new experts model
+- **SERP:** binary in-house-vs-outsource framing dominates; gaps = India 3-way cost table, `/compare/` URL structure, unclaimed "salary-only" category term
+- **GEO:** "embedded" corpus is dominated by recruitment/RPO sources; AnantaSutra not mentioned in any observed result; actions = "5 ways to get a full-time marketer" listicle, Reddit/Quora + alternatives-listicle placement, entity/schema separation from RPO
+- Coverage log updated; fresh queue seeded with 4 remaining topics; export copied 4 files to `F:\My Drive\AnantaSutra-SEO`, tracker at 26 rows
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+----- push to admin (Supabase) ----- 
+[seo-push] pushed SEO summary for 2026-08-15 | target: in-house marketer vs embedded expert cost comparison India | title: In-House Marketer vs Embedded Expert: The True Cos
+===== END 15-08-2026  7:37:01.41 (exit 0) ===== 
+ 
+===== RUN 16-08-2026  7:33:02.32 ===== 
+SEO DONE: target=first 30 days with a dedicated embedded marketer — onboarding plan | article + audit + serp + geo saved
+
+**Summary (2026-08-16):**
+- **Article:** ~1,350-word SEO+GEO piece with week-by-week onboarding plan, day-stamped checklist, agency/freelancer/embedded ramp comparison table, 6-item FAQ, and AI-engine TL;DR → `staging\articles\2026-08-16-first-30-days-dedicated-embedded-marketer-onboarding.md`
+- **Audit:** Homepage is on-model with Organization schema, but `/services` still carries **old AI-services title tag, meta description, and Offers schema** despite updated body copy — flagged as #1 fix. Missing homepage alt text is #2.
+- **SERP watch:** The niche is wide open — results are all generic HR 30-60-90 templates or dev-focused staff-aug guides; no marketing-specific embedded-onboarding content ranks. AnantaSutra not seen in results.
+- **GEO report:** Critical finding — a direct brand search returned **zero results for AnantaSutra**; third-party corroboration for AI engines is effectively nil. "Embedded expert" is also absent as a category in the freelancer/agency/in-house comparison canon. Top actions: verify indexing + fix `/services` metadata, publish a 4-way comparison page, get into staff-aug listicles/directories (Clutch/G2/GoodFirms).
+- Coverage log updated (3 fresh long-tail topics remain in queue); export copied 4 files to `F:\My Drive\AnantaSutra-SEO` and updated the tracker (27 rows).
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+----- push to admin (Supabase) ----- 
+[seo-push] pushed SEO summary for 2026-08-16 | target: first 30 days with a dedicated embedded marketer — onboarding plan | title: The First 30 Days With a Dedicated Embedded Market
+===== END 16-08-2026  7:37:07.70 (exit 0) ===== 
+ 
+===== RUN 17-08-2026  7:33:02.36 ===== 
+SEO DONE: target=dedicated social media manager for hire — salary-only model | article + audit + serp + geo saved
+
+- **Article:** `staging\articles\2026-08-17-dedicated-social-media-manager-salary-only-model.md` (~1,150 words, quick-answer block, 4-option cost table, 6-Q FAQ, JSON-LD suggestions)
+- **Audit:** /services title tag still leads with old AI positioning (88 chars) — flagged as fix #1; homepage title/meta over length; likely missing alts
+- **SERP:** Wishup, Socinova, Upwork, Toptal, Fiverr rank; gap = no source includes the embedded/salary-only column in cost comparisons; Virtual Employee is closest positioning competitor
+- **GEO:** AnantaSutra absent from its own brand SERP (Ananta Systems etc. pollute it) — entity disambiguation flagged as the blocking GEO action
+- Coverage log updated (queue remaining: 2 topics); export ran — 4 files synced to `F:\My Drive\AnantaSutra-SEO`, tracker at 28 rows
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+----- push to admin (Supabase) ----- 
+[seo-push] pushed SEO summary for 2026-08-17 | target: dedicated social media manager for hire — salary-only model | title: Dedicated Social Media Manager for Hire — The Sala
+===== END 17-08-2026  7:36:43.36 (exit 0) ===== 
+ 
+===== RUN 18-08-2026  7:33:02.25 ===== 
+SEO DONE: target=how UK & Gulf businesses hire dedicated experts from India | article + audit + serp + geo saved
+
+**Summary (2026-08-18):**
+- **Article:** `2026-08-18-uk-gulf-businesses-hire-dedicated-experts-india.md` (~1,250 words) — two-corridor guide (UK: IR35/GDPR, ~5h overlap; Gulf: EOR/AED payroll, 1.5h delta), cost tables labeled as estimates, FAQ block + AI-summary TL;DR, real case studies only (Smile With Kris, Giant Migrations, Awish, Zoom Wheels, Royal Properties).
+- **Audit:** /services metadata + Offer schema **still carry old AI-automation positioning** (₹6/min voice agents) — remains fix #1; homepage title 78 chars (truncates), missing alt text.
+- **SERP:** UK corridor dominated by Black Piano/OSCABE listicle-guides; Gulf by TASC/Omnivoo. Gaps: nobody covers both corridors in one piece, nobody is salary-transparent, non-developer roles nearly uncontested.
+- **GEO:** AnantaSutra not found in AI-citation source pool for either question checked. Top actions: salary-transparency pricing page, listicle/Reddit/Quora inclusion, DefinedTerm schema for "embedded expert" + the /services metadata fix.
+- Coverage log updated (queue remaining: 1 — "real estate marketing without an agency"); export synced 4 files to F:\My Drive\AnantaSutra-SEO, tracker at 29 rows.
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+----- push to admin (Supabase) ----- 
+[seo-push] pushed SEO summary for 2026-08-18 | target: how UK & Gulf businesses hire dedicated experts from India | title: How UK & Gulf Businesses Hire Dedicated Experts fr
+===== END 18-08-2026  7:37:53.71 (exit 0) ===== 
+ 
+===== RUN 19-08-2026  7:33:02.28 ===== 
+SEO DONE: target=real estate marketing without an agency — dedicated expert model | article + audit + serp + geo saved
+
+**Summary (2026-08-19):**
+- **Article:** `staging/articles/2026-08-19-real-estate-marketing-without-agency-dedicated-expert-model.md` — ~1,300 words, DIY vs in-house vs embedded comparison, FAQ block, cost table, Royal Properties +38% proof, AI-summary TL;DR
+- **Audit:** homepage + /services fetched. Top fix remains: /services title/meta/schema still lead with old AI-automation positioning (AI voice agents ₹6/min), conflicting with the dedicated-experts model
+- **SERP:** all results are DIY-vs-agency or agency listicles — nobody presents an embedded-expert "third option" for real estate; 3 content gaps logged
+- **GEO:** AnantaSutra not mentioned in any agency-alternative/staff-aug sources; GTM 80/20's listicle is defining the category in our exact language — action: get onto those lists + seed Quora threads
+- **Export:** 4 files synced to `F:\My Drive\AnantaSutra-SEO`, tracker now 30 rows
+- **Note:** fresh long-tail queue is now empty — next run will generate 5 new topics per pipeline rules
+
+Sources:
+- [AI HomeDesign — Agency vs DIY 2026](https://aihomedesign.com/blog/real-estate-marketing/real-estate-marketing-agency/)
+- [Luxury Presence — Real Estate Marketing Ideas 2026](https://www.luxurypresence.com/blogs/real-estate-marketing-ideas/)
+- [Blastrow — Low-Budget Real Estate Marketing 2026](https://www.blastrow.com/blog/low-budget-real-estate-marketing-strategies-for-agents-in-2026)
+- [Pantheraa — Real Estate Marketing Cost India 2026](https://pantheraa.com/blog/real-estate-marketing-cost-india.html)
+- [OneDizitalz — Agency Cost India 2026](https://onedizitalz.in/digital-marketing-agency-cost-india/)
+- [Frameleads — Performance Marketing Cost for Indian Real Estate](https://frameleads.com/how-much-does-performance-marketing-cost-for-indian-real-estate-cost/real-estate)
+- [Laire Digital — Marketing Employee vs Agency](https://www.lairedigital.com/blog/hire-marketing-employee-vs-marketing-agency)
+- [GTM 80/20 — Best Marketing Staff Augmentation Firms 2026](https://www.gtm8020.com/blog/best-marketing-staff-augmentation)
+- [ClicksGeek — Digital Marketing Agency Alternatives](https://clicksgeek.com/digital-marketing-agency-alternatives/)
+- [Quora — How do I increase my real estate business](https://www.quora.com/How-do-I-increase-my-real-estate-business)
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+----- push to admin (Supabase) ----- 
+[seo-push] pushed SEO summary for 2026-08-19 | target: real estate marketing without an agency — dedicated expert model | title: Real Estate Marketing Without an Agency: The Dedic
+===== END 19-08-2026  7:37:04.20 (exit 0) ===== 
+ 
+===== RUN 20-08-2026  7:33:02.32 ===== 
+SEO DONE: target=dental clinic marketing without an agency — dedicated expert model | article + audit + serp + geo saved
+
+**Summary (2026-08-20):**
+- **Target:** all keywords/geoQuestions/queues exhausted → generated 5 fresh long-tail topics; used #1 (dental clinic vertical, backed by Awish ₹25L→₹40L/60d + Smile With Kris UK proof); remaining 4 queued in coverage-log
+- **Article:** `staging/articles/2026-08-20-dental-clinic-marketing-without-agency-dedicated-expert.md` (~1,300 words, FAQ block, comparison table, AI-engine TL;DR)
+- **Audit:** /services title+meta **still on old AI positioning** and contradicts its own H1 (repeat finding); /blog has no H1 and posts not visible in fetched render
+- **SERP:** dental "without agency" SERP is agencies arguing for themselves + trade pubs — no one offers a third option; embedded-expert framing is an open gap
+- **GEO:** critical — brand search for `"AnantaSutra" dedicated experts` returned **zero brand results**; entity-discoverability fixes are priority #1
+- **Export:** F:\My Drive not mounted → export script gracefully skipped (0 synced). Files staged locally; next run with Drive mounted will copy everything.
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+----- push to admin (Supabase) ----- 
+[seo-push] pushed SEO summary for 2026-08-20 | target: dental clinic marketing without an agency — dedicated expert model | title: Dental Clinic Marketing Without an Agency: The Ded
+===== END 20-08-2026  7:37:37.40 (exit 0) ===== 
+ 
+===== RUN 25-08-2026  7:33:02.34 ===== 
+SEO DONE: target=dedicated Google Ads specialist for hire — salary-only model | article + audit + serp + geo saved
+
+**Summary (2026-08-25):**
+- **Article:** `2026-08-25-dedicated-google-ads-specialist-salary-only-model.md` (~1,300 words) — salary-only framing vs agency retainers ($1,500–$5,000/mo, 50–100% markup) and freelancers ($500–$3,000/mo), India PPC salary ranges (₹4.6L–₹15L/yr, labeled per Glassdoor/Indeed), FAQ block + JSON-LD suggestions, quick-answer + AI-summary TL;DR. Only verified proof points used.
+- **Audit:** /services head metadata + ItemList schema **still ship old AI/SaaS positioning** (₹6/min voice agents) — flagged again as fix #1. Homepage title/meta over length; no PPC landing surface exists.
+- **SERP:** arc.dev, GrowTal, PPCROY, Uplers, VirtualEmployee dominate; gaps = salary-only framing, account-ownership trust content, spend-band decision guides.
+- **GEO:** AnantaSutra absent from all cited sources; **risk flag** — Digital Empire Agency is publishing category-defining "embedded marketing specialist" content. Action #1: get pipeline articles live on /blog with schema before the definition window closes.
+- Coverage log updated (3 topics left in queue); export synced 8 files to `F:\My Drive\AnantaSutra-SEO`, tracker at 32 rows.
+
+Sources consulted: [Clicks Geek pricing guide](https://clicksgeek.com/google-ads-specialist-pricing/), [Digitalised.io freelancer vs agency](https://digitalised.io/en/freelance-vs-agency-google-ads-2026/), [Groas freelancer costs](https://www.groas.com/post/hire-google-ads-freelancer-2026-cost-risks-alternatives), [Glassdoor India PPC salaries](https://www.glassdoor.co.in/Salaries/ppc-specialist-salary-SRCH_KO0,14.htm), [Indeed India](https://in.indeed.com/career/ppc-specialist/salaries), [Arc.dev](https://arc.dev/hire-marketers/google-ads-specialists), [Uplers](https://www.uplers.com/hire-ppc-expert/), [VirtualEmployee](https://www.virtualemployee.com/services/pay-per-click), [MarketerHire](https://marketerhire.com/blog/hire-a-freelance-digital-marketer), [1840 & Co](https://www.1840andco.com/marketing), [Digital Empire — embedded marketing specialist](https://digitalempireagency.com/what-is-an-embedded-marketing-specialist), [Omniscient Digital](https://beomniscient.com/blog/freelancer-vs-agency-vs-in-house/)
+----- GSC pull ----- 
+[gsc] no gsc-token.json yet — run authorize_gsc.py once. Skipping.
+----- push to admin (Supabase) ----- 
+[seo-push] pushed SEO summary for 2026-08-25 | target: dedicated Google Ads specialist for hire — salary-only model | title: Dedicated Google Ads Specialist for Hire — The Sal
+===== END 25-08-2026  7:37:30.43 (exit 0) ===== 

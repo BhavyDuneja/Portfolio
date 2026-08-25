@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { createClient } from '@supabase/supabase-js'
+import { isIndexableBlogPost } from '@/lib/blogIndexable'
 
 export const revalidate = 3600 // regenerate every hour
 
@@ -51,7 +52,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/co-founder`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
   ]
 
-  const blogPosts = await getBlogPosts()
+  const blogPosts = (await getBlogPosts()).filter((post) => isIndexableBlogPost(post.slug, post.date))
   const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.updated_at || post.date),

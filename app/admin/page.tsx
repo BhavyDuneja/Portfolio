@@ -6,7 +6,8 @@ import {
   Plus, Edit, Trash2, Save, X, Lock, LogOut, Image as ImageIcon,
   Video, LayoutDashboard, FileText, Eye, BarChart3, Search,
   ChevronDown, Calendar, Clock, Tag, Filter, ArrowUpDown,
-  CheckCircle2, AlertCircle, Timer, Upload, Download, Database
+  CheckCircle2, AlertCircle, Timer, Upload, Download, Database,
+  FolderOpen, ExternalLink, Link2, Users, UserPlus, Shield, KeyRound
 } from 'lucide-react'
 import Link from 'next/link'
 import {
@@ -14,7 +15,16 @@ import {
   BlogPost, PostStatus, generateSlug, getPostStats,
   uploadImage
 } from '@/lib/storage'
-import { isAuthenticated, loginUser, logoutUser, getAuthUser } from '@/lib/auth'
+import { EVENTS_CALENDAR, EVENTS_TBA, EVENT_CATEGORY_META, EventCategory } from '@/lib/eventsCalendar'
+import { DOCUMENTS, DOCUMENT_CATEGORIES } from '@/lib/documents'
+import { getAllDocs, createDoc, updateDocById, deleteDocById, DocRecord } from '@/lib/documentsStore'
+import { canTab, can, type AdminTab } from '@/lib/permissions'
+import { getMyEvents, addUserEvent, deleteUserEvent, UserEvent } from '@/lib/userEvents'
+import { getSeoDaily, SeoDaily } from '@/lib/seoStore'
+import {
+  isAuthenticated, loginUser, logoutUser, getAuthUser,
+  getAllUsers, registerUser, updateUser, deleteUser, changePassword, type AuthUser
+} from '@/lib/auth'
 import RichTextEditor from '@/components/RichTextEditor'
 
 // ── Toast System ──
@@ -185,7 +195,31 @@ const AdminPanel = () => {
   const [loginLoading, setLoginLoading] = useState(false)
 
   // UI state
-  const [activeView, setActiveView] = useState<'dashboard' | 'posts' | 'form' | 'meetings' | 'calendar'>('dashboard')
+  const [activeView, setActiveView] = useState<'dashboard' | 'posts' | 'form' | 'meetings' | 'calendar' | 'documents' | 'seo' | 'users'>('dashboard')
+  const [seoDaily, setSeoDaily] = useState<SeoDaily[]>([])
+  const [seoLoading, setSeoLoading] = useState(false)
+  const [expandedSeo, setExpandedSeo] = useState<string | null>(null)
+  const [docLinks, setDocLinks] = useState<Record<string, string>>({})
+  const [docSearch, setDocSearch] = useState('')
+  const [editingDocLink, setEditingDocLink] = useState<string | null>(null)
+  // In-app document editor (Supabase-backed, shared)
+  const [savedDocs, setSavedDocs] = useState<DocRecord[]>([])
+  const [docsLoading, setDocsLoading] = useState(false)
+  const [docEditorOpen, setDocEditorOpen] = useState(false)
+  const [editorDoc, setEditorDoc] = useState<{ id?: string; title: string; content: string; category: string }>({ title: '', content: '', category: 'General' })
+  const [savingDoc, setSavingDoc] = useState(false)
+  // Personal (private) calendar events
+  const [myEvents, setMyEvents] = useState<UserEvent[]>([])
+  const [showPersonalForm, setShowPersonalForm] = useState(false)
+  const [personalForm, setPersonalForm] = useState({ event_date: '', title: '', note: '' })
+  // User management
+  const [currentUser, setCurrentUser] = useState<AuthUser | null>(null)
+  const [usersList, setUsersList] = useState<(AuthUser & { createdAt?: string })[]>([])
+  const [usersLoading, setUsersLoading] = useState(false)
+  const [newUser, setNewUser] = useState({ name: '', email: '', password: '', role: 'writer' })
+  const [addingUser, setAddingUser] = useState(false)
+  const [pwUserId, setPwUserId] = useState<string | null>(null)
+  const [pwValue, setPwValue] = useState('')
   const [meetings, setMeetings] = useState<any[]>([])
   const [meetingsLoading, setMeetingsLoading] = useState(false)
   const [expandedMeeting, setExpandedMeeting] = useState<string | null>(null)
@@ -257,6 +291,140 @@ const AdminPanel = () => {
   useEffect(() => {
     if ((activeView === 'meetings' || activeView === 'calendar') && meetings.length === 0) loadMeetings()
   }, [activeView, meetings.length, loadMeetings])
+
+  // load saved document links (Drive URLs the user pastes)
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('anantasutra_doc_links')
+      if (saved) setDocLinks(JSON.parse(saved))
+    } catch { /* ignore */ }
+  }, [])
+
+  // ── In-app documents ──
+  const loadDocs = useCallback(async () => {
+    setDocsLoading(true)
+    try { setSavedDocs(await getAllDocs()) } catch { setSavedDocs([]) }
+    setDocsLoading(false)
+  }, [])
+
+  useEffect(() => {
+    if (activeView === 'documents') loadDocs()
+  }, [activeView, loadDocs])
+
+  // ── SEO / GEO daily log ──
+  const loadSeo = useCallback(async () => {
+    setSeoLoading(true)
+    try { setSeoDaily(await getSeoDaily()) } catch { setSeoDaily([]) }
+    setSeoLoading(false)
+  }, [])
+
+  useEffect(() => { if (activeView === 'seo') loadSeo() }, [activeView, loadSeo])
+
+  // load current user's private calendar events
+  const loadMyEvents = useCallback(async () => {
+    if (!currentUser?.id) return
+    try { setMyEvents(await getMyEvents(currentUser.id)) } catch { setMyEvents([]) }
+  }, [currentUser?.id])
+
+  useEffect(() => {
+    if (activeView === 'calendar' && currentUser?.id) loadMyEvents()
+  }, [activeView, currentUser?.id, loadMyEvents])
+
+  const addMyPersonalEvent = async () => {
+    if (!currentUser?.id) return
+    if (!personalForm.event_date || !personalForm.title.trim()) { showToast('Pick a date and add a title', 'error'); return }
+    const ok = await addUserEvent({ user_id: currentUser.id, title: personalForm.title.trim(), event_date: personalForm.event_date, note: personalForm.note.trim() })
+    if (ok) { showToast('Personal event added'); setPersonalForm({ event_date: '', title: '', note: '' }); setShowPersonalForm(false); loadMyEvents() }
+    else showToast('Failed — is the "user_events" table created in Supabase?', 'error')
+  }
+
+  const removeMyPersonalEvent = async (id: string, title: string) => {
+    if (!window.confirm(`Delete your private event "${title}"?`)) return
+    const ok = await deleteUserEvent(id)
+    if (ok) { showToast('Removed'); loadMyEvents() } else showToast('Failed to remove', 'error')
+  }
+
+  const openNewDoc = () => { setEditorDoc({ title: '', content: '', category: 'General' }); setDocEditorOpen(true) }
+  const openEditDoc = (d: DocRecord) => { setEditorDoc({ id: d.id, title: d.title, content: d.content, category: d.category }); setDocEditorOpen(true) }
+
+  const saveDocument = async () => {
+    if (!editorDoc.title.trim()) { showToast('Give the document a title', 'error'); return }
+    setSavingDoc(true)
+    let ok = false
+    if (editorDoc.id) {
+      ok = await updateDocById(editorDoc.id, { title: editorDoc.title.trim(), content: editorDoc.content, category: editorDoc.category.trim() || 'General' })
+    } else {
+      ok = !!(await createDoc({ title: editorDoc.title.trim(), content: editorDoc.content, category: editorDoc.category.trim() || 'General', author_name: currentUser?.name || 'Admin' }))
+    }
+    setSavingDoc(false)
+    if (ok) { showToast(editorDoc.id ? 'Document updated' : 'Document created'); setDocEditorOpen(false); loadDocs() }
+    else showToast('Save failed — is the "documents" table created in Supabase?', 'error')
+  }
+
+  const removeDocument = async (id: string, title: string) => {
+    if (!window.confirm(`Delete "${title}"? This cannot be undone.`)) return
+    const ok = await deleteDocById(id)
+    if (ok) { showToast('Document deleted'); loadDocs() } else showToast('Delete failed', 'error')
+  }
+
+  const saveDocLink = (id: string, url: string) => {
+    setDocLinks(prev => {
+      const next = { ...prev }
+      if (url.trim()) next[id] = url.trim(); else delete next[id]
+      try { localStorage.setItem('anantasutra_doc_links', JSON.stringify(next)) } catch { /* ignore */ }
+      return next
+    })
+  }
+
+  // ── User management ──
+  useEffect(() => { setCurrentUser(getAuthUser()) }, [])
+
+  // Guard: bounce a user off any tab their role can't access
+  useEffect(() => {
+    if (currentUser && activeView !== 'form' && !canTab(currentUser.role, activeView as AdminTab)) {
+      setActiveView('dashboard')
+    }
+  }, [currentUser, activeView])
+
+  const loadUsers = useCallback(async () => {
+    setUsersLoading(true)
+    try { setUsersList((await getAllUsers()) as (AuthUser & { createdAt?: string })[]) } catch { setUsersList([]) }
+    setUsersLoading(false)
+  }, [])
+
+  useEffect(() => {
+    if (activeView === 'users' && usersList.length === 0) loadUsers()
+  }, [activeView, usersList.length, loadUsers])
+
+  const handleAddUser = async () => {
+    if (!newUser.name.trim() || !newUser.email.trim() || !newUser.password) {
+      showToast('Fill name, email and password', 'error'); return
+    }
+    if (newUser.password.length < 6) { showToast('Password must be at least 6 characters', 'error'); return }
+    setAddingUser(true)
+    const u = await registerUser(newUser.email.trim(), newUser.password, newUser.name.trim(), newUser.role)
+    setAddingUser(false)
+    if (u) { showToast('User added'); setNewUser({ name: '', email: '', password: '', role: 'writer' }); loadUsers() }
+    else showToast('Failed to add user (email may already exist)', 'error')
+  }
+
+  const handleRoleChange = async (id: string, role: string) => {
+    const ok = await updateUser(id, { role })
+    if (ok) { showToast('Role updated'); loadUsers() } else showToast('Failed to update role', 'error')
+  }
+
+  const handleDeleteUser = async (id: string, email: string) => {
+    if (id === currentUser?.id) { showToast("You can't delete your own account", 'error'); return }
+    if (!window.confirm(`Delete user "${email}"? This cannot be undone.`)) return
+    const ok = await deleteUser(id)
+    if (ok) { showToast('User deleted'); loadUsers() } else showToast('Failed to delete user', 'error')
+  }
+
+  const handleChangePassword = async (id: string) => {
+    if (pwValue.length < 6) { showToast('Password must be at least 6 characters', 'error'); return }
+    const ok = await changePassword(id, pwValue)
+    if (ok) { showToast('Password changed'); setPwUserId(null); setPwValue('') } else showToast('Failed to change password', 'error')
+  }
 
   const saveNotes = async (meetingId: string) => {
     setSavingNotes(meetingId)
@@ -441,6 +609,7 @@ const AdminPanel = () => {
       const user = await loginUser(loginEmail, loginPassword)
       if (user) {
         setAuthenticated(true)
+        setCurrentUser(user)
         setLoginEmail('')
         setLoginPassword('')
       } else {
@@ -694,12 +863,16 @@ const AdminPanel = () => {
   }
 
   // ── Sidebar Nav Items ──
-  const navItems = [
+  const allNavItems = [
     { key: 'dashboard' as const, label: 'Dashboard', icon: LayoutDashboard },
     { key: 'posts' as const, label: 'Posts', icon: FileText },
     { key: 'meetings' as const, label: 'Meetings', icon: Calendar },
     { key: 'calendar' as const, label: 'Calendar', icon: Eye },
+    { key: 'documents' as const, label: 'Documents', icon: FolderOpen },
+    { key: 'seo' as const, label: 'SEO / GEO', icon: BarChart3 },
+    { key: 'users' as const, label: 'Users', icon: Users },
   ]
+  const navItems = allNavItems.filter(item => canTab(currentUser?.role as ('admin' | 'editor' | 'writer') | undefined, item.key))
 
   // ── Stat Cards ──
   const statCards = [
@@ -1030,13 +1203,15 @@ const AdminPanel = () => {
                         >
                           <Edit className="w-4 h-4" />
                         </button>
-                        <button
-                          onClick={() => setDeleteTarget(post)}
-                          className="p-2 rounded-lg text-gray-500 hover:text-red-400 hover:bg-red-500/10 transition-all"
-                          title="Delete"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
+                        {can(currentUser?.role, 'posts.delete') && (
+                          <button
+                            onClick={() => setDeleteTarget(post)}
+                            className="p-2 rounded-lg text-gray-500 hover:text-red-400 hover:bg-red-500/10 transition-all"
+                            title="Delete"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -1218,7 +1393,7 @@ const AdminPanel = () => {
                     <div>
                       <label className="block text-sm font-medium text-gray-300 mb-2">Status</label>
                       <div className="grid grid-cols-3 gap-2">
-                        {(['draft', 'published', 'scheduled'] as PostStatus[]).map(s => (
+                        {((can(currentUser?.role, 'posts.publish') ? ['draft', 'published', 'scheduled'] : ['draft']) as PostStatus[]).map(s => (
                           <button
                             key={s}
                             type="button"
@@ -1691,6 +1866,16 @@ const AdminPanel = () => {
               return meetings.filter(m => m.meeting_date === dateStr)
             }
 
+            const getEventsForDate = (day: number) => {
+              const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+              return EVENTS_CALENDAR.filter(ev => ev.date === dateStr)
+            }
+
+            const getPersonalForDate = (day: number) => {
+              const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+              return myEvents.filter(ev => ev.event_date === dateStr)
+            }
+
             const statusColors: Record<string, string> = {
               scheduled: 'bg-saffron-500',
               completed: 'bg-emerald-500',
@@ -1704,7 +1889,7 @@ const AdminPanel = () => {
                 <div className="flex items-center justify-between mb-8">
                   <div>
                     <h1 className="text-3xl font-bold text-white mb-1">Calendar</h1>
-                    <p className="text-gray-400">Monthly meeting overview</p>
+                    <p className="text-gray-400">Meetings + festivals, marketing, tech &amp; exhibition events</p>
                   </div>
                   <div className="flex items-center gap-3">
                     <button
@@ -1728,8 +1913,25 @@ const AdminPanel = () => {
                     >
                       Today
                     </button>
+                    <button
+                      onClick={() => { setShowPersonalForm(v => !v); setPersonalForm(f => ({ ...f, event_date: f.event_date || new Date().toISOString().split('T')[0] })) }}
+                      className="px-3 py-1.5 rounded-lg bg-saffron-500 text-dark-950 text-xs font-medium hover:bg-saffron-400 transition-all"
+                    >
+                      + Personal event
+                    </button>
                   </div>
                 </div>
+
+                {showPersonalForm && (
+                  <div className="mb-4 rounded-xl border border-saffron-500/25 bg-saffron-500/5 p-3 flex flex-wrap items-center gap-2">
+                    <span className="text-xs text-gray-400 flex items-center gap-1">🔒 Private to you:</span>
+                    <input type="date" value={personalForm.event_date} onChange={e => setPersonalForm({ ...personalForm, event_date: e.target.value })} className="px-2 py-1.5 rounded-lg bg-dark-400/60 border border-dark-300/50 text-xs text-white outline-none focus:border-saffron-500/40" />
+                    <input value={personalForm.title} onChange={e => setPersonalForm({ ...personalForm, title: e.target.value })} placeholder="Title (e.g. Follow up Dr. Sharma)" className="flex-1 min-w-[180px] px-3 py-1.5 rounded-lg bg-dark-400/60 border border-dark-300/50 text-xs text-white placeholder-gray-500 outline-none focus:border-saffron-500/40" />
+                    <input value={personalForm.note} onChange={e => setPersonalForm({ ...personalForm, note: e.target.value })} placeholder="Note (optional)" className="flex-1 min-w-[140px] px-3 py-1.5 rounded-lg bg-dark-400/60 border border-dark-300/50 text-xs text-white placeholder-gray-500 outline-none focus:border-saffron-500/40" />
+                    <button onClick={addMyPersonalEvent} className="text-xs px-3 py-1.5 rounded-lg bg-saffron-500 text-dark-950 font-medium">Add</button>
+                    <button onClick={() => setShowPersonalForm(false)} className="text-xs px-3 py-1.5 rounded-lg bg-dark-300/40 text-gray-400">Cancel</button>
+                  </div>
+                )}
 
                 {/* Day headers */}
                 <div className="grid grid-cols-7 gap-1 mb-1">
@@ -1751,6 +1953,8 @@ const AdminPanel = () => {
                     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
                     const isToday = dateStr === todayStr
                     const dayMeetings = getMeetingsForDate(day)
+                    const dayEvents = getEventsForDate(day)
+                    const dayPersonal = getPersonalForDate(day)
                     const isWeekend = new Date(year, month, day).getDay() === 0 || new Date(year, month, day).getDay() === 6
 
                     return (
@@ -1759,7 +1963,7 @@ const AdminPanel = () => {
                         className={`min-h-[100px] rounded-lg border p-1.5 transition-all ${
                           isToday
                             ? 'bg-saffron-500/5 border-saffron-500/30'
-                            : dayMeetings.length > 0
+                            : (dayMeetings.length > 0 || dayEvents.length > 0 || dayPersonal.length > 0)
                             ? 'bg-dark-400/20 border-dark-300/30 hover:border-saffron-500/20'
                             : isWeekend
                             ? 'bg-dark-400/5 border-dark-300/10'
@@ -1789,14 +1993,43 @@ const AdminPanel = () => {
                           {dayMeetings.length > 3 && (
                             <div className="text-[9px] text-gray-600 pl-1">+{dayMeetings.length - 3} more</div>
                           )}
+                          {dayEvents.slice(0, 3).map((ev, idx) => {
+                            const meta = EVENT_CATEGORY_META[ev.category]
+                            return (
+                              <div
+                                key={`ev-${idx}`}
+                                className="rounded px-1 py-0.5 text-[9px] leading-tight truncate cursor-default"
+                                style={{ background: `${meta.color}1f` }}
+                                title={`${ev.name} — ${meta.label}`}
+                              >
+                                <span className="inline-block w-1.5 h-1.5 rounded-full mr-1 align-middle" style={{ background: meta.color }} />
+                                <span className="text-gray-300">{ev.name}</span>
+                              </div>
+                            )
+                          })}
+                          {dayEvents.length > 3 && (
+                            <div className="text-[9px] text-gray-600 pl-1">+{dayEvents.length - 3} event(s)</div>
+                          )}
+                          {dayPersonal.map((pe) => (
+                            <div
+                              key={pe.id}
+                              onClick={() => removeMyPersonalEvent(pe.id, pe.title)}
+                              title={`Private: ${pe.title}${pe.note ? ' — ' + pe.note : ''} (click to remove)`}
+                              className="rounded px-1 py-0.5 text-[9px] leading-tight truncate cursor-pointer"
+                              style={{ background: '#E8A31726' }}
+                            >
+                              <span className="inline-block w-1.5 h-1.5 rounded-full mr-1 align-middle bg-saffron-500" />
+                              <span className="text-saffron-300">🔒 {pe.title}</span>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     )
                   })}
                 </div>
 
-                {/* Legend */}
-                <div className="flex items-center gap-4 mt-6 justify-center">
+                {/* Legend — meetings */}
+                <div className="flex items-center gap-4 mt-6 justify-center flex-wrap">
                   {Object.entries({ scheduled: 'Scheduled', completed: 'Completed', rescheduled: 'Rescheduled', cancelled: 'Cancelled', 'no-show': 'No-show' }).map(([k, v]) => (
                     <div key={k} className="flex items-center gap-1.5 text-[10px] text-gray-500">
                       <span className={`w-2 h-2 rounded-full ${statusColors[k]}`} />
@@ -1804,9 +2037,319 @@ const AdminPanel = () => {
                     </div>
                   ))}
                 </div>
+
+                {/* Legend — event categories */}
+                <div className="flex items-center gap-4 mt-2 justify-center flex-wrap">
+                  {(Object.keys(EVENT_CATEGORY_META) as EventCategory[]).map((k) => (
+                    <div key={k} className="flex items-center gap-1.5 text-[10px] text-gray-500">
+                      <span className="w-2 h-2 rounded-full" style={{ background: EVENT_CATEGORY_META[k].color }} />
+                      {EVENT_CATEGORY_META[k].label}
+                    </div>
+                  ))}
+                  <div className="flex items-center gap-1.5 text-[10px] text-gray-500">
+                    <span className="w-2 h-2 rounded-full bg-saffron-500" /> 🔒 My private event
+                  </div>
+                </div>
+
+                {/* Approximate / TBA events (no fixed date yet) */}
+                {EVENTS_TBA.length > 0 && (
+                  <div className="mt-8 rounded-xl border border-dark-300/30 bg-dark-400/20 p-4">
+                    <h3 className="text-sm font-semibold text-white mb-1">Approximate / TBA events</h3>
+                    <p className="text-[11px] text-gray-500 mb-3">Recurring events whose exact 2027 date wasn&apos;t confirmed yet — verify nearer the time.</p>
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                      {EVENTS_TBA.map((ev, idx) => {
+                        const meta = EVENT_CATEGORY_META[ev.category]
+                        return (
+                          <div key={`tba-${idx}`} className="rounded-lg bg-dark-400/30 border border-dark-300/20 px-2.5 py-1.5" title={ev.note}>
+                            <div className="flex items-center gap-1.5">
+                              <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: meta.color }} />
+                              <span className="text-[11px] text-gray-200 font-medium truncate">{ev.name}</span>
+                            </div>
+                            <div className="text-[10px] text-gray-500 pl-3">{ev.whenText}</div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
               </motion.div>
             )
           })()}
+
+          {/* ═══ Documents View ═══ */}
+          {activeView === 'documents' && (
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+              <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
+                <div>
+                  <h1 className="text-3xl font-bold text-white mb-1">Documents</h1>
+                  <p className="text-gray-400">All AnantaSutra documents in one place — legal, proposals, content, research &amp; more</p>
+                </div>
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <input
+                    value={docSearch}
+                    onChange={e => setDocSearch(e.target.value)}
+                    placeholder="Search documents..."
+                    className="pl-9 pr-3 py-2 rounded-lg bg-dark-400/50 border border-dark-300/50 text-sm text-white placeholder-gray-500 focus:border-saffron-500/40 outline-none w-64"
+                  />
+                </div>
+              </div>
+
+              {/* In-app documents — write & edit here, shared across your team (Supabase) */}
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-sm font-semibold text-white flex items-center gap-2">
+                    <FileText className="w-4 h-4 text-saffron-500" /> Your Documents
+                    <span className="text-gray-600 font-normal">({savedDocs.length})</span>
+                  </h2>
+                  <button onClick={openNewDoc} className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-saffron-500 text-dark-950 font-medium hover:bg-saffron-400 transition-all">
+                    <Plus className="w-3.5 h-3.5" /> New Document
+                  </button>
+                </div>
+                {docsLoading ? (
+                  <div className="text-xs text-gray-500 py-3">Loading…</div>
+                ) : savedDocs.length === 0 ? (
+                  <div className="text-xs text-gray-500 rounded-lg border border-dashed border-dark-300/40 py-5 text-center">No documents yet — click <span className="text-saffron-400">New Document</span> to write one.</div>
+                ) : (
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                    {savedDocs.map(d => (
+                      <div key={d.id} className="rounded-lg bg-dark-400/20 border border-dark-300/25 p-3">
+                        <div className="text-sm text-white font-medium truncate">{d.title}</div>
+                        <div className="text-[11px] text-gray-500 mb-2">{d.category} · updated {new Date(d.updated_at).toLocaleDateString()}{d.author_name ? ` · ${d.author_name}` : ''}</div>
+                        <div className="flex items-center gap-2">
+                          <button onClick={() => openEditDoc(d)} className="text-xs px-2 py-1 rounded bg-dark-300/40 text-gray-300 hover:text-white inline-flex items-center gap-1"><Edit className="w-3 h-3" /> Edit</button>
+                          {can(currentUser?.role, 'docs.delete') && (
+                            <button onClick={() => removeDocument(d.id, d.title)} className="text-xs px-2 py-1 rounded bg-red-500/10 text-red-400 border border-red-500/20 inline-flex items-center gap-1"><Trash2 className="w-3 h-3" /> Delete</button>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="mb-5 rounded-lg border border-saffron-500/20 bg-saffron-500/5 px-4 py-3 text-xs text-gray-400 flex items-start gap-2">
+                <Lock className="w-4 h-4 text-saffron-500 shrink-0 mt-0.5" />
+                <span>Below: your external document library. Sensitive files (legal contracts, leads, proposals) are not hosted on the website — paste each document&apos;s private Google Drive share link to open it from here.</span>
+              </div>
+
+              {DOCUMENT_CATEGORIES.map(cat => {
+                const q = docSearch.toLowerCase()
+                const docs = DOCUMENTS.filter(d => d.category === cat && (!q || `${d.name} ${d.category} ${d.source}`.toLowerCase().includes(q)))
+                if (docs.length === 0) return null
+                return (
+                  <div key={cat} className="mb-6">
+                    <h2 className="text-sm font-semibold text-saffron-400 uppercase tracking-wide mb-2">
+                      {cat} <span className="text-gray-600 normal-case">({docs.length})</span>
+                    </h2>
+                    <div className="space-y-1.5">
+                      {docs.map(d => {
+                        const link = docLinks[d.id] || d.link || ''
+                        return (
+                          <div key={d.id} className="rounded-lg bg-dark-400/20 border border-dark-300/25 px-3 py-2.5">
+                            <div className="flex items-center gap-3 flex-wrap">
+                              <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded bg-dark-300/60 text-gray-400 w-11 text-center shrink-0">{d.type}</span>
+                              <div className="flex-1 min-w-[220px]">
+                                <div className="text-sm text-white leading-snug">{d.name}</div>
+                                <div className="text-[11px] text-gray-500">{d.source}</div>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                {link ? (
+                                  <a href={link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg bg-saffron-500/10 border border-saffron-500/30 text-saffron-400 hover:bg-saffron-500/20 transition-all">
+                                    <ExternalLink className="w-3.5 h-3.5" /> Open
+                                  </a>
+                                ) : (
+                                  <span className="text-[11px] text-gray-600">no link yet</span>
+                                )}
+                                {can(currentUser?.role, 'docs.editLinks') && (
+                                  <button
+                                    onClick={() => setEditingDocLink(editingDocLink === d.id ? null : d.id)}
+                                    className="inline-flex items-center gap-1 text-xs px-2 py-1.5 rounded-lg bg-dark-300/40 border border-dark-300/40 text-gray-400 hover:text-white transition-all"
+                                  >
+                                    <Link2 className="w-3.5 h-3.5" /> {link ? 'Edit' : 'Add link'}
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                            {editingDocLink === d.id && (
+                              <div className="flex items-center gap-2 mt-2">
+                                <input
+                                  id={`doclink-${d.id}`}
+                                  defaultValue={docLinks[d.id] || ''}
+                                  placeholder="Paste Google Drive share link..."
+                                  onKeyDown={e => { if (e.key === 'Enter') { saveDocLink(d.id, (e.target as HTMLInputElement).value); setEditingDocLink(null) } }}
+                                  className="flex-1 px-3 py-1.5 rounded-lg bg-dark-500/60 border border-dark-300/50 text-xs text-white placeholder-gray-600 outline-none focus:border-saffron-500/40"
+                                />
+                                <button
+                                  onClick={() => { const el = document.getElementById(`doclink-${d.id}`) as HTMLInputElement; saveDocLink(d.id, el.value); setEditingDocLink(null) }}
+                                  className="text-xs px-3 py-1.5 rounded-lg bg-saffron-500 text-dark-950 font-medium"
+                                >
+                                  Save
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )
+              })}
+
+              {/* Document editor modal */}
+              {docEditorOpen && (
+                <div className="fixed inset-0 z-[60] bg-black/60 flex items-start justify-center p-4 overflow-y-auto" onClick={() => setDocEditorOpen(false)}>
+                  <div className="bg-dark-500 rounded-xl border border-dark-300/40 w-full max-w-3xl mt-8 mb-8 p-5" onClick={e => e.stopPropagation()}>
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-lg font-semibold text-white">{editorDoc.id ? 'Edit Document' : 'New Document'}</h3>
+                      <button onClick={() => setDocEditorOpen(false)} className="text-gray-400 hover:text-white"><X className="w-5 h-5" /></button>
+                    </div>
+                    <div className="flex gap-2 mb-3 flex-wrap">
+                      <input value={editorDoc.title} onChange={e => setEditorDoc({ ...editorDoc, title: e.target.value })} placeholder="Document title" className="flex-1 min-w-[200px] px-3 py-2 rounded-lg bg-dark-400/60 border border-dark-300/50 text-sm text-white placeholder-gray-500 outline-none focus:border-saffron-500/40" />
+                      <input value={editorDoc.category} onChange={e => setEditorDoc({ ...editorDoc, category: e.target.value })} placeholder="Category" className="w-40 px-3 py-2 rounded-lg bg-dark-400/60 border border-dark-300/50 text-sm text-white placeholder-gray-500 outline-none focus:border-saffron-500/40" />
+                    </div>
+                    <RichTextEditor value={editorDoc.content} onChange={v => setEditorDoc({ ...editorDoc, content: v })} placeholder="Write your document…" />
+                    <div className="flex items-center justify-end gap-2 mt-4">
+                      <button onClick={() => setDocEditorOpen(false)} className="text-sm px-4 py-2 rounded-lg bg-dark-300/40 text-gray-400 hover:text-white">Cancel</button>
+                      <button onClick={saveDocument} disabled={savingDoc} className="text-sm px-4 py-2 rounded-lg bg-saffron-500 text-dark-950 font-medium disabled:opacity-50">{savingDoc ? 'Saving…' : (editorDoc.id ? 'Update' : 'Create')}</button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          )}
+
+          {/* ═══ SEO / AEO / GEO View ═══ */}
+          {activeView === 'seo' && (
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+              <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+                <div>
+                  <h1 className="text-3xl font-bold text-white mb-1">SEO / AEO / GEO</h1>
+                  <p className="text-gray-400">Daily search + AI-answer-engine work — articles, audits, SERP watch &amp; GEO actions</p>
+                </div>
+                <button onClick={loadSeo} className="text-xs px-3 py-1.5 rounded-lg bg-dark-400/50 border border-dark-300/50 text-gray-400 hover:text-white">Refresh</button>
+              </div>
+
+              {seoLoading ? (
+                <div className="text-center text-gray-500 py-10">Loading…</div>
+              ) : seoDaily.length === 0 ? (
+                <div className="rounded-xl border border-dashed border-dark-300/40 py-10 text-center text-gray-500 text-sm">
+                  No SEO / GEO entries yet.
+                  <div className="text-[12px] text-gray-600 mt-1">The daily pipeline pushes one summary here each morning (once the <code className="text-saffron-400">seo_daily</code> table exists in Supabase).</div>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {seoDaily.map(s => {
+                    const open = expandedSeo === s.id
+                    return (
+                      <div key={s.id} className="rounded-xl border border-dark-300/25 bg-dark-400/20 overflow-hidden">
+                        <button onClick={() => setExpandedSeo(open ? null : s.id)} className="w-full flex items-center gap-3 px-4 py-3 text-left">
+                          <span className="text-xs font-mono text-saffron-400 shrink-0">{s.day}</span>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-sm text-white font-medium truncate">{s.article_title || s.target || 'Daily SEO / GEO'}</div>
+                            {s.target && <div className="text-[11px] text-gray-500 truncate">Target: {s.target}</div>}
+                          </div>
+                          <div className="flex items-center gap-1 shrink-0">
+                            {s.audit_text && <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-300">Audit</span>}
+                            {s.serp_text && <span className="text-[9px] px-1.5 py-0.5 rounded bg-violet-500/15 text-violet-300">SERP</span>}
+                            {s.geo_text && <span className="text-[9px] px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-300">GEO</span>}
+                            <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${open ? 'rotate-180' : ''}`} />
+                          </div>
+                        </button>
+                        {open && (
+                          <div className="px-4 pb-4 space-y-4 border-t border-dark-300/20 pt-3">
+                            {s.article_content && (
+                              <div>
+                                <h4 className="text-xs font-semibold text-saffron-400 uppercase mb-1">Article</h4>
+                                {s.meta_description && <p className="text-[11px] text-gray-500 mb-1 italic">Meta: {s.meta_description}</p>}
+                                <div className="text-sm text-gray-300 whitespace-pre-wrap max-h-72 overflow-y-auto rounded-lg bg-dark-500/40 p-3">{s.article_content}</div>
+                                {s.article_link && <a href={s.article_link} target="_blank" rel="noopener noreferrer" className="text-xs text-saffron-400 inline-flex items-center gap-1 mt-1"><ExternalLink className="w-3 h-3" /> Open in Drive</a>}
+                              </div>
+                            )}
+                            {s.audit_text && <div><h4 className="text-xs font-semibold text-blue-400 uppercase mb-1">On-page Audit</h4><div className="text-sm text-gray-300 whitespace-pre-wrap max-h-56 overflow-y-auto rounded-lg bg-dark-500/40 p-3">{s.audit_text}</div></div>}
+                            {s.serp_text && <div><h4 className="text-xs font-semibold text-violet-400 uppercase mb-1">SERP / Competitor Watch</h4><div className="text-sm text-gray-300 whitespace-pre-wrap max-h-56 overflow-y-auto rounded-lg bg-dark-500/40 p-3">{s.serp_text}</div></div>}
+                            {s.geo_text && <div><h4 className="text-xs font-semibold text-pink-400 uppercase mb-1">GEO / AI-Answer Actions</h4><div className="text-sm text-gray-300 whitespace-pre-wrap max-h-56 overflow-y-auto rounded-lg bg-dark-500/40 p-3">{s.geo_text}</div></div>}
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+            </motion.div>
+          )}
+
+          {/* ═══ Users View (admin only) ═══ */}
+          {activeView === 'users' && currentUser?.role === 'admin' && (
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+              <div className="mb-6">
+                <h1 className="text-3xl font-bold text-white mb-1">Users</h1>
+                <p className="text-gray-400">Manage who can access the admin panel and their roles</p>
+              </div>
+
+              {/* Add user */}
+              <div className="rounded-xl border border-dark-300/30 bg-dark-400/20 p-4 mb-6">
+                <h2 className="text-sm font-semibold text-white mb-3 flex items-center gap-2"><UserPlus className="w-4 h-4 text-saffron-500" /> Add a new user</h2>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                  <input value={newUser.name} onChange={e => setNewUser({ ...newUser, name: e.target.value })} placeholder="Full name" className="px-3 py-2 rounded-lg bg-dark-500/60 border border-dark-300/50 text-sm text-white placeholder-gray-500 outline-none focus:border-saffron-500/40" />
+                  <input value={newUser.email} onChange={e => setNewUser({ ...newUser, email: e.target.value })} placeholder="Email" type="email" className="px-3 py-2 rounded-lg bg-dark-500/60 border border-dark-300/50 text-sm text-white placeholder-gray-500 outline-none focus:border-saffron-500/40" />
+                  <input value={newUser.password} onChange={e => setNewUser({ ...newUser, password: e.target.value })} placeholder="Password (min 6)" type="password" className="px-3 py-2 rounded-lg bg-dark-500/60 border border-dark-300/50 text-sm text-white placeholder-gray-500 outline-none focus:border-saffron-500/40" />
+                  <div className="flex gap-2">
+                    <select value={newUser.role} onChange={e => setNewUser({ ...newUser, role: e.target.value })} className="flex-1 px-3 py-2 rounded-lg bg-dark-500/60 border border-dark-300/50 text-sm text-white outline-none focus:border-saffron-500/40">
+                      <option value="admin">Admin</option>
+                      <option value="editor">Editor</option>
+                      <option value="writer">Writer</option>
+                    </select>
+                    <button onClick={handleAddUser} disabled={addingUser} className="px-4 py-2 rounded-lg bg-saffron-500 text-dark-950 text-sm font-medium disabled:opacity-50">{addingUser ? '…' : 'Add'}</button>
+                  </div>
+                </div>
+                <p className="text-[11px] text-gray-500 mt-2 flex items-center gap-1"><Shield className="w-3 h-3" /> <b className="text-gray-400">Admin</b>: full access incl. user management · <b className="text-gray-400">Editor</b>: manage content · <b className="text-gray-400">Writer</b>: create posts.</p>
+              </div>
+
+              {/* Users list */}
+              {usersLoading ? (
+                <div className="text-center text-gray-500 py-10">Loading users…</div>
+              ) : usersList.length === 0 ? (
+                <div className="text-center text-gray-500 py-10">No users found.</div>
+              ) : (
+                <div className="space-y-2">
+                  {usersList.map(u => {
+                    const roleColor = u.role === 'admin'
+                      ? 'text-red-400 border-red-500/30'
+                      : u.role === 'editor'
+                      ? 'text-blue-400 border-blue-500/30'
+                      : 'text-emerald-400 border-emerald-500/30'
+                    const isMe = u.id === currentUser?.id
+                    return (
+                      <div key={u.id} className="rounded-xl border border-dark-300/25 bg-dark-400/20 px-4 py-3">
+                        <div className="flex items-center gap-3 flex-wrap">
+                          <div className="w-9 h-9 rounded-full bg-saffron-500/15 border border-saffron-500/30 flex items-center justify-center text-saffron-400 font-semibold text-sm shrink-0">{(u.name || u.email || '?')[0]?.toUpperCase()}</div>
+                          <div className="flex-1 min-w-[180px]">
+                            <div className="text-sm text-white font-medium flex items-center gap-2">{u.name || '—'} {isMe && <span className="text-[10px] text-saffron-400 border border-saffron-500/30 rounded px-1.5 py-0.5">You</span>}</div>
+                            <div className="text-[12px] text-gray-500">{u.email}</div>
+                          </div>
+                          <select value={u.role} onChange={e => handleRoleChange(u.id, e.target.value)} disabled={isMe} title={isMe ? "You can't change your own role" : ''} className={`text-xs px-2 py-1 rounded-lg border bg-transparent outline-none disabled:opacity-60 ${roleColor}`}>
+                            <option value="admin" className="bg-dark-500">Admin</option>
+                            <option value="editor" className="bg-dark-500">Editor</option>
+                            <option value="writer" className="bg-dark-500">Writer</option>
+                          </select>
+                          <button onClick={() => { setPwUserId(pwUserId === u.id ? null : u.id); setPwValue('') }} className="inline-flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg bg-dark-300/40 border border-dark-300/40 text-gray-400 hover:text-white transition-all"><KeyRound className="w-3.5 h-3.5" /> Password</button>
+                          <button onClick={() => handleDeleteUser(u.id, u.email)} disabled={isMe} className="inline-flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 transition-all disabled:opacity-40"><Trash2 className="w-3.5 h-3.5" /> Delete</button>
+                        </div>
+                        {pwUserId === u.id && (
+                          <div className="flex items-center gap-2 mt-3">
+                            <input value={pwValue} onChange={e => setPwValue(e.target.value)} placeholder="New password (min 6)" type="password" className="flex-1 px-3 py-1.5 rounded-lg bg-dark-500/60 border border-dark-300/50 text-xs text-white placeholder-gray-600 outline-none focus:border-saffron-500/40" />
+                            <button onClick={() => handleChangePassword(u.id)} className="text-xs px-3 py-1.5 rounded-lg bg-saffron-500 text-dark-950 font-medium">Set password</button>
+                            <button onClick={() => { setPwUserId(null); setPwValue('') }} className="text-xs px-3 py-1.5 rounded-lg bg-dark-300/40 text-gray-400">Cancel</button>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+            </motion.div>
+          )}
         </div>
       </main>
     </div>
