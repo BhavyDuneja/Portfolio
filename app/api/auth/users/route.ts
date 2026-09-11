@@ -1,9 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
+import { requireAdmin } from '@/lib/apiAuth'
 
 // GET: Return all users (for admin panel user management)
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const guard = await requireAdmin(request.nextUrl.searchParams.get('callerId'))
+    if (!guard.ok) {
+      return NextResponse.json({ error: guard.error }, { status: guard.status })
+    }
+
     const { data: users, error } = await supabase
       .from('users')
       .select('id, email, name, role, avatar_url, created_at')
@@ -37,7 +43,12 @@ export async function GET() {
 // PUT: Update user (name, role, avatarUrl)
 export async function PUT(request: NextRequest) {
   try {
-    const { id, name, role, avatarUrl } = await request.json()
+    const { id, name, role, avatarUrl, callerId } = await request.json()
+
+    const guard = await requireAdmin(callerId)
+    if (!guard.ok) {
+      return NextResponse.json({ error: guard.error }, { status: guard.status })
+    }
 
     if (!id) {
       return NextResponse.json(
@@ -91,7 +102,12 @@ export async function PUT(request: NextRequest) {
 // DELETE: Delete user by id
 export async function DELETE(request: NextRequest) {
   try {
-    const { id } = await request.json()
+    const { id, callerId } = await request.json()
+
+    const guard = await requireAdmin(callerId)
+    if (!guard.ok) {
+      return NextResponse.json({ error: guard.error }, { status: guard.status })
+    }
 
     if (!id) {
       return NextResponse.json(

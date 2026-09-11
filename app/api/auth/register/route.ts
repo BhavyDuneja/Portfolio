@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 import bcrypt from 'bcryptjs'
+import { requireAdmin } from '@/lib/apiAuth'
 
 // POST: Register a new user
 export async function POST(request: NextRequest) {
   try {
-    const { email, password, name, role } = await request.json()
+    const { email, password, name, role, callerId } = await request.json()
+
+    const guard = await requireAdmin(callerId)
+    if (!guard.ok) {
+      return NextResponse.json({ error: guard.error }, { status: guard.status })
+    }
 
     if (!email || !password || !name) {
       return NextResponse.json(
@@ -67,7 +73,12 @@ export async function POST(request: NextRequest) {
 // PUT: Change password
 export async function PUT(request: NextRequest) {
   try {
-    const { userId, newPassword } = await request.json()
+    const { userId, newPassword, callerId } = await request.json()
+
+    const guard = await requireAdmin(callerId)
+    if (!guard.ok) {
+      return NextResponse.json({ error: guard.error }, { status: guard.status })
+    }
 
     if (!userId || !newPassword) {
       return NextResponse.json(

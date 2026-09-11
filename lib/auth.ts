@@ -84,6 +84,10 @@ export const isAuthenticated = (): boolean => {
   return getAuthUser() !== null
 }
 
+// Id of the currently logged-in user, sent to protected API routes so the
+// server can verify the caller's role. Returns '' when not logged in.
+const callerId = (): string => getAuthUser()?.id ?? ''
+
 // Register new user (admin only action) via server-side API route
 export const registerUser = async (
   email: string,
@@ -95,7 +99,7 @@ export const registerUser = async (
     const res = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, name, role }),
+      body: JSON.stringify({ email, password, name, role, callerId: callerId() }),
     })
 
     if (!res.ok) return null
@@ -110,7 +114,7 @@ export const registerUser = async (
 // Get all users (for admin panel)
 export const getAllUsers = async (): Promise<AuthUser[]> => {
   try {
-    const res = await fetch('/api/auth/users', {
+    const res = await fetch(`/api/auth/users?callerId=${encodeURIComponent(callerId())}`, {
       method: 'GET',
     })
 
@@ -132,7 +136,7 @@ export const updateUser = async (
     const res = await fetch('/api/auth/users', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, ...updates }),
+      body: JSON.stringify({ id, ...updates, callerId: callerId() }),
     })
 
     return res.ok
@@ -147,7 +151,7 @@ export const deleteUser = async (id: string): Promise<boolean> => {
     const res = await fetch('/api/auth/users', {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id }),
+      body: JSON.stringify({ id, callerId: callerId() }),
     })
 
     return res.ok
@@ -162,7 +166,7 @@ export const changePassword = async (userId: string, newPassword: string): Promi
     const res = await fetch('/api/auth/register', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId, newPassword }),
+      body: JSON.stringify({ userId, newPassword, callerId: callerId() }),
     })
 
     return res.ok
