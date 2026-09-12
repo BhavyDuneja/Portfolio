@@ -17,6 +17,7 @@ const Hero = () => {
     'Cloud Architect',
     'System Designer',
     'Problem Solver',
+    'Part-Time Author',
   ]
 
   useEffect(() => {
@@ -118,7 +119,17 @@ const Hero = () => {
             >
               Software Engineer with expertise in .NET, ReactJS, AWS, and Azure.
               Currently based in Osaka, Japan, bringing innovative solutions
-              and bridging cultures through technology.
+              and bridging cultures through technology. Off the keyboard, a
+              part-time author — my debut fiction{' '}
+              <a
+                href="https://www.amazon.com/dp/B0HJKKDN1J"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-saffron-500 font-medium hover:underline"
+              >
+                The Yellow Guy
+              </a>{' '}
+              is available on Amazon.
             </motion.p>
 
             {/* Location & Contact Info */}

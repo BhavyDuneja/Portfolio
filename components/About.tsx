@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { MapPin, Calendar, GraduationCap, Heart, Code, Globe, Users, Award } from 'lucide-react'
+import { MapPin, Calendar, GraduationCap, Heart, Code, Globe, Users, Award, BookOpen } from 'lucide-react'
 
 const About = () => {
   const ref = useRef(null)
@@ -116,6 +116,26 @@ const About = () => {
                   <div>
                     <p className="font-semibold text-white">Education</p>
                     <p className="text-gray-400">B.Tech in Information Technology from MAIT</p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-saffron-500/10 rounded-full flex items-center justify-center">
+                    <BookOpen className="w-6 h-6 text-saffron-500" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white">Part-Time Author</p>
+                    <p className="text-gray-400">
+                      Debut fiction{' '}
+                      <a
+                        href="https://www.amazon.com/dp/B0HJKKDN1J"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-saffron-500 hover:underline"
+                      >
+                        The Yellow Guy
+                      </a>{' '}
+                      — available on Amazon
+                    </p>
                   </div>
                 </div>
               </div>
