@@ -106,7 +106,7 @@ const About = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-white">Age & Birthday</p>
-                    <p className="text-gray-400">24 years old • January 23, 2001</p>
+                    <p className="text-gray-400">25 years old • January 23, 2001</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">

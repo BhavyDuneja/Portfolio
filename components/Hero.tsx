@@ -145,7 +145,7 @@ const Hero = () => {
               </div>
               <div className="flex items-center space-x-3 text-gray-400">
                 <Calendar className="w-5 h-5 text-saffron-500" />
-                <span>24 years old • Born January 23, 2001</span>
+                <span>25 years old • Born January 23, 2001</span>
               </div>
               <div className="flex items-center space-x-3 text-gray-400">
                 <Mail className="w-5 h-5 text-saffron-500" />
