@@ -9,6 +9,9 @@ import {
   Camera,
   Bot,
   BookOpen,
+  Truck,
+  HardHat,
+  Gem,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -162,6 +165,42 @@ export const clients: Client[] = [
     blurb:
       'Multiple video shoots plus article generation — making Vedic knowledge and psychology content more engaging.',
     services: ['Video Production', 'Content', 'Articles'],
+  },
+  {
+    slug: 'save-time',
+    name: 'Save Time',
+    industry: 'Construction Materials',
+    location: 'United Kingdom',
+    logo: '/images/clients/save-time.png',
+    accent: SAFFRON,
+    icon: Truck,
+    blurb:
+      'Full search visibility for a UK concrete-mix supplier — SEO, answer-engine (AEO) and generative-engine (GEO) optimization to win Google rankings, featured answers and citations in AI search.',
+    services: ['SEO', 'AEO', 'GEO'],
+  },
+  {
+    slug: 'quick-concrete',
+    name: 'Quick Concrete',
+    industry: 'Construction Materials',
+    location: 'United Kingdom',
+    logo: '/images/clients/quick-concrete.png',
+    accent: VIOLET,
+    icon: HardHat,
+    blurb:
+      'SEO, AEO and GEO for a UK construction-materials supplier — ranking on Google, owning the featured answers, and getting cited by AI search engines.',
+    services: ['SEO', 'AEO', 'GEO'],
+  },
+  {
+    slug: 'gaba-jewellers',
+    name: 'Gaba Jewellers',
+    industry: 'Jewellery',
+    location: 'London, UK',
+    logo: '/images/clients/gaba-jewellers.png',
+    accent: SAFFRON,
+    icon: Gem,
+    blurb:
+      'Review and reputation campaigns to lift the Google rating for a London jeweller — building authentic, policy-compliant review volume that strengthens local rank and buyer trust.',
+    services: ['Review Campaigns', 'Reputation Management'],
   },
 ]
 
