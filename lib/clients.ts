@@ -171,7 +171,7 @@ export const clients: Client[] = [
     name: 'Save Time',
     industry: 'Construction Materials',
     location: 'United Kingdom',
-    logo: '/images/clients/save-time.png',
+    logo: '/images/clients/save-time.jpeg',
     accent: SAFFRON,
     icon: Truck,
     blurb:
@@ -195,7 +195,7 @@ export const clients: Client[] = [
     name: 'Gaba Jewellers',
     industry: 'Jewellery',
     location: 'London, UK',
-    logo: '/images/clients/gaba-jewellers.png',
+    logo: '/images/clients/gaba-jewellers.jpg',
     accent: SAFFRON,
     icon: Gem,
     blurb:
