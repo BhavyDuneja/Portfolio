@@ -9,7 +9,7 @@ export default function ShareAndView({ slug, title }: { slug: string; title: str
     incrementViewCount(slug)
   }, [slug])
 
-  const url = typeof window !== 'undefined' ? window.location.href : `https://anantasutra.com/blog/${slug}`
+  const url = typeof window !== 'undefined' ? window.location.href : `https://www.anantasutra.com/blog/${slug}`
 
   return (
     <div className="pt-8 border-t border-white/10">

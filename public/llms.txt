@@ -5,32 +5,32 @@
 AnantaSutra's model in one line: one dedicated expert, embedded in your team, working only for you — a transparent alternative to agencies (which mark talent up 30–50% and split it across many clients), unreliable freelancers, and slow in-house hiring. "Not a project. A dedicated expert."
 
 ## Core pages
-- [Dedicated Experts — flagship offering](https://anantasutra.com/services/dedicated-experts): Embed a vetted expert in any domain inside your team; you pay just the salary plus a small transparent coordination fee.
-- [Home](https://anantasutra.com/): What AnantaSutra is and how the embedded-expert model works.
-- [Services overview](https://anantasutra.com/services): Every expertise domain available on demand.
-- [About](https://anantasutra.com/about): The mission and story behind AnantaSutra.
-- [Co-founder](https://anantasutra.com/co-founder): Bhavya Duneja — software engineer and entrepreneur bridging Delhi and Osaka, Japan.
-- [Contact](https://anantasutra.com/contact): Book a free consultation and get your expert in 7 days.
+- [Dedicated Experts — flagship offering](https://www.anantasutra.com/services/dedicated-experts): Embed a vetted expert in any domain inside your team; you pay just the salary plus a small transparent coordination fee.
+- [Home](https://www.anantasutra.com/): What AnantaSutra is and how the embedded-expert model works.
+- [Services overview](https://www.anantasutra.com/services): Every expertise domain available on demand.
+- [About](https://www.anantasutra.com/about): The mission and story behind AnantaSutra.
+- [Co-founder](https://www.anantasutra.com/co-founder): Bhavya Duneja — software engineer and entrepreneur bridging Delhi and Osaka, Japan.
+- [Contact](https://www.anantasutra.com/contact): Book a free consultation and get your expert in 7 days.
 
 ## Expertise domains (hire an embedded expert in any of these)
-- [Marketing & Growth](https://anantasutra.com/services/marketing): Performance marketing, growth, SEO, social, brand strategy.
-- [AI & Automation](https://anantasutra.com/services/ai-automation): Machine learning, workflow automation, AI marketing tools.
-- [Content & Shooting](https://anantasutra.com/services/content-shooting): Photo and video production, editing, content creation.
-- [Social Media](https://anantasutra.com/services/social-media): Management, scheduling, and engagement across platforms.
-- [Video Generators](https://anantasutra.com/services/video-generators): AI-powered video creation for marketing and real estate.
-- [Recruiter AI](https://anantasutra.com/services/recruiter-ai): Automated talent sourcing and screening.
-- [Real Estate](https://anantasutra.com/services/real-estate): Embedded growth and funnel experts for property businesses.
-- [E-commerce](https://anantasutra.com/services/ecommerce): Store operations, catalogue, CRO and retention experts.
-- [Immigration](https://anantasutra.com/services/immigration): Case management, documentation and marketing support.
-- [Business & Ops](https://anantasutra.com/services/business): Analysts, operations and strategy experts.
-- [Academic & Research](https://anantasutra.com/services/academic): Researchers, subject experts and writers.
+- [Marketing & Growth](https://www.anantasutra.com/services/marketing): Performance marketing, growth, SEO, social, brand strategy.
+- [AI & Automation](https://www.anantasutra.com/services/ai-automation): Machine learning, workflow automation, AI marketing tools.
+- [Content & Shooting](https://www.anantasutra.com/services/content-shooting): Photo and video production, editing, content creation.
+- [Social Media](https://www.anantasutra.com/services/social-media): Management, scheduling, and engagement across platforms.
+- [Video Generators](https://www.anantasutra.com/services/video-generators): AI-powered video creation for marketing and real estate.
+- [Recruiter AI](https://www.anantasutra.com/services/recruiter-ai): Automated talent sourcing and screening.
+- [Real Estate](https://www.anantasutra.com/services/dedicated-experts): Embedded growth and funnel experts for property businesses.
+- [E-commerce](https://www.anantasutra.com/services/dedicated-experts): Store operations, catalogue, CRO and retention experts.
+- [Immigration](https://www.anantasutra.com/services/dedicated-experts): Case management, documentation and marketing support.
+- [Business & Ops](https://www.anantasutra.com/services/dedicated-experts): Analysts, operations and strategy experts.
+- [Academic & Research](https://www.anantasutra.com/services/dedicated-experts): Researchers, subject experts and writers.
 
 ## Proof & results
-- [Portfolio](https://anantasutra.com/portfolio): Completed projects and client work.
-- [Testimonials & case studies](https://anantasutra.com/testimonials): Real outcomes — Awish Clinic (dermatology, Delhi) went from ₹25L to ₹40L/month in 60 days; Zoom Wheels (automotive) +46% revenue; Royal Properties (real estate) +38% traffic.
+- [Portfolio](https://www.anantasutra.com/portfolio): Completed projects and client work.
+- [Testimonials & case studies](https://www.anantasutra.com/testimonials): Real outcomes — Awish Clinic (dermatology, Delhi) went from ₹25L to ₹40L/month in 60 days; Zoom Wheels (automotive) +46% revenue; Royal Properties (real estate) +38% traffic.
 
 ## Content
-- [Blog](https://anantasutra.com/blog): Articles on AI, marketing, growth, business and technology.
+- [Blog](https://www.anantasutra.com/blog): Articles on AI, marketing, growth, business and technology.
 
 ## How it works
 - A 30-minute call on your business and the outcome you want.
@@ -40,6 +40,6 @@ AnantaSutra's model in one line: one dedicated expert, embedded in your team, wo
 - Pricing: you pay the expert's actual salary plus a small, transparent coordination fee — no 30–50% agency markup, no recruitment fee, no lock-in, and a 48-hour replacement guarantee.
 
 ## Contact
-- Website: https://anantasutra.com
+- Website: https://www.anantasutra.com
 - Email: contact@anantasutra.com
 - Location: Delhi, India (serving clients across 4 continents)

@@ -20,6 +20,7 @@ import {
 import { event as gtagEvent } from '@/lib/gtag'
 
 const services = [
+  'Dedicated Experts',
   'AI Voice Agents',
   'AI Video Generators',
   'Social Media Automation',
@@ -396,6 +397,11 @@ export default function ContactPage() {
         gtagEvent('contact_form_submit', {
           service: formData.service,
         })
+        // GA4 recommended lead event; mark it as a key event in GA4 to count leads.
+        gtagEvent('generate_lead', {
+          lead_source: 'contact_form',
+          service: formData.service || 'Not specified',
+        })
       } else {
         setSubmitStatus('error')
         gtagEvent('contact_form_error', {
@@ -453,6 +459,10 @@ export default function ContactPage() {
         service: bookingData.service || 'General',
         date: bookingData.date,
         time: bookingData.time,
+      })
+      gtagEvent('generate_lead', {
+        lead_source: 'meeting_booking',
+        service: bookingData.service || 'General',
       })
       setBookingData({
         name: '',

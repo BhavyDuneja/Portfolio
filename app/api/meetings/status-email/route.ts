@@ -26,13 +26,13 @@ export async function POST(req: NextRequest) {
         subject: `Session Cancelled — Door's Always Open`,
         heading: `Your Session Has Been Cancelled`,
         body: `Hi ${name || 'there'},<br/><br/>Your session on <strong>${meeting_date}</strong> at <strong>${meeting_time}</strong> has been cancelled. Completely understand — schedules shift.<br/><br/>Quick question before we close this out: would a different time or format work better? We're flexible with scheduling and can also do async if that suits you.`,
-        cta: `Our offer has no expiry. Whenever the timing feels right, just reply to this email or visit <a href="https://anantasutra.com" style="color: #E8A317; font-weight: 600;">anantasutra.com</a> to book a new slot. Or WhatsApp us for quick coordination.`,
+        cta: `Our offer has no expiry. Whenever the timing feels right, just reply to this email or visit <a href="https://www.anantasutra.com" style="color: #E8A317; font-weight: 600;">anantasutra.com</a> to book a new slot. Or WhatsApp us for quick coordination.`,
       },
       'no-show': {
         subject: `Hope everything's okay — happy to reschedule`,
         heading: `Checking In`,
         body: `Hi ${name || 'there'},<br/><br/>Hope everything's alright on your end. We had a session on the calendar for <strong>${meeting_date}</strong> at <strong>${meeting_time}</strong> — no worries at all if something came up.<br/><br/>I'd still love to share how we can help your business grow. I can also send you a quick video summary of what I had prepared, if that's easier than a live call.`,
-        cta: `<a href="https://anantasutra.com" style="color: #E8A317; font-weight: 600;">Reschedule in one click</a> — or simply reply with a time that works. Zero pressure, the complimentary session is always available.`,
+        cta: `<a href="https://www.anantasutra.com" style="color: #E8A317; font-weight: 600;">Reschedule in one click</a> — or simply reply with a time that works. Zero pressure, the complimentary session is always available.`,
       },
       'rescheduled': {
         subject: `Reschedule Confirmed — ${new_date || meeting_date}, ${new_time || meeting_time}`,

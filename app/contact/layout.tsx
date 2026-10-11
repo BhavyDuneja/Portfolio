@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   title: 'Contact Us — Get in Touch with AnantaSutra',
   description: 'Contact AnantaSutra for AI automation, marketing services, or custom solutions. We respond within 24 hours. Free consultation available.',
   alternates: {
-    canonical: 'https://anantasutra.com/contact',
+    canonical: 'https://www.anantasutra.com/contact',
   },
   openGraph: {
     title: 'Contact AnantaSutra — Let\'s Connect',
     description: 'Get in touch for AI automation, marketing services, or custom solutions. Free consultation available.',
-    url: 'https://anantasutra.com/contact',
+    url: 'https://www.anantasutra.com/contact',
     type: 'website',
   },
   twitter: {

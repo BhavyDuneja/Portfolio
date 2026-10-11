@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   title: 'Apps — Granthas & Ritualist for Mindful Living',
   description: 'Discover AnantaSutra apps: Granthas — all Hindu scriptures in one place, and Ritualist — your free daily companion for mindful living and habit tracking.',
   alternates: {
-    canonical: 'https://anantasutra.com/apps',
+    canonical: 'https://www.anantasutra.com/apps',
   },
   openGraph: {
     title: 'AnantaSutra Apps — Granthas & Ritualist',
     description: 'Granthas: all Hindu scriptures in one digital library. Ritualist: free daily ritual and habit tracker for mindful living.',
-    url: 'https://anantasutra.com/apps',
+    url: 'https://www.anantasutra.com/apps',
     type: 'website',
   },
   twitter: {

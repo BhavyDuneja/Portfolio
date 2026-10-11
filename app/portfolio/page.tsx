@@ -10,7 +10,7 @@ const portfolioJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   name: 'AnantaSutra Portfolio — Real Clients, Real Results',
-  url: 'https://anantasutra.com/portfolio',
+  url: 'https://www.anantasutra.com/portfolio',
   description:
     'Real client work from AnantaSutra — Awish Clinic, Education Aspire, Giant Migrations, BotWot, Zoom Wheels, Royal Properties and more, across 10 brands and three continents. Case studies with challenge, approach, and measurable results.',
 }

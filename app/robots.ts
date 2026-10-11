@@ -34,6 +34,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/admin/', '/api/'],
       },
     ],
-    sitemap: 'https://anantasutra.com/sitemap.xml',
+    sitemap: 'https://www.anantasutra.com/sitemap.xml',
   }
 }

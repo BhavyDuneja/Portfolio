@@ -14,13 +14,13 @@ const websiteJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'AnantaSutra',
-  url: 'https://anantasutra.com',
+  url: 'https://www.anantasutra.com',
   description: 'Dedicated domain experts embedded in your team — you pay just the salary, no agency markup. Delhi-based, serving India, UAE, UK and beyond.',
   potentialAction: {
     '@type': 'SearchAction',
     target: {
       '@type': 'EntryPoint',
-      urlTemplate: 'https://anantasutra.com/blog?q={search_term_string}',
+      urlTemplate: 'https://www.anantasutra.com/blog?q={search_term_string}',
     },
     'query-input': 'required name=search_term_string',
   },

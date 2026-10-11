@@ -24,32 +24,31 @@ async function getBlogPosts() {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://anantasutra.com'
+  const baseUrl = 'https://www.anantasutra.com'
 
+  // No lastModified on static routes: a build-time date carries no signal. The five placeholder
+  // service pages (ecommerce, real-estate, immigration, business, academic) are noindex until built.
   const staticPages: MetadataRoute.Sitemap = [
-    { url: baseUrl, lastModified: new Date(), changeFrequency: 'weekly', priority: 1 },
-    { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/services`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/services/ai-automation`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/services/marketing`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/services/voice-agents`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${baseUrl}/services/video-generators`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${baseUrl}/services/social-automation`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${baseUrl}/services/gmail-automation`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${baseUrl}/services/ai-marketing`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${baseUrl}/services/recruiter-ai`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${baseUrl}/services/content-shooting`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${baseUrl}/services/social-media`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${baseUrl}/services/dedicated-experts`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/services/ecommerce`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${baseUrl}/services/real-estate`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${baseUrl}/services/immigration`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${baseUrl}/services/business`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${baseUrl}/services/academic`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${baseUrl}/apps`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.7 },
-    { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${baseUrl}/co-founder`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
+    { url: baseUrl, changeFrequency: 'weekly', priority: 1 },
+    { url: `${baseUrl}/about`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/services`, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${baseUrl}/services/ai-automation`, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${baseUrl}/services/marketing`, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${baseUrl}/services/voice-agents`, changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${baseUrl}/services/video-generators`, changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${baseUrl}/services/social-automation`, changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${baseUrl}/services/gmail-automation`, changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${baseUrl}/services/ai-marketing`, changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${baseUrl}/services/recruiter-ai`, changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${baseUrl}/services/content-shooting`, changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${baseUrl}/services/social-media`, changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${baseUrl}/services/dedicated-experts`, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${baseUrl}/portfolio`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/testimonials`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/apps`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/contact`, changeFrequency: 'yearly', priority: 0.7 },
+    { url: `${baseUrl}/blog`, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/co-founder`, changeFrequency: 'monthly', priority: 0.6 },
   ]
 
   const blogPosts = (await getBlogPosts()).filter((post) => isIndexableBlogPost(post.slug, post.date))

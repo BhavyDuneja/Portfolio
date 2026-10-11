@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   title: 'Bhavya Duneja — Co-founder Portfolio',
   description: 'Bhavya Duneja is the co-founder of AnantaSutra — a technologist and visionary bridging AI, marketing, spirituality, and business. Based in Delhi, India.',
   alternates: {
-    canonical: 'https://anantasutra.com/co-founder',
+    canonical: 'https://www.anantasutra.com/co-founder',
   },
   openGraph: {
     title: 'Bhavya Duneja — Co-founder, AnantaSutra',
     description: 'A technologist and visionary bridging AI, marketing, spirituality, and business. Co-founder of AnantaSutra.',
-    url: 'https://anantasutra.com/co-founder',
+    url: 'https://www.anantasutra.com/co-founder',
     type: 'profile',
   },
   twitter: {
@@ -25,11 +25,11 @@ const personJsonLd = {
   '@type': 'Person',
   name: 'Bhavya Duneja',
   jobTitle: 'Co-founder',
-  url: 'https://anantasutra.com/co-founder',
+  url: 'https://www.anantasutra.com/co-founder',
   worksFor: {
     '@type': 'Organization',
     name: 'AnantaSutra',
-    url: 'https://anantasutra.com',
+    url: 'https://www.anantasutra.com',
   },
   address: {
     '@type': 'PostalAddress',

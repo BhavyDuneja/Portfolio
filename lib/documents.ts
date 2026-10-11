@@ -72,5 +72,5 @@ export const DOCUMENTS: DocEntry[] = [
   { id: 'video-editor-skillset', name: 'Video Editor Skillset', category: 'Decks & Playbooks', type: 'md', source: 'Repo · temp/AnantaSutra-Video-Editor-Skillset.md' },
 
   // ─── Website ───
-  { id: 'llms-txt', name: 'llms.txt (AI-crawlability file)', category: 'Website', type: 'txt', source: 'Live · anantasutra.com/llms.txt', link: 'https://anantasutra.com/llms.txt' },
+  { id: 'llms-txt', name: 'llms.txt (AI-crawlability file)', category: 'Website', type: 'txt', source: 'Live · anantasutra.com/llms.txt', link: 'https://www.anantasutra.com/llms.txt' },
 ]

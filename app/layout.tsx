@@ -33,18 +33,18 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://anantasutra.com'),
+  metadataBase: new URL('https://www.anantasutra.com'),
   title: {
-    default: 'AnantaSutra — Dedicated Experts, Embedded in Your Team | Pay Just the Salary',
+    default: 'AnantaSutra: Dedicated Experts Embedded in Your Team',
     template: '%s | AnantaSutra',
   },
-  description: 'AnantaSutra embeds vetted domain experts — engineers, marketers, designers and more — inside your team. You pay just the expert\'s salary plus a small transparent fee. No 30-50% agency markup, live in 7 days, 48-hour replacement guarantee.',
+  description: 'Vetted experts embedded in your team. Pay their salary plus one transparent fee. No agency markup, live in about 7 days, 48-hour replacement guarantee.',
   keywords: 'AnantaSutra, Dedicated Experts, Embedded Experts, Hire Dedicated Developer, Dedicated Marketer, Agency Alternative, No Markup Talent, Staff Augmentation Alternative, Delhi',
   authors: [{ name: 'AnantaSutra' }],
   creator: 'AnantaSutra',
   publisher: 'AnantaSutra',
   alternates: {
-    canonical: 'https://anantasutra.com',
+    canonical: 'https://www.anantasutra.com',
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || '',
@@ -52,9 +52,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://anantasutra.com',
+    url: 'https://www.anantasutra.com',
     title: 'AnantaSutra — Dedicated Experts, Embedded in Your Team',
-    description: 'Vetted professionals in 12+ domains, embedded in your team in 7 days. You pay just the salary — no agency markup.',
+    description: 'Vetted experts in 12+ domains, embedded in your team in about 7 days. Pay their salary plus one transparent fee, with no agency markup.',
     siteName: 'AnantaSutra',
     images: [
       {
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'AnantaSutra — Dedicated Experts, Embedded in Your Team',
-    description: 'Vetted professionals in 12+ domains, embedded in your team in 7 days. You pay just the salary — no agency markup.',
+    description: 'Vetted experts in 12+ domains, embedded in your team in about 7 days. Pay their salary plus one transparent fee, with no agency markup.',
     creator: '@anantasutra',
     site: '@anantasutra',
     images: ['/images/og-image.png'],
@@ -90,9 +90,9 @@ const organizationJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'AnantaSutra',
-  url: 'https://anantasutra.com',
-  logo: 'https://anantasutra.com/images/logo.png',
-  description: 'AnantaSutra embeds vetted, dedicated domain experts inside client teams — you pay just the expert\'s salary plus a small transparent coordination fee.',
+  url: 'https://www.anantasutra.com',
+  logo: 'https://www.anantasutra.com/images/logo-nobg.png',
+  description: 'AnantaSutra embeds vetted, dedicated domain experts inside client teams. Clients pay the expert\'s salary plus one transparent coordination fee.',
   contactPoint: {
     '@type': 'ContactPoint',
     email: 'contact@anantasutra.com',
@@ -107,13 +107,15 @@ const organizationJsonLd = {
   },
   sameAs: [
     'https://www.linkedin.com/company/anantasutra-digital/',
-    'https://github.com/bhavyaduneja',
+    'https://github.com/anantasutra',
+    'https://twitter.com/anantasutra',
+    'https://www.instagram.com/anantasutra/',
   ],
   founder: {
     '@type': 'Person',
     name: 'Bhavya Duneja',
     jobTitle: 'Co-founder',
-    url: 'https://anantasutra.com/co-founder',
+    url: 'https://www.anantasutra.com/co-founder',
   },
 }
 

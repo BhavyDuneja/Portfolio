@@ -55,7 +55,7 @@ const stats = [
 ]
 
 const pricingBreakdown = [
-  { icon: Wallet, title: 'What You Pay', description: 'The expert\'s monthly salary — exactly what they earn. That\'s it.', highlight: true },
+  { icon: Wallet, title: 'What You Pay', description: 'The expert\'s monthly salary — exactly what they earn — plus our one transparent fee. Nothing else.', highlight: true },
   { icon: BadgePercent, title: 'What You Don\'t Pay', description: 'No agency markup (30-50% saved). No recruitment fees. No overheads. No hidden charges.' },
   { icon: Receipt, title: 'How We Make Money', description: 'A small, transparent coordination fee agreed upfront. One-line invoice: salary + fee. You see every rupee.' },
 ]
@@ -388,10 +388,10 @@ export default function DedicatedExpertsPage() {
           >
             <p className="text-violet-500 uppercase tracking-[0.2em] text-sm font-medium mb-3">Pricing</p>
             <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-4">
-              You Pay <span className="gradient-text-violet">Just the Salary.</span>
+              You Pay the Salary. <span className="gradient-text-violet">Plus One Transparent Fee.</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              No agency markup. No recruitment fees. No overheads. You pay what your expert earns — nothing more, nothing hidden.
+              No agency markup. No recruitment fees. No overheads. One line for what your expert earns, one line for our fee — nothing hidden.
             </p>
           </motion.div>
 

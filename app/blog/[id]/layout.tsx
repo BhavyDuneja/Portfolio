@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 
   const title = post.meta_title || post.title
   const description = post.meta_description || post.excerpt
-  const imageUrl = post.image_url || `https://anantasutra.com/blog/${post.slug}/opengraph-image`
+  const imageUrl = post.image_url || `https://www.anantasutra.com/blog/${post.slug}/opengraph-image`
 
   return {
     title,
@@ -54,12 +54,12 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     // on the curated set in lib/blogIndexable.ts
     robots: isIndexableBlogPost(post.slug, post.date) ? undefined : { index: false, follow: true },
     alternates: {
-      canonical: `https://anantasutra.com/blog/${post.slug}`,
+      canonical: `https://www.anantasutra.com/blog/${post.slug}`,
     },
     openGraph: {
       title,
       description,
-      url: `https://anantasutra.com/blog/${post.slug}`,
+      url: `https://www.anantasutra.com/blog/${post.slug}`,
       type: 'article',
       publishedTime: post.date,
       modifiedTime: post.updated_at,
@@ -99,19 +99,19 @@ export default async function BlogPostLayout({
     author: {
       '@type': 'Person',
       name: post.author_name,
-      url: 'https://anantasutra.com/co-founder',
+      url: 'https://www.anantasutra.com/co-founder',
     },
     publisher: {
       '@type': 'Organization',
       name: 'AnantaSutra',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://anantasutra.com/images/logo-nobg.png',
+        url: 'https://www.anantasutra.com/images/logo-nobg.png',
       },
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://anantasutra.com/blog/${post.slug}`,
+      '@id': `https://www.anantasutra.com/blog/${post.slug}`,
     },
     articleSection: post.category,
     keywords: (post.tags || []).join(', '),
@@ -127,19 +127,19 @@ export default async function BlogPostLayout({
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://anantasutra.com',
+        item: 'https://www.anantasutra.com',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Blog',
-        item: 'https://anantasutra.com/blog',
+        item: 'https://www.anantasutra.com/blog',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: post.title,
-        item: `https://anantasutra.com/blog/${post.slug}`,
+        item: `https://www.anantasutra.com/blog/${post.slug}`,
       },
     ],
   }

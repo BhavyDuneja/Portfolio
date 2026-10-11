@@ -1,24 +1,9 @@
-import { Metadata } from 'next'
 import JsonLd from '@/components/JsonLd'
+import { pageMetadata, PAGE_SEO } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Services — AI Automation, Marketing, Website Building & SEO/AEO/GEO',
-  description: 'AnantaSutra services: AI voice agents from ₹6/min, recruiter AI at ₹2/lead, website development, SEO, AEO (Answer Engine Optimization), GEO (Generative Engine Optimization), and full-service marketing.',
-  alternates: {
-    canonical: 'https://anantasutra.com/services',
-  },
-  openGraph: {
-    title: 'AnantaSutra Services — AI Automation, Marketing & More',
-    description: 'AI voice agents, recruiter AI, social media automation, professional shooting, content creation, and performance marketing.',
-    url: 'https://anantasutra.com/services',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'AnantaSutra Services — AI Automation, Marketing & More',
-    description: 'AI voice agents, recruiter AI, social media automation, professional shooting, content creation, and performance marketing.',
-  },
-}
+// Applies to the /services hub only: every service sub-route has its own layout with a
+// self-referencing canonical, so none of them inherits this one.
+export const metadata = pageMetadata(PAGE_SEO.services)
 
 const servicesJsonLd = {
   '@context': 'https://schema.org',
@@ -34,7 +19,7 @@ const servicesJsonLd = {
         name: 'AI Automation & Intelligence',
         description: 'Transform your business with AI-powered solutions — voice calling agents, recruiter AI, social media automation, and more.',
         provider: { '@type': 'Organization', name: 'AnantaSutra' },
-        url: 'https://anantasutra.com/services/ai-automation',
+        url: 'https://www.anantasutra.com/services/ai-automation',
         offers: [
           {
             '@type': 'Offer',
@@ -73,7 +58,7 @@ const servicesJsonLd = {
         name: 'Creative & Marketing Agency',
         description: 'End-to-end marketing support from shooting to social media management. We amplify your brand across every channel.',
         provider: { '@type': 'Organization', name: 'AnantaSutra' },
-        url: 'https://anantasutra.com/services/marketing',
+        url: 'https://www.anantasutra.com/services/marketing',
       },
     },
     {
@@ -84,38 +69,9 @@ const servicesJsonLd = {
         name: 'Website Building & Search Optimization (SEO, AEO, GEO)',
         description: 'We build high-performance websites and optimize them for Google (SEO), AI assistants like ChatGPT and Perplexity (AEO — Answer Engine Optimization), and generative AI platforms (GEO — Generative Engine Optimization).',
         provider: { '@type': 'Organization', name: 'AnantaSutra' },
-        url: 'https://anantasutra.com/services',
+        url: 'https://www.anantasutra.com/services',
         serviceType: ['Website Development', 'SEO', 'AEO', 'GEO'],
       },
-    },
-  ],
-}
-
-const howToJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'HowTo',
-  name: 'How to Get Started with AnantaSutra AI Automation',
-  description: 'Start using AI voice agents and automation tools for your business in three simple steps.',
-  step: [
-    {
-      '@type': 'HowToStep',
-      position: 1,
-      name: 'Contact Us',
-      text: 'Reach out via our contact form or email at contact@anantasutra.com to discuss your business needs.',
-      url: 'https://anantasutra.com/contact',
-    },
-    {
-      '@type': 'HowToStep',
-      position: 2,
-      name: 'Choose Your Solution',
-      text: 'Select from our AI automation tools — voice calling agents, recruiter AI, social media automation, or a custom solution tailored to your needs.',
-      url: 'https://anantasutra.com/services/ai-automation',
-    },
-    {
-      '@type': 'HowToStep',
-      position: 3,
-      name: 'Launch & Scale',
-      text: 'We set up, integrate, and optimize your AI solution. Start seeing results immediately with pay-as-you-go pricing from ₹6/min.',
     },
   ],
 }
@@ -128,7 +84,6 @@ export default function ServicesLayout({
   return (
     <>
       <JsonLd data={servicesJsonLd} />
-      <JsonLd data={howToJsonLd} />
       {children}
     </>
   )

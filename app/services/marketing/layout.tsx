@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   title: 'Creative & Marketing Agency — Brands That Resonate',
   description: 'Full-service marketing agency by AnantaSutra: professional shooting, content creation, social media management, brand strategy, performance marketing, and creative direction.',
   alternates: {
-    canonical: 'https://anantasutra.com/services/marketing',
+    canonical: 'https://www.anantasutra.com/services/marketing',
   },
   openGraph: {
     title: 'Creative & Marketing Agency — AnantaSutra',
     description: 'End-to-end marketing: shooting, content creation, social media management, brand strategy, and performance marketing.',
-    url: 'https://anantasutra.com/services/marketing',
+    url: 'https://www.anantasutra.com/services/marketing',
     type: 'website',
   },
   twitter: {
@@ -28,9 +28,9 @@ const marketingServiceJsonLd = {
   provider: {
     '@type': 'Organization',
     name: 'AnantaSutra',
-    url: 'https://anantasutra.com',
+    url: 'https://www.anantasutra.com',
   },
-  url: 'https://anantasutra.com/services/marketing',
+  url: 'https://www.anantasutra.com/services/marketing',
   areaServed: {
     '@type': 'Country',
     name: 'India',

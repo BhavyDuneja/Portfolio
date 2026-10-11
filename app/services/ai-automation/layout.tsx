@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   title: 'AI Automation & Intelligence — Voice Agents from ₹6/min',
   description: 'AI-powered voice calling agents at ₹6/min, recruiter AI at ₹2/lead, social media automation, Gmail automation, AI video generators, and marketing tools by AnantaSutra.',
   alternates: {
-    canonical: 'https://anantasutra.com/services/ai-automation',
+    canonical: 'https://www.anantasutra.com/services/ai-automation',
   },
   openGraph: {
     title: 'AI Automation & Intelligence — AnantaSutra',
     description: 'Voice calling agents at ₹6/min, recruiter AI at ₹2/lead, and a full suite of AI-powered automation tools for your business.',
-    url: 'https://anantasutra.com/services/ai-automation',
+    url: 'https://www.anantasutra.com/services/ai-automation',
     type: 'website',
   },
   twitter: {
@@ -28,9 +28,9 @@ const aiServiceJsonLd = {
   provider: {
     '@type': 'Organization',
     name: 'AnantaSutra',
-    url: 'https://anantasutra.com',
+    url: 'https://www.anantasutra.com',
   },
-  url: 'https://anantasutra.com/services/ai-automation',
+  url: 'https://www.anantasutra.com/services/ai-automation',
   areaServed: {
     '@type': 'Country',
     name: 'India',
