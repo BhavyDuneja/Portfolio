@@ -14,10 +14,10 @@ import {
   MapPin,
   MessageSquare,
   Phone,
-  Send,
   Sparkles,
 } from 'lucide-react'
 import { event as gtagEvent } from '@/lib/gtag'
+import MessageForm from '@/components/anantasutra/MessageForm'
 
 const services = [
   'Dedicated Experts',
@@ -231,12 +231,6 @@ const getJstSlotsForDate = (dateKey: string) => {
 }
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    service: '',
-    message: '',
-  })
   const [bookingData, setBookingData] = useState({
     name: '',
     email: '',
@@ -248,9 +242,7 @@ export default function ContactPage() {
   const [meetings, setMeetings] = useState<MeetingRecord[]>([])
   const [meetingsLoading, setMeetingsLoading] = useState(true)
   const [timezone, setTimezone] = useState('Asia/Kolkata')
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [isBookingSubmitting, setIsBookingSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle')
   const [bookingStatus, setBookingStatus] = useState<SubmitStatus>('idle')
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [calendarMonth, setCalendarMonth] = useState(() => {
@@ -379,46 +371,6 @@ export default function ContactPage() {
       setBookingData((prev) => ({ ...prev, time: '' }))
     }
   }, [bookingData.time, selectedDateSlots])
-
-  const handleContactSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      })
-
-      if (response.ok) {
-        setSubmitStatus('success')
-        setFormData({ name: '', email: '', service: '', message: '' })
-        gtagEvent('contact_form_submit', {
-          service: formData.service,
-        })
-        // GA4 recommended lead event; mark it as a key event in GA4 to count leads.
-        gtagEvent('generate_lead', {
-          lead_source: 'contact_form',
-          service: formData.service || 'Not specified',
-        })
-      } else {
-        setSubmitStatus('error')
-        gtagEvent('contact_form_error', {
-          error_type: 'server_error',
-          status: response.status,
-        })
-      }
-    } catch {
-      setSubmitStatus('error')
-      gtagEvent('contact_form_error', {
-        error_type: 'network_error',
-      })
-    }
-
-    setIsSubmitting(false)
-    setTimeout(() => setSubmitStatus('idle'), 5000)
-  }
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -807,100 +759,7 @@ export default function ContactPage() {
               )}
             </div>
 
-            <div className="glass-card rounded-2xl p-8">
-              <h2 className="font-display text-2xl font-bold text-white mb-6">Send us a message</h2>
-
-              {submitStatus === 'success' ? (
-                <div className="flex flex-col items-center justify-center py-12 text-center">
-                  <CheckCircle className="w-12 h-12 text-green-500 mb-4" />
-                  <h3 className="text-xl font-semibold text-white mb-2">Message Sent</h3>
-                  <p className="text-gray-300">We&apos;ll get back to you within 24 hours.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleContactSubmit} className="space-y-5">
-                  <div className="grid sm:grid-cols-2 gap-5">
-                    <div>
-                      <label className="block text-sm text-gray-400 mb-1.5">Name</label>
-                      <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={(e) =>
-                          setFormData((prev) => ({ ...prev, name: e.target.value }))
-                        }
-                        required
-                        className="w-full px-4 py-3 rounded-xl bg-dark-400/50 border border-white/10 text-white placeholder-gray-600 focus:border-saffron-500/50 focus:ring-1 focus:ring-saffron-500/20 focus:outline-none transition-all"
-                        placeholder="Your name"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm text-gray-400 mb-1.5">Email</label>
-                      <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={(e) =>
-                          setFormData((prev) => ({ ...prev, email: e.target.value }))
-                        }
-                        required
-                        className="w-full px-4 py-3 rounded-xl bg-dark-400/50 border border-white/10 text-white placeholder-gray-600 focus:border-saffron-500/50 focus:ring-1 focus:ring-saffron-500/20 focus:outline-none transition-all"
-                        placeholder="your@email.com"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm text-gray-400 mb-1.5">Service Interested In</label>
-                    <select
-                      name="service"
-                      value={formData.service}
-                      onChange={(e) =>
-                        setFormData((prev) => ({ ...prev, service: e.target.value }))
-                      }
-                      className="w-full px-4 py-3 rounded-xl bg-dark-400/50 border border-white/10 text-white focus:border-saffron-500/50 focus:ring-1 focus:ring-saffron-500/20 focus:outline-none transition-all appearance-none"
-                    >
-                      <option value="" className="bg-dark-400">Select a service</option>
-                      {services.map((service) => (
-                        <option key={service} value={service} className="bg-dark-400">
-                          {service}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm text-gray-400 mb-1.5">Message</label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={(e) =>
-                        setFormData((prev) => ({ ...prev, message: e.target.value }))
-                      }
-                      required
-                      rows={5}
-                      className="w-full px-4 py-3 rounded-xl bg-dark-400/50 border border-white/10 text-white placeholder-gray-600 focus:border-saffron-500/50 focus:ring-1 focus:ring-saffron-500/20 focus:outline-none transition-all resize-none"
-                      placeholder="Tell us about your project or requirements..."
-                    />
-                  </div>
-
-                  {submitStatus === 'error' && (
-                    <div className="flex items-center gap-2 text-red-400 text-sm">
-                      <AlertCircle className="w-4 h-4" />
-                      Something went wrong. Please try again or email us directly.
-                    </div>
-                  )}
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="btn-primary w-full justify-center"
-                  >
-                    <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
-                    <Send className="w-4 h-4" />
-                  </button>
-                </form>
-              )}
-            </div>
+            <MessageForm services={services} />
           </motion.div>
 
           <motion.div
