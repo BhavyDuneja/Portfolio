@@ -158,6 +158,24 @@ export const getPublishedPosts = async (): Promise<BlogPost[]> => {
   return (data as DbBlogPost[]).map(dbToPost)
 }
 
+/** Published posts without their HTML body — for listing pages, where the body is never shown */
+export const getPublishedPostSummaries = async (): Promise<BlogPost[]> => {
+  const now = new Date().toISOString()
+
+  const { data, error } = await supabase
+    .from('blog_posts')
+    .select('id,title,slug,excerpt,author_name,date,read_time,category,tags,featured,status,scheduled_date,view_count,meta_title,meta_description,image_url,image_alt,video_url,created_at,updated_at')
+    .or(`status.eq.published,and(status.eq.scheduled,scheduled_date.lte.${now})`)
+    .order('date', { ascending: false })
+
+  if (error) {
+    console.error('Error fetching post summaries:', error)
+    return []
+  }
+
+  return (data as DbBlogPost[]).map((row) => dbToPost({ ...row, content: '' }))
+}
+
 /** Get a single post by its ID or slug */
 export const getPostById = async (idOrSlug: string): Promise<BlogPost | null> => {
   const { data, error } = await supabase

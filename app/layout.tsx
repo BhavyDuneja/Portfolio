@@ -90,6 +90,8 @@ const organizationJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'AnantaSutra',
+  // People also search the name as two words, or in Devanagari.
+  alternateName: ['Ananta Sutra', 'अनन्तसूत्र'],
   url: 'https://www.anantasutra.com',
   logo: 'https://www.anantasutra.com/images/logo-nobg.png',
   description: 'AnantaSutra embeds vetted, dedicated domain experts inside client teams. Clients pay the expert\'s salary plus one transparent coordination fee.',

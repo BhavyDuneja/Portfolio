@@ -33,6 +33,13 @@ async function getPost(id: string) {
   }
 }
 
+/** Google shows about 160 characters of a description; cut longer ones at a word boundary. */
+function clip(text: string, max = 160) {
+  if (text.length <= max) return text
+  const cut = text.slice(0, max - 1)
+  return cut.slice(0, cut.lastIndexOf(' ') > 0 ? cut.lastIndexOf(' ') : cut.length).replace(/[\s,;:.\-–—]+$/, '') + '…'
+}
+
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const post = await getPost(params.id)
 
@@ -44,7 +51,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   }
 
   const title = post.meta_title || post.title
-  const description = post.meta_description || post.excerpt
+  const description = clip(post.meta_description || post.excerpt || '')
   const imageUrl = post.image_url || `https://www.anantasutra.com/blog/${post.slug}/opengraph-image`
 
   return {

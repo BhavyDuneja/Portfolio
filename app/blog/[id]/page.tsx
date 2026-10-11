@@ -4,7 +4,22 @@ import { Calendar, Clock, User, Tag, ArrowLeft, Video, Eye } from 'lucide-react'
 import { getPostById, getRelatedPosts } from '@/lib/storage'
 import ShareAndView from './ShareAndView'
 
-export const revalidate = 3600
+// Each post is rendered on its first visit and then served from the cache, refreshed every 10 minutes.
+// Without force-static this route was rendered from scratch on every request (2-3.5 s per page view).
+export const revalidate = 600
+export const dynamic = 'force-static'
+
+const comparable = (html: string) =>
+  html.replace(/<[^>]*>/g, '').replace(/&[#a-z0-9]+;/gi, '').replace(/[^a-z0-9]+/gi, '').toLowerCase()
+
+/** Older posts repeat the title as an <h1> at the top of their HTML, while the page already prints it as
+ *  the H1. Drop that copy, and turn any other <h1> in the body into an <h2>, so a page has one H1. */
+function bodyHtml(content: string, title: string) {
+  let html = content || ''
+  const first = html.match(/^\s*<h1[^>]*>([\s\S]*?)<\/h1>\s*/i)
+  if (first && comparable(first[1]) === comparable(title)) html = html.slice(first[0].length)
+  return html.replace(/<h1(\s[^>]*)?>/gi, '<h2$1>').replace(/<\/h1>/gi, '</h2>')
+}
 
 export default async function BlogPostPage({ params }: { params: { id: string } }) {
   const post = await getPostById(params.id)
@@ -91,7 +106,7 @@ export default async function BlogPostPage({ params }: { params: { id: string } 
             </div>
 
             {/* Content */}
-            <div className="blog-content mb-8" dangerouslySetInnerHTML={{ __html: post.content }} />
+            <div className="blog-content mb-8" dangerouslySetInnerHTML={{ __html: bodyHtml(post.content, post.title) }} />
             <style>{`
               .blog-content { font-size: 17px; line-height: 1.9; color: #d1d5db; }
               .blog-content h1, .blog-content h2, .blog-content h3, .blog-content h4 { font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; color: #e8e6f0; }

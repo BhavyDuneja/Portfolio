@@ -14,6 +14,7 @@ const websiteJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'AnantaSutra',
+  alternateName: ['Ananta Sutra', 'अनन्तसूत्र'],
   url: 'https://www.anantasutra.com',
   description: 'Dedicated domain experts embedded in your team — you pay just the salary, no agency markup. Delhi-based, serving India, UAE, UK and beyond.',
   potentialAction: {
