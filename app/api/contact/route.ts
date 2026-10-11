@@ -1,11 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 import { supabase } from '@/lib/supabase'
+import { createZohoLead } from '@/lib/zoho'
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, email, service, message } = body
+    const name: string = typeof body.name === 'string' ? body.name.trim() : ''
+    const email: string = typeof body.email === 'string' ? body.email.trim() : ''
+    const message: string = typeof body.message === 'string' ? body.message.trim() : ''
+
+    // Optional fields — drop empty values and the form's old "Not provided/specified" placeholders
+    const clean = (v: unknown): string | null => {
+      const s = typeof v === 'string' ? v.trim() : ''
+      return s && !/^not (provided|specified)$/i.test(s) ? s : null
+    }
+    const phone = clean(body.phone)
+    const company = clean(body.company)
+    const service = clean(body.service) || clean(body.projectType) // the form sends projectType
+    const budget = clean(body.budget)
+    const timeline = clean(body.timeline)
 
     if (!name || !email || !message) {
       return NextResponse.json(
@@ -16,24 +30,42 @@ export async function POST(request: NextRequest) {
 
     // Save to Supabase first — even if email fails, we have the data
     let dbSaved = false
+    let rowId: string | null = null
     try {
-      const { error: dbError } = await supabase
+      let result = await supabase
         .from('contact_submissions')
-        .insert({
-          name,
-          email,
-          service: service || null,
-          message,
-          status: 'new',
-        })
+        .insert({ name, email, phone, company, service, budget, timeline, message, status: 'new' })
+        .select('id')
+        .single()
 
-      if (dbError) {
-        console.error('Failed to save contact submission to DB:', dbError)
+      // The extra columns only exist once the migration has run — fall back to the
+      // original shape so a lead is never lost in the meantime
+      if (result.error) {
+        result = await supabase
+          .from('contact_submissions')
+          .insert({ name, email, service, message, status: 'new' })
+          .select('id')
+          .single()
+      }
+
+      if (result.error) {
+        console.error('Failed to save contact submission to DB:', result.error)
       } else {
         dbSaved = true
+        rowId = result.data?.id ?? null
       }
     } catch (dbErr) {
       console.error('DB insert threw an error:', dbErr)
+    }
+
+    // Push the lead into Zoho CRM — a no-op until ZOHO_* env vars are set, and never blocks the form
+    const zohoLeadId = await createZohoLead({ name, email, phone, company, service, budget, timeline, message })
+    if (zohoLeadId && rowId) {
+      const { error: linkError } = await supabase
+        .from('contact_submissions')
+        .update({ zoho_lead_id: zohoLeadId })
+        .eq('id', rowId)
+      if (linkError) console.warn('Lead created in Zoho but zoho_lead_id not stored:', linkError.message)
     }
 
     // Send emails only if SMTP credentials are configured
@@ -58,12 +90,16 @@ export async function POST(request: NextRequest) {
             <div style="font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0A0A0F; color: #e8e6f0; padding: 32px; border-radius: 16px;">
               <div style="border-bottom: 1px solid rgba(232,163,23,0.3); padding-bottom: 20px; margin-bottom: 24px;">
                 <h1 style="color: #E8A317; font-size: 22px; margin: 0;">New Inquiry from ${name}</h1>
-                <p style="color: #8b89a0; margin: 8px 0 0; font-size: 13px;">${service || 'General'} ${dbSaved ? '| Saved to DB' : '| DB save failed'}</p>
+                <p style="color: #8b89a0; margin: 8px 0 0; font-size: 13px;">${service || 'General'} ${dbSaved ? '| Saved to DB' : '| DB save failed'}${zohoLeadId ? ' | Synced to Zoho CRM' : ''}</p>
               </div>
               <table style="width: 100%; border-collapse: collapse;">
                 <tr><td style="padding: 8px 0; color: #8b89a0; width: 100px;">Name</td><td style="color: #e8e6f0; font-weight: 600;">${name}</td></tr>
                 <tr><td style="padding: 8px 0; color: #8b89a0;">Email</td><td><a href="mailto:${email}" style="color: #E8A317;">${email}</a></td></tr>
                 <tr><td style="padding: 8px 0; color: #8b89a0;">Service</td><td style="color: #e8e6f0;">${service || 'Not specified'}</td></tr>
+                <tr><td style="padding: 8px 0; color: #8b89a0;">Company</td><td style="color: #e8e6f0;">${company || 'Not provided'}</td></tr>
+                <tr><td style="padding: 8px 0; color: #8b89a0;">Phone</td><td style="color: #e8e6f0;">${phone || 'Not provided'}</td></tr>
+                <tr><td style="padding: 8px 0; color: #8b89a0;">Budget</td><td style="color: #e8e6f0;">${budget || 'Not specified'}</td></tr>
+                <tr><td style="padding: 8px 0; color: #8b89a0;">Timeline</td><td style="color: #e8e6f0;">${timeline || 'Not specified'}</td></tr>
               </table>
               <div style="margin-top: 20px; padding: 16px; background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid rgba(255,255,255,0.06);">
                 <p style="color: #8b89a0; margin: 0 0 8px 0; font-size: 12px;">MESSAGE</p>

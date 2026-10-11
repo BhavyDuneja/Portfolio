@@ -47,5 +47,11 @@ export interface DbContactSubmission {
   service: string | null
   message: string
   status: 'new' | 'read' | 'replied'
+  company: string | null
+  phone: string | null
+  budget: string | null
+  timeline: string | null
+  /** Zoho CRM Lead record id once the enquiry has been synced */
+  zoho_lead_id: string | null
   created_at: string
 }

@@ -10,6 +10,7 @@ const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     company: '',
     projectType: '',
     budget: '',
@@ -36,10 +37,11 @@ const ContactForm = () => {
         timestamp: new Date().toISOString(),
         name: formData.name,
         email: formData.email,
-        company: formData.company || 'Not provided',
+        phone: formData.phone,
+        company: formData.company,
         projectType: formData.projectType,
-        budget: formData.budget || 'Not specified',
-        timeline: formData.timeline || 'Not specified',
+        budget: formData.budget,
+        timeline: formData.timeline,
         message: formData.message,
         status: 'New',
         source: 'Website Contact Form'
@@ -63,6 +65,7 @@ const ContactForm = () => {
           setFormData({
             name: '',
             email: '',
+            phone: '',
             company: '',
             projectType: '',
             budget: '',
@@ -176,6 +179,20 @@ const ContactForm = () => {
                       onChange={handleChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
                       placeholder="Your company name"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Phone / WhatsApp
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      autoComplete="tel"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                      placeholder="+91 98765 43210"
                     />
                   </div>
                 </div>
