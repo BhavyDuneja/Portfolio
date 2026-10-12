@@ -176,20 +176,24 @@ export const getPublishedPostSummaries = async (): Promise<BlogPost[]> => {
   return (data as DbBlogPost[]).map((row) => dbToPost({ ...row, content: '' }))
 }
 
-/** Get a single post by its ID or slug */
+/** Get a single post by its slug, else by its ID (like the blog layout: when one post's ID is another
+ *  post's slug, the slug wins instead of the page matching two posts and showing 404) */
 export const getPostById = async (idOrSlug: string): Promise<BlogPost | null> => {
-  const { data, error } = await supabase
-    .from('blog_posts')
-    .select('*')
-    .or(`id.eq.${idOrSlug},slug.eq.${idOrSlug}`)
-    .maybeSingle()
+  for (const column of ['slug', 'id']) {
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq(column, idOrSlug)
+      .maybeSingle()
 
-  if (error) {
-    console.error('Error fetching post:', error)
-    return null
+    if (error) {
+      console.error('Error fetching post:', error)
+      return null
+    }
+    if (data) return dbToPost(data as DbBlogPost)
   }
 
-  return data ? dbToPost(data as DbBlogPost) : null
+  return null
 }
 
 /** Create a new post */
