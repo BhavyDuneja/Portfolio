@@ -58,8 +58,9 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     title,
     description,
     // Pruned thin posts: noindex (follow links) so Google focuses crawl budget
-    // on the curated set in lib/blogIndexable.ts
-    robots: isIndexableBlogPost(post.slug, post.date) ? undefined : { index: false, follow: true },
+    // on the curated set in lib/blogIndexable.ts. Indexable posts leave the key out: `robots: undefined`
+    // dropped the site default (index, follow, max-image-preview:large) and the page had no robots tag.
+    ...(isIndexableBlogPost(post.slug, post.date) ? {} : { robots: { index: false, follow: true } }),
     alternates: {
       canonical: `https://www.anantasutra.com/blog/${post.slug}`,
     },
