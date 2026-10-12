@@ -26,7 +26,8 @@ export default async function BlogPostPage({ params }: { params: { id: string } 
 
   if (!post) notFound()
 
-  const relatedPosts = await getRelatedPosts(params.id, 3)
+  // Other indexable posts only (never noindexed or redirected ones): the internal links each article passes on.
+  const relatedPosts = await getRelatedPosts(post, 4)
 
   const imageUrl = post.imageUrl || post.fullImageUrl || post.thumbnailUrl || null
 
@@ -155,9 +156,9 @@ export default async function BlogPostPage({ params }: { params: { id: string } 
               <div className="w-1 h-8 bg-gradient-to-b from-saffron-500 to-violet-500 rounded-full" />
               Related Articles
             </h2>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
               {relatedPosts.map((related) => (
-                <Link key={related.id} href={`/blog/${related.slug}`}>
+                <Link key={related.slug} href={`/blog/${related.slug}`}>
                   <article className="glass-card rounded-2xl overflow-hidden group cursor-pointer h-full hover:border-saffron-500/20 hover:shadow-lg hover:shadow-saffron-500/5 transition-all duration-500">
                     <div className="h-36 bg-gradient-to-br from-dark-300 to-dark-400 flex items-center justify-center overflow-hidden">
                       {related.imageUrl ? (

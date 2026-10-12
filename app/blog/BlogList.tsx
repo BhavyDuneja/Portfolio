@@ -1,34 +1,36 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, type ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import { Calendar, Clock, User, Tag, Search, Video, Lock, Eye, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
-import type { BlogPost } from '@/lib/storage'
+import type { BlogPostSummary } from '@/lib/storage'
 
 const POSTS_PER_PAGE = 6
 
-const getImageUrl = (post: BlogPost): string | null => {
-  if (post.imageUrl) return post.imageUrl
-  if (post.thumbnailUrl) return post.thumbnailUrl
-  if (post.fullImageUrl) return post.fullImageUrl
-  return null
-}
+const getImageUrl = (post: BlogPostSummary): string | null => post.imageUrl || null
 
 // Link to the slug: that is the URL each article declares as canonical.
-const postHref = (post: BlogPost) => `/blog/${post.slug || post.id}`
+const postHref = (post: BlogPostSummary) => `/blog/${post.slug}`
 
 interface BlogListProps {
-  posts: BlogPost[]
-  featured: BlogPost[]
-  categories: string[]
+  posts: BlogPostSummary[]
+  /** Server-rendered content shown below the list (the full article index). */
+  children?: ReactNode
 }
 
-/** The interactive list (search, categories, pagination). The posts come from the server-rendered page. */
-const BlogList = ({ posts: blogPosts, featured, categories }: BlogListProps) => {
+/** The interactive list (search, categories, pagination). The posts come from the server-rendered page;
+ *  featured posts and categories are derived here so each post is sent to the browser only once. */
+const BlogList = ({ posts: blogPosts, children }: BlogListProps) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [currentPage, setCurrentPage] = useState(1)
+
+  const featured = useMemo(() => blogPosts.filter((post) => post.featured), [blogPosts])
+  const categories = useMemo(
+    () => ['All', ...Array.from(new Set(blogPosts.map((post) => post.category).filter(Boolean)))],
+    [blogPosts],
+  )
 
   // Reset page when filters change
   useEffect(() => {
@@ -121,7 +123,7 @@ const BlogList = ({ posts: blogPosts, featured, categories }: BlogListProps) => 
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {featured.map((post, i) => (
-                <Link key={post.id} href={postHref(post)}>
+                <Link key={post.slug} href={postHref(post)}>
                   <motion.article
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -177,7 +179,7 @@ const BlogList = ({ posts: blogPosts, featured, categories }: BlogListProps) => 
           </h2>
           <div className="space-y-4">
             {paginatedPosts.map((post, i) => (
-              <Link key={post.id} href={postHref(post)}>
+              <Link key={post.slug} href={postHref(post)}>
                 <motion.article
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -300,6 +302,8 @@ const BlogList = ({ posts: blogPosts, featured, categories }: BlogListProps) => 
             </button>
           </motion.div>
         )}
+
+        {children}
       </div>
     </div>
   )

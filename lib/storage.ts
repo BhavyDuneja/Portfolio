@@ -1,5 +1,6 @@
 // Storage utility for blog posts — Supabase backend
 import { supabase, DbBlogPost } from './supabase'
+import { isIndexableBlogPost } from './blogIndexable'
 
 export type PostStatus = 'draft' | 'published' | 'scheduled'
 
@@ -158,22 +159,54 @@ export const getPublishedPosts = async (): Promise<BlogPost[]> => {
   return (data as DbBlogPost[]).map(dbToPost)
 }
 
-/** Published posts without their HTML body — for listing pages, where the body is never shown */
-export const getPublishedPostSummaries = async (): Promise<BlogPost[]> => {
-  const now = new Date().toISOString()
+/** What the blog hub and the related-post cards show: no HTML body, no SEO fields. */
+export type BlogPostSummary = Pick<
+  BlogPost,
+  'slug' | 'title' | 'excerpt' | 'author' | 'date' | 'readTime' | 'category' | 'tags' | 'featured' | 'viewCount' | 'imageUrl' | 'videoUrl'
+>
+
+type SummaryRow = Pick<
+  DbBlogPost,
+  'slug' | 'title' | 'excerpt' | 'author_name' | 'date' | 'read_time' | 'category' | 'tags' | 'featured' | 'view_count' | 'image_url' | 'video_url'
+>
+
+const SUMMARY_COLUMNS = 'slug,title,excerpt,author_name,date,read_time,category,tags,featured,view_count,image_url,video_url'
+
+/** Published posts that may be indexed (lib/blogIndexable.ts), newest first, without their body. Links from
+ *  the blog hub and from related posts use only these, never noindexed or redirected posts. */
+export const getIndexablePostSummaries = async (): Promise<BlogPostSummary[]> => {
+  // "now" rounded down to 10 minutes: every page rendered in that window sends the same request, so the
+  // hub and all related-post lists share one cached response instead of each fetching the whole list.
+  const now = new Date(Math.floor(Date.now() / 600_000) * 600_000).toISOString()
 
   const { data, error } = await supabase
     .from('blog_posts')
-    .select('id,title,slug,excerpt,author_name,date,read_time,category,tags,featured,status,scheduled_date,view_count,meta_title,meta_description,image_url,image_alt,video_url,created_at,updated_at')
+    .select(SUMMARY_COLUMNS)
     .or(`status.eq.published,and(status.eq.scheduled,scheduled_date.lte.${now})`)
     .order('date', { ascending: false })
 
-  if (error) {
+  if (error || !Array.isArray(data)) {
     console.error('Error fetching post summaries:', error)
     return []
   }
 
-  return (data as DbBlogPost[]).map((row) => dbToPost({ ...row, content: '' }))
+  return (data as SummaryRow[])
+    .filter((row) => typeof row.slug === 'string' && row.slug.trim() !== '' && typeof row.title === 'string')
+    .filter((row) => isIndexableBlogPost(row.slug, row.date))
+    .map((row) => ({
+      slug: row.slug,
+      title: row.title,
+      excerpt: row.excerpt ?? '',
+      author: row.author_name ?? '',
+      date: row.date,
+      readTime: row.read_time ?? '',
+      category: row.category ?? '',
+      tags: Array.isArray(row.tags) ? row.tags.filter((tag) => typeof tag === 'string') : [],
+      featured: row.featured === true,
+      viewCount: row.view_count ?? 0,
+      imageUrl: row.image_url ?? undefined,
+      videoUrl: row.video_url ?? undefined,
+    }))
 }
 
 /** Get a single post by its slug, else by its ID (like the blog layout: when one post's ID is another
@@ -304,32 +337,37 @@ export const searchPosts = async (query: string): Promise<BlogPost[]> => {
   return (data as DbBlogPost[]).map(dbToPost)
 }
 
-/** Get related posts (same category, excluding the given post) */
+const TITLE_STOP_WORDS = new Set([
+  'india', 'indian', 'guide', 'complete', 'marketing', 'business', 'businesses', 'companies', 'brands',
+  'your', 'with', 'from', 'that', 'this', 'what', 'best', '2025', '2026',
+])
+
+const titleWords = (title: string): string[] =>
+  (title.toLowerCase().match(/[a-z0-9]+/g) ?? []).filter((word) => word.length > 3 && !TITLE_STOP_WORDS.has(word))
+
+/** Other indexable posts closest to `post`: same category first, then the most shared tags and title words,
+ *  newest first on a tie. Rendered at the end of each article so every indexable post gets internal links. */
 export const getRelatedPosts = async (
-  postId: string,
-  limit: number = 3,
-): Promise<BlogPost[]> => {
-  // First fetch the current post to know its category
-  const current = await getPostById(postId)
-  if (!current) return []
+  post: Pick<BlogPost, 'slug' | 'title' | 'category' | 'tags'>,
+  limit: number = 4,
+): Promise<BlogPostSummary[]> => {
+  const count = Math.min(Math.max(Math.floor(limit), 0), 10)
+  if (count === 0) return []
 
-  const now = new Date().toISOString()
+  const tags = new Set((post.tags ?? []).filter((tag) => typeof tag === 'string').map((tag) => tag.toLowerCase()))
+  const words = new Set(titleWords(post.title ?? ''))
 
-  const { data, error } = await supabase
-    .from('blog_posts')
-    .select('*')
-    .neq('id', current.id)
-    .eq('category', current.category)
-    .or(`status.eq.published,and(status.eq.scheduled,scheduled_date.lte.${now})`)
-    .order('date', { ascending: false })
-    .limit(limit)
-
-  if (error) {
-    console.error('Error fetching related posts:', error)
-    return []
-  }
-
-  return (data as DbBlogPost[]).map(dbToPost)
+  return (await getIndexablePostSummaries())
+    .filter((candidate) => candidate.slug !== post.slug)
+    .map((candidate, index) => {
+      let score = candidate.category === post.category ? 100 : 0
+      score += 10 * candidate.tags.filter((tag) => tags.has(tag.toLowerCase())).length
+      score += 3 * titleWords(candidate.title).filter((word) => words.has(word)).length
+      return { candidate, score, index }
+    })
+    .sort((a, b) => b.score - a.score || a.index - b.index)
+    .slice(0, count)
+    .map(({ candidate }) => candidate)
 }
 
 /** Get featured published posts */

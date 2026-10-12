@@ -5,7 +5,13 @@
  * sitemap — mass thin content was suppressing the whole domain in Google
  * (616 discovered-not-indexed / 115 crawled-not-indexed in Search Console).
  * To re-index a post, add its slug here. To prune one, remove it.
+ * Merged near-duplicates (October 2026) are listed in lib/blogRedirects.json, which next.config.js
+ * turns into 308 redirects; those slugs are never indexable, whatever their date.
  */
+import blogRedirects from './blogRedirects.json'
+
+const redirectedSlugs = new Set<string>(Object.keys(blogRedirects))
+
 const indexableSlugs = new Set<string>([
   'ai-predict-prevent-customer-churn-indian-companies',
   'anatomy-viral-marketing-campaign-lessons-india-top-brands',
@@ -32,7 +38,6 @@ const indexableSlugs = new Set<string>([
   'content-marketing-strategy-indian-businesses-2026-playbook',
   'conversion-rate-optimization-data-driven-approach-indian-websites',
   'copywriting-for-indian-brands-writing-converts-across-cultures-languages',
-  'corporate-video-production-indian-business-professional-content',
   'corporate-video-production-types-costs-best-practices-indian-companies',
   'create-unique-value-proposition-resonates-indian-consumers',
   'cross-platform-retargeting-google-meta-linkedin-working-together',
@@ -120,7 +125,6 @@ const indexableSlugs = new Set<string>([
   'position-brand-indian-international-markets',
   'ppc-campaign-management-complete-framework-indian-digital-marketers',
   'ppc-indian-saas-companies-acquire-global-customers-paid-search',
-  'ppc-indian-saas-global-customers-paid-search',
   'product-photography-ecommerce-guide-indian-sellers',
   'programmatic-advertising-india-automated-ad-buying-works',
   'psychology-social-media-engagement-indian-audiences-click',
@@ -143,10 +147,8 @@ const indexableSlugs = new Set<string>([
   'twitter-x-b2b-marketing-india-lead-generation-strategies',
   'twitter-x-marketing-strategy-indian-brands-2026',
   'ultimate-instagram-marketing-strategy-indian-businesses-2026',
-  'video-marketing-budget-indian-smes-professional-results-any-budget',
   'video-marketing-strategy-indian-businesses-complete-2026-guide',
   'video-production-budget-guide-indian-smes-quality-within-budget',
-  'video-seo-rank-videos-google-youtube-india',
   'visual-branding-guide-design-brand-stands-out-india-market',
   'voice-search-seo-alexa-google-assistant-siri-india',
   'web-accessibility-india-designing-inclusive-websites-all-users',
@@ -165,6 +167,7 @@ const indexableSlugs = new Set<string>([
 const PRUNE_CUTOFF = '2026-07-24'
 
 export function isIndexableBlogPost(slug: string, date?: string | null): boolean {
+  if (!slug || redirectedSlugs.has(slug)) return false
   if (indexableSlugs.has(slug)) return true
   if (date && String(date).slice(0, 10) > PRUNE_CUTOFF) return true
   return false
