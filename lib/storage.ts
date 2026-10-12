@@ -340,15 +340,19 @@ export const searchPosts = async (query: string): Promise<BlogPost[]> => {
 const TITLE_STOP_WORDS = new Set([
   'india', 'indian', 'guide', 'complete', 'marketing', 'business', 'businesses', 'companies', 'brands',
   'your', 'with', 'from', 'that', 'this', 'what', 'best', '2025', '2026',
+  // Words that say nothing about the topic ("page" matched a YouTube post to a LinkedIn company-page post)
+  'page', 'pages', 'ways', 'tips', 'steps', 'strategy', 'strategies', 'playbook', 'framework', 'ultimate',
+  'beginners', 'need', 'know', 'more', 'than', 'into', 'beyond', 'without', 'works', 'right',
 ])
 
 const titleWords = (title: string): string[] =>
   (title.toLowerCase().match(/[a-z0-9]+/g) ?? []).filter((word) => word.length > 3 && !TITLE_STOP_WORDS.has(word))
 
-/** Other indexable posts closest to `post`: same category first, then the most shared tags and title words,
- *  newest first on a tie. Rendered at the end of each article so every indexable post gets internal links. */
+/** Other indexable posts closest to `post`: same category first, then the most shared tags and title words.
+ *  On a tie the posts published closest in time to `post` win, not always the newest, so the links spread
+ *  over the whole archive. Rendered at the end of each article so every indexable post gets internal links. */
 export const getRelatedPosts = async (
-  post: Pick<BlogPost, 'slug' | 'title' | 'category' | 'tags'>,
+  post: Pick<BlogPost, 'slug' | 'title' | 'category' | 'tags' | 'date'>,
   limit: number = 4,
 ): Promise<BlogPostSummary[]> => {
   const count = Math.min(Math.max(Math.floor(limit), 0), 10)
@@ -357,15 +361,19 @@ export const getRelatedPosts = async (
   const tags = new Set((post.tags ?? []).filter((tag) => typeof tag === 'string').map((tag) => tag.toLowerCase()))
   const words = new Set(titleWords(post.title ?? ''))
 
-  return (await getIndexablePostSummaries())
-    .filter((candidate) => candidate.slug !== post.slug)
+  // Newest first, so the post's own place in the list is the first candidate not newer than it
+  const candidates = (await getIndexablePostSummaries()).filter((candidate) => candidate.slug !== post.slug)
+  const found = post.date ? candidates.findIndex((candidate) => String(candidate.date) <= String(post.date)) : 0
+  const pivot = found < 0 ? candidates.length : found
+
+  return candidates
     .map((candidate, index) => {
       let score = candidate.category === post.category ? 100 : 0
       score += 10 * candidate.tags.filter((tag) => tags.has(tag.toLowerCase())).length
       score += 3 * titleWords(candidate.title).filter((word) => words.has(word)).length
-      return { candidate, score, index }
+      return { candidate, score, distance: Math.abs(index - pivot), index }
     })
-    .sort((a, b) => b.score - a.score || a.index - b.index)
+    .sort((a, b) => b.score - a.score || a.distance - b.distance || a.index - b.index)
     .slice(0, count)
     .map(({ candidate }) => candidate)
 }

@@ -32,6 +32,16 @@ const BlogList = ({ posts: blogPosts, children }: BlogListProps) => {
     [blogPosts],
   )
 
+  // Article pages link to /blog?category=… and /blog?tag=…. The page is static (same HTML for every query,
+  // canonical /blog), so apply those filters here once it has loaded.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const category = params.get('category')
+    const tag = params.get('tag')
+    if (category && categories.includes(category)) setSelectedCategory(category)
+    if (tag) setSearchTerm(tag)
+  }, [categories])
+
   // Reset page when filters change
   useEffect(() => {
     setCurrentPage(1)

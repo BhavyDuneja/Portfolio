@@ -124,7 +124,7 @@ const indexableSlugs = new Set<string>([
   'personal-branding-indian-entrepreneurs-building-authority',
   'position-brand-indian-international-markets',
   'ppc-campaign-management-complete-framework-indian-digital-marketers',
-  'ppc-indian-saas-companies-acquire-global-customers-paid-search',
+  'ppc-indian-saas-global-customers-paid-search',
   'product-photography-ecommerce-guide-indian-sellers',
   'programmatic-advertising-india-automated-ad-buying-works',
   'psychology-social-media-engagement-indian-audiences-click',
