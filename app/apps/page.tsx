@@ -3,12 +3,15 @@
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   BookOpen, Sun, ArrowRight, Sparkles, Heart,
   Calendar, Bell, CheckCircle2, Globe2, BookMarked,
   Scroll, Users, Download, Star,
-  Phone, Mic, BarChart2, Zap, Database, PhoneOff
+  Phone, Mic, BarChart2, Zap, Database, PhoneOff,
+  Code2, ArrowDown, ExternalLink
 } from 'lucide-react'
+import { tools } from '@/lib/tools'
 
 const apps = [
   {
@@ -126,6 +129,18 @@ export default function AppsPage() {
           >
             Technology that nurtures the soul. Ancient wisdom and modern tools for a life of purpose and practice.
           </motion.p>
+
+          <motion.a
+            href="#tools"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="inline-flex items-center gap-2 mt-8 text-sm font-medium text-saffron-400 hover:text-saffron-300 transition-colors"
+          >
+            <Code2 className="w-4 h-4" />
+            Looking for our developer and AI tools? See them below
+            <ArrowDown className="w-4 h-4" />
+          </motion.a>
         </div>
       </section>
 
@@ -224,6 +239,115 @@ export default function AppsPage() {
               </div>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* Tools */}
+      <section id="tools" className="py-24 px-4 scroll-mt-24">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-saffron-500/10 border border-saffron-500/20 text-saffron-400 text-sm font-medium mb-6"
+            >
+              <Code2 className="w-4 h-4" />
+              For Developers & AI Agents
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="font-display text-4xl md:text-6xl font-bold text-white mb-6"
+            >
+              Tools for the <span className="gradient-text-divine">AI Era</span>
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-gray-300 text-lg max-w-2xl mx-auto"
+            >
+              Pay-per-use tools for AI search visibility and Indian business data. No subscription: you pay only for what you run.
+            </motion.p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {tools.map((tool, i) => (
+              <motion.div
+                key={tool.id}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.6, delay: (i % 3) * 0.1 }}
+                className="glass-card rounded-3xl p-7 flex flex-col"
+              >
+                <div className="flex items-start justify-between gap-4 mb-6">
+                  <div className="w-16 h-16 rounded-2xl overflow-hidden bg-[#080706] ring-1 ring-saffron-500/20 flex-shrink-0">
+                    <Image src={tool.logo} alt={`${tool.name} logo`} width={64} height={64} className="w-full h-full object-cover" />
+                  </div>
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${
+                    tool.status === 'live'
+                      ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                      : 'bg-violet-500/10 text-violet-400 border border-violet-500/20'
+                  }`}>
+                    {tool.status === 'live' ? 'Live' : 'Coming soon'} · {tool.platform}
+                  </span>
+                </div>
+
+                <h3 className="font-display text-2xl font-bold text-white">
+                  {tool.name} <span className="text-gray-500 text-lg font-normal ml-1">{tool.sanskrit}</span>
+                </h3>
+                <p className="text-saffron-400 font-medium mt-1 mb-3">{tool.tagline}</p>
+                <p className="text-gray-300 text-sm leading-relaxed mb-5">{tool.description}</p>
+
+                <ul className="space-y-2.5 mb-6">
+                  {tool.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2.5 text-sm text-gray-300">
+                      <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0 text-saffron-500" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-auto pt-5 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-3">
+                  <span className="text-white text-sm font-semibold">{tool.price}</span>
+                  {tool.url ? (
+                    <a
+                      href={tool.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-saffron-400 hover:text-saffron-300 transition-colors"
+                    >
+                      {tool.cta}
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  ) : (
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-saffron-400 hover:text-saffron-300 transition-colors"
+                    >
+                      {tool.cta}
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <p className="text-center text-gray-400 mt-12">
+            Want your brand to show up in AI answers without doing the work yourself?{' '}
+            <Link href="/contact" className="inline-flex items-center gap-1 text-saffron-400 hover:text-saffron-300 font-medium transition-colors">
+              Our team does GEO and AEO for you
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </p>
         </div>
       </section>
 

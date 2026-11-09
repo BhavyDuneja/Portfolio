@@ -220,6 +220,15 @@ E-commerce solutions | Real estate tech | Immigration support | Business consult
 - Granthas — Digital platform for Hindu scriptures and spiritual texts
 - Ritualist — Personalized puja and ceremony booking; connects devotees with verified priests
 
+### Developer & AI tools (self-serve, pay per use, listed at anantasutra.com/apps#tools)
+- Drishti — AI search visibility (GEO) audit: can ChatGPT, Claude, Perplexity and Google AI Overviews reach a site; 0–100 score with fixes. $0.004 per URL on the Apify Store.
+- Suchi — Generates llms.txt and llms-full.txt for any website. $0.001 per page on the Apify Store.
+- Pramana — Bulk validation of Indian IDs: GSTIN, PAN, TAN, CIN, LLPIN, IFSC, PIN code, UPI ID, vehicle numbers. $0.40 per 1,000 IDs on the Apify Store.
+- Sthana — Cleans messy Indian addresses into house, street, locality, city, district, state and PIN. $0.80 per 1,000 addresses on the Apify Store.
+- Setu — The same tools as one pay-per-call API for AI agents (x402, USDC on Base). From $0.005 per call.
+- Netra — Chrome and Edge extension that scores any page for AI search visibility. Coming soon (free, with a Pro plan).
+If a visitor wants these problems fixed for them rather than self-serve, offer our GEO/AEO service and the free consultation.
+
 ## PRICING
 
 | Service | Pricing |

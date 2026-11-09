@@ -28,6 +28,7 @@ const serviceLinks = [
 const productLinks = [
   { name: 'Ritualist App', href: 'https://ritualist.anantasutra.com', description: 'Daily spiritual companion' },
   { name: 'Granthas App', href: '/apps', description: 'Sacred text library' },
+  { name: 'Developer & AI Tools', href: '/apps#tools', description: 'Drishti, Suchi, Pramana, Sthana, Setu, Netra' },
 ];
 
 const socialLinks = [

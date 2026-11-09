@@ -25,6 +25,14 @@ AnantaSutra's model in one line: one dedicated expert, embedded in your team, wo
 - [Business & Ops](https://www.anantasutra.com/services/dedicated-experts): Analysts, operations and strategy experts.
 - [Academic & Research](https://www.anantasutra.com/services/dedicated-experts): Researchers, subject experts and writers.
 
+## Developer & AI tools (pay per use)
+- [All tools](https://www.anantasutra.com/apps#tools): Self-serve tools for AI search visibility and Indian business data.
+- [Drishti](https://apify.com/motivating_bracelet/drishti-anantasutra): AI search visibility (GEO) audit with a 0–100 score and fixes; $0.004 per URL.
+- [Suchi](https://apify.com/motivating_bracelet/suchi-anantasutra): llms.txt and llms-full.txt generator for any website; $0.001 per page.
+- [Pramana](https://apify.com/motivating_bracelet/pramana-anantasutra): Bulk validator for Indian IDs (GSTIN, PAN, TAN, CIN, LLPIN, IFSC, PIN, UPI, vehicle numbers); $0.40 per 1,000.
+- [Sthana](https://apify.com/motivating_bracelet/sthana-anantasutra): Indian address normalizer with PIN validation; $0.80 per 1,000 addresses.
+- [Setu](https://setu.xyz23110928.workers.dev): The same tools as one pay-per-call API for AI agents (x402, USDC on Base); from $0.005 per call.
+
 ## Proof & results
 - [Portfolio](https://www.anantasutra.com/portfolio): Completed projects and client work.
 - [Testimonials & case studies](https://www.anantasutra.com/testimonials): Real outcomes — Awish Clinic (dermatology, Delhi) went from ₹25L to ₹40L/month in 60 days; Zoom Wheels (automotive) +46% revenue; Royal Properties (real estate) +38% traffic.
