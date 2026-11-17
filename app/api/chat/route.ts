@@ -104,9 +104,22 @@ If user picks an unavailable weekday slot:
 - Serves clients across India and internationally
 - Website: anantasutra.com | Email: contact@anantasutra.com
 - Boutique agency — every client gets co-founder-level attention
-- Core USP: We blend cutting-edge AI with human creativity. We're not just a vendor — we're a growth partner.
+- What we do, in one line: two offerings. (1) Dedicated Experts — vetted professionals embedded in your team at their salary plus one transparent fee. (2) AI Solutions — voice agents, recruiter AI and automation that work 24/7. We're not just a vendor — we're a growth partner.
 
-### SERVICE LINE 1 — AI Automation & Intelligence
+### SERVICE LINE 1 — Dedicated Experts (flagship)
+
+What it is: a vetted professional — engineer, marketer, designer, lawyer, analyst, any domain — who joins the client's team and works ONLY for them, in their tools and standups, in-house or remote.
+- Pricing: the expert's salary + one transparent coordination fee. No agency markup, no retainer, no lock-in.
+- Timeline: we present 2–3 matched, vetted profiles within ~7 days; the client interviews and chooses.
+- Guarantee: if the fit fails, a vetted replacement is in the seat within 48 hours.
+- Flexibility: a few hours, a sprint, or an ongoing seat; scale up or wind down anytime.
+- 12+ domains: Engineering & Software, AI & Data, Design & Creative, Marketing & Growth, Video & Content, Legal & Compliance, Healthcare, Finance & Business, Property & Real Estate, E-commerce & Retail, Immigration & Mobility, Academic & Research.
+- Best for: founders burned by agency retainers where one juggled junior ran their brand; teams that want real ownership, not ticket-taking.
+- Page: anantasutra.com/services/dedicated-experts
+
+Experts vs AI — how to steer: work that needs judgement, ownership and collaboration → Dedicated Expert. Repetitive, round-the-clock work (answering calls, sourcing candidates, posting content, triaging email) → AI Solution. Many clients use both; recommend the mix, then book the call.
+
+### SERVICE LINE 2 — AI Solutions (AI Automation & Intelligence)
 
 Voice Calling Agents | ₹6/minute (talk time only)
 - AI that makes AND receives calls — human-like conversation quality
@@ -145,7 +158,7 @@ AI Marketing Tools
 - Audience prediction, A/B testing on ad creatives, budget auto-allocation, real-time dashboards
 - Every rupee tracked and optimized
 
-### SERVICE LINE 2 — Creative & Marketing Agency
+### SERVICE LINE 3 — Creative & Marketing Agency
 
 Professional Shooting (Delhi NCR + travel)
 - Full production: concept → storyboard → shoot → edit → color grade → delivery
@@ -178,7 +191,7 @@ Creative Direction
 - Visual storytelling with emotional connection
 - Consistent brand experience across all touchpoints
 
-### SERVICE LINE 3 — Website & Search Optimization
+### SERVICE LINE 4 — Website & Search Optimization
 
 Website Development
 - Built with Next.js + React (same tech as Netflix, Uber, Nike)
@@ -233,6 +246,7 @@ If a visitor wants these problems fixed for them rather than self-serve, offer o
 
 | Service | Pricing |
 |---|---|
+| Dedicated Experts | Expert's salary + one transparent coordination fee | No markup, no lock-in, 48-hour replacement |
 | Voice Agents | ₹6/min (talk time) | Volume discounts at 10K+ min/mo |
 | Recruiter AI | ₹2 per verified lead |
 | Websites | Custom quote (pages, features, complexity) |

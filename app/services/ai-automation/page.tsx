@@ -101,7 +101,7 @@ export default function AIAutomationPage() {
             transition={{ delay: 0.2 }}
             className="text-gray-400 text-lg md:text-xl max-w-2xl mb-10"
           >
-            From voice calling agents at just ₹6/min to recruiter AI at ₹2/lead — we make AI automation accessible, affordable, and powerful.
+            From voice calling agents at just ₹6/min to recruiter AI at ₹2/lead — AI that takes over a job and runs it round the clock, alongside the dedicated experts we embed in your team.
           </motion.p>
 
           <motion.div
@@ -215,6 +215,12 @@ export default function AIAutomationPage() {
               <span>Book a Free Consultation</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
+            <p className="text-gray-500 text-sm mt-6">
+              Need a person on the job instead?{' '}
+              <Link href="/services/dedicated-experts" className="text-saffron-400 hover:underline">
+                Hire a dedicated expert
+              </Link>
+            </p>
           </motion.div>
         </div>
       </section>

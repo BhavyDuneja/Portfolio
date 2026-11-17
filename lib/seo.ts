@@ -25,7 +25,7 @@ const OG_IMAGE = {
 export const PAGE_SEO: Record<string, PageSeo> = {
   services: {
     path: '/services',
-    title: 'Services: Dedicated Experts and AI Automation',
+    title: 'Services: Dedicated Experts and AI Solutions',
     description: 'Hire a dedicated expert in engineering, AI, design, marketing, video and more, or use AI voice agents from ₹6/min and Recruiter AI at ₹2/lead.',
   },
   'dedicated-experts': {

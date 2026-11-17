@@ -10,7 +10,7 @@ const About = () => {
   const paragraphs = [
     "AnantaSutra — meaning 'Infinite Wisdom' — is built on one simple idea: growth comes from people, not retainers. We weave vetted domain experts into your team — one unbroken thread from your goal to the person doing the work.",
     "From engineers and performance marketers to designers, legal and finance specialists — every expert works only for you, in your tools and your standups, at just their salary plus one small transparent fee. No markup, no juggled juniors, no lock-ins.",
-    "We believe in the convergence of technology and tradition — modern execution, timeless commitment. We grow when you grow; that's the whole reason this model exists.",
+    "We believe in the convergence of technology and tradition — modern execution, timeless commitment. So alongside our experts we build AI solutions — voice agents, recruiter AI, automation — that run around the clock at transparent per-use prices. We grow when you grow; that's the whole reason this model exists.",
   ]
 
   return (

@@ -8,7 +8,7 @@ const Hero = () => {
   const headingWords1 = ['Infinite', 'Wisdom']
   const headingWords2 = ['Applied']
   const subtitleWords =
-    'We embed vetted domain experts inside your team — engineers, marketers, designers, any field — and you pay just their salary. No markup, no lock-ins, live in 7 days.'.split(' ')
+    'We embed vetted domain experts inside your team — engineers, marketers, designers, any field — at just their salary. And where software does the job better, we deploy AI solutions that work 24/7. No markup, no lock-ins, live in 7 days.'.split(' ')
 
   return (
     <section className="relative min-h-screen flex items-end overflow-hidden bg-[#0A0A0F]">
@@ -53,7 +53,7 @@ const Hero = () => {
           >
             <Sparkles className="w-4 h-4 text-[#E8A317]" />
             <span className="text-sm text-gray-300 tracking-wide">
-              Not a project. A dedicated expert.
+              Vetted experts. AI solutions. One partner.
             </span>
           </motion.div>
 
@@ -121,10 +121,10 @@ const Hero = () => {
               Get Your Expert
             </Link>
             <Link
-              href="/contact"
+              href="/services/ai-automation"
               className="btn-outline border-2 border-white/20 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/5 hover:border-white/40 transition-all duration-300 hover:scale-105 whitespace-nowrap"
             >
-              Get in Touch
+              Explore AI Solutions
             </Link>
           </motion.div>
         </div>

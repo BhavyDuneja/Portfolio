@@ -16,7 +16,7 @@ const websiteJsonLd = {
   name: 'AnantaSutra',
   alternateName: ['Ananta Sutra', 'अनन्तसूत्र'],
   url: 'https://www.anantasutra.com',
-  description: 'Dedicated domain experts embedded in your team — you pay just the salary, no agency markup. Delhi-based, serving India, UAE, UK and beyond.',
+  description: 'Dedicated domain experts embedded in your team at just their salary, plus AI solutions that work 24/7. No agency markup. Delhi-based, serving India, UAE, UK and beyond.',
   potentialAction: {
     '@type': 'SearchAction',
     target: {
@@ -71,7 +71,7 @@ export default function AnantasutraHome() {
               Let&apos;s Weave Your Thread
             </h2>
             <p className="text-gray-300 text-lg mb-10 max-w-lg mx-auto">
-              Whether you need one embedded expert or a full growth pod — tell us the role, and we&apos;ll present 2–3 vetted profiles within 7 days.
+              Whether you need one embedded expert, a full growth pod or an AI agent that never clocks out — tell us the goal. Within 7 days you&apos;ll have 2–3 vetted profiles or a working AI demo.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link href="/contact" className="btn-primary">

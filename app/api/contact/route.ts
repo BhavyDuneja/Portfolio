@@ -145,7 +145,8 @@ export async function POST(request: NextRequest) {
                 While you wait, here's something relevant:
               </p>
               <div style="margin: 16px 0;">
-                <a href="https://anantasutra.com/services/ai-automation" style="color: #E8A317; font-size: 14px; display: block; padding: 4px 0;">AI Automation & Intelligence</a>
+                <a href="https://anantasutra.com/services/dedicated-experts" style="color: #E8A317; font-size: 14px; display: block; padding: 4px 0;">Dedicated Experts</a>
+                <a href="https://anantasutra.com/services/ai-automation" style="color: #E8A317; font-size: 14px; display: block; padding: 4px 0;">AI Solutions</a>
                 <a href="https://anantasutra.com/services/marketing" style="color: #E8A317; font-size: 14px; display: block; padding: 4px 0;">Creative & Marketing Agency</a>
                 <a href="https://ritualist.anantasutra.com" style="color: #E8A317; font-size: 14px; display: block; padding: 4px 0;">Ritualist App</a>
               </div>

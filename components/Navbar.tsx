@@ -23,6 +23,7 @@ import {
   GraduationCap,
 } from 'lucide-react';
 import ThemeToggle from '@/components/ThemeToggle';
+import { aiSolutions, AI_SOLUTIONS_HUB } from '@/lib/aiSolutions';
 
 // Domain expertise areas — a client can request an embedded expert from any of these.
 const servicesMenu = [
@@ -180,11 +181,23 @@ export default function Navbar() {
                               What we do
                             </p>
                             <h3 className="text-white font-bold text-base leading-snug">
-                              Vetted experts in any field, working for you
+                              Vetted experts in any field, plus AI solutions that work 24/7
                             </h3>
                             <p className="text-gray-400 text-xs mt-1">
-                              Name the role. We place a professional inside your team — in-house or remote.
+                              Name the role and we place a professional inside your team — in-house or remote. Or put an AI solution on the job.
                             </p>
+                          </div>
+
+                          <div className="flex items-center justify-between gap-4 mb-3">
+                            <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-500">
+                              Dedicated experts · any domain
+                            </p>
+                            <Link
+                              href="/services/dedicated-experts"
+                              className="text-[#E8A317] text-xs font-semibold whitespace-nowrap hover:underline"
+                            >
+                              How it works
+                            </Link>
                           </div>
 
                           <div className="grid grid-cols-3 gap-6">
@@ -213,10 +226,43 @@ export default function Navbar() {
                             ))}
                           </div>
 
+                          {/* AI Solutions */}
+                          <div className="mt-5 pt-5 border-t border-white/10">
+                            <div className="flex items-center justify-between gap-4 mb-3">
+                              <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-500">
+                                AI solutions · runs 24/7
+                              </p>
+                              <Link
+                                href={AI_SOLUTIONS_HUB}
+                                className="text-[#E8A317] text-xs font-semibold whitespace-nowrap hover:underline"
+                              >
+                                View all
+                              </Link>
+                            </div>
+                            <div className="grid grid-cols-3 gap-x-6 gap-y-1">
+                              {aiSolutions.map((item) => {
+                                const Icon = item.icon;
+                                return (
+                                  <Link
+                                    key={item.slug}
+                                    href={item.href}
+                                    className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-200 group/item"
+                                  >
+                                    <Icon className="w-4 h-4 text-gray-500 group-hover/item:text-[#6A3DE8] transition-colors" />
+                                    <span className="text-sm flex-1">{item.name}</span>
+                                    {item.price && (
+                                      <span className="text-[11px] text-gray-500">{item.price}</span>
+                                    )}
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          </div>
+
                           {/* Bottom CTA */}
                           <div className="mt-5 pt-5 border-t border-white/10 flex items-center justify-between gap-4">
                             <span className="text-gray-400 text-xs">
-                              Any domain, any duration — in-house or remote.
+                              Any domain, any duration — a person on your team or AI on the job.
                             </span>
                             <Link
                               href="/contact"
@@ -342,6 +388,32 @@ export default function Navbar() {
                                   })}
                                 </div>
                               ))}
+                              <div>
+                                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider px-4 mb-1">
+                                  AI Solutions
+                                </p>
+                                {aiSolutions.map((item) => {
+                                  const Icon = item.icon;
+                                  return (
+                                    <Link
+                                      key={item.slug}
+                                      href={item.href}
+                                      onClick={() => setMobileOpen(false)}
+                                      className="flex items-center gap-3 px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                                    >
+                                      <Icon className="w-4 h-4 text-gray-500" />
+                                      {item.name}
+                                    </Link>
+                                  );
+                                })}
+                                <Link
+                                  href={AI_SOLUTIONS_HUB}
+                                  onClick={() => setMobileOpen(false)}
+                                  className="block px-4 py-2 text-sm text-[#E8A317] hover:underline"
+                                >
+                                  All AI solutions
+                                </Link>
+                              </div>
                             </div>
                           </motion.div>
                         )}

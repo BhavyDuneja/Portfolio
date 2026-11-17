@@ -17,12 +17,14 @@ import {
 
 const serviceLinks = [
   { name: 'Dedicated Experts', href: '/services/dedicated-experts' },
-  { name: 'AI Automation', href: '/services/voice-agents' },
-  { name: 'Video Generators', href: '/services/video-generators' },
+  { name: 'AI Solutions', href: '/services/ai-automation' },
+  { name: 'AI Voice Agents', href: '/services/voice-agents' },
+  { name: 'Recruiter AI', href: '/services/recruiter-ai' },
   { name: 'Social Media Automation', href: '/services/social-automation' },
+  { name: 'AI Video Generators', href: '/services/video-generators' },
+  { name: 'AI Marketing Tools', href: '/services/ai-marketing' },
   { name: 'Marketing Agency', href: '/services/marketing' },
   { name: 'Content Shooting', href: '/services/content-shooting' },
-  { name: 'AI Marketing Tools', href: '/services/ai-marketing' },
 ];
 
 const productLinks = [
@@ -85,8 +87,8 @@ export default function Footer() {
             </Link>
             <p className="text-gray-400 text-sm italic mb-6">Infinite Wisdom, Applied</p>
             <p className="text-gray-300 text-sm leading-relaxed mb-6">
-              Bridging ancient wisdom with modern technology to create transformative digital
-              experiences.
+              Vetted experts embedded in your team, and AI solutions that work around the
+              clock. One partner for both.
             </p>
 
             {/* Social Links */}

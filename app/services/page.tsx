@@ -14,6 +14,7 @@ import {
   Repeat,
 } from 'lucide-react'
 import { expertDomains } from '@/lib/expertDomains'
+import { aiSolutions, AI_SOLUTIONS_HUB } from '@/lib/aiSolutions'
 
 const steps = [
   {
@@ -90,7 +91,7 @@ export default function ServicesPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-[#E8A317] uppercase tracking-[0.2em] text-sm font-medium mb-5"
           >
-            Experts On Demand
+            Experts and AI, On Demand
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -109,12 +110,14 @@ export default function ServicesPage() {
           >
             Tell us the field — engineering, legal, healthcare, anything. We place
             a vetted professional inside your team, in-house or remote, for as long
-            as you need.
+            as you need. And where software does the job better, we put an AI
+            solution on it, running 24/7.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
+            className="flex flex-wrap justify-center gap-4"
           >
             <Link
               href="/contact"
@@ -122,6 +125,12 @@ export default function ServicesPage() {
             >
               <span>Request an expert</span>
               <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href={AI_SOLUTIONS_HUB}
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-white border border-white/15 hover:border-white/30 hover:bg-white/[0.04] transition-all duration-300"
+            >
+              <span>Explore AI solutions</span>
             </Link>
           </motion.div>
         </div>
@@ -239,6 +248,74 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* AI Solutions */}
+      <section id="ai-solutions" className="py-16 md:py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="text-[#6A3DE8] text-sm font-semibold uppercase tracking-widest block mb-4">
+              AI Solutions
+            </span>
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-4">
+              Or let AI do the job, 24/7
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Some work runs better on software than on a seat. We build, deploy and
+              monitor the AI that takes it over, at transparent per-use prices, with
+              a person from our team watching the results.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {aiSolutions.map((s, index) => {
+              const Icon = s.icon
+              return (
+                <motion.div
+                  key={s.slug}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
+                  className="group relative bg-white/[0.03] border border-white/[0.08] rounded-2xl p-7 hover:border-white/20 transition-all duration-400 flex flex-col"
+                >
+                  <div className="flex items-start justify-between gap-3 mb-5">
+                    <div
+                      className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+                      style={{ backgroundColor: `${s.accent}18` }}
+                    >
+                      <Icon className="w-6 h-6" style={{ color: s.accent }} />
+                    </div>
+                    {s.price && (
+                      <span className="text-xs font-semibold px-2.5 py-1 rounded-full border border-white/10 text-gray-200 bg-white/[0.04]">
+                        {s.price}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">{s.name}</h3>
+                  <p className="text-sm text-gray-400 leading-relaxed mb-5 flex-1">
+                    {s.blurb}
+                  </p>
+                  <Link
+                    href={s.href}
+                    className="inline-flex items-center gap-2 text-sm font-medium transition-transform duration-300 group-hover:translate-x-1"
+                    style={{ color: s.accent }}
+                  >
+                    <span>See how it works</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </motion.div>
+              )
+            })}
+          </div>
+
+          <p className="text-center text-sm text-gray-500 mt-10">
+            Want the whole suite in one place?{' '}
+            <Link href={AI_SOLUTIONS_HUB} className="text-[#E8A317] hover:underline">
+              See all AI solutions.
+            </Link>
+          </p>
+        </div>
+      </section>
+
       {/* Engagement flexibility */}
       <section className="py-16 md:py-20 px-4">
         <div className="max-w-7xl mx-auto">
@@ -295,7 +372,8 @@ export default function ServicesPage() {
           </h3>
           <p className="text-gray-300 text-lg mb-10 max-w-xl mx-auto">
             Tell us the domain and the duration. We&apos;ll bring you a vetted
-            expert who works the way your team works.
+            expert who works the way your team works, or an AI solution that
+            never clocks out.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/contact" className="btn-primary">

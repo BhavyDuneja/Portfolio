@@ -12,15 +12,21 @@ interface FAQ {
 
 const faqs: FAQ[] = [
   // General
-  {"category": "General", "question": "What is AnantaSutra?", "answer": "AnantaSutra is a Delhi-based technology and creative agency that combines AI automation, digital marketing, and web development to help businesses grow. The name means 'Infinite Wisdom' in Sanskrit — Ananta (infinite) and Sutra (thread of wisdom)."},
+  {"category": "General", "question": "What is AnantaSutra?", "answer": "AnantaSutra is a Delhi-based company that does two things: embeds vetted, dedicated domain experts inside your team (you pay their salary plus one transparent fee, no agency markup), and builds AI solutions — voice agents, recruiter AI, social and email automation — that work for you 24/7. The name means 'Infinite Wisdom' in Sanskrit — Ananta (infinite) and Sutra (thread of wisdom)."},
   {"category": "General", "question": "Who founded AnantaSutra?", "answer": "AnantaSutra was founded by Bhavya Duneja, based in Delhi, India. The company was built on the vision of making cutting-edge AI and marketing solutions accessible to businesses of all sizes."},
   {"category": "General", "question": "Where is AnantaSutra located?", "answer": "AnantaSutra is headquartered in Delhi, India. We serve clients across India and internationally through remote collaboration."},
-  {"category": "General", "question": "What services does AnantaSutra offer?", "answer": "We offer three core service lines: AI Automation & Intelligence (voice agents, video generators, social media automation), Creative & Marketing Agency (photo/video, branding, performance marketing), and Website Building & Search Optimization (development, SEO, AEO, GEO)."},
+  {"category": "General", "question": "What services does AnantaSutra offer?", "answer": "Two core offerings. Dedicated Experts: vetted professionals in 12+ domains — engineering, AI and data, design, marketing, legal, healthcare, finance and more — embedded in your team in about 7 days. AI Solutions: voice calling agents (₹6/min), Recruiter AI (₹2/lead), social media automation, Gmail automation, AI video generators and AI marketing tools. We also offer creative and marketing services such as photo/video shoots, social media management and SEO/AEO/GEO."},
   {"category": "General", "question": "What industries does AnantaSutra work with?", "answer": "We work with businesses across real estate, e-commerce, healthcare, education, recruitment, hospitality, and professional services. Our AI and marketing solutions are adaptable to virtually any industry."},
   {"category": "General", "question": "How can I contact AnantaSutra?", "answer": "You can reach us via email at contact@anantasutra.com or through our website at anantasutra.com/contact. We typically respond within 24 hours on business days."},
   {"category": "General", "question": "Does AnantaSutra work with small businesses?", "answer": "We work with businesses of all sizes, from solo founders and startups to established enterprises. Our services and pricing are designed to scale with your needs."},
   {"category": "General", "question": "What does the name AnantaSutra mean?", "answer": "AnantaSutra is derived from Sanskrit — 'Ananta' means infinite and 'Sutra' means thread or wisdom. Together it represents our commitment to delivering infinite wisdom and connected solutions for your business."},
   {"category": "General", "question": "Do you offer ongoing support after delivery?", "answer": "Yes, we offer ongoing maintenance and support packages for all our services. Whether it's AI agent monitoring, website updates, or marketing optimization, we ensure your solutions keep performing."},
+
+  // Dedicated Experts
+  {"category": "Dedicated Experts", "question": "What is a Dedicated Expert?", "answer": "A vetted professional — engineer, marketer, designer, lawyer, analyst, any domain — who joins your team and works only for you, in your tools and your standups, in-house or remote. We present 2–3 matched profiles within about 7 days; you interview and choose."},
+  {"category": "Dedicated Experts", "question": "How does Dedicated Expert pricing work?", "answer": "You pay the expert's salary plus one transparent coordination fee. There is no agency markup, no long contract and no lock-in — scale up or wind down as your needs change."},
+  {"category": "Dedicated Experts", "question": "What if the expert is not a good fit?", "answer": "We replace them with another vetted professional within 48 hours. You can also change domains over time — an engineer this quarter, a performance marketer the next — through the same relationship."},
+  {"category": "Dedicated Experts", "question": "Should I hire a Dedicated Expert or use an AI solution?", "answer": "If the work needs judgement, ownership and collaboration with your team, a dedicated expert fits. If it is repetitive and round-the-clock — answering calls, sourcing candidates, posting content, triaging email — an AI solution usually does it faster and cheaper. Many clients use both, and we help you decide."},
 
   // AI Automation
   {"category": "AI Automation", "question": "What are Voice Calling Agents?", "answer": "Our Voice Calling Agents are AI-powered systems that make and receive phone calls for your business. They handle appointment booking, lead qualification, follow-ups, and customer support — starting at just ₹6 per minute."},
@@ -81,8 +87,8 @@ interface Message {
 const WELCOME_MESSAGE: Message = {
   id: 'welcome',
   type: 'bot',
-  text: "Hey there! 👋 I'm the Sutra, your consultant at AnantaSutra. Whether it's AI automation, marketing, or getting your business found online — I'm here to help. What brings you here today?",
-  suggestions: ['I need AI for my business', 'I want a website built', 'What is AEO & GEO?', 'Tell me about your services'],
+  text: "Hey there! 👋 I'm the Sutra, your consultant at AnantaSutra. Whether you need a dedicated expert on your team, AI that works 24/7, or marketing that gets you found online — I'm here to help. What brings you here today?",
+  suggestions: ['I need a dedicated expert', 'I need AI for my business', 'What is AEO & GEO?', 'Tell me about your services'],
 }
 
 function fuzzyMatch(query: string, text: string): number {

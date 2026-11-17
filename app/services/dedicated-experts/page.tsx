@@ -482,6 +482,12 @@ export default function DedicatedExpertsPage() {
                 <span>All Services</span>
               </Link>
             </div>
+            <p className="text-gray-500 text-sm mt-6">
+              Need something that runs 24/7 instead?{' '}
+              <Link href="/services/ai-automation" className="text-saffron-400 hover:underline">
+                See our AI solutions
+              </Link>
+            </p>
           </motion.div>
         </div>
       </section>

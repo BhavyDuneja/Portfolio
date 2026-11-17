@@ -16,7 +16,7 @@ const differentiators = [
     icon: Layers,
     title: 'Any Domain, One Partner',
     description:
-      'An engineer today, a lawyer next month \u2014 every field through a single relationship. No juggling vendors.',
+      'An engineer today, a lawyer next month, an AI agent answering calls tonight \u2014 every need through a single relationship. No juggling vendors.',
     accent: '#E8A317',
   },
   {

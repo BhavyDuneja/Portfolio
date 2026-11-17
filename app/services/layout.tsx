@@ -9,15 +9,26 @@ const servicesJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: 'AnantaSutra Services',
-  description: 'AI automation, marketing, and technology services by AnantaSutra.',
+  description: 'Dedicated experts embedded in your team and AI solutions that work 24/7, by AnantaSutra.',
   itemListElement: [
     {
       '@type': 'ListItem',
       position: 1,
       item: {
         '@type': 'Service',
-        name: 'AI Automation & Intelligence',
-        description: 'Transform your business with AI-powered solutions — voice calling agents, recruiter AI, social media automation, and more.',
+        name: 'Dedicated Experts',
+        description: 'Vetted domain experts embedded in your team in about 7 days. Pay their salary plus one transparent fee, with no agency markup and a 48-hour replacement guarantee.',
+        provider: { '@type': 'Organization', name: 'AnantaSutra' },
+        url: 'https://www.anantasutra.com/services/dedicated-experts',
+      },
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      item: {
+        '@type': 'Service',
+        name: 'AI Solutions',
+        description: 'AI that takes over a job and runs it around the clock: voice calling agents, recruiter AI, social media and Gmail automation, AI video generators and marketing tools.',
         provider: { '@type': 'Organization', name: 'AnantaSutra' },
         url: 'https://www.anantasutra.com/services/ai-automation',
         offers: [
@@ -52,7 +63,7 @@ const servicesJsonLd = {
     },
     {
       '@type': 'ListItem',
-      position: 2,
+      position: 3,
       item: {
         '@type': 'Service',
         name: 'Creative & Marketing Agency',
@@ -63,7 +74,7 @@ const servicesJsonLd = {
     },
     {
       '@type': 'ListItem',
-      position: 3,
+      position: 4,
       item: {
         '@type': 'Service',
         name: 'Website Building & Search Optimization (SEO, AEO, GEO)',
