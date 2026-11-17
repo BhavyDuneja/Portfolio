@@ -3,7 +3,7 @@ import JsonLd from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: 'Creative & Marketing Agency — Brands That Resonate',
-  description: 'Full-service marketing agency by AnantaSutra: professional shooting, content creation, social media management, brand strategy, performance marketing, and creative direction.',
+  description: 'Marketing by AnantaSutra: photo and video shoots, content creation, social media management, brand strategy, performance marketing and creative direction.',
   alternates: {
     canonical: 'https://www.anantasutra.com/services/marketing',
   },

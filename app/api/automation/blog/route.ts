@@ -181,9 +181,9 @@ function conflictWith(row: BlogRow, existing: PostKey[]): string | null {
       : `the slug "${row.slug}" belongs to a post written in the admin panel; the automation never overwrites it`
   }
   const sameId = others.find((post) => post.id === row.id)
-  if (sameId) return `the id "${row.id}" already belongs to /blog/${sameId.slug}/`
+  if (sameId) return `the id "${row.id}" already belongs to /blog/${sameId.slug}`
   const slugIsId = others.find((post) => post.id === row.slug)
-  if (slugIsId) return `/blog/${row.slug}/ already opens the post with id "${row.slug}" (/blog/${slugIsId.slug}/)`
+  if (slugIsId) return `/blog/${row.slug} already opens the post with id "${row.slug}" (/blog/${slugIsId.slug})`
   const idIsSlug = others.find((post) => post.slug === row.id)
   if (idIsSlug) return `the id "${row.id}" is the slug of another post (/blog/${row.id}/)`
   return null
@@ -255,7 +255,7 @@ export async function POST(request: NextRequest) {
   return jsonOk({
     id: row.id,
     slug: row.slug,
-    url: `${SITE_URL}/blog/${row.slug}/`,
+    url: `${SITE_URL}/blog/${row.slug}`,
     created: saved.created,
     revalidated,
   })

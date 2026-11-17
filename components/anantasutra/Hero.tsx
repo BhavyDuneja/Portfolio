@@ -8,7 +8,7 @@ const Hero = () => {
   const headingWords1 = ['Infinite', 'Wisdom']
   const headingWords2 = ['Applied']
   const subtitleWords =
-    'We embed vetted domain experts inside your team — engineers, marketers, designers, any field — at just their salary. And where software does the job better, we deploy AI solutions that work 24/7. No markup, no lock-ins, live in 7 days.'.split(' ')
+    'Vetted engineers, marketers, designers and specialists in 12+ domains, embedded in your team and live in about 7 days. From ₹20,000 to ₹60,000 a month, by the expert\'s skills, experience and the work. No extra fees, no lock-in. Where software does the job better, our AI solutions work 24/7.'.split(' ')
 
   return (
     <section className="relative min-h-screen flex items-end overflow-hidden bg-[#0A0A0F]">
@@ -89,6 +89,16 @@ const Hero = () => {
             </h1>
           </div>
 
+          {/* Plain descriptor: what the company does, in one line */}
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.7 }}
+            className="text-2xl md:text-3xl font-semibold text-white max-w-2xl leading-snug mb-4"
+          >
+            Dedicated remote experts from India for your team, at one fixed monthly price.
+          </motion.h2>
+
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -115,18 +125,27 @@ const Hero = () => {
             className="flex flex-col sm:flex-row gap-4 justify-start items-start"
           >
             <Link
-              href="/services/dedicated-experts"
+              href="/contact"
               className="btn-primary bg-[#E8A317] hover:bg-[#D4940F] text-black px-8 py-4 rounded-xl font-semibold text-lg shadow-lg shadow-[#E8A317]/20 hover:shadow-[#E8A317]/40 transition-all duration-300 hover:scale-105 whitespace-nowrap"
             >
-              Get Your Expert
+              Book a free consultation
             </Link>
             <Link
-              href="/services/ai-automation"
+              href="/services/dedicated-experts"
               className="btn-outline border-2 border-white/20 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/5 hover:border-white/40 transition-all duration-300 hover:scale-105 whitespace-nowrap"
             >
-              Explore AI Solutions
+              See dedicated experts
             </Link>
           </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.4 }}
+            className="mt-6 text-sm text-gray-400"
+          >
+            Or explore <Link href="/services/ai-automation" className="text-[#E8A317] hover:underline">AI solutions that work 24/7</Link>.
+          </motion.p>
         </div>
       </div>
 

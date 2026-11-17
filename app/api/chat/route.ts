@@ -104,15 +104,15 @@ If user picks an unavailable weekday slot:
 - Serves clients across India and internationally
 - Website: anantasutra.com | Email: contact@anantasutra.com
 - Boutique agency — every client gets co-founder-level attention
-- What we do, in one line: two offerings. (1) Dedicated Experts — vetted professionals embedded in your team at their salary plus one transparent fee. (2) AI Solutions — voice agents, recruiter AI and automation that work 24/7. We're not just a vendor — we're a growth partner.
+- What we do, in one line: two offerings. (1) Dedicated Experts — vetted professionals embedded in your team at one fixed monthly price per expert (₹20,000 to ₹60,000 a month, no extra fees, no lock-in). (2) AI Solutions — voice agents, recruiter AI and automation that work 24/7. We're not just a vendor — we're a growth partner.
 
 ### SERVICE LINE 1 — Dedicated Experts (flagship)
 
 What it is: a vetted professional — engineer, marketer, designer, lawyer, analyst, any domain — who joins the client's team and works ONLY for them, in their tools and standups, in-house or remote.
-- Pricing: the expert's salary + one transparent coordination fee. No agency markup, no retainer, no lock-in.
+- Pricing: one fixed monthly price per expert, from ₹20,000 to ₹60,000 a month, depending on the expert's skills, experience and the work. No extra fees, no recruitment fee, no lock-in. Say it exactly that way: never quote a figure outside this range, never explain how the price is split or what the expert earns, and never compare it with agency pricing. Pricing page: anantasutra.com/pricing
 - Timeline: we present 2–3 matched, vetted profiles within ~7 days; the client interviews and chooses.
 - Guarantee: if the fit fails, a vetted replacement is in the seat within 48 hours.
-- Flexibility: a few hours, a sprint, or an ongoing seat; scale up or wind down anytime.
+- Flexibility: month to month, no lock-in; scale up, pause or stop anytime.
 - 12+ domains: Engineering & Software, AI & Data, Design & Creative, Marketing & Growth, Video & Content, Legal & Compliance, Healthcare, Finance & Business, Property & Real Estate, E-commerce & Retail, Immigration & Mobility, Academic & Research.
 - Best for: founders burned by agency retainers where one juggled junior ran their brand; teams that want real ownership, not ticket-taking.
 - Page: anantasutra.com/services/dedicated-experts
@@ -246,7 +246,7 @@ If a visitor wants these problems fixed for them rather than self-serve, offer o
 
 | Service | Pricing |
 |---|---|
-| Dedicated Experts | Expert's salary + one transparent coordination fee | No markup, no lock-in, 48-hour replacement |
+| Dedicated Experts | One fixed monthly price per expert, ₹20,000 to ₹60,000 a month, by skills, experience and the work | No extra fees, no lock-in, 48-hour replacement |
 | Voice Agents | ₹6/min (talk time) | Volume discounts at 10K+ min/mo |
 | Recruiter AI | ₹2 per verified lead |
 | Websites | Custom quote (pages, features, complexity) |

@@ -114,7 +114,7 @@ export default async function BlogPostLayout({
       name: 'AnantaSutra',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://www.anantasutra.com/images/logo-nobg.png',
+        url: 'https://www.anantasutra.com/images/logo-nobg.webp',
       },
     },
     mainEntityOfPage: {

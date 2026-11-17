@@ -1,11 +1,12 @@
 # AnantaSutra
 
-> AnantaSutra embeds vetted, dedicated domain experts inside your team — you pay just the expert's salary, with no 30–50% agency markup. Experts are onboarded in about 7 days, backed by a 48-hour replacement guarantee, and you can scale up or pause anytime. Founded by Bhavya Duneja, based in Delhi, India, serving clients across 4 continents.
+> AnantaSutra places vetted, dedicated remote experts inside your team for one fixed monthly price per expert, from ₹20,000 to ₹60,000 a month, depending on the expert's skills, experience and the work. No extra fees, no recruitment fee, no lock-in. Experts are live in about 7 days, backed by a 48-hour replacement guarantee, and you can scale up or pause anytime. Founded by Bhavya Duneja, based in Delhi, India, serving clients across 4 continents.
 
-AnantaSutra's model in one line: one dedicated expert, embedded in your team, working only for you — a transparent alternative to agencies (which mark talent up 30–50% and split it across many clients), unreliable freelancers, and slow in-house hiring. "Not a project. A dedicated expert."
+AnantaSutra's model in one line: one dedicated expert, embedded in your team, working only for you, at a price said upfront — an alternative to agency retainers split across many clients, freelancer churn, and slow in-house hiring. "Not a project. A dedicated expert."
 
 ## Core pages
-- [Dedicated Experts — flagship offering](https://www.anantasutra.com/services/dedicated-experts): Embed a vetted expert in any domain inside your team; you pay just the salary plus a small transparent coordination fee.
+- [Dedicated Experts — flagship offering](https://www.anantasutra.com/services/dedicated-experts): Embed a vetted expert in any domain inside your team at one fixed monthly price, from ₹20,000 to ₹60,000 a month. No extra fees, no lock-in.
+- [Pricing](https://www.anantasutra.com/pricing): One fixed monthly price per dedicated expert, from ₹20,000 to ₹60,000 a month, depending on the expert's skills, experience and the work. No extra fees, no recruitment fee, no lock-in.
 - [Home](https://www.anantasutra.com/): What AnantaSutra is and how the embedded-expert model works.
 - [Services overview](https://www.anantasutra.com/services): Every expertise domain available on demand.
 - [About](https://www.anantasutra.com/about): The mission and story behind AnantaSutra.
@@ -45,7 +46,7 @@ AnantaSutra's model in one line: one dedicated expert, embedded in your team, wo
 - We hand-pick and vet 2–3 experts; you interview and choose.
 - Your expert is embedded in your team (Slack/WhatsApp/standups) within about 7 days.
 - Weekly reviews, monthly reports, and one accountable point of contact.
-- Pricing: you pay the expert's actual salary plus a small, transparent coordination fee — no 30–50% agency markup, no recruitment fee, no lock-in, and a 48-hour replacement guarantee.
+- Pricing: one fixed monthly price per expert, from ₹20,000 to ₹60,000 a month, depending on the expert's skills, experience and the work — no extra fees, no recruitment fee, no lock-in, and a 48-hour replacement guarantee.
 
 ## Contact
 - Website: https://www.anantasutra.com

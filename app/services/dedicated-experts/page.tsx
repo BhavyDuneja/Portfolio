@@ -5,11 +5,13 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import {
   UserCheck, Users, Code2, Megaphone, PenTool, TrendingUp,
-  HeartHandshake, ArrowRight, CheckCircle2, Briefcase, Clock,
-  ShieldCheck, Target, Rocket, Wallet, BadgePercent, Receipt,
+  HeartHandshake, ArrowRight, Briefcase, Clock,
+  ShieldCheck, Target, Rocket, Receipt,
   XCircle, Lock, HelpCircle, MessageCircle, BarChart3
 } from 'lucide-react'
 import { clients } from '@/lib/clients'
+import DedicatedExpertsPricing from '@/components/anantasutra/DedicatedExpertsPricing'
+import DedicatedExpertsFaq from '@/components/anantasutra/DedicatedExpertsFaq'
 
 const caseStudies = clients.filter((c) => c.stat)
 
@@ -35,7 +37,7 @@ const whyThisModel = [
   { icon: ShieldCheck, title: 'Replaced within 48 hours', description: 'If the fit fails, a vetted replacement is in the seat in two days. No long contracts.' },
   { icon: BarChart3, title: 'Numbers in owner language', description: 'Weekly reviews in leads, revenue and footfall — not vanity dashboards.' },
   { icon: Rocket, title: 'Scale, pause or stop anytime', description: 'Start with one expert. Add more as you grow. Pause without penalty or drama.' },
-  { icon: HeartHandshake, title: 'We grow when you grow', description: 'Our small fee only keeps earning while you keep choosing us. That\'s the whole model.' },
+  { icon: HeartHandshake, title: 'We grow when you grow', description: 'Month to month, no lock-in: we keep earning only while you keep choosing us. That\'s the whole model.' },
 ]
 
 const ownerPains = [
@@ -48,16 +50,18 @@ const ownerPains = [
 ]
 
 const stats = [
-  { value: 'Just', suffix: ' Salary', label: 'No agency markup, no hidden fees' },
+  { value: '₹20K–₹60K', suffix: '/month', label: 'One fixed monthly price per expert' },
   { value: '7', suffix: ' days', label: 'From signup to first day of work' },
   { value: '48h', suffix: '', label: 'Replacement guarantee' },
   { value: '100%', suffix: '', label: 'Dedicated to your business' },
 ]
 
-const pricingBreakdown = [
-  { icon: Wallet, title: 'What You Pay', description: 'The expert\'s monthly salary — exactly what they earn — plus our one transparent fee. Nothing else.', highlight: true },
-  { icon: BadgePercent, title: 'What You Don\'t Pay', description: 'No agency markup (30-50% saved). No recruitment fees. No overheads. No hidden charges.' },
-  { icon: Receipt, title: 'How We Make Money', description: 'A small, transparent coordination fee agreed upfront. One-line invoice: salary + fee. You see every rupee.' },
+// The hire guides this page answers in short; each title is the article's own.
+const guides = [
+  { href: '/blog/cost-hire-dedicated-developer-india', title: 'How much does it cost to hire a dedicated developer in India?' },
+  { href: '/blog/hire-dedicated-ai-engineer-india', title: 'How to hire a dedicated AI engineer from India' },
+  { href: '/blog/staff-augmentation-vs-dedicated-expert', title: 'Staff augmentation vs a dedicated expert: what is the difference?' },
+  { href: '/blog/dedicated-expert-vs-freelancer-vs-agency', title: 'Dedicated expert vs freelancer vs agency: which should you hire?' },
 ]
 
 export default function DedicatedExpertsPage() {
@@ -101,9 +105,19 @@ export default function DedicatedExpertsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-gray-400 text-lg md:text-xl max-w-2xl mb-10"
+            className="text-gray-400 text-lg md:text-xl max-w-2xl mb-6"
           >
-            Burned by fat retainers where one juggled junior ran your brand? We embed a vetted expert — marketer, engineer, designer, any domain — who works <span className="text-white font-semibold">only for you</span>, and you pay <span className="text-white font-semibold">just their salary</span> plus one small, visible fee. Live in 7 days. Replaced in 48 hours if the fit fails.
+            Burned by fat retainers where one juggled junior ran your brand? We embed a vetted expert — marketer, engineer, designer, any domain — who works <span className="text-white font-semibold">only for you</span>, for <span className="text-white font-semibold">one fixed monthly price</span>. Live in about 7 days. Replaced in 48 hours if the fit fails.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25 }}
+            className="text-gray-300 text-base md:text-lg max-w-2xl mb-10 pl-4 border-l-2 border-violet-500/50"
+          >
+            A dedicated expert costs one fixed monthly price, from ₹20,000 to ₹60,000 a month, depending on the expert&apos;s skills, experience and the work. No extra fees, no recruitment fee, no lock-in. See our{' '}
+            <Link href="/pricing" className="text-violet-400 hover:underline">pricing</Link>.
           </motion.p>
 
           <motion.div
@@ -113,7 +127,7 @@ export default function DedicatedExpertsPage() {
             className="flex flex-wrap gap-4"
           >
             <Link href="/contact" className="btn-primary">
-              <span>Get Your Expert</span>
+              <span>Book a free consultation</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
             <a href="#roles" className="btn-outline">
@@ -207,7 +221,7 @@ export default function DedicatedExpertsPage() {
             viewport={{ once: true }}
             className="text-center text-gray-400 text-lg mt-10"
           >
-            The problem was never your budget. It was the <span className="text-white font-semibold">markup, the juggling, and the lock-ins</span> between your money and the person doing the work.
+            The problem was never your budget. It was the <span className="text-white font-semibold">layers, the juggling and the lock-ins</span> between your money and the person doing the work.
           </motion.p>
         </div>
       </section>
@@ -226,7 +240,7 @@ export default function DedicatedExpertsPage() {
               Real Owners. <span className="gradient-text-violet">Real Numbers.</span>
             </h2>
             <p className="text-gray-400 text-lg mt-4 max-w-2xl mx-auto">
-              What happens when 100% of your budget becomes talent instead of markup.
+              What happens when one dedicated expert owns your numbers.
             </p>
           </motion.div>
 
@@ -377,60 +391,37 @@ export default function DedicatedExpertsPage() {
         </div>
       </section>
 
-      {/* Pricing — The Big Differentiator */}
-      <section className="py-20 px-4">
+      {/* Pricing: one fixed monthly price per expert */}
+      <DedicatedExpertsPricing />
+
+      {/* Guides */}
+      <section className="py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-8"
           >
-            <p className="text-violet-500 uppercase tracking-[0.2em] text-sm font-medium mb-3">Pricing</p>
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-4">
-              You Pay the Salary. <span className="gradient-text-violet">Plus One Transparent Fee.</span>
-            </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              No agency markup. No recruitment fees. No overheads. One line for what your expert earns, one line for our fee — nothing hidden.
-            </p>
+            <p className="text-violet-500 uppercase tracking-[0.2em] text-sm font-medium mb-3">Guides</p>
+            <h2 className="font-display text-2xl md:text-3xl font-bold text-white">Read before you hire</h2>
           </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-6 mb-10">
-            {pricingBreakdown.map((item, i) => (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {guides.map((guide, i) => (
               <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 30 }}
+                key={guide.href}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className={`glass-card rounded-2xl p-6 ${item.highlight ? 'border-violet-500/40 bg-violet-500/5' : ''}`}
               >
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${item.highlight ? 'bg-violet-500/20' : 'bg-violet-500/10'}`}>
-                  <item.icon className="w-6 h-6 text-violet-400" />
-                </div>
-                <h3 className="text-white font-semibold text-lg mb-2">{item.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
+                <Link href={guide.href} className="glass-card rounded-2xl p-5 h-full flex items-center justify-between gap-3 hover:border-violet-500/30 transition-colors">
+                  <span className="text-gray-300 text-sm font-medium leading-snug">{guide.title}</span>
+                  <ArrowRight className="w-4 h-4 text-violet-400 flex-shrink-0" />
+                </Link>
               </motion.div>
             ))}
           </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="glass-card rounded-2xl p-8 md:p-10 border-violet-500/30 bg-gradient-to-br from-violet-500/5 to-transparent"
-          >
-            <div className="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
-              <CheckCircle2 className="w-12 h-12 text-violet-400 flex-shrink-0" />
-              <div className="flex-1">
-                <h3 className="text-white font-bold text-xl md:text-2xl mb-2">Why This Model? Because It&apos;s Actually Fair.</h3>
-                <p className="text-gray-400 leading-relaxed">
-                  Traditional agencies mark up talent by <span className="text-white font-semibold">30-50%</span> — you pay ₹1.5L for someone earning ₹1L. We flipped it.
-                  You pay the salary, we earn a transparent coordination fee. Everyone wins, and you save lakhs every year.
-                </p>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </section>
 
@@ -456,6 +447,9 @@ export default function DedicatedExpertsPage() {
         </div>
       </section>
 
+      {/* FAQ, with its FAQPage schema */}
+      <DedicatedExpertsFaq />
+
       {/* CTA */}
       <section className="py-20 px-4 mb-12">
         <div className="max-w-4xl mx-auto text-center">
@@ -475,7 +469,7 @@ export default function DedicatedExpertsPage() {
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link href="/contact" className="btn-primary">
-                <span>Book Free Consultation</span>
+                <span>Book a free consultation</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link href="/services" className="btn-outline">

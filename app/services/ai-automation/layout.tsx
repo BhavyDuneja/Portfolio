@@ -3,7 +3,7 @@ import JsonLd from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: 'AI Automation & Intelligence — Voice Agents from ₹6/min',
-  description: 'AI-powered voice calling agents at ₹6/min, recruiter AI at ₹2/lead, social media automation, Gmail automation, AI video generators, and marketing tools by AnantaSutra.',
+  description: 'AI voice calling agents at ₹6/min, Recruiter AI at ₹2/lead, social media and Gmail automation, AI video generators and AI marketing tools, by AnantaSutra.',
   alternates: {
     canonical: 'https://www.anantasutra.com/services/ai-automation',
   },

@@ -33,7 +33,7 @@ const steps = [
     icon: Users2,
     title: 'They work for you',
     description:
-      'In-house or remote, under your direction, for hours or months — your call.',
+      'In-house or remote, under your direction, for a month or for years — your call.',
   },
 ]
 
@@ -41,7 +41,7 @@ const engagement = [
   {
     icon: Clock,
     title: 'Any duration',
-    description: 'A few hours, a sprint, or an ongoing seat on your team.',
+    description: 'One month, a quarter or an ongoing seat on your team.',
   },
   {
     icon: MapPin,

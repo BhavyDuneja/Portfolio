@@ -16,15 +16,7 @@ const websiteJsonLd = {
   name: 'AnantaSutra',
   alternateName: ['Ananta Sutra', 'अनन्तसूत्र'],
   url: 'https://www.anantasutra.com',
-  description: 'Dedicated domain experts embedded in your team at just their salary, plus AI solutions that work 24/7. No agency markup. Delhi-based, serving India, UAE, UK and beyond.',
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: {
-      '@type': 'EntryPoint',
-      urlTemplate: 'https://www.anantasutra.com/blog?q={search_term_string}',
-    },
-    'query-input': 'required name=search_term_string',
-  },
+  description: 'Dedicated remote experts embedded in your team at one fixed monthly price, ₹20,000 to ₹60,000 a month, no extra fees, no lock-in, plus AI solutions that work 24/7. Delhi-based, serving India, UAE, UK and beyond.',
 }
 
 export default function AnantasutraHome() {

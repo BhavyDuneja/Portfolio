@@ -35,7 +35,7 @@ const caseStudies: CaseStudy[] = [
     industry: 'Dermatology',
     location: 'Delhi · Jaipur · Vrindavan',
     icon: Stethoscope,
-    logo: '/images/clients/awish-clinic.png',
+    logo: '/images/clients/awish-clinic.webp',
     accent: '#E8A317',
     fallbackGradient: 'from-[#E8A317]/30 via-[#E8A317]/10 to-[#0A0A0F]',
     challenge:
@@ -59,7 +59,7 @@ const caseStudies: CaseStudy[] = [
     industry: 'EdTech',
     location: 'Faridabad',
     icon: GraduationCap,
-    logo: '/images/clients/education-aspire.png',
+    logo: '/images/clients/education-aspire.webp',
     accent: '#6A3DE8',
     fallbackGradient: 'from-[#6A3DE8]/30 via-[#6A3DE8]/10 to-[#0A0A0F]',
     challenge:
@@ -83,7 +83,7 @@ const caseStudies: CaseStudy[] = [
     industry: 'Immigration',
     location: 'Qatar · UAE',
     icon: Plane,
-    logo: '/images/clients/giant-migrations.png',
+    logo: '/images/clients/giant-migrations.webp',
     accent: '#E8A317',
     fallbackGradient: 'from-[#E8A317]/20 via-[#6A3DE8]/15 to-[#0A0A0F]',
     challenge:

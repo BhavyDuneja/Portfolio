@@ -2,20 +2,20 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'About Us — The Story of Infinite Wisdom',
-  description: 'AnantaSutra (अनन्तसूत्र) is an infinite thread weaving together technology, creativity, wisdom, and human potential into a tapestry of purposeful ventures.',
+  description: 'AnantaSutra is a Delhi company that places vetted, dedicated remote experts inside client teams at one fixed monthly price. Who we are and why we started.',
   alternates: {
     canonical: 'https://www.anantasutra.com/about',
   },
   openGraph: {
     title: 'About AnantaSutra — The Story of Infinite Wisdom',
-    description: 'AnantaSutra is more than a company. It is an infinite thread weaving together technology, creativity, wisdom, and human potential.',
+    description: 'AnantaSutra is a Delhi company that places vetted, dedicated remote experts inside client teams at one fixed monthly price. Who we are and why we started.',
     url: 'https://www.anantasutra.com/about',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'About AnantaSutra — The Story of Infinite Wisdom',
-    description: 'AnantaSutra is more than a company. It is an infinite thread weaving together technology, creativity, wisdom, and human potential.',
+    description: 'AnantaSutra is a Delhi company that places vetted, dedicated remote experts inside client teams at one fixed monthly price. Who we are and why we started.',
   },
 }
 

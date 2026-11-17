@@ -7,6 +7,10 @@ import Link from 'next/link'
 import { expertDomains } from '@/lib/expertDomains'
 import { aiSolutions, AI_SOLUTIONS_HUB } from '@/lib/aiSolutions'
 
+/** The flagship page every domain tile leads to, and the page with the one fixed monthly price. */
+const DEDICATED_EXPERTS = '/services/dedicated-experts'
+const PRICING = '/pricing'
+
 const steps = [
   {
     icon: MessageSquare,
@@ -101,7 +105,7 @@ const Services = () => {
           </h3>
         </motion.div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-20">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
           {expertDomains.map((d, index) => {
             const Icon = d.icon
             return (
@@ -110,21 +114,42 @@ const Services = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.4, delay: 0.35 + index * 0.04 }}
-                className="group flex items-center gap-3 rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3.5 hover:border-white/20 hover:bg-white/[0.06] transition-all duration-300"
+                className="h-full"
               >
-                <span
-                  className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
-                  style={{ backgroundColor: `${d.accent}1f` }}
+                <Link
+                  href={DEDICATED_EXPERTS}
+                  className="group flex h-full items-center gap-3 rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3.5 hover:border-white/20 hover:bg-white/[0.06] transition-all duration-300"
                 >
-                  <Icon className="w-4 h-4" style={{ color: d.accent }} />
-                </span>
-                <span className="text-sm font-medium text-gray-200 leading-tight">
-                  {d.name}
-                </span>
+                  <span
+                    className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
+                    style={{ backgroundColor: `${d.accent}1f` }}
+                  >
+                    <Icon className="w-4 h-4" style={{ color: d.accent }} />
+                  </span>
+                  <span className="text-sm font-medium text-gray-200 leading-tight">
+                    {d.name}
+                  </span>
+                </Link>
               </motion.div>
             )
           })}
         </div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="text-center text-sm text-gray-500 mb-20 max-w-2xl mx-auto"
+        >
+          One fixed monthly price per expert, ₹20,000 to ₹60,000 a month. No extra fees, no lock-in.{' '}
+          <Link href={DEDICATED_EXPERTS} className="text-[#E8A317] hover:underline">
+            How dedicated experts work
+          </Link>
+          {' · '}
+          <Link href={PRICING} className="text-[#E8A317] hover:underline">
+            See pricing
+          </Link>
+        </motion.p>
 
         {/* AI Solutions */}
         <motion.div
@@ -211,7 +236,7 @@ const Services = () => {
             href="/contact"
             className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-[#0A0A0F] bg-gradient-to-r from-[#E8A317] to-[#F0C040] hover:from-[#F0C040] hover:to-[#E8A317] transition-all duration-300 hover:scale-[1.02]"
           >
-            <span>Request an expert</span>
+            <span>Book a free consultation</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
           <Link

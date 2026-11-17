@@ -31,8 +31,13 @@ export const PAGE_SEO: Record<string, PageSeo> = {
   'dedicated-experts': {
     path: '/services/dedicated-experts',
     service: 'Dedicated Experts',
-    title: 'Hire a Dedicated Expert for Your Team',
-    description: 'Embed a vetted expert in your team in about 7 days. Pay their salary plus one transparent fee. No agency markup, no lock-in, 48-hour replacement guarantee.',
+    title: 'Hire Dedicated Experts in India: Fixed Monthly Price',
+    description: 'Hire a vetted dedicated expert for one fixed monthly price, ₹20,000-₹60,000 a month, no extra fees. Live in about 7 days, 48-hour replacement guarantee.',
+  },
+  pricing: {
+    path: '/pricing',
+    title: 'Dedicated Expert Pricing: ₹20K-₹60K a Month',
+    description: 'One fixed monthly price per dedicated expert: ₹20,000-₹60,000 a month, by skills, experience and the work. No extra fees, no lock-in. Live in about 7 days.',
   },
   'voice-agents': {
     path: '/services/voice-agents',
@@ -86,13 +91,13 @@ export const PAGE_SEO: Record<string, PageSeo> = {
     path: '/services/ecommerce',
     noindex: true,
     title: 'Dedicated E-commerce Experts for D2C Brands',
-    description: 'Store operations, catalogue, CRO and retention experts embedded in your team. Pay the expert\'s salary plus one transparent fee.',
+    description: 'Store operations, catalogue, CRO and retention experts embedded in your team for one fixed monthly price. No extra fees, no lock-in.',
   },
   'real-estate': {
     path: '/services/real-estate',
     noindex: true,
     title: 'Dedicated Real Estate Marketing Experts',
-    description: 'Funnel, landing-page and lead-generation experts for property businesses, embedded in your team. Pay the expert\'s salary plus one transparent fee.',
+    description: 'Funnel, landing-page and lead-generation experts for property businesses, embedded in your team for one fixed monthly price. No extra fees, no lock-in.',
   },
   immigration: {
     path: '/services/immigration',
@@ -104,13 +109,13 @@ export const PAGE_SEO: Record<string, PageSeo> = {
     path: '/services/business',
     noindex: true,
     title: 'Business Operations and Strategy Experts',
-    description: 'Analysts, operations and strategy experts embedded in your team. Pay the expert\'s salary plus one transparent fee, no lock-in.',
+    description: 'Analysts, operations and strategy experts embedded in your team for one fixed monthly price. No extra fees, no lock-in.',
   },
   academic: {
     path: '/services/academic',
     noindex: true,
     title: 'Academic and Research Experts for Hire',
-    description: 'Researchers, subject experts and writers embedded in your team. Pay the expert\'s salary plus one transparent fee, no lock-in.',
+    description: 'Researchers, subject experts and writers embedded in your team for one fixed monthly price. No extra fees, no lock-in.',
   },
   portfolio: {
     path: '/portfolio',

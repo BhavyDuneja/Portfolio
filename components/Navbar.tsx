@@ -62,6 +62,7 @@ const servicesMenu = [
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'Services', href: '/services', hasDropdown: true },
+  { name: 'Pricing', href: '/pricing' },
   { name: 'Portfolio', href: '/portfolio' },
   { name: 'Apps', href: '/apps' },
   { name: 'About', href: '/about' },
@@ -123,7 +124,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
               <Image
-                src="/images/logo-nobg.png"
+                src="/images/logo-nobg.webp"
                 alt="AnantaSutra Logo"
                 width={44}
                 height={44}
@@ -138,7 +139,7 @@ export default function Navbar() {
             </Link>
 
             {/* Desktop Nav */}
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden lg:flex items-center gap-0.5">
               {navLinks.map((link) =>
                 link.hasDropdown ? (
                   <div
@@ -149,7 +150,7 @@ export default function Navbar() {
                   >
                     <Link
                       href={link.href}
-                      className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                      className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-300 ${
                         isActive(link.href)
                           ? 'text-[#E8A317]'
                           : 'text-gray-300 hover:text-white hover:bg-white/5'
@@ -192,12 +193,20 @@ export default function Navbar() {
                             <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-500">
                               Dedicated experts · any domain
                             </p>
-                            <Link
-                              href="/services/dedicated-experts"
-                              className="text-[#E8A317] text-xs font-semibold whitespace-nowrap hover:underline"
-                            >
-                              How it works
-                            </Link>
+                            <div className="flex items-center gap-4">
+                              <Link
+                                href="/pricing"
+                                className="text-[#E8A317] text-xs font-semibold whitespace-nowrap hover:underline"
+                              >
+                                Pricing
+                              </Link>
+                              <Link
+                                href="/services/dedicated-experts"
+                                className="text-[#E8A317] text-xs font-semibold whitespace-nowrap hover:underline"
+                              >
+                                How it works
+                              </Link>
+                            </div>
                           </div>
 
                           <div className="grid grid-cols-3 gap-6">
@@ -281,7 +290,7 @@ export default function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    className={`px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-300 ${
                       isActive(link.href)
                         ? 'text-[#E8A317]'
                         : 'text-gray-300 hover:text-white hover:bg-white/5'

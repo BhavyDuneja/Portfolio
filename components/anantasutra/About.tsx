@@ -9,7 +9,7 @@ const About = () => {
 
   const paragraphs = [
     "AnantaSutra — meaning 'Infinite Wisdom' — is built on one simple idea: growth comes from people, not retainers. We weave vetted domain experts into your team — one unbroken thread from your goal to the person doing the work.",
-    "From engineers and performance marketers to designers, legal and finance specialists — every expert works only for you, in your tools and your standups, at just their salary plus one small transparent fee. No markup, no juggled juniors, no lock-ins.",
+    "From engineers and performance marketers to designers, legal and finance specialists — every expert works only for you, in your tools and your standups, for one fixed monthly price: from ₹20,000 to ₹60,000 a month, depending on the expert's skills, experience and the work. No extra fees, no juggled juniors, no lock-in.",
     "We believe in the convergence of technology and tradition — modern execution, timeless commitment. So alongside our experts we build AI solutions — voice agents, recruiter AI, automation — that run around the clock at transparent per-use prices. We grow when you grow; that's the whole reason this model exists.",
   ]
 
@@ -19,8 +19,8 @@ const About = () => {
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none" aria-hidden="true">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/bg%26site/geometrymandla.png"
-          alt=""
+          src="/images/bg%26site/geometrymandla.webp"
+          alt="Sacred-geometry mandala, the AnantaSutra backdrop motif"
           className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2 h-[135%] w-auto max-w-none opacity-50 object-contain"
         />
         {/* Left-to-right fade so the philosophy copy stays crisp */}

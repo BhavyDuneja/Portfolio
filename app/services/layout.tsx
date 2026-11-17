@@ -17,9 +17,25 @@ const servicesJsonLd = {
       item: {
         '@type': 'Service',
         name: 'Dedicated Experts',
-        description: 'Vetted domain experts embedded in your team in about 7 days. Pay their salary plus one transparent fee, with no agency markup and a 48-hour replacement guarantee.',
+        description: 'Vetted experts in your team in about 7 days, for one fixed monthly price of ₹20,000 to ₹60,000 a month. No extra fees, no lock-in, 48-hour replacement guarantee.',
         provider: { '@type': 'Organization', name: 'AnantaSutra' },
         url: 'https://www.anantasutra.com/services/dedicated-experts',
+        offers: [
+          {
+            '@type': 'Offer',
+            name: 'Dedicated expert',
+            description: 'One vetted expert embedded in your team, for one fixed monthly price set by the expert\'s skills, experience and the work. No extra fees, no recruitment fee, no lock-in.',
+            priceCurrency: 'INR',
+            priceSpecification: {
+              '@type': 'UnitPriceSpecification',
+              minPrice: 20000,
+              maxPrice: 60000,
+              priceCurrency: 'INR',
+              unitText: 'MONTH',
+              unitCode: 'MON',
+            },
+          },
+        ],
       },
     },
     {

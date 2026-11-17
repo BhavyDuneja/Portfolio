@@ -1,10 +1,18 @@
 /**
- * SEO index pruning (GSC fix, July 2026).
- * Of ~700 published blog posts, only these evergreen, segment-relevant guides
- * stay indexable. All other posts get robots noindex and are excluded from the
- * sitemap — mass thin content was suppressing the whole domain in Google
+ * SEO index pruning.
+ * July 2026: of ~700 published blog posts, 147 evergreen guides stayed indexable and the rest got noindex
  * (616 discovered-not-indexed / 115 crawled-not-indexed in Search Console).
- * To re-index a post, add its slug here. To prune one, remove it.
+ * November 2026: Google indexed only a handful of those guides, against most of the on-topic posts (hiring a
+ * dedicated expert: cost, pricing, comparisons) published since. The rule now: legacy guides (published on or
+ * before PRUNE_CUTOFF) that Google showed in the last 56 days, or reports as indexed in the newest
+ * data/seo/index-<date>.json of the marketing repo, stay indexable; the rest are noindex and leave the sitemap,
+ * which keeps Google's attention on the core pages and the on-topic posts. Posts published after PRUNE_CUTOFF
+ * are indexable by default.
+ * Add a slug to re-index it. Re-check from data/google monthly: in the marketing repo's
+ * data/google/google-<date>.json files, take the gsc_pages rows with "/blog/" on either host over the last two
+ * 28-day windows, add the legacy slugs Google showed and drop the ones it stopped showing, unless the newest
+ * data/seo/index-<date>.json still reports them "Submitted and indexed" (noindexing an indexed URL is a one-way
+ * door for months). The July list of 147 and the slugs pruned since are in git history (this file before Nov 2026).
  * Merged near-duplicates (October 2026) are listed in lib/blogRedirects.json, which next.config.js
  * turns into 308 redirects; those slugs are never indexable, whatever their date.
  */
@@ -12,154 +20,51 @@ import blogRedirects from './blogRedirects.json'
 
 const redirectedSlugs = new Set<string>(Object.keys(blogRedirects))
 
+// Legacy guides Google showed in the 28-day windows ending 1 Nov and 15 Nov 2026 (data/google/google-2026-11-03.json
+// and google-2026-11-17.json, computed 17 Nov 2026). Each comment gives impressions and position in the 19 Oct–15 Nov
+// window, both hosts added. Posts from data/logs/blog.log (published after PRUNE_CUTOFF) are not listed: they are
+// indexable by date. Six slugs were not in the July list (pruned then, or published later by the old pipeline); Google
+// shows them, so they stay. The slugs marked "indexed per data/seo/index-2026-11-16.json" had no impressions in either
+// window, but that index check reports them Submitted and indexed (crawled 8–13 Nov, Google's canonical is ours), so
+// they stay too. The "redirect target" slug is the kept half of a merged pair in lib/blogRedirects.json.
 const indexableSlugs = new Set<string>([
-  'ai-predict-prevent-customer-churn-indian-companies',
-  'anatomy-viral-marketing-campaign-lessons-india-top-brands',
-  'art-of-cold-emailing-2026-templates-that-get-replies',
-  'automated-email-workflows-ecommerce-cart-abandonment-post-purchase',
-  'blue-ocean-strategy-indian-startups-uncontested-market-space',
-  'brand-differentiation-commoditized-markets-lessons-indian-brands',
-  'brand-packaging-design-india-visual-design-drives-purchase-decisions',
-  'brand-positioning-101-carve-unique-space-indian-market',
-  'brand-positioning-premium-products-price-sensitive-indian-markets',
-  'build-brand-twitter-x-lessons-india-top-accounts',
-  'build-cold-email-outreach-system-qualified-leads',
-  'build-engaged-online-community-brand-india',
-  'building-brand-communities-whatsapp-telegram-indian-markets',
-  'building-customer-centric-culture-indian-organizations',
-  'cause-marketing-india-brands-align-social-causes-authentically',
-  'cold-email-compliance-india-it-act-gdpr-best-practices',
-  'cold-email-deliverability-stay-out-of-spam-folders-india',
-  'cold-email-vs-cold-calling-indian-b2b-sales',
-  'color-psychology-marketing-choosing-right-palette-indian-brand',
-  'complete-guide-brand-building-indian-startups-2026',
-  'complete-linkedin-marketing-guide-b2b-companies-india',
-  'content-marketing-budget-indian-companies-how-much-invest',
-  'content-marketing-strategy-indian-businesses-2026-playbook',
-  'conversion-rate-optimization-data-driven-approach-indian-websites',
-  'copywriting-for-indian-brands-writing-converts-across-cultures-languages',
-  'corporate-video-production-types-costs-best-practices-indian-companies',
-  'create-unique-value-proposition-resonates-indian-consumers',
-  'cross-platform-retargeting-google-meta-linkedin-working-together',
-  'cross-platform-strategy-syncing-twitter-youtube-linkedin',
-  'customer-experience-strategy-indian-businesses-complete-framework',
-  'customer-journey-map-design-touchpoints-indian-consumers',
-  'customer-loyalty-programs-india-points-tiers-cashback',
-  'd2c-brands-india-build-trust-loyalty-crowded-market',
-  'd2c-brands-india-winning-instagram-marketing',
-  'display-advertising-india-banner-ads-native-ads-rich-media',
-  'dkim-spf-dmarc-email-authentication-indian-businesses',
-  'drone-photography-business-real-estate-events-marketing-india',
-  'dynamic-retargeting-ecommerce-showing-products-people-viewed',
-  'ecommerce-website-design-indian-markets-upi-cod-vernacular-ux',
-  'email-deliverability-india-spam-fix',
-  'email-marketing-kpis-metrics-indian-businesses',
-  'emotional-marketing-indian-brands-storytelling-build-loyalty',
-  'employee-advocacy-linkedin-turn-team-brand-ambassadors',
-  'essential-martech-stack-indian-marketing-teams-2026',
-  'evaluate-marketing-software-procurement-guide-indian-businesses',
-  'experiential-marketing-india-memorable-brand-experiences',
-  'facebook-ads-local-businesses-india-budget-friendly-guide',
-  'facebook-lead-ads-indian-real-estate-qualified-buyer-leads',
-  'facebook-marketing-2026-worth-it-indian-businesses',
-  'facebook-marketplace-marketing-local-sellers-compete-ecommerce',
-  'facebook-pixel-conversions-api-tracking-setup-indian-sites',
-  'festive-marketing-india-brands-win-diwali-holi-beyond',
-  'future-martech-india-ai-consolidation-composable-stack',
-  'generate-b2b-leads-linkedin-without-ads',
-  'go-to-market-strategy-launch-new-product-indian-market',
-  'google-ads-indian-businesses-2026-beginners-guide',
-  'google-ads-keyword-strategy-indian-markets-high-intent',
-  'google-ads-local-businesses-india-foot-traffic-calls',
-  'google-ads-vs-seo-indian-businesses-marketing-budget-allocation',
-  'google-shopping-ads-indian-ecommerce-setup-optimization-roi',
-  'guerrilla-marketing-tactics-small-businesses-india',
-  'how-indian-d2c-brands-use-data-analytics-optimize-marketing-spend',
-  'how-to-brief-web-design-agency-complete-checklist-indian-businesses',
-  'how-to-set-up-google-analytics-4-indian-businesses-complete-guide',
-  'indian-agencies-scalable-marketing-operations-technology',
-  'indian-b2b-companies-content-marketing-enterprise-leads',
-  'indian-brands-art-direction-stand-apart-social-media',
-  'indian-brands-award-winning-digital-marketing-campaigns',
-  'indian-brands-personalization-memorable-customer-experiences',
-  'indian-ecommerce-brands-whatsapp-order-updates-re-engagement',
-  'indian-marketing-agencies-drive-creative-excellence-clients',
-  'indian-saas-companies-linkedin-acquire-global-clients',
-  'indian-youtubers-monetize-channels-beyond-adsense',
-  'instagram-ads-indian-businesses-budget-targeting-creative-best-practices',
-  'instagram-influencer-marketing-india-micro-influencers',
-  'instagram-reels-algorithm-decoded-maximum-reach-india',
-  'instagram-shopping-india-complete-guide-social-commerce',
-  'instagram-stories-lead-generation-proven-tactics',
-  'keyword-research-indian-markets-tools-techniques',
-  'link-building-strategies-india-white-hat-guide',
-  'linkedin-ad-formats-explained-sponsored-content-inmail-text-ads',
-  'linkedin-ads-b2b-companies-india-complete-campaign-guide',
-  'linkedin-ads-cost-india-benchmarks-budgets-expected-cpl',
-  'linkedin-company-page-optimization-guide-indian-businesses',
-  'linkedin-content-strategy-posts-most-engagement-2026',
-  'linkedin-newsletter-strategy-building-audience-decision-makers',
-  'linkedin-sales-navigator-complete-guide-social-selling-india',
-  'linkedin-thought-leadership-executive-presence-founders-cxos',
-  'linkedin-video-content-strategy-types-best-practices-case-studies',
-  'live-shopping-instagram-youtube-social-commerce-revolution-india',
-  'live-video-marketing-indian-brands-live-streaming-sales-engagement',
-  'local-seo-indian-businesses-google-maps-local-search',
-  'long-form-vs-short-form-content-indian-audiences',
-  'manage-multiple-ppc-campaigns-google-meta-linkedin',
-  'market-research-methods-indian-businesses-surveys-interviews-data',
-  'marketing-analytics-tools-indian-businesses-free-paid-options',
-  'marketing-trends-2026-indian-marketers-need-to-know',
-  'measuring-facebook-ad-roi-attribution-analytics-indian-marketers',
-  'measuring-whatsapp-marketing-roi-kpis-analytics-indian-businesses',
-  'meta-ads-budget-allocation-how-much-indian-businesses-should-spend',
-  'meta-ads-lead-generation-forms-messenger-whatsapp-campaigns',
-  'meta-ads-manager-2026-complete-guide-indian-advertisers',
-  'micro-influencer-marketing-small-creators-better-results-indian-brands',
-  'mobile-first-web-design-80-percent-indian-users-browse-phones',
-  'net-promoter-score-nps-indian-companies-measure-improve',
-  'newsletter-marketing-revenue-indian-content-creators',
-  'niche-marketing-focused-brands-outperform-generalists-india',
-  'omnichannel-customer-experience-connecting-online-offline-india',
-  'personal-branding-indian-entrepreneurs-building-authority',
-  'position-brand-indian-international-markets',
-  'ppc-campaign-management-complete-framework-indian-digital-marketers',
-  'ppc-indian-saas-global-customers-paid-search',
-  'product-photography-ecommerce-guide-indian-sellers',
-  'programmatic-advertising-india-automated-ad-buying-works',
-  'psychology-social-media-engagement-indian-audiences-click',
-  'reduce-facebook-ad-costs-india-optimization-tips',
-  'reduce-google-ads-cost-per-click-india-50-percent',
-  'regional-indian-brands-local-language-storytelling-win-hearts',
-  'regional-language-influencers-reshaping-marketing-tier-2-3-india',
-  'repurpose-video-content-youtube-instagram-linkedin-websites',
-  'saas-companies-india-cold-email-acquire-international-clients',
-  'seo-in-2026-complete-guide-indian-businesses',
-  'social-commerce-india-brands-sell-directly-through-social-media',
-  'social-media-analytics-indian-businesses-metrics-drive-growth',
-  'social-media-benchmarks-indian-industries-what-good-looks-like',
-  'social-media-crisis-management-playbook-indian-brands',
-  'state-of-influencer-marketing-india-2026-trends-budgets-roi',
-  'state-of-video-marketing-india-statistics-trends-predictions-2026',
-  'storytelling-b2b-marketing-make-technical-products-relatable',
-  'target-decision-makers-linkedin-job-title-company-industry',
-  'tier-2-indian-brands-compete-metro-brands-digital-branding',
-  'twitter-x-b2b-marketing-india-lead-generation-strategies',
-  'twitter-x-marketing-strategy-indian-brands-2026',
-  'ultimate-instagram-marketing-strategy-indian-businesses-2026',
-  'video-marketing-strategy-indian-businesses-complete-2026-guide',
-  'video-production-budget-guide-indian-smes-quality-within-budget',
-  'visual-branding-guide-design-brand-stands-out-india-market',
-  'voice-search-seo-alexa-google-assistant-siri-india',
-  'web-accessibility-india-designing-inclusive-websites-all-users',
-  'webinar-marketing-indian-b2b-companies-virtual-events-generate-leads',
-  'website-design-trends-indian-businesses-2026-what-converts-best',
-  'website-speed-optimization-slow-loading-pages-cost-indian-businesses-revenue',
-  'whatsapp-business-api-indian-companies-complete-setup-guide-2026',
-  'whatsapp-catalog-marketing-small-indian-businesses-showcase-products',
-  'whatsapp-marketing-strategy-indian-brands-drive-sales-messaging',
-  'youtube-marketing-indian-businesses-beginners-guide',
-  'youtube-seo-rank-videos-page-1-india',
+  'ai-campus-recruitment-automate-hiring-indian-colleges', // 12 impressions, position 60.9
+  'ai-powered-recruitment-pipeline-job-posting-to-offer', // 1 impression, position 67
+  'build-brand-twitter-x-lessons-india-top-accounts', // 3 impressions, position 7.3
+  'build-cold-email-outreach-system-qualified-leads', // 1 impression, position 1
+  'cause-marketing-india-brands-align-social-causes-authentically', // 13 impressions, position 11.1 (10 on www at 12.4, 3 on the apex host at 6.7)
+  'cold-email-deliverability-stay-out-of-spam-folders-india', // 2 impressions, position 20
+  'cold-email-vs-cold-calling-indian-b2b-sales', // indexed per data/seo/index-2026-11-16.json, 0 impressions
+  'color-psychology-marketing-choosing-right-palette-indian-brand', // 8 impressions, position 6.2
+  'conversion-rate-optimization-data-driven-approach-indian-websites', // indexed per data/seo/index-2026-11-16.json, 0 impressions
+  'copywriting-for-indian-brands-writing-converts-across-cultures-languages', // indexed per data/seo/index-2026-11-16.json, 0 impressions
+  'cross-platform-retargeting-google-meta-linkedin-working-together', // indexed per data/seo/index-2026-11-16.json, 0 impressions
+  'customer-loyalty-programs-india-points-tiers-cashback', // 42 impressions, 1 click, position 42.3
+  'd2c-brands-india-build-trust-loyalty-crowded-market', // indexed per data/seo/index-2026-11-16.json, 0 impressions
+  'ecommerce-website-design-indian-markets-upi-cod-vernacular-ux', // 1 impression, position 9
+  'email-marketing-kpis-metrics-indian-businesses', // indexed per data/seo/index-2026-11-16.json, 0 impressions
+  'evaluate-marketing-software-procurement-guide-indian-businesses', // 4 impressions, position 4.2
+  'experiential-marketing-india-memorable-brand-experiences', // 7 impressions, position 39.9
+  'future-martech-india-ai-consolidation-composable-stack', // indexed per data/seo/index-2026-11-16.json, 0 impressions
+  'generative-ai-changing-indian-marketing-agency-business-model', // 4 impressions, position 5.5
+  'gmail-filters-labels-ultimate-organization-system-professionals', // not shown 19 Oct–15 Nov; 2 impressions, position 8.5 in the 5 Oct–1 Nov window
+  'how-to-set-up-google-analytics-4-indian-businesses-complete-guide', // indexed per data/seo/index-2026-11-16.json, 0 impressions
+  'indian-b2b-companies-content-marketing-enterprise-leads', // indexed per data/seo/index-2026-11-16.json, 0 impressions
+  'indian-marketing-agencies-drive-creative-excellence-clients', // indexed per data/seo/index-2026-11-16.json, 0 impressions
+  'market-research-methods-indian-businesses-surveys-interviews-data', // indexed per data/seo/index-2026-11-16.json, 0 impressions
+  'marketing-trends-2026-indian-marketers-need-to-know', // indexed per data/seo/index-2026-11-16.json, 0 impressions
+  'mobile-first-web-design-80-percent-indian-users-browse-phones', // 9 impressions, position 65.6
+  'ppc-indian-saas-global-customers-paid-search', // redirect target (lib/blogRedirects.json); the merged slug 308s here
+  'programmatic-advertising-india-automated-ad-buying-works', // 72 impressions, position 60.2
+  'rag-vs-chatbot-what-to-hire-for', // 1 impression, position 45
+  'reduce-google-ads-cost-per-click-india-50-percent', // 2 impressions, position 9
+  'regional-indian-brands-local-language-storytelling-win-hearts', // 2 impressions, position 3
+  'regional-language-influencers-reshaping-marketing-tier-2-3-india', // indexed per data/seo/index-2026-11-16.json, 0 impressions
+  'repurpose-video-content-youtube-instagram-linkedin-websites', // not shown in either window; kept from the 3 Nov index check
+  'responsible-ai-practices-define-successful-indian-companies', // 2 impressions, position 9
+  'social-commerce-india-brands-sell-directly-through-social-media', // 3 impressions, position 13
+  'video-production-budget-guide-indian-smes-quality-within-budget', // 9 impressions, position 8.2
+  'youtube-seo-rank-videos-page-1-india', // 4 impressions, position 20.2
 ])
 
 /** Posts published after the prune date are indexable by default (daily SEO

@@ -35,11 +35,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.anantasutra.com'),
   title: {
-    default: 'AnantaSutra: Dedicated Experts and AI Solutions',
+    default: 'AnantaSutra: Hire Dedicated Remote Experts from India',
     template: '%s | AnantaSutra',
   },
-  description: 'Vetted experts embedded in your team, plus AI voice agents, recruiter AI and automation that run 24/7. Salary plus one transparent fee, no agency markup.',
-  keywords: 'AnantaSutra, Dedicated Experts, Embedded Experts, Hire Dedicated Developer, Dedicated Marketer, Agency Alternative, No Markup Talent, Staff Augmentation Alternative, AI Solutions, AI Voice Agents, Recruiter AI, AI Automation India, Delhi',
+  description: 'Dedicated remote experts from India for your team, one fixed monthly price, ₹20,000 to ₹60,000 a month. No extra fees, no lock-in. Plus AI solutions, 24/7.',
+  keywords: 'AnantaSutra, Dedicated Experts, Dedicated Remote Experts India, Embedded Experts, Hire Dedicated Developer, Dedicated Marketer, Agency Alternative, Fixed Monthly Price, Staff Augmentation Alternative, AI Solutions, AI Voice Agents, Recruiter AI, AI Automation India, Delhi',
   authors: [{ name: 'AnantaSutra' }],
   creator: 'AnantaSutra',
   publisher: 'AnantaSutra',
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     url: 'https://www.anantasutra.com',
     title: 'AnantaSutra — Dedicated Experts and AI Solutions',
-    description: 'Vetted experts in 12+ domains, embedded in your team in about 7 days, plus AI voice agents, recruiter AI and automation that work 24/7. No agency markup.',
+    description: 'Vetted experts in 12+ domains, embedded in your team in about 7 days. One fixed monthly price, ₹20,000 to ₹60,000 a month, no extra fees. Plus AI voice agents, recruiter AI and automation that work 24/7.',
     siteName: 'AnantaSutra',
     images: [
       {
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'AnantaSutra — Dedicated Experts and AI Solutions',
-    description: 'Vetted experts in 12+ domains, embedded in your team in about 7 days, plus AI voice agents, recruiter AI and automation that work 24/7. No agency markup.',
+    description: 'Vetted experts in 12+ domains, embedded in your team in about 7 days. One fixed monthly price, ₹20,000 to ₹60,000 a month, no extra fees. Plus AI voice agents, recruiter AI and automation that work 24/7.',
     creator: '@anantasutra',
     site: '@anantasutra',
     images: ['/images/og-image.png'],
@@ -93,8 +93,8 @@ const organizationJsonLd = {
   // People also search the name as two words, or in Devanagari.
   alternateName: ['Ananta Sutra', 'अनन्तसूत्र'],
   url: 'https://www.anantasutra.com',
-  logo: 'https://www.anantasutra.com/images/logo-nobg.png',
-  description: 'AnantaSutra embeds vetted, dedicated domain experts inside client teams and builds AI solutions (voice agents, recruiter AI, automation) that run around the clock. Clients pay the expert\'s salary plus one transparent coordination fee, or a per-use price for AI.',
+  logo: 'https://www.anantasutra.com/images/logo-nobg.webp',
+  description: 'AnantaSutra places vetted, dedicated remote experts inside client teams at one fixed monthly price per expert, from ₹20,000 to ₹60,000 a month depending on the expert\'s skills, experience and the work, with no extra fees and no lock-in. It also builds AI solutions (voice agents, recruiter AI, automation) that run around the clock at a per-use price.',
   contactPoint: {
     '@type': 'ContactPoint',
     email: 'contact@anantasutra.com',

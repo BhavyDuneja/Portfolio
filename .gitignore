@@ -58,3 +58,17 @@ temp/seo-pipeline/gsc-key.json
 
 # Calendar reminder emailer (SMTP secrets, logs)
 temp/calendar-reminders/
+
+# CONFIDENTIAL — THIS REPO IS PUBLIC. Never commit client/employee
+# contracts, financials, or internal strategy documents.
+legal-documents/
+temp/AnantaSutra-VC-Metrics-Current.md
+temp/AnantaSutra-365-Day-War-Plan.docx
+temp/AnantaSutra-Unicorn-Blueprint.md
+temp/AnantaSutra-ColdCall-Playbook.docx
+temp/AnantaSutra-Holistic-Marketing.md
+temp/AnantaSutra-Pitch-Deck.pptx
+temp/AnantaSutra-WonderGifts-Deck.pptx
+temp/*.xlsx
+temp/seo-pipeline/staging/
+temp/seo-pipeline/coverage-log.json

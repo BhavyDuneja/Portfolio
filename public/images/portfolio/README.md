@@ -6,9 +6,9 @@ Drop the following files in this folder. Until they're added, the site shows a s
 
 | Filename | Client | Suggested content |
 |---|---|---|
-| `awish-clinic.jpg` | Awish Clinic | Screenshot of the clinic website homepage, or a clean photo of the clinic / staff |
-| `education-aspire.jpg` | Education Aspire | Screenshot of the landing page, or a classroom / branding shot |
-| `real-estate.jpg` | Real Estate Network | Listing site screenshot, or a property photo collage |
+| `awish-clinic.webp` | Awish Clinic | Screenshot of the clinic website homepage, or a clean photo of the clinic / staff |
+| `education-aspire.webp` | Education Aspire | Screenshot of the landing page, or a classroom / branding shot |
+| `real-estate.webp` | Real Estate Network | Listing site screenshot, or a property photo collage |
 
 ## Specs
 

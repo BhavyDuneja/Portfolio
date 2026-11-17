@@ -4,7 +4,7 @@
 
 To add your professional portrait to the portfolio:
 
-1. **Save your image** as `portrait.jpg` in the `public/images/` folder
+1. **Save your image** as `portrait.webp` in the `public/images/` folder
 2. **Recommended specifications:**
    - Format: JPG or PNG
    - Dimensions: 800x1000px (portrait orientation)
@@ -26,7 +26,7 @@ To add your professional portrait to the portfolio:
 ```
 public/
 ├── images/
-│   └── portrait.jpg (your professional photo)
+│   └── portrait.webp (your professional photo)
 └── README.md (this file)
 ```
 

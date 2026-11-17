@@ -27,6 +27,16 @@ const serviceLinks = [
   { name: 'Content Shooting', href: '/services/content-shooting' },
 ];
 
+// The flagship (in serviceLinks above), /pricing and /contact stay one click away from every page.
+const companyLinks = [
+  { name: 'Pricing', href: '/pricing' },
+  { name: 'About', href: '/about' },
+  { name: 'Portfolio', href: '/portfolio' },
+  { name: 'Testimonials', href: '/testimonials' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'Contact', href: '/contact' },
+];
+
 const productLinks = [
   { name: 'Ritualist App', href: 'https://ritualist.anantasutra.com', description: 'Daily spiritual companion' },
   { name: 'Granthas App', href: '/apps', description: 'Sacred text library' },
@@ -66,7 +76,7 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
         {/* Main Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-8">
           {/* Brand Column */}
           <motion.div
             variants={fadeUp}
@@ -74,10 +84,10 @@ export default function Footer() {
             whileInView="visible"
             viewport={{ once: true }}
             custom={0}
-            className="lg:col-span-1"
+            className="md:col-span-2 lg:col-span-2"
           >
             <Link href="/" className="flex items-center gap-3 group mb-4">
-              <Image src="/images/logo-nobg.png" alt="AnantaSutra Logo" width={40} height={40} className="group-hover:scale-110 transition-transform duration-300" />
+              <Image src="/images/logo-nobg.webp" alt="AnantaSutra Logo" width={40} height={40} className="group-hover:scale-110 transition-transform duration-300" />
               <span
                 className="text-xl font-bold bg-gradient-to-r from-[#E8A317] to-[#FFB800] bg-clip-text text-transparent"
                 style={{ fontFamily: "'Playfair Display', serif" }}
@@ -137,13 +147,39 @@ export default function Footer() {
             </ul>
           </motion.div>
 
-          {/* Products Column */}
+          {/* Company Column */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             custom={2}
+          >
+            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-5">
+              Company
+            </h3>
+            <ul className="space-y-3">
+              {companyLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="text-gray-400 text-sm hover:text-[#E8A317] transition-colors duration-300 flex items-center gap-1 group"
+                  >
+                    {link.name}
+                    <ExternalLink className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-50 group-hover:translate-x-0 transition-all duration-300" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Products Column */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={3}
           >
             <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-5">
               Products
@@ -175,7 +211,7 @@ export default function Footer() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            custom={3}
+            custom={4}
           >
             <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-5">
               Contact
@@ -213,7 +249,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-1 text-gray-500 text-sm">
-            <span>&copy; 2024 AnantaSutra.</span>
+            <span>&copy; {new Date().getFullYear()} AnantaSutra.</span>
             <span className="hidden sm:inline mx-2 text-gray-700">|</span>
             <span className="flex items-center gap-1">
               Infinite threads of wisdom

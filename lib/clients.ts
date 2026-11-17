@@ -47,7 +47,7 @@ export const clients: Client[] = [
     name: 'Awish Clinic',
     industry: 'Dermatology',
     location: 'Delhi · Jaipur · Vrindavan',
-    logo: '/images/clients/awish-clinic.png',
+    logo: '/images/clients/awish-clinic.webp',
     accent: SAFFRON,
     icon: Stethoscope,
     blurb:
@@ -60,7 +60,7 @@ export const clients: Client[] = [
     name: 'Education Aspire',
     industry: 'EdTech',
     location: 'Faridabad',
-    logo: '/images/clients/education-aspire.png',
+    logo: '/images/clients/education-aspire.webp',
     accent: VIOLET,
     icon: GraduationCap,
     blurb:
@@ -72,7 +72,7 @@ export const clients: Client[] = [
     name: 'Giant Migrations',
     industry: 'Immigration',
     location: 'Qatar · UAE',
-    logo: '/images/clients/giant-migrations.png',
+    logo: '/images/clients/giant-migrations.webp',
     accent: SAFFRON,
     icon: Plane,
     blurb:
@@ -84,7 +84,7 @@ export const clients: Client[] = [
     name: 'BotWot',
     industry: 'AI',
     location: 'India · UAE · Nigeria',
-    logo: '/images/clients/botwot.png',
+    logo: '/images/clients/botwot.webp',
     accent: VIOLET,
     icon: Bot,
     blurb:
@@ -97,7 +97,7 @@ export const clients: Client[] = [
     name: 'Zoom Wheels',
     industry: 'Automotive',
     location: 'NSP, Delhi',
-    logo: '/images/clients/zoom-wheels.png',
+    logo: '/images/clients/zoom-wheels.webp',
     accent: SAFFRON,
     icon: Car,
     blurb:
@@ -110,7 +110,7 @@ export const clients: Client[] = [
     name: 'Royal Properties',
     industry: 'Real Estate',
     location: 'NSP, Delhi',
-    logo: '/images/clients/royal-properties.png',
+    logo: '/images/clients/royal-properties.webp',
     accent: VIOLET,
     icon: Building2,
     blurb:
@@ -123,7 +123,7 @@ export const clients: Client[] = [
     name: 'BlueMoon Marketing',
     industry: 'Advertising',
     location: 'Delhi',
-    logo: '/images/clients/bluemoon-marketing.png',
+    logo: '/images/clients/bluemoon-marketing.webp',
     accent: SAFFRON,
     icon: Megaphone,
     blurb:
@@ -135,7 +135,7 @@ export const clients: Client[] = [
     name: 'Smile With Kris',
     industry: 'Dental',
     location: 'United Kingdom',
-    logo: '/images/clients/smile-with-kris.png',
+    logo: '/images/clients/smile-with-kris.webp',
     accent: VIOLET,
     icon: Smile,
     blurb:
@@ -147,7 +147,7 @@ export const clients: Client[] = [
     name: 'Walk Through My Lens',
     industry: 'Travel',
     location: 'London',
-    logo: '/images/clients/walk-through-my-lens.png',
+    logo: '/images/clients/walk-through-my-lens.webp',
     accent: SAFFRON,
     icon: Camera,
     blurb:
@@ -159,7 +159,7 @@ export const clients: Client[] = [
     name: 'Wisdom of Mind',
     industry: 'Vedic & Wellness',
     location: 'Haryana',
-    logo: '/images/clients/wisdom-of-mind.png',
+    logo: '/images/clients/wisdom-of-mind.webp',
     accent: VIOLET,
     icon: BookOpen,
     blurb:
@@ -171,7 +171,7 @@ export const clients: Client[] = [
     name: 'Save Time',
     industry: 'Construction Materials',
     location: 'United Kingdom',
-    logo: '/images/clients/save-time.jpeg',
+    logo: '/images/clients/save-time.webp',
     accent: SAFFRON,
     icon: Truck,
     blurb:
@@ -183,7 +183,7 @@ export const clients: Client[] = [
     name: 'Quick Concrete',
     industry: 'Construction Materials',
     location: 'United Kingdom',
-    logo: '/images/clients/quick-concrete.png',
+    logo: '/images/clients/quick-concrete.webp',
     accent: VIOLET,
     icon: HardHat,
     blurb:
@@ -195,7 +195,7 @@ export const clients: Client[] = [
     name: 'Gaba Jewellers',
     industry: 'Jewellery',
     location: 'London, UK',
-    logo: '/images/clients/gaba-jewellers.jpg',
+    logo: '/images/clients/gaba-jewellers.webp',
     accent: SAFFRON,
     icon: Gem,
     blurb:

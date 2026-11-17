@@ -200,7 +200,7 @@ const Hero = () => {
                 {/* Your Professional Portrait */}
                 <div className="w-full h-full relative">
                   <Image
-                    src="/images/portrait.jpg"
+                    src="/images/portrait.webp"
                     alt="Bhavya Duneja - Software Engineer"
                     fill
                     className="object-cover"
@@ -219,7 +219,7 @@ const Hero = () => {
                         <span className="text-4xl font-bold text-white">BD</span>
                       </div>
                       <p className="text-gray-400 text-sm">Your Professional Portrait</p>
-                      <p className="text-gray-500 text-xs mt-1">Upload your image to public/portrait.jpg</p>
+                      <p className="text-gray-500 text-xs mt-1">Upload your image to public/images/portrait.webp</p>
                     </div>
                   </div>
                 </div>
