@@ -1,18 +1,4 @@
-'use client'
-
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import { ArrowRight, Minus, Plus } from 'lucide-react'
-import JsonLd from '@/components/JsonLd'
-import { SITE_URL } from '@/lib/seo'
-
-interface Faq {
-  question: string
-  answer: string
-  /** The guide that goes deeper: shown under the answer, and part of the answer in the FAQPage schema. */
-  guide?: { href: string; label: string }
-}
+import ServiceFaq, { type Faq } from '@/components/anantasutra/ServiceFaq'
 
 // The searcher's own questions, answered in the site's wording: ₹20,000 to ₹60,000 a month is the only price
 // published for a dedicated expert, "about 7 days" and the 48-hour replacement guarantee stay as the site states them.
@@ -46,85 +32,12 @@ const faqs: Faq[] = [
   },
 ]
 
-// Google reads a few HTML tags inside an answer, <a> among them, so the guide travels with its answer.
-const faqJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map(({ question, answer, guide }) => ({
-    '@type': 'Question',
-    name: question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: guide ? `${answer} <a href="${SITE_URL}${guide.href}">${guide.label}</a>` : answer,
-    },
-  })),
-}
-
 export default function DedicatedExpertsFaq() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
-
   return (
-    <section id="faq" className="py-20 px-4">
-      <JsonLd data={faqJsonLd} />
-      <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <p className="text-violet-500 uppercase tracking-[0.2em] text-sm font-medium mb-3">FAQ</p>
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-white">
-            Questions founders <span className="gradient-text-violet">ask us</span>
-          </h2>
-        </motion.div>
-
-        <div className="space-y-4">
-          {faqs.map((faq, i) => {
-            const isOpen = openIndex === i
-            return (
-              <motion.div
-                key={faq.question}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className="glass-card rounded-2xl"
-              >
-                <button
-                  type="button"
-                  onClick={() => setOpenIndex(isOpen ? null : i)}
-                  aria-expanded={isOpen}
-                  aria-controls={`faq-answer-${i}`}
-                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4"
-                >
-                  <h3 className="text-white font-semibold text-lg">{faq.question}</h3>
-                  {isOpen
-                    ? <Minus className="w-5 h-5 text-violet-400 flex-shrink-0" />
-                    : <Plus className="w-5 h-5 text-violet-400 flex-shrink-0" />}
-                </button>
-                <motion.div
-                  id={`faq-answer-${i}`}
-                  initial={false}
-                  animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
-                >
-                  <div className="px-6 pb-6 text-gray-400 leading-relaxed">
-                    <p>{faq.answer}</p>
-                    {faq.guide && (
-                      <Link href={faq.guide.href} className="inline-flex items-center gap-1 mt-3 text-violet-400 hover:underline">
-                        <span>{faq.guide.label}</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </Link>
-                    )}
-                  </div>
-                </motion.div>
-              </motion.div>
-            )
-          })}
-        </div>
-      </div>
-    </section>
+    <ServiceFaq
+      faqs={faqs}
+      accent="violet"
+      heading={<>Questions founders <span className="gradient-text-violet">ask us</span></>}
+    />
   )
 }

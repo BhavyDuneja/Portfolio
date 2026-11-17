@@ -57,9 +57,9 @@ const Hero = () => {
             </span>
           </motion.div>
 
-          {/* Main Heading */}
+          {/* Brand line: the largest text, but not the page's heading */}
           <div className="mb-6">
-            <h1 className="font-display">
+            <p className="font-display">
               <span className="block text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-2">
                 {headingWords1.map((word, i) => (
                   <motion.span
@@ -86,18 +86,18 @@ const Hero = () => {
                   </motion.span>
                 ))}
               </span>
-            </h1>
+            </p>
           </div>
 
-          {/* Plain descriptor: what the company does, in one line */}
-          <motion.h2
+          {/* The page's H1: what the company does, in the words people search with */}
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.7 }}
             className="text-2xl md:text-3xl font-semibold text-white max-w-2xl leading-snug mb-4"
           >
-            Dedicated remote experts from India for your team, at one fixed monthly price.
-          </motion.h2>
+            Hire dedicated remote experts from India for your team, at one fixed monthly price.
+          </motion.h1>
 
           <motion.p
             initial={{ opacity: 0 }}
